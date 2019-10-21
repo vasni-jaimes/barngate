@@ -1,0 +1,34 @@
+@extends('site.layouts.layout-site')
+
+
+@section("content")
+
+	<div class="banner banner-contact">
+		<div class="container relative">
+			<div class="banner-text">
+				<h1>Our CEO has an important message for you!</h1>
+			</div>
+		</div> <!-- /container -->
+	</div> <!-- /banner-about -->
+
+	<div class="bg-blue text-center pt-15 pb-15">
+		<h1 class="text-white fz-25">Contact us</h1>
+	</div> <!-- /bg-blue -->
+
+	<div class="container pt-40 pb-40 text-blue">
+		<h2 class="fw-700 underline text-center">Frequent Asked Questions</h2>
+		<div class="row mt-30">
+			<div class="col-md-6">
+				<h2 class="fw-700">Is the purchase made on the platform?</h2>
+				<p class="fz-16">No. The purpose of the platform is to exchange information with the buyer and seller and agree to sell outside the platform.</p>
+			</div> <!-- /col-md-6 -->
+			<div class="col-md-6">
+				<h2 class="fw-700">Do you keep my information private?</h2>
+				<p class="fz-16">Barngate does not and will never sell or give your email address to anyone. Read our Privacy Policy.</p>
+			</div> <!-- /col-md-6 -->
+		</div> <!-- /row -->
+	</div> <!-- /container -->
+
+	@include('site.layouts.form-site')
+
+@endsection
