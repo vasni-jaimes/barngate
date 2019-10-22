@@ -6,7 +6,7 @@
 	<div class="banner banner-contact">
 		<div class="container relative">
 			<div class="banner-text">
-				<h1>Our CEO has an important message for you!</h1>
+				<h1>How can we help you?</h1>
 			</div>
 		</div> <!-- /container -->
 	</div> <!-- /banner-about -->

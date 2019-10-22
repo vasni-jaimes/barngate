@@ -7,7 +7,6 @@
 		<div class="container relative">
 			<div class="banner-text">
 				<h1>Best &amp; Easiest way to BUY and SELL Horses and Cattle</h1>
-				<a class="btn btn-video mt-30">Watch how we do it!</a>
 			</div>
 		</div> <!-- /container -->
 	</div> <!-- /banner-home -->
