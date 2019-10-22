@@ -34,7 +34,7 @@
 		<div class="container">
 			<div class="row items-center">
 				<div class="col-md-2">
-					<a href="http://localhost/barngate/"><img src="images/logos/logo-header.png" alt="Barngate"></a>
+					<a href="{{ route("home") }}"><img src="images/logos/logo-header.png" alt="Barngate"></a>
 				</div>
 				<div class="col-md-10 text-right">
 					<nav>

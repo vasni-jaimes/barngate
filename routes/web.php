@@ -22,4 +22,4 @@ Route::view('/contact', 'site.contact')->name('contact');
 
 
 //Vistas Dinamicas
-Route::view('/', 'site.index');
+Route::view('/', 'site.index')->name("home");

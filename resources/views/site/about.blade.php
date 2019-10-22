@@ -35,6 +35,6 @@
 		
 	</div> <!-- /container -->
 
-	@include('site.layouts.form-site')
+	{{-- @include('site.layouts.form-site') --}}
 
 @endsection
