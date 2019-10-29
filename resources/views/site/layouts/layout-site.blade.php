@@ -7,9 +7,7 @@
 {{-- <link rel="stylesheet" href="css/app.css" > --}}
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 <link rel="stylesheet" href="css/style.css" >	
-	
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-	
+<link href="mmenu/jquery.mmenu.all.css" rel="stylesheet">
 <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 	
 </head>
@@ -42,17 +40,21 @@
 							<li><a href="#">FAQ'S</a></li>
 							<li><a href="https://blog.barngate.com/">Blog</a> </li>
 							<li><a href="{{ route("contact") }}">Contact Us</a> </li>
-							<li><a class="show-log" href="#">Log in</a> </li>
-							<li class="no-style"><a href="#" class="show-registro btn btn-primary">Register to buy</a> </li>
-							<li class="no-style"><a href="#" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Sale</a> </li>
+							@guest
+								<li><a class="show-log" href="#">Log in</a> </li>
+								<li class="no-style"><a href="#" class="show-registro btn btn-primary">Register to buy</a> </li>
+								<li class="no-style"><a href="{{ route("sale") }}" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Sale</a> </li>
+							@endguest
 						</ul>
 					</nav>
-					<nav>
-						<ul class="menu_registro">
-							<li><a href=""><img src="images/horse-classifieds-barngate-myaccount-icon.png" alt="Barngate">My account</a></li>
-							<li><a href=""><img src="images/horse-classifieds-barngate-notificatios-icon.png" alt="Barngate">Notifications</a></li>
-						</ul>
-					</nav>
+					@auth
+						<nav>
+							<ul class="menu_registro">
+								<li><a href=""><img src="images/horse-classifieds-barngate-myaccount-icon.png" alt="Barngate">My account</a></li>
+								<li><a href=""><img src="images/horse-classifieds-barngate-notificatios-icon.png" alt="Barngate">Notifications</a></li>
+							</ul>
+						</nav>
+					@endauth
 				</div>
 			</div>
 		</div>
@@ -97,14 +99,18 @@
 						<li><a href="{{ route("contact") }}">Contact Us</a> </li>
 					</ul>
 				</div>
-				<div class="col-md-2">
-					<ul>
-						<li><a href="#">Sale</a></li>
-						<li><a href="#">Register to buy</a> </li>
-						<li><a href="#">Log In</a> </li>
 
-					</ul>
-				</div>
+				@guest
+					<div class="col-md-2">
+						<ul>
+							<li><a href="{{ route("sale") }}">Sale</a></li>
+							<li><a href="#">Register to buy</a> </li>
+							<li><a href="#">Log In</a> </li>
+
+						</ul>
+					</div>
+				@endguest
+
 				<div class="col-md-6">
 					<p class="text-blue-light fz-20 mb-5">Suscribe to our weekly Newsletter</p>
 					<form class="form-inline">
@@ -135,8 +141,6 @@
 
 </div>
 
-<script src="mmenu/jquery.mmenu.all.js"></script>
-<link href="mmenu/jquery.mmenu.all.css" rel="stylesheet">
 
 <nav id="menu" class="navbar">
 	
@@ -155,96 +159,68 @@
 		<li><a href="{{ route("contact") }}">Contact Us</a> </li>
 		<li><a href="#">FAQ'S</a></li>
 		<li><a href="https://blog.barngate.com/">Blog</a></li>
-		<li><a class="show-log" href="#">Log in</a> </li>
-		<li class="no-style"><a href="#" class="show-registro">Register to buy</a> </li>
-		<li class="no-style"><a href="#" data-toggle="modal" data-target="#myModal">Sale</a> </li>
-		<li><a href="#">My account</a></li>
-		<li><a href="#">Notifications</a></li>
+		@guest
+			<li><a class="show-log" href="#">Log in</a> </li>
+			<li class="no-style"><a href="#" class="show-registro">Register to buy</a> </li>
+			<li class="no-style"><a href="{{ route("sale") }}" data-toggle="modal" data-target="#myModal">Sale</a> </li>
+		@endguest
+
+		@auth
+			<li><a href="#">My account</a></li>
+			<li><a href="#">Notifications</a></li>
+		@endauth
 		
 	</ul>
 	
 </nav> <!-- /navbar -->
 
-<script>
 
-  $("#menu").mmenu({
-    "slidingSubmenus": false,
-    "extensions": [
-      "position-right",
-      "theme-light"
-    ],
-    navbar: {
-      title: "Menú"
-    }
-  });
+@guest
+	<div class="shadowbox" id="registro">
+		<div class="close"></div> <!-- /close -->
+		<div class="wrapper-form">
+			<div class="container-form">
+				{{-- {{ var_dump($errors->all()) }} --}}
+				<h3 class="text-center text-blue fz-30 mb-30">Register to Buy</h3>
+				<form class="forma" action="/register" method="POST" id="form_register">
+					@csrf
+					<input type="text" class="input" name="email_register" placeholder="Email">
+					<input type="text" class="input" name="username" placeholder="Username (what others see when you comment)">
+					<input type="password" class="input" name="password_register" placeholder="Password">
+					<input type="password" class="input" name="password_confirmation" placeholder="Confirm Password">
+					<div class="g-recaptcha" data-sitekey="6LcePAATAAAAAGPRWgx90814DTjgt5sXnNbV5WaW"></div>
+					<input class="enviar register-send" type="submit" value="Register">
+				</form>
+				<a href="#">Terms and conditions</a>
+			</div> <!-- /container-form -->
+		</div> <!-- /wrapper-form -->
+	</div> <!-- /shadowbox -->
+@endguest
 
-</script>
+
+@guest
+	<div class="shadowbox" id="login">
+		<div class="close"></div> <!-- /close -->
+		<div class="wrapper-form">
+			<div class="container-form">
+				<h3 class="text-center text-blue fz-30 mb-30">Log In</h3>
+				<form class="forma" action="/login" method="POST">
+					@csrf
+					<input type="text" class="input" name="email" placeholder="Email">
+					<input type="password" class="input" name="password" placeholder="Password">
+					<input class="enviar" type="submit" value="Log in">
+				</form>
+				<a href="#">Forgot your password?</a>
+			</div> <!-- /container-form -->
+		</div> <!-- /wrapper-form -->
+	</div> <!-- /shadowbox -->
+@endguest
 
 
-<div class="shadowbox" id="registro">
-	
-	<div class="close"></div> <!-- /close -->
-	
-	<div class="wrapper-form">
-			
-		<div class="container-form">
-			<h3 class="text-center text-blue fz-30 mb-30">Register to Buy</h3>
-			<form class="forma">
-				<input type="text" class="input" placeholder="Email">
-				<input type="text" class="input" placeholder="Username (what others see when you comment)">
-				<input type="password" class="input" placeholder="Password">
-				<input type="password" class="input" placeholder="Confirm Password">
-				<div class="g-recaptcha" data-sitekey="6LcePAATAAAAAGPRWgx90814DTjgt5sXnNbV5WaW"></div>
-				<input class="enviar" type="submit" value="Register">
-			</form>
-			<a href="#">Terms and conditions</a>
-		</div> <!-- /container-form -->
-
-	</div> <!-- /wrapper-form -->
-	
-</div> <!-- /shadowbox -->
-
-<div class="shadowbox" id="login">
-	
-	<div class="close"></div> <!-- /close -->
-	
-	<div class="wrapper-form">
-			
-		<div class="container-form">
-			<h3 class="text-center text-blue fz-30 mb-30">Log In</h3>
-			<form class="forma">
-				<input type="text" class="input" placeholder="Email">
-				<input type="password" class="input" placeholder="Password">
-				<input class="enviar" type="submit" value="Log in">
-			</form>
-			<a href="#">Forgot your password?</a>
-		</div> <!-- /container-form -->
-
-	</div> <!-- /wrapper-form -->
-	
-</div> <!-- /shadowbox -->
-
-<script>
-
-	jQuery(document).ready(function(){
-		jQuery('.show-log').click(function(){
-			jQuery('.shadowbox#login').fadeIn(300);
-			jQuery('body').css('overflow', 'hidden');
-		});
-		
-		jQuery('.show-registro').click(function(){
-			jQuery('.shadowbox#registro').fadeIn(300);
-			jQuery('body').css('overflow', 'hidden');
-		});
-		
-		jQuery('.close').click(function(e) {
-			jQuery('.shadowbox').fadeOut(300);
-			jQuery('body').css('overflow', 'auto');
-		});
-		
-	});
-
-</script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/superagent/3.8.3/superagent.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="mmenu/jquery.mmenu.all.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
 
 </body>
 </html>
