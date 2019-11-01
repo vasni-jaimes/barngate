@@ -35,3 +35,5 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout.get');
 Route::view('/sale', 'site.sale')->name('sale');
 Route::view('/add_animals', 'site.add_animals')->name('add_animals');
 Route::view('/upload', 'site.upload')->name('upload');
+Route::view('/between', 'site.between')->name('between');
+Route::view('/myaccount', 'site.myaccount')->name('myaccount');
