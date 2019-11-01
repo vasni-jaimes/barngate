@@ -19,15 +19,15 @@
 			<p class="fz-16">We rely on our years of knowledge and experience to bring you a marketplace where you can find the best deals on all of your horse, cattle, goat, pig, sheep and pets needs.</p>
 			<p class="pt-10 fz-16">Our main differentiator is an intuitive and easy-to-use platform, as well as a support team ready to help you.</p>
 
-			<div class="mt-40 row">
+			<div class="mt-40 row team">
 				<div class="col-md-6">
 					<img src="images/alex-bachoura-barngate.png">
-					<h3 class="mt-15">Alex Bachoura</h3>
+					<h3>Alex Bachoura</h3>
 					<p>CEO</p>
 				</div>
 				<div class="col-md-6">
 					<img src="images/krystel-trejo-barngate.png">
-					<h3 class="mt-15">Krystel Trejo</h3>
+					<h3>Krystel Trejo</h3>
 					<p>VP of marketing</p>
 				</div>
 			</div> <!-- /row -->
