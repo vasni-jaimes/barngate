@@ -18,6 +18,43 @@ use DB;
 
 class UsersController extends Controller
 {
+
+
+    public function ajaxLogin(Request $request)
+    {
+
+        $validator = Validator::make($request->all(), [
+            'email' => ['required', 'string', 'email', 'max:255'],
+            'password' => ['required', 'string', 'min:8'],
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 202);
+        }
+
+
+       $userEmail = User::where('email', $request->email)->first();
+
+        if ($userEmail) {
+            
+            $auth = false;
+            $credentials = $request->only('email', 'password');
+
+            if ($val = Auth::attempt($credentials, $request->has('remember'))) {
+                $auth = true; // Success
+            }
+
+           return response()->json([
+                'auth' => $auth,
+                'message' => 'password'
+            ]);
+        }
+
+        return response()->json([
+                'auth' => false,
+                'message' => 'email'
+        ]);
+    }
     
     public function createRegistro(Request $request)
     {

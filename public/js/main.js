@@ -109,6 +109,8 @@ if (register_send) {
 		}
 
 
+		e.target.disabled = true;
+
 
 		let data = { 
 			"email": email.value, 
@@ -126,27 +128,33 @@ if (register_send) {
 
 		   		if (res.body.email) {
 		   			error(email, res.body.email[0]);
+		   			e.target.disabled = false;
 					return false;
 		   		}
 		   		else if (res.body.username) {
 		   			error(username, res.body.username[0]);
+		   			e.target.disabled = false;
 					return false;
 		   		}
 		   		else if (res.body.password) {
 		   			error(password, res.body.password[0]);
+		   			e.target.disabled = false;
 					return false;
 		   		}
 		   		else if (res.body.password_confirm) {
 		   			error(password_confirm, res.body.password_confirm[0]);
+		   			e.target.disabled = false;
 					return false;
 		   		}
 		   		else if (res.body.message == 'ok') {
 		   			$(".container-form").html("<h2 style='text-align:center;color:green'> Successfully registered </h2>");
 		   			setTimeout( () => { location.reload() }, 2000);
+		   			e.target.disabled = false;
 		   			return false;
 		   		}
 		   		else if (res.body.message == 'off') {
 		   			error(password_confirm, "A problem happened, try again later");
+		   			e.target.disabled = false;
 					return false;
 		   		}
 		   	})
@@ -154,12 +162,98 @@ if (register_send) {
       			// err.message, err.response
       			console.log(err.message);
       			error(password_confirm, "A problem happened, try again later");
+      			e.target.disabled = false;
    			});
-
 	});
 }
 
 
+
+
+/**********************\
+|    VALIDATE LOGIN    |
+\**********************/
+
+let login_send = document.querySelector(".login_send");
+
+if (login_send) {
+	login_send.addEventListener("click", e => {
+		e.preventDefault();
+
+		let email = document.querySelector("input[name='email']");
+		let password = document.querySelector("input[name='password']");
+		let token = document.querySelector("#form_login input[name='_token']");
+
+		//Eliminar errores
+		$(".err").remove();
+
+		if (email.value == '') {
+			error(email, "The email field is required");
+			return false;
+		}
+		else if (!validar_email(email.value)) {
+			error(email, "The email must be a valid email address.");
+			return false;
+		}
+		else {
+			email.style.marginBottom = "15px";
+		}
+
+
+		if (password.value == '') {
+			error(password, "The password field is required");
+			return false;
+		}
+		else {
+			password.style.marginBottom = "15px";
+		}
+
+
+		e.target.disabled = true;
+
+		let data = {
+			"email": email.value,
+			"password": password.value,
+			"_token": token.value
+		};
+
+
+		request
+		   	.post('/ajaxLogin')
+		   	.send(data)
+		   	.set('Accept', 'application/json')
+		   	.then(res => {
+
+		   		if (res.body.auth == false) {
+                    if (res.body.message == 'password') {
+                        error(password, "The password is incorrect");
+                        e.target.disabled = false;
+                    }
+                    else if (res.body.message == 'email') {
+                        error(email, "The email is not registered");
+                        e.target.disabled = false;
+                    }
+                }
+                else if (res.body.password) {
+                	 error(password, res.body.password[0]);
+                     e.target.disabled = false;
+                }
+                else if (res.body.email) {
+                	 error(email, res.body.email[0]);
+                     e.target.disabled = false;
+                }
+                else if (res.body.auth == true) {
+                    location.reload();
+                }
+		   	})
+		   	.catch(err => {
+      			// err.message, err.response
+      			console.log(err.message);
+      			//error(password_confirm, "A problem happened, try again later");
+   			});
+
+	});
+}
 
 
 

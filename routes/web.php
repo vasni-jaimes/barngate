@@ -27,7 +27,8 @@ Route::view('/', 'site.index')->name("home");
 //Login, Logout, Register
 Auth::routes(["register" => false]);
 Route::post('/register', 'UsersController@createRegistro')->name('registro.create');
-
+Route::post('/ajaxLogin', 'UsersController@ajaxLogin')->name('ajaxLogin');
+Route::get('logout', 'Auth\LoginController@logout')->name('logout.get');
 
 
 //vistas val pendientes

@@ -40,6 +40,10 @@
 							<li><a href="#">FAQ'S</a></li>
 							<li><a href="https://blog.barngate.com/">Blog</a> </li>
 							<li><a href="{{ route("contact") }}">Contact Us</a> </li>
+
+							@auth
+								<li class="no-style" style="padding: 0 18px;"><a href="{{ route("logout.get") }}">Logout</a> </li>
+							@endauth
 							@guest
 								<li><a class="show-log" href="#">Log in</a> </li>
 								<li class="no-style"><a href="#" class="show-registro btn btn-primary">Register to buy</a> </li>
@@ -204,11 +208,11 @@
 		<div class="wrapper-form">
 			<div class="container-form">
 				<h3 class="text-center text-blue fz-30 mb-30">Log In</h3>
-				<form class="forma" action="/login" method="POST">
+				<form class="forma" action="/login" method="POST" id="form_login">
 					@csrf
 					<input type="text" class="input" name="email" placeholder="Email">
 					<input type="password" class="input" name="password" placeholder="Password">
-					<input class="enviar" type="submit" value="Log in">
+					<input class="enviar login_send" type="submit" value="Log in">
 				</form>
 				<a href="#">Forgot your password?</a>
 			</div> <!-- /container-form -->
