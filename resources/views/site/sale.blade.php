@@ -147,202 +147,23 @@
 		
 	</div> <!-- /container -->
 
-	<style>
-		
-		.mw-150 {
-			max-width: 150px;
-			width: 100%;
-		}
+<script>
 
-		.banner-sale {
-			height: 170px; 
-			background-color: #C0CCDA;
-		}
-		
-		.banner-sale .container {
-	    	position: relative!important;
-			height: 170px;
-		}
-		
-		.banner-sale .banner-text h1 {
-			font-size: 30px;
-			color: #29385A;
-		}
-		
-		.banner-sale .banner-text a {
-			font-size: 17px;
-		}
-		
-		.btn-play:after {
-			content: '\f144';
-			font-family: 'FontAwesome';
-			margin-left: 10px;
-		}
-		
-		.wrapper-register h2 {
-			padding: 0 0 15px; 
-			border-bottom: 1px solid #26375D;
-		}
-		
-		.wrapper-sale h3 span {
-			display: inline-block;
-			margin-left: 8px;
-			color: #F95F62;
-			vertical-align: sub;
-		}
-		
-		.wrapper-sale h3 small {
-			font-size: 13px;
-			font-weight: 700;
-			color: #969FAA;
-		}
-		
-		select {
-			-webkit-appearance: listbox;
-			width: 100%;
-			align-items: flex-start;
-			overflow-x: hidden;
-			overflow-y: scroll;
-			vertical-align: text-bottom;
-			white-space: nowrap;
-			background-color: white;
-			border-width: 1px;
-			border-style: solid;
-			border-color: #8492A6;
-			border-radius: 5px 5px 0 0;
-			background-image: url('../images/select-down.png');
-			background-repeat: no-repeat;
-			background-position: top 15px right 10px;
-			background-size: 17px;
-		}
-		
-		select option {
-			padding: 8px 10px;
-			font-size: 18px;
-			color: #47525E; 
-		}
-		
-		select option:first-of-type {
-			color: #47525E; 
-			border-bottom: 1px solid #47525E;
-		}
-		
-		select[multiple]:focus option:checked {
-			color: #47525E!important; 
-			background: #E5E9F2 -webkit-linear-gradient(bottom, #E5E9F2 0%, #E5E9F2 100%)!important;
-			background: #E5E9F2 -o-linear-gradient(bottom, #E5E9F2 0%, #E5E9F2 100%)!important;
-			background: #E5E9F2 linear-gradient(to top, #E5E9F2 0%, #E5E9F2 100%)!important;
-		}
-		
-		
-		input[type='range'] {
-			display: block;
-			width: 100%;
-			border-radius: 5px;
-		}
+var elInput = document.querySelector('#input');
 
-		input[type='range']:focus {
-		  	outline: none;
-		}
+if (elInput) {
+  var etiqueta = document.querySelector('#etiqueta');
 
-		input[type='range'],
-		input[type='range']::-webkit-slider-runnable-track,
-		input[type='range']::-webkit-slider-thumb {
-			-webkit-appearance: none;
-		}
+  if (etiqueta) {
+	etiqueta.innerHTML = elInput.value;
 
-		input[type=range]::-webkit-slider-thumb {
-			background-color: #fff;
-			width: 25px;
-			height: 25px;
-			border: 1px solid #8492A6;
-			border-radius: 50%;
-			margin-top: -9px;
-		}
-
-		input[type=range]::-moz-range-thumb {
-			background-color: #fff;
-			width: 25px;
-			height: 25px;
-			border: 1px solid #8492A6;
-			border-radius: 50%;
-		}
-
-		input[type=range]::-ms-thumb {
-			background-color: #fff;
-			width: 25px;
-			height: 25px;
-			border: 1px solid #8492A6;
-			border-radius: 50%;
-		}
-
-		input[type=range]::-webkit-slider-runnable-track {
-			background-color: #E5E9F2;
-			height: 8px;
-		}
-
-		input[type=range]:focus::-webkit-slider-runnable-track {
-			outline: none;
-		}
-
-		input[type=range]::-moz-range-track {
-			background-color: #E5E9F2;
-			height: 8px;
-		}
-
-		input[type=range]::-ms-track {
-			background-color: #E5E9F2;
-			height: 8px;
-		}
-
-		input[type=range]::-ms-fill-lower {
-			background-color: HotPink;
-		}
-
-		input[type=range]::-ms-fill-upper {
-			background-color: black;
-		} 
-		
-		.form-input {
-			-webkit-box-sizing: border-box;
-			-moz-box-sizing: border-box;
-			box-sizing: border-box;
-			display: inline-block;
-			width: 100%;
-			-webkit-appearance: none;
-			padding: 10px 15px;
-			border: 1px solid #29385A;
-			border-radius: 5px;
-			color: #29385A;
-			font-size: 13px;
-			background-color: #fff;
-			outline: none;
-		}
-		
-		textarea.form-input {
-			height: 78px; 
-			resize: none;
-		}
-		
-	</style>
-
-	<script>
-
-	var elInput = document.querySelector('#input');
-		
-	if (elInput) {
-	  var etiqueta = document.querySelector('#etiqueta');
-		
-	  if (etiqueta) {
+	elInput.addEventListener('input', function() {
 		etiqueta.innerHTML = elInput.value;
+	}, false);
+  }
 
-		elInput.addEventListener('input', function() {
-			etiqueta.innerHTML = elInput.value;
-		}, false);
-	  }
-		
-	}
+}
 
-	</script>
+</script>
 
 @endsection

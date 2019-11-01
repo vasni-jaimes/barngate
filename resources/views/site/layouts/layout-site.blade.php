@@ -30,14 +30,14 @@
 
 	<header class="topbar">
 		<div class="container">
-			<div class="row items-center">
+			<div class="row">
 				<div class="col-md-2">
 					<a href="{{ route("home") }}"><img src="images/logos/logo-header.png" alt="Barngate"></a>
 				</div>
 				<div class="col-md-10 text-right">
 					<nav>
 						<ul class="menu_top">
-							<li><a href="#">FAQ'S</a></li>
+							<li><a href="#">FAQ's</a></li>
 							<li><a href="https://blog.barngate.com/">Blog</a> </li>
 							<li><a href="{{ route("contact") }}">Contact Us</a> </li>
 
@@ -45,8 +45,8 @@
 								<li class="no-style" style="padding: 0 18px;"><a href="{{ route("logout.get") }}">Logout</a> </li>
 							@endauth
 							@guest
-								<li><a class="show-log" href="#">Log in</a> </li>
-								<li class="no-style"><a href="#" class="show-registro btn btn-primary">Register to buy</a> </li>
+								<li class="login"><a class="show-log" href="#">Log in</a> </li>
+								<li class="no-style btn-f"><a href="#" class="show-registro btn btn-primary">Register to buy</a> </li>
 								<li class="no-style"><a href="{{ route("sale") }}" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Sale</a> </li>
 							@endguest
 						</ul>
@@ -98,7 +98,7 @@
 					<ul>
 						<li><a href="#">Home</a></li>
 						<li><a href="{{ route("about") }}">About</a></li>
-						<li><a href="#">FAQ'S</a></li>
+						<li><a href="#">FAQ's</a></li>
 						<li><a href="https://blog.barngate.com/">Blog</a> </li>
 						<li><a href="{{ route("contact") }}">Contact Us</a> </li>
 					</ul>
@@ -161,7 +161,7 @@
 		</li>
 		<li><a href="{{ route("about") }}">About Us</a></li>
 		<li><a href="{{ route("contact") }}">Contact Us</a> </li>
-		<li><a href="#">FAQ'S</a></li>
+		<li><a href="#">FAQ's</a></li>
 		<li><a href="https://blog.barngate.com/">Blog</a></li>
 		@guest
 			<li><a class="show-log" href="#">Log in</a> </li>
