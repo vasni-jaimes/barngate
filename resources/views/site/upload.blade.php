@@ -17,7 +17,7 @@
 		<p class="fz-20 fw-700 pt-20 pb-20">Drag and drop images here or click to select images</p>
 		<fieldset class="form-file">
 			<input type="file" name="upload" id="upload" class="cargar-cv" data-multiple-caption="{count} files selected" multiple="">
-			<label for="upload"><span></span></label>
+			<label for="upload"></label>
 		</fieldset>
 		<p class="fz-18 pt-20 pb-20">Please upload some photos of your vehicle using the box below - pick ones that offer a good sense of the Animals. The more, and the higher the quality, the better. Click here to review our photo guide. Please use the box above to provide any video are not supported in the photo uploader below.</p>
 		<p class="fz-20 fw-700 pt-20 pb-10">Please provide any links to videos (Youtube or Vimeo) here</p>

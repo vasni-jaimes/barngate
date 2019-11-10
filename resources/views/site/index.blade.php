@@ -201,7 +201,7 @@
 
 	<div class="container mt-40 mb-40">
 
-		<h3 class="text-center">Most Recent</h3>
+		<h3 class="text-center">Our latest Blog Posts</h3>
 
 		<div class="row row-eq-height">
 
@@ -210,10 +210,7 @@
 					<img class="card-img-top" src="https://blog.barngate.com/wp-content/uploads/2019/07/stock-photo-cattle-grazing-in-a-field-with-the-sun-rising-in-the-background-229284793.jpg" alt="Card image cap">
 					<div class="card-body">
 						<div class="d-flex no-block align-items-center mb-3">
-							<span class="text-muted"><i class="ti-calendar"></i> Sun, 14 Jul 2019 15:53:15 +0000</span>
-							<div class="ml-3">
-								<a href="https://blog.barngate.com/capicola-pork-loin-meatball-rump-chicken-alcatra-chuck-shankle-ball-tip-drumstick-cow/" class="link"><i class="ti-heart"></i> 30</a>
-							</div>
+							<span class="text-muted"><i class="ti-calendar"></i> Sun, 14 Jul 2019</span>
 						</div>
 						<h3 class="mt-3">Capicola pork loin meatball, rump chicken alcatra chuck shankle ball tip drumstick cow</h3>
 						<p class="mt-3 font-light">Landjaeger jowl tenderloin shank pork belly kielbasa short ribs beef ham doner swine.","Turducken prosciutto ham hock kevin leberkas. Porchetta shankle picanha landjaeger tongue sausage boudin leberkas beef ribs pig shank fatback ham hock cow. Capicola picanha pork loin.
@@ -228,10 +225,7 @@
 					<img class="card-img-top" src="https://blog.barngate.com/wp-content/uploads/2019/07/stock-photo-farm-in-autumn-518613049.jpg" alt="Card image cap">
 					<div class="card-body">
 						<div class="d-flex no-block align-items-center mb-3">
-							<span class="text-muted"><i class="ti-calendar"></i> Sun, 14 Jul 2019 15:53:13 +0000</span>
-							<div class="ml-3">
-								<a href="https://blog.barngate.com/le-gambe-numerose-e-sottili-da-far-pieta-rispetto-alla-sua-corporatura-normale/" class="link"><i class="ti-heart"></i> 30</a>
-							</div>
+							<span class="text-muted"><i class="ti-calendar"></i> Sun, 14 Jul 2019</span>
 						</div>
 						<h3 class="mt-3">Le gambe, numerose e sottili da far pietà, rispetto alla sua corporatura normale</h3>
 						<p class="mt-3 font-light">Pork belly ribeye corned beef tail. Ball tip meatloaf pork chop brisket, capicola swine rump ham hock kevin leberkas ground round hamburger. Meatloaf biltong hamburger pancetta. Tail jowl leberkas salami bresaola filet mignon shoulder rump beef ribs porchetta sirloin picanha kielbasa spare ribs pork.
@@ -246,10 +240,7 @@
 					<img class="card-img-top" src="https://blog.barngate.com/wp-content/uploads/2019/07/stock-photo-horse-on-pasture-at-september-evening-near-sunset-216424180.jpg" alt="Card image cap">
 					<div class="card-body">
 						<div class="d-flex no-block align-items-center mb-3">
-							<span class="text-muted"><i class="ti-calendar"></i> Sun, 14 Jul 2019 15:53:13 +0000</span>
-							<div class="ml-3">
-								<a href="https://blog.barngate.com/turducken-jowl-alcatra-ham-cow-andouille-beef-ribs-kevin/" class="link"><i class="ti-heart"></i> 30</a>
-							</div>
+							<span class="text-muted"><i class="ti-calendar"></i> Sun, 14 Jul 2019</span>
 						</div>
 						<h3 class="mt-3">Turducken jowl alcatra ham cow andouille beef ribs kevin</h3>
 						<p class="mt-3 font-light">Meatball tongue chuck, leberkas meatloaf picanha capicola. Shank rump sirloin cupim ham hock porchetta pork chop ham cow biltong. Kevin turducken spare ribs boudin picanha biltong t-bone prosciutto turkey.
