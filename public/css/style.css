@@ -28,6 +28,11 @@
 
 }
 
+.step2,
+.step3, .step4 {
+	display: none;
+}
+
 .topbar{
     background: #CED5DF;
     position: relative;

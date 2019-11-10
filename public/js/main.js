@@ -256,6 +256,473 @@ if (login_send) {
 }
 
 
+/***************************************************\
+|      VALIDAR QUE EL PRECIO SOLO SEAN NUMEROS      |
+\***************************************************/
+
+let price = document.querySelector("input[name='price']");
+
+if (price) {
+
+	price.addEventListener('keypress', (e) => {
+        var key = window.event ? e.which : e.keyCode;
+        if (key < 48 || key > 57) {
+            e.preventDefault();
+        }
+        if (e.target.value.length > 8) {
+			e.preventDefault();
+		}
+    });
+
+	price.addEventListener('input', e => {
+		e.target.value = format(e.target.value);
+	});
+}
+
+
+/***************************************************\
+|    VALIDAR PARA INICIAR EL PLUGIN DE UPLOAD FILE   |
+\***************************************************/
+
+if ($(".step3").is(":visible") || $(".step2").is(":visible")) {
+
+	//VALIDAR QUE TIPO DE ANIMAL ES PARA CAMBIAR EL PRECIO DE LOS PLANES
+	if (document.querySelector("select[name='animals']").value == 6) {
+		$(".standard").text("$5");
+		$(".premium").text("$10");
+	}
+	else {
+		$(".standard").text("$10");
+		$(".premium").text("$20");
+	}
+
+	//MOSTRAR DE NUEVO EL TOTAL DEL PAGO.
+	let precio = $(".plan-selected span").html();
+	let subtotal = precio.replace('$','');
+	let home = 0;
+
+	if ($("input[name='hompage']").is(":checked")) {
+		$("input[name='hompage2']").prop("checked", true);
+		home = 20;
+
+	}
+
+	subtotal = (isNaN(subtotal)) ? 0 : subtotal;
+	let total = parseInt(subtotal) + home;
+	$(".row-total h3").html("Total: $"+total);
+
+
+	//VALIDAR EL PLAN PARA SABER SI VA A PAGAR CON STRIPE O NO
+	if ($("input[name='planSelect']").val() == 1) {
+		$("input[type='file']").attr('data-max-files', "1");
+		if ($("input[name='hompage']").is(":checked")) {
+			$(".not-freeplan").css("display", "block");
+			$(".finish").text("Pay Now");
+		}
+		else {
+			$(".not-freeplan").css("display", "none");
+			$(".finish").text("Create Now");
+		}
+		
+		initFile();
+	}
+	else if ($("input[name='planSelect']").val() == 2) {
+		$("input[type='file']").attr('data-max-files', "5");
+		$(".not-freeplan").css("display", "block");
+		$(".finish").text("Pay Now");
+		initFile();
+	}
+	else {
+		$(".not-freeplan").css("display", "block");
+		$(".finish").text("Pay Now");
+		initFile();
+	}
+}
+
+
+/**********************\
+|    VALIDATE SALE    |
+\**********************/
+let next = document.querySelector("a.nexts1");
+
+if (next) {
+	next.addEventListener("click", e => {
+		e.preventDefault();
+
+		let animals = document.querySelector("select[name='animals']");
+		let breeds = document.querySelector("select[name='breeds']");
+		let colors = document.querySelector("select[name='colors']");
+		let genders = document.querySelector("select[name='genders']");
+		let ages = document.querySelector("select[name='ages']");
+		let discipline = document.querySelector("select[name='discipline']");
+		let temperament = document.querySelector("input[name='temperament']");
+		let price = document.querySelector("input[name='price']");
+		let description = document.querySelector("textarea[name='description']");
+		let city = document.querySelector("input[name='city']");
+		let region = document.querySelector("input[name='region']");
+		let zip = document.querySelector("input[name='zip']");
+		let country = document.querySelector("input[name='country']");
+		let phone_number = document.querySelector("input[name='phone_number']");
+
+		//Eliminar errores
+		$(".err").remove();
+
+
+		if (animals.value == '' || animals.value == 0 || animals.value == null || animals.value == undefined || isNaN(animals.value) == true) {
+			error(animals, "The animals field is required");
+			$('html, body').animate({scrollTop: $(animals).offset().top - 50},1000);
+			return false;	
+		}
+
+		if (breeds.value == '' || breeds.value == 0 || breeds.value == null || breeds.value == undefined || isNaN(breeds.value) == true) {
+			error(breeds, "The breeds field is required");
+			$('html, body').animate({scrollTop: $(breeds).offset().top - 50},1000);
+			return false;	
+		}
+
+		if (colors.value == '' || colors.value == 0 || colors.value == null || colors.value == undefined || isNaN(colors.value) == true) {
+			error(colors, "The colors field is required");
+			$('html, body').animate({scrollTop: $(colors).offset().top - 50},1000);
+			return false;	
+		}
+
+		if (genders.value == '' || genders.value == 0 || genders.value == null || genders.value == undefined || isNaN(genders.value) == true) {
+			error(genders, "The genders field is required");
+			$('html, body').animate({scrollTop: $(genders).offset().top - 50},1000);
+			return false;	
+		}
+
+		if (ages.value == '' || ages.value == 0 || ages.value == null || ages.value == undefined || isNaN(ages.value) == true) {
+			error(ages, "The ages field is required");
+			$('html, body').animate({scrollTop: $(ages).offset().top - 50},1000);
+			return false;	
+		}
+
+
+		if (discipline.value == '' || discipline.value == 0 || discipline.value == null || discipline.value == undefined || isNaN(discipline.value) == true) {
+			error(discipline, "The discipline field is required");
+			$('html, body').animate({scrollTop: $(discipline).offset().top - 50},1000);
+			return false;	
+		}
+
+		if (temperament.value == '' || temperament.value == 0 || temperament.value == null || temperament.value == undefined || isNaN(temperament.value) == true) {
+			error(temperament, "The temperament field is required");
+			$('html, body').animate({scrollTop: $(temperament).offset().top - 50},1000);
+			return false;	
+		}
+
+		if (price.value == '' || price.value == 0 || price.value == null || price.value == undefined) {
+			error(price, "The price field is required");
+			$('html, body').animate({scrollTop: $(price).offset().top - 50},1000);
+			return false;	
+		}
+
+		if (description.value == '' || description.value == null || description.value == undefined) {
+			error(description, "The description field is required");
+			$('html, body').animate({scrollTop: $(description).offset().top - 50},1000);
+			return false;	
+		}
+
+		if (city.value == '' || city.value == null || city.value == undefined) {
+			error(city, "The city field is required");
+			$('html, body').animate({scrollTop: $(city).offset().top - 50},1000);
+			return false;	
+		}
+
+		if (region.value == '' || region.value == null || region.value == undefined) {
+			error(region, "The region field is required");
+			$('html, body').animate({scrollTop: $(region).offset().top - 50},1000);
+			return false;	
+		}
+
+		if (zip.value == '' || zip.value == null || zip.value == undefined) {
+			error(zip, "The zip field is required");
+			$('html, body').animate({scrollTop: $(zip).offset().top - 50},1000);
+			return false;	
+		}
+
+		if (isNaN(zip.value)) {
+			error(zip, "The zip must be a number.");
+			$('html, body').animate({scrollTop: $(zip).offset().top - 50},1000);
+			return false;
+		}
+
+		if (zip.value.length > 5) {
+			error(zip, "The zip may not be greater than 5");
+			$('html, body').animate({scrollTop: $(zip).offset().top - 50},1000);
+			return false;
+		}
+
+		if (zip.value.length < 5) {
+			error(zip, "The zip must be at least 5.");
+			$('html, body').animate({scrollTop: $(zip).offset().top - 50},1000);
+			return false;
+		}
+
+
+		if (country.value == '' || country.value == null || country.value == undefined) {
+			error(country, "The country field is required");
+			$('html, body').animate({scrollTop: $(country).offset().top - 50},1000);
+			return false;	
+		}
+
+
+		if (phone_number.value == '' || phone_number.value == null || phone_number.value == undefined) {
+			error(phone_number, "The phone field is required");
+			$('html, body').animate({scrollTop: $(phone_number).offset().top - 50},1000);
+			return false;	
+		}
+
+		if (isNaN(phone_number.value)) {
+			error(phone_number, "The phone must be a number.");
+			$('html, body').animate({scrollTop: $(phone_number).offset().top - 50},1000);
+			return false;
+		}
+
+		if (phone_number.value.length > 13) {
+			error(phone_number, "The phone may not be greater than 13");
+			$('html, body').animate({scrollTop: $(phone_number).offset().top - 50},1000);
+			return false;
+		}
+
+		if (phone_number.value.length < 10) {
+			error(phone_number, "The phone must be at least 10.");
+			$('html, body').animate({scrollTop: $(phone_number).offset().top - 50},1000);
+			return false;
+		}
+
+
+		//VALIDAR SI ES PERRO U OTRO ANIMAL PARA CAMBIAR EL PRECIO
+		if (animals.value == 6) {
+			$(".standard").text("$5");
+			$(".premium").text("$10");
+		}
+		else {
+			$(".standard").text("$10");
+			$(".premium").text("$20");
+		}
+
+
+		document.querySelector(".step1").style.display = "none";
+		document.querySelector(".step2").style.display = "block";
+		window.scrollTo(0, $(".step2").position().top);
+	});
+}
+
+
+/**********************\
+|    DEL PASO 2 AL 3    |
+\**********************/
+
+let next2 = document.querySelector("a.nexts2");
+
+if (next2) {
+	next2.addEventListener("click", e => {
+		e.preventDefault();
+
+		let planSelect = $("input[name='planSelect']");
+		let nexts2 = document.querySelector(".nexts2");
+		let images = 1;
+
+		//Eliminar errores
+		$(".err").remove();
+
+		if (planSelect.val() == "" || isNaN(planSelect.val())) {
+			error(nexts2, "Choose a plan to continue");
+			return false;
+		}
+
+		if (planSelect.val() == 1) {
+			$("input[type='file']").attr('data-max-files', "1");
+			if ($("input[name='hompage']").is(":checked")) {
+				$(".not-freeplan").css("display", "block");
+				$(".finish").text("Pay Now");
+			}
+			else {
+				$(".not-freeplan").css("display", "none");
+				$(".finish").text("Create Now");
+			}
+		}
+		else if (planSelect.val() == 2) {
+			$("input[type='file']").attr('data-max-files', "5");
+			$(".not-freeplan").css("display", "block");
+			$(".finish").text("Pay Now");
+		}
+		else {
+			$(".not-freeplan").css("display", "block");
+			$(".finish").text("Pay Now");
+		}
+
+		
+		initFile();
+
+
+		document.querySelector(".step2").style.display = "none";
+		document.querySelector(".step3").style.display = "block";
+		window.scrollTo(0, $(".step3").position().top);
+	});
+}
+
+
+/****************************\
+|    DEL PASO 3 AL ULTIMO    |
+\****************************/
+
+let next3 = document.querySelector("a.next3");
+if (next3) {
+	next3.addEventListener("click", e => {
+		e.preventDefault();
+
+		let videos = document.querySelector("textarea[name='url-videos']");
+		let fotos = document.querySelector("input[name='filepond[]']");
+
+		//Eliminar errores
+		$(".err").remove();
+
+		if (fotos.value == '') {
+			error(fotos, "The fotos field is required");
+			$('html, body').animate({scrollTop: $(fotos).offset().top - 50},1000);
+			return false;
+		}
+
+		if (videos.value == '') {
+			error(videos, "The video field is required");
+			$('html, body').animate({scrollTop: $(videos).offset().top - 50},1000);
+			return false;
+		}
+
+		//OBTENER DATOS DEL PLAN ELEGIDO
+		let skills = $(".plan-selected ul").html();
+		let titulo_plan = $(".plan-selected h3").html();
+		let precio = $(".plan-selected span").html();
+		let subtotal = precio.replace('$','');
+		let home = 0;
+
+		// MOSTRAR EL PLAN ELEGIDO EN EL PASO FINAL
+		$(".skills").html(skills);
+		$(".plan-title").html(titulo_plan+" <span>"+precio+"</span>");
+
+		if ($("input[name='hompage']").is(":checked")) {
+			$("input[name='hompage2']").prop("checked", true);
+			home = 20;
+		}
+
+		subtotal = (isNaN(subtotal)) ? 0 : subtotal;
+		let total = parseInt(subtotal) + home;
+		$(".row-total h3").html("Total: $"+total);
+
+
+		//PASAR A LA PAGINA FINAL
+		document.querySelector(".step3").style.display = "none";
+		document.querySelector(".step4").style.display = "block";
+		window.scrollTo(0, $(".step4").position().top);
+	});
+}
+
+
+/**********************\
+|    CLICK HOMEPAGE    |
+\**********************/
+
+let hompage2 = document.querySelector("input[name='hompage2']");
+if (hompage2) {
+	hompage2.addEventListener('click', e => {
+		if($("input[name='hompage2']").is(":checked")) {
+			let total = precio_planes();
+			let twich =  total + 20;
+			$(".row-total h3").html("Total: $"+twich);
+			$(".not-freeplan").css("display", "block");
+			$(".finish").text("Pay Now");
+		}
+		else {
+			let total = precio_planes();
+			$(".row-total h3").html("Total: $"+total);
+			$(".not-freeplan").css("display", "none");
+			$(".finish").text("Create Now");
+		}
+	});
+}
+
+
+
+/******************************\
+|      CLICK A LOS PLANES      |
+\******************************/
+
+let plancenter = document.querySelectorAll(".plancenter");
+
+if (plancenter) {
+
+    $(".plancenter").click(function() {
+		$(".plancenter").removeClass("plan-selected");
+		$(this).addClass("plan-selected");
+		$("input[name='planSelect']").val($(this).attr("data-plan"));
+	})
+}
+
+
+/*************************\
+|      RANGE REGISTRO      |
+\*************************/
+
+var elInput = document.querySelector('#input');
+if (elInput) {
+	var etiqueta = document.querySelector('#etiqueta');
+
+	if (etiqueta) {
+		etiqueta.innerHTML = elInput.value;
+		elInput.addEventListener('input', function() {
+			etiqueta.innerHTML = elInput.value;
+		}, false);
+  	}
+}
+
+
+/*************************\
+|      PAGO EN STRIPE      |
+\*************************/
+
+let finish = document.querySelector(".finish");
+if (finish) {
+
+	var $form = $(".require-validation");
+	$('form.require-validation').bind('submit', function(e) {
+
+		let planSelect = $("input[name='planSelect']");
+		if (planSelect.val() != 1 || (planSelect.val() == 1 && ($("input[name='hompage']").is(":checked") || $("input[name='hompage2']").is(":checked")))) {
+
+			var $form = $(".require-validation"),
+			    inputSelector = ['input[type=email]', 'input[type=password]',
+			                             'input[type=text]', 'input[type=file]',
+			                             'textarea'].join(', '),
+			    $inputs       = $form.find('.required').find(inputSelector),
+	            $errorMessage = $form.find('div.error'),
+	            valid         = true;
+	            $errorMessage.addClass('hide');
+			     
+	        $('.has-error').removeClass('has-error');
+	        $inputs.each(function(i, el) {
+				var $input = $(el);
+				if ($input.val() === '') {
+		            $input.parent().addClass('has-error');
+		            $errorMessage.removeClass('hide');
+		            e.preventDefault();
+				}
+	        });
+			      
+			if (!$form.data('cc-on-file')) {
+			    e.preventDefault();
+				Stripe.setPublishableKey($form.data('stripe-publishable-key'));
+				Stripe.createToken({
+		            number: $('.card-number').val(),
+		            cvc: $('.card-cvc').val(),
+		            exp_month: $('.card-expiry-month').val(),
+		            exp_year: $('.card-expiry-year').val()
+				}, stripeResponseHandler);
+			}
+		}
+	});
+}
 
 
 
@@ -283,4 +750,85 @@ function espacios_blanco_none(valor) {
 	}
 
 	return true;
+}
+
+
+var format = function(num) {
+
+    var str = num.toString().replace("$", ""), parts = false, output = [], i = 1, formatted = null;
+    if(str.indexOf(".") > 0) {
+        parts = str.split(".");
+        str = parts[0];
+    }
+    str = str.split("").reverse();
+    for(var j = 0, len = str.length; j < len; j++) {
+        if(str[j] != ",") {
+            output.push(str[j]);
+            if(i%3 == 0 && j < (len - 1)) {
+                output.push(",");
+            }
+            i++;
+        }
+    }
+    formatted = output.reverse().join("");
+    return(formatted + ((parts) ? "." + parts[1].substr(0, 2) : ""));
+    //return("$" + formatted + ((parts) ? "." + parts[1].substr(0, 2) : ""));
+};
+
+
+
+function precio_planes() {
+	let planSelect = document.querySelector("input[name='planSelect']").value;
+	let animal = document.querySelector("select[name='animals']").value;
+
+	if (animal == 6) {
+		if (planSelect == 1) { total = 0; }
+		else if (planSelect == 2) { total = 5; }
+		else if (planSelect == 3) { total = 10; }
+	}
+	else {
+		if (planSelect == 1) { total = 0; }
+		else if (planSelect == 2) { total = 10; }
+		else if (planSelect == 3) { total = 20; }
+	}
+
+	return total;
+}
+
+
+function initFile() {
+	let filepond = document.querySelector("input[name='filepond[]']");
+	if (filepond) {
+		// Get a reference to the file input element
+		var inputElement = document.querySelector('input[type="file"]');
+		FilePond.registerPlugin(FilePondPluginFileValidateType);
+		FilePond.registerPlugin(FilePondPluginFileEncode);
+		FilePond.registerPlugin(FilePondPluginFileValidateSize);
+
+		// Create the FilePond instance
+		var pond = FilePond.create(inputElement, {
+			labelIdle: "<h2> Upload Image </h2>",
+			checkValidity: true,
+			allowFileEncode: true,
+			getFileEncodeDataURL: false,
+			acceptedFileTypes: ['image/png', 'image/jpeg', 'image/jpg']
+		});
+	}
+}
+
+
+function stripeResponseHandler(status, response) {
+    if (response.error) {
+        $('.error')
+            .removeClass('hide')
+            .find('.alert')
+            .text(response.error.message);
+    } else {
+        // token contains id, last4, and card type
+        var token = response['id'];
+        // insert the token into the form so it gets submitted to the server
+        $form.find('input[type=text]').empty();
+        $form.append("<input type='hidden' name='stripeToken' value='" + token + "'/>");
+        $form.get(0).submit();
+    }
 }

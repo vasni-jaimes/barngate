@@ -1,0 +1,267 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+//use App\Http\Requests\ValidateSale;
+
+//Moderl
+use App\User;
+use App\Sale;
+
+//DB
+use DB;
+
+//
+use Session;
+use Stripe;
+use Validator;
+
+class SaleController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        //
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        $animals = DB::table("animals")->get();
+        $breeds = DB::table("breeds")->get();
+        $colors = DB::table("colors")->get();
+        $genders = DB::table("genders")->get();
+        $disciplines = DB::table("disciplines")->get();
+
+        return view('site.sale', compact("animals", "breeds", "colors", "genders", "disciplines"));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+
+        $validator = Validator::make($request->all(), [
+            "animals" => "required|max:2",
+            "breeds" => "required|max:2",
+            "colors" => "required|max:2",
+            "genders" => "required|max:2",
+            "ages" => "required|max:2",
+            "discipline" => "required|max:2",
+            "temperament" => "required|max:2",
+            "price" => "required|max:255",
+            "description" => "required",
+            "city" => "required|max:255",
+            "region" => "required|max:255",
+            "zip" => "required|numeric",
+            "zip" => "max:5",
+            "country" => "required|max:255",
+            "phone_number" => "required|numeric",
+            "phone_number" => "min:10|max:13"
+        ]);
+
+        if ($validator->fails()) {
+            return redirect("sale")->withErrors($validator, "paso1")->withInput();
+        }
+
+        $validator2 = Validator::make($request->all(), [
+            "planSelect" => "required|numeric",
+            "planSelect" => "max:2"
+        ]);
+
+        if ($validator2->fails()) {
+            return redirect("sale")->withErrors($validator2, "paso2")->withInput();
+        }
+
+
+        $validator3 = Validator::make($request->all(), [
+            "url-videos" => "required|max:255"
+        ]);
+
+        if ($validator3->fails()) {
+            return redirect("sale")->withErrors($validator3, "paso3")->withInput();
+        }
+
+
+        DB::beginTransaction();
+
+        $sale                   = new Sale();
+        $sale->user_id          = auth()->user()->user_id;
+        $sale->animal_id        = request("animals");
+        $sale->breed_id         = request("breeds");
+        $sale->color_id         = request("colors");
+        $sale->gender_id        = request("genders");
+        $sale->age_id           = request("ages");
+        $sale->discipline_id    = request("discipline");
+        $sale->temperament      = request("temperament");
+        $sale->price            = request("price");
+        $sale->description      = request("description");
+        $sale->city             = request("city");
+        $sale->state            = request("region");
+        $sale->zip              = request("zip");
+        $sale->country          = request("country");
+        $sale->phone_number     = request("phone_number");
+        $sale->plan_id          = request("planSelect");
+        $sale->video            = request("url-videos");
+        $precio                 =  0;
+
+        if ($request->has("hompage") || $request->has("hompage")) {
+            $sale->homepage = 1;
+            $precio = 20;
+        }
+        else {
+             $sale->homepage = 0;
+        }
+
+
+        if (request("animals") == 6) {
+            if (request("planSelect") == 2) {
+                $precio += 5;
+            }
+            else if (request("planSelect") == 3) {
+                $precio += 10;
+            }
+        }
+        else {
+            if (request("planSelect") == 2) {
+                $precio += 10;
+            }
+            else if (request("planSelect") == 3) {
+                $precio += 20;
+            }
+        }
+
+        if ($sale->save()) {
+
+            if ($request->has("filepond")) {
+                for ($i=0; $i <= count($request->get('filepond')) - 1; $i++) {
+                    try {
+                        $this->uploadImg($request, $i, $sale->sale_id);
+                    } 
+                    catch(Exception $e) {
+                        DB::rollback();
+                        \Log::error("No se guardo correctamente la imagen: error: ".$e->getMessage());
+                    }
+                }
+
+                if ($precio > 0 && $request->has("stripeToken")) {
+                    if ($this->stripePost(request("stripeToken"), $precio)) {
+                        DB::commit();
+                        return back()->with('status.success', '1');
+                    }
+
+                    DB::rollback();
+                    return back()->with('status.error.pago', '0');
+
+                }
+                DB::commit();
+                return back()->with('status.success', '1');
+            }
+            else {
+                DB::rollback();
+                return back()->with('status.error.not.file', '0');
+            }
+        }
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        //
+    }
+
+
+
+    public function uploadImg($request, $i, $sale_id)
+    {
+        $jsonImg     = json_decode($request->get("filepond")[$i]);
+        $imgDecode   = base64_decode($jsonImg->data);
+        $extencion   = explode("/", $jsonImg->type);
+        $imageName   = str_random(10).time().'.'.trim($extencion[1]);
+        $path        = "images/".auth()->user()->user_id."/".$request->get("animals")."/".$sale_id;
+
+        if ($extencion == "jpg" || $extencion == "jpeg" || $extencion == "png") {
+            \Storage::makeDirectory($path, 0777, true);
+            \Storage::put($path. "/" . $imageName, $imgDecode);
+        }  
+    }
+
+  
+    /**
+     * success response method.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function stripePost($stripeToken, $precio)
+    {
+        try {
+
+            Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+            Stripe\Charge::create ([
+                    "amount" => 100 * $precio,
+                    "currency" => "MXN",
+                    "source" => $stripeToken,
+                    "description" => "Test payment from itsolutionstuff.com." 
+            ]);   
+
+            return true;
+
+        } catch (Exception $e) {
+            \Log::error("Error al pagaar con stripe: ".$e->getMessage());
+            return false;    
+        }
+        
+    }
+}

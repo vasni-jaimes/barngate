@@ -3,11 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <title>Barngate</title>
-	
+
+
 {{-- <link rel="stylesheet" href="css/app.css" > --}}
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 <link rel="stylesheet" href="css/style.css" >	
 <link href="mmenu/jquery.mmenu.all.css" rel="stylesheet">
+@yield("css-content")
 <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 	
 </head>
@@ -43,11 +45,11 @@
 
 							@auth
 								<li class="no-style" style="padding: 0 18px;"><a href="{{ route("logout.get") }}">Logout</a> </li>
+								<li class="no-style"><a href="{{ route("sale") }}" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Sale</a> </li>
 							@endauth
 							@guest
 								<li class="login"><a class="show-log" href="#">Log in</a> </li>
 								<li class="no-style btn-f"><a href="#" class="show-registro btn btn-primary">Register to buy</a> </li>
-								<li class="no-style"><a href="{{ route("sale") }}" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Sale</a> </li>
 							@endguest
 						</ul>
 					</nav>
@@ -96,7 +98,7 @@
 				</div>
 				<div class="col-md-2">
 					<ul>
-						<li><a href="#">Home</a></li>
+						<li><a href="{{ route("home") }}">Home</a></li>
 						<li><a href="{{ route("about") }}">About</a></li>
 						<li><a href="#">FAQ's</a></li>
 						<li><a href="https://blog.barngate.com/">Blog</a> </li>
@@ -107,10 +109,8 @@
 				@guest
 					<div class="col-md-2">
 						<ul>
-							<li><a href="{{ route("sale") }}">Sale</a></li>
 							<li><a href="#">Register to buy</a> </li>
 							<li><a href="#">Log In</a> </li>
-
 						</ul>
 					</div>
 				@endguest
@@ -166,12 +166,13 @@
 		@guest
 			<li><a class="show-log" href="#">Log in</a> </li>
 			<li class="no-style"><a href="#" class="show-registro">Register to buy</a> </li>
-			<li class="no-style"><a href="{{ route("sale") }}" data-toggle="modal" data-target="#myModal">Sale</a> </li>
+			{{-- <li class="no-style"><a href="{{ route("sale") }}" data-toggle="modal" data-target="#myModal">Sale</a> </li> --}}
 		@endguest
 
 		@auth
 			<li><a href="#">My account</a></li>
 			<li><a href="#">Notifications</a></li>
+			<li><a href="{{ route("sale") }}">Sale</a></li>
 		@endauth
 		
 	</ul>
@@ -223,6 +224,9 @@
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/superagent/3.8.3/superagent.js"></script>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+@yield("js-content")
+
 <script src="mmenu/jquery.mmenu.all.js"></script>
 <script type="text/javascript" src="js/main.js"></script>
 
