@@ -15,6 +15,12 @@ jQuery('.show-registro').click(function(e){
 	jQuery('body').css('overflow', 'hidden');
 });
 
+jQuery('.show-info').click(function(e){
+	e.preventDefault();
+	jQuery('.shadowbox#editinfo').fadeIn(300);
+	jQuery('body').css('overflow', 'hidden');
+});
+
 jQuery('.close').click(function(e) {
 	jQuery('.shadowbox').fadeOut(300);
 	jQuery('body').css('overflow', 'auto');
@@ -34,6 +40,21 @@ $("#menu").mmenu({
     navbar: {
       title: "Menú"
     }
+});
+
+$('.slide-account').slick({
+	arrows: true,
+	infinite: true,
+	slidesToShow: 4,
+	slidesToScroll: 1
+});
+
+$('.slide-animal').slick({
+	dots: true,
+	arrows: false,
+	infinite: true,
+	slidesToShow: 1,
+	slidesToScroll: 1
 });
 
 

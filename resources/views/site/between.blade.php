@@ -30,9 +30,9 @@
 			</div> <!-- /flex -->
 		</div> <!-- /listing-homepage -->
 		
-		<div class="pt-40 pb-40 row-total">
+		<div class="pt-20 pb-20 row-total">
 			<h3 class="fw-700 fz-28 text-center">Total: $30</h3>
-			<input type="text" class="form-input" placeholder="Credit Card">
+			<!--<input type="text" class="form-input" placeholder="Credit Card">
 			<div class="pt-20 row">
 				<div class="col-md-6">
 					<input type="text" class="form-input" placeholder="Expiration">
@@ -40,10 +40,10 @@
 				<div class="col-md-6">
 					<input type="text" class="form-input" placeholder="CVC">
 				</div>
-			</div>
+			</div>-->
 		</div> <!-- /row-total -->
 		
-		<div class="pt-20 pb-20 text-center">
+		<div class="pb-20 text-center">
 			<a href="#" class="mw-150 btn btn-primary">Next</a>
 		</div>
 		

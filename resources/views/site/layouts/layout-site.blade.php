@@ -2,6 +2,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, user-scalable=no">
+
 <title>Barngate</title>
 
 
@@ -11,6 +13,9 @@
 <link href="mmenu/jquery.mmenu.all.css" rel="stylesheet">
 @yield("css-content")
 <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+<link href="slick/slick.css" rel="stylesheet">
+<link href="slick/slick-theme.css" rel="stylesheet">
 	
 </head>
 
@@ -228,6 +233,7 @@
 @yield("js-content")
 
 <script src="mmenu/jquery.mmenu.all.js"></script>
+<script src="slick/slick.js"></script>
 <script type="text/javascript" src="js/main.js"></script>
 
 </body>

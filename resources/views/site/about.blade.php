@@ -23,12 +23,12 @@
 				<div class="col-md-6">
 					<img src="images/alex-bachoura-barngate.png">
 					<h3>Alex Bachoura</h3>
-					<p>CEO</p>
+					<p>VP of marketing</p>
 				</div>
 				<div class="col-md-6">
 					<img src="images/krystel-trejo-barngate.png">
 					<h3>Krystel Trejo</h3>
-					<p>VP of marketing</p>
+					<p>CEO</p>
 				</div>
 			</div> <!-- /row -->
 		</div> <!-- /container-text -->
