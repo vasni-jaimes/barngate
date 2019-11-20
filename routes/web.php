@@ -41,3 +41,4 @@ Route::post('/sale.store', 'SaleController@store')->name('sale.store');
 //Route::view('/upload', 'site.upload')->name('upload');
 //Route::view('/between', 'site.between')->name('between');
 Route::view('/myaccount', 'site.myaccount')->name('myaccount');
+Route::view('/principal', 'site.principal')->name('principal');

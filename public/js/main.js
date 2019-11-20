@@ -46,7 +46,30 @@ $('.slide-account').slick({
 	arrows: true,
 	infinite: true,
 	slidesToShow: 4,
-	slidesToScroll: 1
+	slidesToScroll: 1,
+	responsive: [
+	{
+	  breakpoint: 1024,
+	  settings: {
+		slidesToShow: 3
+	  }
+	},
+	{
+	  breakpoint: 767,
+	  settings: {
+		slidesToShow: 2
+	  }
+	},
+	{
+	  breakpoint: 500,
+	  settings: {
+		slidesToShow: 1
+	  }
+	}
+	// You can unslick at a given breakpoint now by adding:
+	// settings: "unslick"
+	// instead of a settings object
+  ]
 });
 
 $('.slide-animal').slick({
@@ -55,6 +78,26 @@ $('.slide-animal').slick({
 	infinite: true,
 	slidesToShow: 1,
 	slidesToScroll: 1
+});
+
+$('.slide-principal').slick({
+	dots: false,
+	arrows: true,
+	infinite: true,
+	fade: true,
+	slidesToShow: 1,
+	slidesToScroll: 1,
+	asNavFor: '.slide-thumbs'
+});
+
+$('.slide-thumbs').slick({
+	dots: false,
+	arrows: true,
+	infinite: true,
+	slidesToShow: 4,
+	slidesToScroll: 1,
+	focusOnSelect: true,
+	asNavFor: '.slide-principal'
 });
 
 
