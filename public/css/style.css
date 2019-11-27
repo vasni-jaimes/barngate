@@ -189,6 +189,29 @@ nav ul li{
     height: 100%;
 }
 
+.filepond--warning {
+    position: absolute;
+    bottom: -1%;
+    left: 25%;
+    background: #f7bdbd;
+    color: #000;
+    border-radius: 999em;
+    font-size: .875em;
+    margin-top: 1em;
+    display: inline-block;
+    padding: .25em 1em;
+    opacity: 0;
+    white-space: nowrap;
+    transform: translateY(1em) translateX(-50%);
+    transition: opacity .15s ease-out,transform .5s ease-out;
+}
+
+.filepond--warning[data-state=visible] {
+    opacity: 1;
+    transform: translateY(0) translateX(-50%);
+}
+
+
 .banner-home{
     background-image: url(../images/banners/horse-classifieds-barngate-banner-home-2.png);
 }
@@ -318,6 +341,10 @@ nav ul li{
 	width: 100%; 
 	height: 124px;
 	resize: none;
+}
+
+fieldset {
+	position: relative;
 }
 
 .forma fieldset {

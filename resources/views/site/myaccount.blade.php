@@ -77,7 +77,26 @@
 							<p class="fw-700">OR</p>
 						</div>
 						<div class="pt-20 pb-20">
-							<div class="flex-list items-center">
+							@forelse($animals as $animal)
+								<div class="flex-list items-center">
+									<div class="flex between items-center">
+										<div class="flex">
+											<img src="images/animals/horse-classifieds-barngate-picture-home.png">
+											<div class="txt-list">
+												<p>{{ $animal->animal_name }}</p>
+												<span class="active">Active</span>
+											</div> <!-- /txt-list -->
+										</div>
+										<div class="btn-list">
+											<a href="#" class="mw-150 btn btn-primary">Edit</a>
+											<a href="#" class="mw-150 btn btn-primary">Sold</a>
+										</div> <!-- /item-flex -->
+									</div> <!-- /flex -->
+								</div> <!-- /flex-list -->
+							@empty
+								<p> No Animals</p>
+							@endforelse
+							{{-- <div class="flex-list items-center">
 								<div class="flex between items-center">
 									<div class="flex">
 										<img src="images/animals/horse-classifieds-barngate-picture-home.png">
@@ -106,7 +125,7 @@
 										<a href="#" class="mw-150 btn btn-primary">Remove</a>
 									</div> <!-- /item-flex -->
 								</div> <!-- /flex -->
-							</div> <!-- /flex-list -->
+							</div> <!-- /flex-list --> --}}
 						</div>
 					</div> <!-- /box-tab -->
 				</div>
@@ -141,7 +160,7 @@
 					<img src="images/picture.jpg">
 					<div class="txt-list">
 						<div class="flex items-center">
-							<p class="fw-700">Your Raiting</p>
+							<p class="fw-700">{{ auth()->user()->username }}</p>
 							<ul class="rating">
 								<li><i class="fa fa-star"></i></li>
 								<li><i class="fa fa-star"></i></li>

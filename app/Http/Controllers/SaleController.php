@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-//use App\Http\Requests\ValidateSale;
 
 //Moderl
 use App\User;
@@ -19,6 +18,10 @@ use Validator;
 
 class SaleController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware("auth");
+    }
     /**
      * Display a listing of the resource.
      *
@@ -53,6 +56,7 @@ class SaleController extends Controller
      */
     public function store(Request $request)
     {
+        //return request();
 
         $validator = Validator::make($request->all(), [
             "animals" => "required|max:2",
@@ -87,13 +91,36 @@ class SaleController extends Controller
         }
 
 
-        $validator3 = Validator::make($request->all(), [
-            "url-videos" => "required|max:255"
-        ]);
+        if (request("planSelect") == 3) {
+            $validator3 = Validator::make($request->all(), [
+                "url-videos" => "required|max:255"
+            ]);
 
-        if ($validator3->fails()) {
-            return redirect("sale")->withErrors($validator3, "paso3")->withInput();
+            if ($validator3->fails()) {
+                return redirect("sale")->withErrors($validator3, "paso3")->withInput();
+            }
         }
+
+
+        
+        //Fecha del plan
+        date_default_timezone_set('America/Mexico_City');
+        $date = date('Y-m-d', time());
+
+        //GUARDAR FECHA PARA LOS DATOS
+        if (request("planSelect") == 1) {
+            $fechafinal = strtotime ( '+1 month' , strtotime ( $date ) ) ;
+            $fechafinal = date ( 'Y-m-j' , $fechafinal );
+        }
+        else if (request("planSelect") == 2) {
+            $fechafinal = strtotime ( '+3 month' , strtotime ( $date ) ) ;
+            $fechafinal = date ( 'Y-m-j' , $fechafinal );
+        }
+        else if (request("planSelect") == 3) {
+            $fechafinal = strtotime ( '+6 month' , strtotime ( $date ) ) ;
+            $fechafinal = date ( 'Y-m-j' , $fechafinal );
+        }
+
 
 
         DB::beginTransaction();
@@ -115,8 +142,14 @@ class SaleController extends Controller
         $sale->country          = request("country");
         $sale->phone_number     = request("phone_number");
         $sale->plan_id          = request("planSelect");
-        $sale->video            = request("url-videos");
-        $precio                 =  0;
+        $sale->date_init        = $date;
+        $sale->date_end         = $fechafinal;
+
+        if (request("planSelect") == 3) {
+            $sale->video = request("url-videos");
+        }
+
+        $precio = 0;
 
         if ($request->has("hompage") || $request->has("hompage")) {
             $sale->homepage = 1;
@@ -164,7 +197,7 @@ class SaleController extends Controller
                     }
 
                     DB::rollback();
-                    return back()->with('status.error.pago', '0');
+                    return back()->with('status.error.pago', '1');
 
                 }
                 DB::commit();
@@ -172,7 +205,7 @@ class SaleController extends Controller
             }
             else {
                 DB::rollback();
-                return back()->with('status.error.not.file', '0');
+                return back()->withInput()->with('status.error.not.file', 'The field is required');
             }
         }
     }
@@ -258,10 +291,10 @@ class SaleController extends Controller
 
             return true;
 
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             \Log::error("Error al pagaar con stripe: ".$e->getMessage());
-            return false;    
+            redirect("sale")->withInput()->with("card_errors", $e->getMessage());
+            return false;
         }
-        
     }
 }

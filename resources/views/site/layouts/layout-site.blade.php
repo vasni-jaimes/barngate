@@ -227,6 +227,18 @@
 @endguest
 
 
+@auth
+
+	<div class="shadowbox" id="loading">
+		<div class="wrapper-form">
+			{{-- <div class="container-form"> --}}
+				<img src="images/loading.gif" alt="loading">
+			{{-- </div> --}} <!-- /container-form -->
+		</div> <!-- /wrapper-form -->
+	</div> <!-- /shadowbox -->
+
+@endauth
+
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/superagent/3.8.3/superagent.js"></script>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
