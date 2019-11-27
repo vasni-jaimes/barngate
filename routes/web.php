@@ -38,4 +38,9 @@ Route::post('/sale.store', 'SaleController@store')->name('sale.store');
 Route::get('/myaccount', 'MyaccountController@index')->name('myaccount');
 
 //vistas val pendientes
+//Route::view('/sale', 'site.sale')->name('sale');
+//Route::view('/add_animals', 'site.add_animals')->name('add_animals');
+//Route::view('/upload', 'site.upload')->name('upload');
+//Route::view('/between', 'site.between')->name('between');
 //Route::view('/myaccount', 'site.myaccount')->name('myaccount');
+Route::view('/principal', 'site.principal')->name('principal');
