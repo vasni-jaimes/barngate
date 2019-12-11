@@ -26,6 +26,20 @@ jQuery('.close').click(function(e) {
 	jQuery('body').css('overflow', 'auto');
 });
 
+jQuery('.vista1').click(function(){
+	jQuery('.vista2').removeClass('active');
+	jQuery(this).addClass('active');
+	jQuery('.row-lista').hide();
+	jQuery('.row-vista').show();
+});
+
+jQuery('.vista2').click(function(){
+	jQuery('.vista1').removeClass('active');
+	jQuery(this).addClass('active');
+	jQuery('.row-vista').hide();
+	jQuery('.row-lista').show();
+});
+
 
 /************************\
 |    MENU HAMBURGUESA    |

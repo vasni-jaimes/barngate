@@ -236,7 +236,10 @@ nav ul li{
     background: #cdd5e1;
 }
 .bg-blue{
-    background: #363F4A;
+    background: #26375D;
+}
+.bg-white{
+    background: #fff;
 }
 .bg-blue .text-white {
 	margin-bottom: 0;
@@ -446,9 +449,18 @@ nav ul li{
 	margin: 7px 0 0;
 }
 
+.mw-700 {
+	max-width: 700px;
+	width: 100%;
+}
+
 .mw-150 {
 	max-width: 150px;
 	width: 100%;
+}
+
+.auto {
+	margin: auto;
 }
 
 .banner-sale {
@@ -1366,6 +1378,202 @@ textarea.form-input {
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
+}
+
+.wrapper-vista {
+	padding: 50px 0;
+}
+
+.row-mapa {
+	position: relative;
+	padding: 51% 0 0;
+	background-image: url('../images/vista/map.jpg');
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+}
+
+.row-mapa a {
+	position: absolute; 
+	top: 50%; 
+	left: 50%;
+	-webkit-transform: translate(-50%,-50%);
+	-moz-transform: translate(-50%,-50%);
+	transform: translate(-50%,-50%);
+	font-size: 20px;
+}
+
+.row-filtros {
+	margin: 20px 0 0;
+	padding: 20px 0 0;
+	border-top: 1px solid #CDD5E0;
+}
+
+.row-filtros label.search {
+	position: relative;
+	display: block; 
+	width: 100%;
+}
+
+.row-filtros label.search:before {
+	content: ''; 
+	position: absolute; 
+	width: 45px; 
+	top: 0; 
+	right: 0; 
+	bottom: 0;
+	background-color: #F95F62;
+	background-image: url('../images/lupa.png'); 
+	background-repeat: no-repeat; 
+	background-size: 16px auto;
+	background-position: center;
+}
+
+.row-filtros label.search input {
+	width: 100%;
+	height: 40px;
+	border: 1px solid #26375D;
+}
+
+.row-filtros label.price {
+	width: 100%;
+}
+
+.row-filtros p {
+	margin: 8px 0 0;
+}
+
+.view-more {
+	border-bottom: 1px solid #CDD5E0;
+	margin: 5px 0 12px; 
+	padding: 0 0 5px;
+	background-image: url(../images/select-down.png);
+    background-repeat: no-repeat;
+    background-position: top 15px right 10px;
+    background-size: 17px;
+}
+
+.row-vista {
+	height: 990px; 
+	padding: 15px;
+	background-color: #CDD5E0;
+	overflow-y: auto;
+}
+
+/* total width */
+.row-vista::-webkit-scrollbar {
+	width: 16px;
+}
+
+.row-vista::-webkit-scrollbar-track {
+	box-shadow: inset 0 0 14px 14px transparent;
+	border: solid 4px transparent;
+	background: #26375D; 
+}
+
+.row-vista::-webkit-scrollbar-thumb {
+	box-shadow: inset 0 0 14px 14px #fff;
+	border: solid 4px transparent;
+	border-radius: 14px;
+}
+
+.back-animal {
+	flex: 0 0 49%;
+    max-width: 49%;
+	padding: 15px;
+	margin: 0 0 20px;
+	background-color: #fff;
+}
+
+.back-animal:hover,
+.back-animal.selected {
+	color: #fff;
+	background-color: #4768B1;
+}
+
+.back-animal img {
+	width: 100%; 
+	height: auto;
+}
+
+.btn-vista {
+	justify-content: center;
+}
+
+.btn-vista > div {
+	border: 1px solid #26375d;
+	margin-left: 5px;
+	cursor: pointer;
+}
+
+.btn-vista > div:last-of-type {
+	border: 0;
+}
+
+.btn-vista > div img {
+	width: auto;
+	height: 33px;
+}
+
+.btn-vista > div.vista1,
+.btn-vista > div.vista2 {
+	width: 33px; 
+	height: 33px;
+	background-repeat: no-repeat; 
+	background-size: contain; 
+	background-position: center;
+}
+
+.btn-vista > div.vista1 {
+	background-image: url('../images/buy-cattle-online-barngate-button-large-not-active.png');
+}
+
+.btn-vista > div.vista2 {
+	background-image: url('../images/buy-cattle-online-barngate-button-list-not-active.png');
+}
+
+.btn-vista > div.vista1.active,
+.btn-vista > div.vista1:hover {
+	background-image: url('../images/buy-cattle-online-barngate-button-large-active.png');
+}
+
+.btn-vista > div.vista2.active,
+.btn-vista > div.vista2:hover {
+	background-image: url('../images/buy-cattle-online-barngate-button-list-active.png.png');
+}
+
+.row-lista {
+	display: none;
+	margin: 20px 0 0;
+	height: 932px; 
+	padding: 15px;
+	background-color: #CDD5E0;
+	overflow-y: auto;
+}
+
+.item-lista {
+	padding: 8px 30px 8px 8px;
+	margin: 0 0 10px;
+	background-color: #fff;
+}
+
+.item-lista img {
+	width: 180px; 
+	height: auto;
+}
+
+.item-lista p {
+	color: #5A6978;
+	font-size: 21px;
+  	font-weight: 900;
+}
+
+.item-lista p.price {
+	color: #000000;
+}
+
+.item-d {
+	padding-left: 30px;
 }
 
 
