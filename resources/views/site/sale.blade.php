@@ -23,8 +23,8 @@
 				<div class="container-form">
 					<h2> Congratulations </h2>
 					<p>you registered your animal correctly.</p>
-					<button> my account </button>
-					<button> register new animal </button>
+					<a href="{{ route('myaccount') }}"> my account </button>
+					<a href="{{ route('sale') }}"> register new animal </button>
 				</div> <!-- /container-form -->
 			</div> <!-- /wrapper-form -->
 		</div> <!-- /shadowbox -->

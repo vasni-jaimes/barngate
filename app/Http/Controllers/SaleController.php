@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 //Moderl
 use App\User;
 use App\Sale;
+use App\Favorite;
 
 //DB
 use DB;
@@ -56,7 +57,6 @@ class SaleController extends Controller
      */
     public function store(Request $request)
     {
-        //return request();
 
         $validator = Validator::make($request->all(), [
             "animals" => "required|max:2",
@@ -179,6 +179,9 @@ class SaleController extends Controller
 
         if ($sale->save()) {
 
+            $sale->nickname = $this->getNickname($sale->sale_id);
+            $sale->save();
+
             if ($request->has("filepond")) {
                 for ($i=0; $i <= count($request->get('filepond')) - 1; $i++) {
                     try {
@@ -200,6 +203,7 @@ class SaleController extends Controller
                     return back()->with('status.error.pago', '1');
 
                 }
+
                 DB::commit();
                 return back()->with('status.success', '1');
             }
@@ -218,7 +222,25 @@ class SaleController extends Controller
      */
     public function show($id)
     {
-        //
+        $animal =   DB::table('sales')
+                        ->join('animals', 'sales.animal_id', '=', 'animals.animal_id')
+                        ->join('breeds', 'sales.breed_id', '=', 'breeds.breed_id')
+                        ->join('colors', 'sales.color_id', '=', 'colors.color_id')
+                        ->join('genders', 'sales.gender_id', '=', 'genders.gender_id')
+                        ->join('disciplines', 'sales.discipline_id', '=', 'disciplines.discipline_id')
+                        ->join('users', 'sales.user_id', '=', 'users.user_id')
+                        ->select('sales.*', 
+                                    'animals.name as animal_name', 
+                                    'breeds.name as breeds_name', 
+                                    'colors.name as colors_name', 
+                                    'genders.name as gender_name',
+                                    'disciplines.name as desc_name',
+                                    'users.username as user_name')
+                        ->where('nickname', $id)->first();
+
+        $favorite = $this->getFavoriteProduct($animal->sale_id, $animal->user_id);
+        $todasImg = $this->todasImagenesProducto($animal->user_id, $animal->animal_id, $animal->sale_id);
+        return view("site.principal", compact("animal", "todasImg", "favorite"));
     }
 
     /**
@@ -265,10 +287,31 @@ class SaleController extends Controller
         $imageName   = str_random(10).time().'.'.trim($extencion[1]);
         $path        = "images/".auth()->user()->user_id."/".$request->get("animals")."/".$sale_id;
 
-        if ($extencion == "jpg" || $extencion == "jpeg" || $extencion == "png") {
+        if ($extencion[1] == "jpg" || $extencion[1] == "jpeg" || $extencion[1] == "png") {
             \Storage::makeDirectory($path, 0777, true);
             \Storage::put($path. "/" . $imageName, $imgDecode);
         }  
+    }
+
+
+
+    public function todasImagenesProducto($usuario, $categoria, $producto)
+    {
+        $directory= base_path()."/storage/app/public/images/".$usuario."/".$categoria."/".$producto;
+        if (is_dir($directory)) {
+            $dirint = dir($directory);
+            $todas = Array();
+            while (($archivo = $dirint->read()) !== false)
+            {
+                if (preg_match("{gif}", $archivo) || preg_match("{jpeg}", $archivo) || preg_match("{png}", $archivo) || preg_match("{jpg}", $archivo) || preg_match("{webp}", $archivo)){
+                    $todas[] = $usuario."/".$categoria."/".$producto."/".$archivo;
+                }
+            }
+            $dirint->close();
+            return $todas;
+        }
+
+        return false;
     }
 
   
@@ -296,5 +339,26 @@ class SaleController extends Controller
             redirect("sale")->withInput()->with("card_errors", $e->getMessage());
             return false;
         }
+    }
+
+
+    public function getNickname($id)
+    {
+        return "MLM=".base64_encode($id).time();
+    }
+
+
+    public function getFavoriteProduct($idsale, $userid)
+    {
+        if ($userid == auth()->user()->user_id) {
+           return true;
+        }
+
+        $favorito = Favorite::where(['sale_id' => $idsale, 'user_id' => auth()->user()->user_id])->first();
+        if ($favorito !== null) {
+            return true;
+        }
+
+        return false;
     }
 }

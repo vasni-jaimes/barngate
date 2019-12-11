@@ -860,6 +860,63 @@ if (finish) {
 				}, stripeResponseHandler);
 			}
 		}
+		else {
+			$("#loading").css("display", "block");
+		}
+	});
+}
+
+
+/*********************\
+|      FAVORITES      |
+\*********************/
+
+let favorites = document.querySelector(".btn-border");
+if (favorites) {
+	favorites.addEventListener("click", e => {
+		$("#favorite").css("display", "block");
+	});
+}
+
+
+let cancel = document.querySelector(".cancel-favorite");
+if (cancel) {
+	cancel.addEventListener("click", e => {
+		$("#favorite").css("display", "none");
+	});
+}
+
+
+let accept = document.querySelector(".accpt-favorite");
+if (accept) {
+	accept.addEventListener("click", e => {
+
+		let idProducto = document.querySelector("#nick");
+		let token = document.querySelector("input[name='_token']");
+
+		data = {
+			"idProducto": idProducto.value, 
+			"_token": token.value 
+		};
+
+		request
+		   	.post('/addFavorite')
+		   	.send(data)
+		   	.set('Accept', 'application/json')
+		   	.then(res => {
+		   		console.log(res);
+		   		if (res.body.message == 'ok') {
+		   			location.reload();
+		   		}
+		   		else {
+		   			location.reload();
+		   		}
+		   	})
+		   	.catch(err => {
+      			// err.message, err.response
+      			console.log(err.message);
+      			location.reload();
+   			});
 	});
 }
 

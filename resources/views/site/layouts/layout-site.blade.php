@@ -8,14 +8,14 @@
 
 
 {{-- <link rel="stylesheet" href="css/app.css" > --}}
-<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
-<link rel="stylesheet" href="css/style.css" >	
-<link href="mmenu/jquery.mmenu.all.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
+<link rel="stylesheet" href="/css/style.css" >	
+<link href="/mmenu/jquery.mmenu.all.css" rel="stylesheet">
 @yield("css-content")
 <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
-<link href="slick/slick.css" rel="stylesheet">
-<link href="slick/slick-theme.css" rel="stylesheet">
+<link href="/slick/slick.css" rel="stylesheet">
+<link href="/slick/slick-theme.css" rel="stylesheet">
 	
 </head>
 
@@ -39,7 +39,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-2">
-					<a href="{{ route("home") }}"><img src="images/logos/logo-header.png" alt="Barngate"></a>
+					<a href="{{ route("home") }}"><img src="/images/logos/logo-header.png" alt="Barngate"></a>
 				</div>
 				<div class="col-md-10 text-right">
 					<nav>
@@ -61,8 +61,8 @@
 					@auth
 						<nav>
 							<ul class="menu_registro">
-								<li><a href=""><img src="images/horse-classifieds-barngate-myaccount-icon.png" alt="Barngate">My account</a></li>
-								<li><a href=""><img src="images/horse-classifieds-barngate-notificatios-icon.png" alt="Barngate">Notifications</a></li>
+								<li><a href="{{ route("myaccount") }}"><img src="/images/horse-classifieds-barngate-myaccount-icon.png" alt="Barngate">My account</a></li>
+								<li><a href=""><img src="/images/horse-classifieds-barngate-notificatios-icon.png" alt="Barngate">Notifications</a></li>
 							</ul>
 						</nav>
 					@endauth
@@ -76,7 +76,7 @@
 			<div class="col-md-12">
 				<nav>
 					<ul class="menu_home">
-						<li><a href="#"><img src="images/horse-classifieds-barngate-home-icon.png"></a></li>
+						<li><a href="#"><img src="/images/horse-classifieds-barngate-home-icon.png"></a></li>
 						<li><a href="#">Cattle for Sale</a></li>
 						<li><a href="#">Horse for Sale</a></li>
 						<li><a href="#">Sheep for Sale</a></li>
@@ -99,7 +99,7 @@
 		<div class="container">
 			<div class="row align-items-center row-eq-height">
 				<div class="col-md-2">
-					<img src="images/logos/logo-footer.png">
+					<img src="/images/logos/logo-footer.png">
 				</div>
 				<div class="col-md-2">
 					<ul>
@@ -132,8 +132,8 @@
 						<button type="submit" class="btn btn-primary btn-red mb-2 w-35">Suscribe</button>
 					</form>
 					<ul class="list-inline">
-						<li class="list-inline-item"><a href="#"><img src="images/horse-classifieds-barngate-facebook-icon.png"> </a></li>
-						<li class="list-inline-item"><a href="#"><img src="images/horse-classifieds-barngate-instagram-icon.png"> </a></li>
+						<li class="list-inline-item"><a href="#"><img src="/images/horse-classifieds-barngate-facebook-icon.png"> </a></li>
+						<li class="list-inline-item"><a href="#"><img src="/images/horse-classifieds-barngate-instagram-icon.png"> </a></li>
 					</ul>
 				</div>
 			</div>
@@ -232,7 +232,7 @@
 	<div class="shadowbox" id="loading">
 		<div class="wrapper-form">
 			{{-- <div class="container-form"> --}}
-				<img src="images/loading.gif" alt="loading">
+				<img src="/images/loading.gif" alt="loading">
 			{{-- </div> --}} <!-- /container-form -->
 		</div> <!-- /wrapper-form -->
 	</div> <!-- /shadowbox -->
@@ -244,9 +244,9 @@
 
 @yield("js-content")
 
-<script src="mmenu/jquery.mmenu.all.js"></script>
-<script src="slick/slick.js"></script>
-<script type="text/javascript" src="js/main.js"></script>
+<script src="/mmenu/jquery.mmenu.all.js"></script>
+<script src="/slick/slick.js"></script>
+<script type="text/javascript" src="/js/main.js"></script>
 
 </body>
 </html>

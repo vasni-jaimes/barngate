@@ -16,6 +16,7 @@ class CreateSalesTable extends Migration
         Schema::create('sales', function (Blueprint $table) {
             $table->bigIncrements('sale_id');
             $table->integer('user_id');
+            $table->text('nickname')->nullable();
             $table->integer('animal_id');
             $table->integer('breed_id');
             $table->integer('color_id');
