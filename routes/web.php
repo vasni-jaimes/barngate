@@ -34,12 +34,18 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout.get');
 Route::get('/sale', 'SaleController@create')->name('sale');
 Route::post('/sale.store', 'SaleController@store')->name('sale.store');
 
+//Myaccount
+Route::get('/myaccount', 'MyaccountController@index')->name('myaccount');
+
+//Detalle
+Route::get('/detail/{id}', 'SaleController@show')->name('sale.show');
+
+//Favorites
+Route::post("/addFavorite", "FavoritesController@addFavorite")->name("addFav");
 
 //vistas val pendientes
 //Route::view('/sale', 'site.sale')->name('sale');
 //Route::view('/add_animals', 'site.add_animals')->name('add_animals');
 //Route::view('/upload', 'site.upload')->name('upload');
 //Route::view('/between', 'site.between')->name('between');
-Route::view('/myaccount', 'site.myaccount')->name('myaccount');
-Route::view('/principal', 'site.principal')->name('principal');
 Route::view('/vista', 'site.vista')->name('vista');

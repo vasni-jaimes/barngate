@@ -14,13 +14,27 @@
 @endsection
 
 
-
 @section("content")
+
+
+	@if (session()->has("status.success")))
+		<div class="shadowbox" id="success.register" style="display: block;">
+			<div class="wrapper-form">
+				<div class="container-form">
+					<h2> Congratulations </h2>
+					<p>you registered your animal correctly.</p>
+					<a href="{{ route('myaccount') }}"> my account </button>
+					<a href="{{ route('sale') }}"> register new animal </button>
+				</div> <!-- /container-form -->
+			</div> <!-- /wrapper-form -->
+		</div> <!-- /shadowbox -->
+	@endif
+
 
 	<div class="banner-sale">
 		<div class="container">
 			<div class="banner-text">
-				<h1>How selling with us work</h1> <p>{{ session("status.success") }}</p>
+				<h1>How selling with us work</h1>
 				<a href="#" class="btn-play btn btn-primary">Watch Video</a>
 			</div>
 		</div> <!-- /container -->
@@ -29,7 +43,7 @@
 	<form role="form" action="{{ route("sale.store") }}" method="POST" id="form_sale" accept-charset="UTF-8" class="require-validation" enctype="multipart/form-data" data-cc-on-file="false" data-stripe-publishable-key="{{ env('STRIPE_KEY') }}">
 		@csrf
 
-		<div class="wrapper-register container pt-40 pb-40 text-blue step1" {{ stepShow(1, $errors) }}>
+		<div class="wrapper-register container pt-40 pb-40 text-blue step1" {{ stepShow(1, $errors) }} {{ stepErrorCard(1) }}>
 			<h2 class="fw-700 text-left">Sell your animal with Farmgate</h2>
 			<p class="fz-16 pt-20">Farmgate is the best way to sell your animals online. Great Cattle, Horses and more for great prices thanks to a massive audience and a friendly format that helps buyers find exactly what their looking for with confidence.</p>
 			<p class="fz-16 pt-20 pb-40">What Animal would you like to sell? Please fill out the form below.</p>
@@ -170,7 +184,7 @@
 			</div> <!-- /wrapper-sale -->
 		</div> <!-- /container -->
 
-		<div class="wrapper-register container pt-40 pb-40 text-blue step2" {{ stepShow(2, $errors) }}>
+		<div class="wrapper-register container pt-40 pb-40 text-blue step2" {{ stepShow(2, $errors) }} {{ stepErrorCard(2) }}>
 			<h2 class="fw-700 text-left">Sell your animal with Farmgate</h2>
 			<p class="fz-20 fw-700 pt-20 pb-20">Select your plan</p>
 			
@@ -189,7 +203,7 @@
 					</div> <!-- /wrapper-plan -->
 				</div>
 				<div class="col-md-4 pb-20">
-					<div class="wrapper-plan text-center plancenter {{ planSelected(2) }}" data-plan="2">
+					<div class="wrapper-plan text-center plancenter plan-selected {{ planSelected(2) }}" data-plan="2">
 						<small>Most Popular</small>
 						<h3 class="fw-700 fz-28">STANDARD</h3>
 						<span class="price fz-24 fw-700 standard">$10</span>
@@ -230,12 +244,15 @@
 			</div>
 		</div> <!-- /container -->
 
-		<div class="wrapper-register container pt-40 pb-40 text-blue step3" {{ stepShow(3, $errors) }}>
+		<div class="wrapper-register container pt-40 pb-40 text-blue step3" {{ stepShow(3, $errors) }} {{ stepErrorCard(3) }}>
 			<h2 class="fw-700 text-left">Sell your animal with Farmgate</h2>
 			<p class="fz-20 fw-700 pt-20 pb-20">Drag and drop images here or click to select images</p>
 			<fieldset class="form-file">
-				<input type="file" class="filepond" multiple required name="filepond[]" />
+				<input type="file" class="filepond" multiple name="filepond[]" />
 				{!! $errors->paso3->first('filepond', "<span class='err' style='display:block;margin-bottom:15px;color:red'>:message</span>") !!}
+				@if (session()->has("status.error.not.file"))
+					<span class='err' style='display:block;margin-bottom:15px;color:red'>{{ session("status.error.not.file") }}</span>
+				@endif
 				{{-- <input type="file" name="upload" id="upload" class="cargar-cv" data-multiple-caption="{count} files selected" multiple=""> --}}
 				{{-- <label for="upload"><span></span></label> --}}
 			</fieldset>
@@ -244,17 +261,17 @@
 			<textarea class="form-input" name="url-videos">{{ old("url-videos") }}</textarea>
 			{!! $errors->paso3->first('url-videos', "<span class='err' style='display:block;margin-bottom:15px;color:red'>:message</span>") !!}
 			
-			<div class="wrapper-congrats text-center">
+			{{-- <div class="wrapper-congrats text-center">
 				<p class="fz-26">Congratulation, you just posted your Horse</p>
 				<a class="mw-150 btn-red" href="#">Review Post</a>
-			</div> <!-- /wrapper-congrats -->
+			</div> --}} <!-- /wrapper-congrats -->
 			
 			<div class="pt-40 pb-20 text-center">
 				<a href="#" class="mw-150 btn btn-primary next3">Post</a>
 			</div>
 		</div> <!-- /container -->
 
-		<div class="wrapper-register container pt-40 pb-40 text-blue step4">
+		<div class="wrapper-register container pt-40 pb-40 text-blue step4" {{ stepErrorCard(4) }}>
 			<h2 class="fw-700 text-left">Sell your animal with Farmgate</h2>
 			<div class="pt-40 pb-40 row-plan">
 				<h3 class="fw-700 fz-28 text-center plan-title">STANDARD <span>$10</span></h3>
@@ -292,10 +309,9 @@
 							<input class='form-input card-expiry-year' placeholder='YYYY' size='4' type='text'>
 						</div>
 					</div>
-					<div class='form-row row pt-20'>
-		                <div class='col-md-12 error form-group hide'>
-		                    <div class='alert-danger alert'>Please correct the errors and try
-		                        again.</div>
+					<div class='form-row row pt-20' >
+		                <div class='col-md-12 error form-group {{ hasSession() }}'>
+		                    <div class='alert-danger alert'>{{ session("card_errors") }}</div>
 		                </div>
 		            </div>
 		        </div>

@@ -19,7 +19,14 @@ function stepShow($step, $errors)
 		else if ($step == 3 && $errors->paso3->any() == true) {
 			return "style=display:block";
 		}
+		else if ($step == 3 && session()->has("status.error.not.file")) {
+			return "style=display:block";
+		}
 		else if ($step == 1 && !$errors->paso1->any() && !$errors->paso2->any() && !$errors->paso3->any()) {
+			if (session()->has("card_errors") || session()->has("status.error.not.file")) {
+				return "style=display:none";
+			}
+
 			return "style=display:block";
 		}
 		else {
@@ -39,5 +46,33 @@ function planSelected($plan) {
 function homepageReload() {
 	if (old("hompage") == true || old("hompage2") == true) {
 		return "checked";
+	}
+}
+
+
+function hasSession() {
+	if (session()->has("card_errors")) {
+		return "";
+	}
+
+	return "hide";
+}
+
+
+function stepErrorCard($step) {
+
+	if (session()->has("card_errors")) {
+		if ($step == 1) {
+			return "style=display:none";
+		}
+		else if ($step == 2) {
+			return "style=display:none";
+		}
+		else if ($step == 3) {
+			return "style=display:none";
+		}
+		else if ($step == 4) {
+			return "style=display:block";
+		}
 	}
 }

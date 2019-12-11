@@ -358,11 +358,55 @@ if (price) {
 }
 
 
+
+/************************************************\
+|      VALIDAR QUE EL ZIP SOLO SEAN NUMEROS      |
+\************************************************/
+
+let zip = document.querySelector("input[name='zip']");
+
+if (zip) {
+
+	zip.addEventListener('keypress', (e) => {
+        var key = window.event ? e.which : e.keyCode;
+        if (key < 48 || key > 57) {
+            e.preventDefault();
+        }
+        if (e.target.value.length >= 5) {
+			e.preventDefault();
+		}
+    });
+}
+
+
+/**************************************************\
+|      VALIDAR QUE EL PHONR SOLO SEAN NUMEROS      |
+\**************************************************/
+
+let phone_number = document.querySelector("input[name='phone_number']");
+
+if (phone_number) {
+
+	phone_number.addEventListener('keypress', (e) => {
+        var key = window.event ? e.which : e.keyCode;
+        if (key < 48 || key > 57) {
+            e.preventDefault();
+        }
+        if (e.target.value.length >= 13) {
+			e.preventDefault();
+		}
+    });
+}
+
+
+
 /***************************************************\
 |    VALIDAR PARA INICIAR EL PLUGIN DE UPLOAD FILE   |
 \***************************************************/
 
-if ($(".step3").is(":visible") || $(".step2").is(":visible")) {
+if ($(".step3").is(":visible") || $(".step2").is(":visible") || $(".step3").is(":visible") || $(".step4").is(":visible")) {
+
+	$('html, body').animate({scrollTop: $(".alert-danger").offset().top - 300},1000);
 
 	//VALIDAR QUE TIPO DE ANIMAL ES PARA CAMBIAR EL PRECIO DE LOS PLANES
 	if (document.querySelector("select[name='animals']").value == 6) {
@@ -373,6 +417,14 @@ if ($(".step3").is(":visible") || $(".step2").is(":visible")) {
 		$(".standard").text("$10");
 		$(".premium").text("$20");
 	}
+
+	//MOSTRAR EL CUADRO DE VIDEOS SI SE NECESITA
+	planes = $("input[name='planSelect']").val();
+	if (planes == 1 || planes == 2) {
+		$("textarea[name='url-videos']").css("display", "none");
+		$("textarea[name='url-videos']").prev().css("display", "none");
+	}
+	
 
 	//MOSTRAR DE NUEVO EL TOTAL DEL PAGO.
 	let precio = $(".plan-selected span").html();
@@ -611,6 +663,9 @@ if (next2) {
 		}
 
 		if (planSelect.val() == 1) {
+			$("textarea[name='url-videos']").css("display", "none");
+			$("textarea[name='url-videos']").prev().css("display", "none");
+
 			$("input[type='file']").attr('data-max-files', "1");
 			if ($("input[name='hompage']").is(":checked")) {
 				$(".not-freeplan").css("display", "block");
@@ -622,6 +677,9 @@ if (next2) {
 			}
 		}
 		else if (planSelect.val() == 2) {
+			$("textarea[name='url-videos']").css("display", "none");
+			$("textarea[name='url-videos']").prev().css("display", "none");
+
 			$("input[type='file']").attr('data-max-files', "5");
 			$(".not-freeplan").css("display", "block");
 			$(".finish").text("Pay Now");
@@ -653,20 +711,24 @@ if (next3) {
 
 		let videos = document.querySelector("textarea[name='url-videos']");
 		let fotos = document.querySelector("input[name='filepond[]']");
+		let planSelect = document.querySelector("input[name='planSelect']");
+		let formFile = document.querySelector(".form-file");
 
 		//Eliminar errores
 		$(".err").remove();
 
 		if (fotos.value == '') {
-			error(fotos, "The fotos field is required");
+			error(formFile, "The fotos field is required");
 			$('html, body').animate({scrollTop: $(fotos).offset().top - 50},1000);
 			return false;
 		}
 
-		if (videos.value == '') {
-			error(videos, "The video field is required");
-			$('html, body').animate({scrollTop: $(videos).offset().top - 50},1000);
-			return false;
+		if (planSelect.value == 3) {
+			if (videos.value == '') {
+				error(videos, "The video field is required");
+				$('html, body').animate({scrollTop: $(videos).offset().top - 50},1000);
+				return false;
+			}
 		}
 
 		//OBTENER DATOS DEL PLAN ELEGIDO
@@ -705,18 +767,25 @@ if (next3) {
 let hompage2 = document.querySelector("input[name='hompage2']");
 if (hompage2) {
 	hompage2.addEventListener('click', e => {
+		planes = $("input[name='planSelect']").val();
 		if($("input[name='hompage2']").is(":checked")) {
-			let total = precio_planes();
-			let twich =  total + 20;
-			$(".row-total h3").html("Total: $"+twich);
-			$(".not-freeplan").css("display", "block");
-			$(".finish").text("Pay Now");
+				let total = precio_planes();
+				let twich =  total + 20;
+				$(".row-total h3").html("Total: $"+twich);
+				$(".not-freeplan").css("display", "block");
+				$(".finish").text("Pay Now");
 		}
 		else {
-			let total = precio_planes();
-			$(".row-total h3").html("Total: $"+total);
-			$(".not-freeplan").css("display", "none");
-			$(".finish").text("Create Now");
+			if (planes == 1) {
+				let total = precio_planes();
+				$(".row-total h3").html("Total: $"+total);
+				$(".not-freeplan").css("display", "none");
+				$(".finish").text("Create Now");
+			}
+			else {
+				let total = precio_planes();
+				$(".row-total h3").html("Total: $"+total);
+			}
 		}
 	});
 }
@@ -779,14 +848,20 @@ if (finish) {
 	            $errorMessage.addClass('hide');
 			     
 	        $('.has-error').removeClass('has-error');
+	        var vont = 0;
 	        $inputs.each(function(i, el) {
 				var $input = $(el);
 				if ($input.val() === '') {
+					vont = 1;
 		            $input.parent().addClass('has-error');
 		            $errorMessage.removeClass('hide');
 		            e.preventDefault();
 				}
 	        });
+
+	        if (vont == 0) {
+	        	$("#loading").css("display", "block");
+	        }
 			      
 			if (!$form.data('cc-on-file')) {
 			    e.preventDefault();
@@ -799,6 +874,63 @@ if (finish) {
 				}, stripeResponseHandler);
 			}
 		}
+		else {
+			$("#loading").css("display", "block");
+		}
+	});
+}
+
+
+/*********************\
+|      FAVORITES      |
+\*********************/
+
+let favorites = document.querySelector(".btn-border");
+if (favorites) {
+	favorites.addEventListener("click", e => {
+		$("#favorite").css("display", "block");
+	});
+}
+
+
+let cancel = document.querySelector(".cancel-favorite");
+if (cancel) {
+	cancel.addEventListener("click", e => {
+		$("#favorite").css("display", "none");
+	});
+}
+
+
+let accept = document.querySelector(".accpt-favorite");
+if (accept) {
+	accept.addEventListener("click", e => {
+
+		let idProducto = document.querySelector("#nick");
+		let token = document.querySelector("input[name='_token']");
+
+		data = {
+			"idProducto": idProducto.value, 
+			"_token": token.value 
+		};
+
+		request
+		   	.post('/addFavorite')
+		   	.send(data)
+		   	.set('Accept', 'application/json')
+		   	.then(res => {
+		   		console.log(res);
+		   		if (res.body.message == 'ok') {
+		   			location.reload();
+		   		}
+		   		else {
+		   			location.reload();
+		   		}
+		   	})
+		   	.catch(err => {
+      			// err.message, err.response
+      			console.log(err.message);
+      			location.reload();
+   			});
 	});
 }
 
@@ -891,6 +1023,45 @@ function initFile() {
 			getFileEncodeDataURL: false,
 			acceptedFileTypes: ['image/png', 'image/jpeg', 'image/jpg']
 		});
+
+
+		var pondDemoMultiple = pond;
+        var pondMultipleTimeout;
+        pondDemoMultiple.onwarning = function() {
+            var container = pondDemoMultiple.element.parentNode;
+            var error = container.querySelector('p.filepond--warning');
+            var numer = 0;
+            if (!error) {
+                error = document.createElement('p');
+                error.className = 'filepond--warning';
+
+                if ($("input[name='planSelect']").val() == 1) {
+                	numer = 1;
+                }
+                if ($("input[name='planSelect']").val() == 2) {
+                	numer = 5;
+                }
+
+                $(".err").remove();
+                error.textContent = 'The maximum number of files is '+numer;
+                container.appendChild(error);
+            }
+            requestAnimationFrame(function() {
+                error.dataset.state = 'visible';
+            });
+            clearTimeout(pondMultipleTimeout);
+            pondMultipleTimeout = setTimeout(function() {
+                error.dataset.state = 'hidden';
+            }, 5000);
+        };
+        pondDemoMultiple.onaddfile = function() {
+            clearTimeout(pondMultipleTimeout);
+            var container = pondDemoMultiple.element.parentNode;
+            var error = container.querySelector('p.filepond--warning');
+            if (error) {
+                error.dataset.state = 'hidden';
+            }
+        };
 	}
 }
 

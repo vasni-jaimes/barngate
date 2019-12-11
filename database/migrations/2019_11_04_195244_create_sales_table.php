@@ -16,6 +16,7 @@ class CreateSalesTable extends Migration
         Schema::create('sales', function (Blueprint $table) {
             $table->bigIncrements('sale_id');
             $table->integer('user_id');
+            $table->text('nickname')->nullable();
             $table->integer('animal_id');
             $table->integer('breed_id');
             $table->integer('color_id');
@@ -31,8 +32,10 @@ class CreateSalesTable extends Migration
             $table->string('country');
             $table->string('phone_number');
             $table->integer('plan_id');
+            $table->dateTime('date_init');
+            $table->dateTime('date_end');
             $table->integer('homepage');
-            $table->string('video');
+            $table->string('video')->nullable();
             $table->timestamps();
         });
     }

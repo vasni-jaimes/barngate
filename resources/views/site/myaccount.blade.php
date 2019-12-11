@@ -72,41 +72,27 @@
 							<a href="#" class="mw-150 btn btn-primary">Sale New Animal</a>
 						</div>
 						<h3 class="title-green">Your Listings</h3>
-						<p><em>None currently live</em></p>
-						<div class="pt-20 pb-20 text-blue text-center">
-							<p class="fw-700">OR</p>
-						</div>
+						@if ($animal == null)
+							<p> No Animals </p>
+						@endif
 						<div class="pt-20 pb-20">
-							<div class="flex-list items-center">
-								<div class="flex between items-center">
-									<div class="flex">
-										<img src="images/animals/horse-classifieds-barngate-picture-home.png">
-										<div class="txt-list">
-											<p>Bay Quarter Horse Colt</p>
-											<span class="active">Active</span>
-										</div> <!-- /txt-list -->
-									</div>
-									<div class="btn-list">
-										<a href="#" class="mw-150 btn btn-primary">Edit</a>
-										<a href="#" class="mw-150 btn btn-primary">Sold</a>
-									</div> <!-- /item-flex -->
-								</div> <!-- /flex -->
-							</div> <!-- /flex-list -->
-							<div class="flex-list items-center">
-								<div class="flex between items-center">
-									<div class="flex">
-										<img src="images/animals/horse-classifieds-barngate-picture-home.png">
-										<div class="txt-list">
-											<p>Bay Quarter Horse Colt</p>
-											<span class="expired">Expired</span>
-										</div> <!-- /txt-list -->
-									</div>
-									<div class="btn-list">
-										<a href="#" class="mw-150 btn btn-primary">Renovate</a>
-										<a href="#" class="mw-150 btn btn-primary">Remove</a>
-									</div> <!-- /item-flex -->
-								</div> <!-- /flex -->
-							</div> <!-- /flex-list -->
+							@for($i=0; $i <= count($animal) - 1; $i++)
+								<div class="flex-list items-center">
+									<div class="flex between items-center">
+										<div class="flex">
+											<img src="{{ "/storage/images/".$animal[$i]["img"] }}">
+											<div class="txt-list">
+												<a href="{{ route("sale.show", $animal[$i]["nickname"]) }}"><p>{{ $animal[$i]["animal_name"] }}</p></a>
+												<span class="active">Active</span>
+											</div> <!-- /txt-list -->
+										</div>
+										<div class="btn-list">
+											<a href="#" class="mw-150 btn btn-primary">Edit</a>
+											<a href="#" class="mw-150 btn btn-primary">Sold</a>
+										</div> <!-- /item-flex -->
+									</div> <!-- /flex -->
+								</div> <!-- /flex-list -->
+							@endfor
 						</div>
 					</div> <!-- /box-tab -->
 				</div>
@@ -141,7 +127,7 @@
 					<img src="images/picture.jpg">
 					<div class="txt-list">
 						<div class="flex items-center">
-							<p class="fw-700">Your Raiting</p>
+							<p class="fw-700">{{ auth()->user()->username }}</p>
 							<ul class="rating">
 								<li><i class="fa fa-star"></i></li>
 								<li><i class="fa fa-star"></i></li>
