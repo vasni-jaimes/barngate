@@ -27,17 +27,17 @@
 							<div class="item-flex">
 								<h2>Basic Info</h2>
 								<ul>
-									<li><p>Valeria Strempler</p></li>
-									<li><p>vstremplerd</p></li>
-									<li><p>Password</p></li>
+									<li><p>{{ auth()->user()->email }}</p></li>
+									<li><p>{{ auth()->user()->username }}</p></li>
+									<li><p> * * * * * * * * * * * </p></li>
 								</ul>
 								<h2>Contact Info</h2>
 								<ul>
-									<li><p>Name</p></li>
-									<li><p>Phone</p></li>
-									<li><p>Address</p></li>
-									<li><p>Zip/Postal Code</p></li>
-									<li><p>Country</p></li>
+									<li><p>{{ ( auth()->user()->name == null ) ? "Name" :  auth()->user()->name }}</p></li>
+									<li><p>{{ ( auth()->user()->phone == null ) ? "Phone" :  auth()->user()->phone }}</p></li>
+									<li><p>{{ ( auth()->user()->address == null ) ? "Address" :  auth()->user()->address }}</p></li>
+									<li><p>{{ ( auth()->user()->cp_zip == null ) ? "Zip/Postal Code" :  auth()->user()->cp_zip }}</p></li>
+									<li><p>{{ ( auth()->user()->country == null ) ? "Country" :  auth()->user()->country }}</p></li>
 								</ul>
 								<button class="show-info selector">Edit My Account Info</button>
 							</div> <!-- /item-flex -->
@@ -73,7 +73,7 @@
 						</div>
 						<h3 class="title-green">Your Listings</h3>
 						@if ($animal == null)
-							<p> No Animals </p>
+							<p> <em> None Currently live </em> </p>
 						@endif
 						<div class="pt-20 pb-20">
 							@for($i=0; $i <= count($animal) - 1; $i++)
@@ -218,8 +218,8 @@
 						<h3 class="text-center text-blue fz-30 mb-30">Basic Info</h3>
 						<form class="forma" action="" method="POST">
 							@csrf
-							<input type="text" class="input" name="name_register" placeholder="Name">
-							<input type="text" class="input" name="username" placeholder="Username (what others see when you comment)">
+							<input type="text" class="input" name="email" value="{{ old("email", auth()->user()->email) }}" placeholder="Name">
+							<input type="text" class="input" name="username" value="{{ old("username", auth()->user()->username) }}" placeholder="Username (what others see when you comment)">
 							<input type="password" class="input" name="password_register" placeholder="Password">
 						</form>
 					</div> <!-- /item-flex -->
@@ -228,19 +228,18 @@
 						{{-- {{ var_dump($errors->all()) }} --}}
 						<h3 class="text-center text-blue fz-30 mb-30">Contact Info</h3>
 						<form class="forma" action="" method="POST">
-							@csrf
-							<input type="text" class="input" name="name_register" placeholder="Name">
-							<input type="tel" class="input" name="phone" placeholder="Phone">
-							<input type="text" class="input" name="address" placeholder="Address">
-							<input type="text" class="input" name="postal" placeholder="Postal Code">
-							<input type="text" class="input" name="country" placeholder="Country">
+							<input type="text" class="input" name="name_contact" value="{{ old("name_contact", auth()->user()->name) }}" placeholder="Name">
+							<input type="tel" class="input" name="phone" value="{{ old("phone", auth()->user()->phone) }}" placeholder="Phone">
+							<input type="text" class="input" name="address" value="{{ old("address", auth()->user()->address) }}" placeholder="Address">
+							<input type="text" class="input" name="postal" value="{{ old("postal", auth()->user()->cp_zip) }}" placeholder="Postal Code">
+							<input type="text" class="input" name="country" value="{{ old("country", auth()->user()->country) }}" placeholder="Country">
 						</form>
 					</div> <!-- /item-flex -->
 
 				</div> <!-- /flex -->
 
 				<div class="text-center pt-20 pb-20">
-					<input class="mw-150 btn btn-primary" type="submit" value="Edit">
+					<input class="mw-150 btn btn-primary edit-info_user" type="submit" value="Edit">
 				</div>
 				
 			</div>

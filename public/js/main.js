@@ -24,20 +24,7 @@ jQuery('.show-info').click(function(e){
 jQuery('.close').click(function(e) {
 	jQuery('.shadowbox').fadeOut(300);
 	jQuery('body').css('overflow', 'auto');
-});
-
-jQuery('.vista1').click(function(){
-	jQuery('.vista2').removeClass('active');
-	jQuery(this).addClass('active');
-	jQuery('.row-lista').hide();
-	jQuery('.row-vista').show();
-});
-
-jQuery('.vista2').click(function(){
-	jQuery('.vista1').removeClass('active');
-	jQuery(this).addClass('active');
-	jQuery('.row-vista').hide();
-	jQuery('.row-lista').show();
+	$(".err").remove();
 });
 
 
@@ -913,6 +900,9 @@ if (accept) {
 			"_token": token.value 
 		};
 
+		$("#favorite").fadeOut();
+		$("#loading").fadeIn();
+
 		request
 		   	.post('/addFavorite')
 		   	.send(data)
@@ -920,17 +910,152 @@ if (accept) {
 		   	.then(res => {
 		   		console.log(res);
 		   		if (res.body.message == 'ok') {
-		   			location.reload();
+		   			$("#loading .wrapper-form img").css("display", "none");
+		   			$("#loading .wrapper-form").append("<div class='container-form'> <h2> Successfully added </h2> </div>");
+		   			setTimeout(function() { location.reload() }, 2000);
 		   		}
 		   		else {
-		   			location.reload();
+		   			$("#loading .wrapper-form img").css("display", "none");
+		   			$("#loading .wrapper-form").append("<div class='container-form'> <h2> There was a problem, try again later </h2> </div>");
+		   			setTimeout(function() { location.reload() }, 2000);
 		   		}
 		   	})
 		   	.catch(err => {
       			// err.message, err.response
       			console.log(err.message);
-      			location.reload();
+      			$("#loading .wrapper-form img").css("display", "none");
+	   			$("#loading .wrapper-form").append("<div class='container-form'> <h2> There was a problem, try again later </h2> </div>");
+	   			setTimeout(function() { location.reload() }, 2000);
    			});
+	});
+}
+
+
+
+let info_user = document.querySelector(".edit-info_user");
+if (info_user) {
+
+	info_user.addEventListener("click", function() {
+
+		let email = document.querySelector("input[name='email']");
+		let username = document.querySelector("input[name='username']");
+		let password = document.querySelector("input[name='password_register']");
+		let name = document.querySelector("input[name='name_contact']");
+		let phone = document.querySelector("input[name='phone']");
+		let address = document.querySelector("input[name='address']");
+		let postal = document.querySelector("input[name='postal']");
+		let country = document.querySelector("input[name='country']");
+		let token = document.querySelector("input[name='_token']");
+
+
+		//Eliminar errores
+		$(".err").remove();
+
+
+		if (email.value.trim() == '') {
+			error(email, "The email field is required");
+			return false;	
+		}
+
+		if (!validar_email(email.value)) {
+			$(email).after("The email must be a valid email address.");
+			return false;
+		}
+
+		if (username.value.trim() == '') {
+			$(username).after("The username field is required");
+			return false;
+		}
+
+		if (name.value.trim() == '') {
+			error(name, "The name field is required");
+			return false;	
+		}
+
+		if (phone.value.trim() == '') {
+			error(phone, "The phone field is required");
+			return false;	
+		}
+
+		if (address.value.trim() == '') {
+			error(address, "The address field is required");
+			return false;	
+		}
+
+		if (postal.value.trim() == '') {
+			error(postal, "The postal field is required");
+			return false;	
+		}
+
+		if (country.value.trim() == '') {
+			error(country, "The country field is required");
+			return false;	
+		}
+
+
+		data = {
+			"email": email.value,
+			"username": username.value,
+			"password": password.value,
+			"name": name.value,
+			"phone": phone.value,
+			"address": address.value,
+			"postal": postal.value,
+			"country": country.value,
+			"_token": token.value  
+		};
+
+		$("#editinfo").fadeOut();
+		$("#loading").fadeIn();
+
+		request
+		   	.post('/myaccount/editProfile')
+		   	.send(data)
+		   	.set('Accept', 'application/json')
+		   	.then(res => {
+		   		console.log(res);
+		   		if (res.body.message == 'ok') {
+		   			$("#loading .wrapper-form img").css("display", "none");
+		   			$("#loading .wrapper-form").append("<div class='container-form'> <h2> Successfully uploaded </h2> </div>");
+		   			setTimeout(function() { location.reload() }, 2200);
+		   		}
+		   		else {
+
+		   			$("#editinfo").fadeIn();
+					$("#loading").fadeOut();
+
+		   			if (res.body.username) {
+		   				error(username, res.body.username[0]);
+		   			}
+		   			else if (res.body.email) {
+		   				error(email, res.body.email[0]);
+		   			}
+		   			else if (res.body.password) {
+		   				error(password, res.body.password[0]);
+		   			}
+		   			else if (res.body.name) {
+		   				error(name, res.body.name[0]);
+		   			}
+		   			else if (res.body.phone) {
+		   				error(phone, res.body.phone[0]);
+		   			}
+		   			else if (res.body.address) {
+		   				error(address, res.body.address[0]);
+		   			}
+		   			else if (res.body.postal) {
+		   				error(postal, res.body.postal[0]);
+		   			}
+		   			else if (res.body.country) {
+		   				error(country, res.body.country[0]);
+		   			}
+		   		}
+		   	})
+		   	.catch(err => {
+      			// err.message, err.response
+      			console.log(err.message);
+   			});
+
+
 	});
 }
 
@@ -947,8 +1072,8 @@ function validar_email( email ) {
 
 function error(element, msg) {
 	$(element)
-		.css("margin-bottom", "0px")
-		.after("<span class='err' style='display:block;margin-bottom:15px;color:red'>"+msg+"</span>");
+		//.css("margin-bottom", "0px")
+		.after("<span class='err' style='display:block;margin-bottom:15px;margin-top: -15px;color:red'>"+msg+"</span>");
 }
 
 

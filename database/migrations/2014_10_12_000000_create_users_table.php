@@ -23,7 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('phone')->nullable();
             $table->text('address')->nullable();
             $table->string('cp_zip')->nullable();
-            $table->integer('country')->nullable();
+            $table->string('country', 255)->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

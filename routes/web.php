@@ -36,6 +36,7 @@ Route::post('/sale.store', 'SaleController@store')->name('sale.store');
 
 //Myaccount
 Route::get('/myaccount', 'MyaccountController@index')->name('myaccount');
+Route::post('/myaccount/editProfile', 'MyaccountController@EditProfile')->name('editprofile');
 
 //Detalle
 Route::get('/detail/{id}', 'SaleController@show')->name('sale.show');

@@ -193,7 +193,7 @@
 				{{-- {{ var_dump($errors->all()) }} --}}
 				<h3 class="text-center text-blue fz-30 mb-30">Register to Buy</h3>
 				<form class="forma" action="/register" method="POST" id="form_register">
-					@csrf
+					<input type="hidden" name="_token" value="{{ csrf_token() }}">
 					<input type="text" class="input" name="email_register" placeholder="Email">
 					<input type="text" class="input" name="username" placeholder="Username (what others see when you comment)">
 					<input type="password" class="input" name="password_register" placeholder="Password">
@@ -231,9 +231,7 @@
 
 	<div class="shadowbox" id="loading">
 		<div class="wrapper-form">
-			{{-- <div class="container-form"> --}}
-				<img src="/images/loading.gif" alt="loading">
-			{{-- </div> --}} <!-- /container-form -->
+			<img src="/images/loading.gif" alt="loading">
 		</div> <!-- /wrapper-form -->
 	</div> <!-- /shadowbox -->
 
