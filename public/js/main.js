@@ -24,7 +24,10 @@ jQuery('.show-info').click(function(e){
 jQuery('.close').click(function(e) {
 	jQuery('.shadowbox').fadeOut(300);
 	jQuery('body').css('overflow', 'auto');
+	$(".err").remove();
 });
+
+
 
 jQuery('.vista1').click(function(){
 	jQuery('.vista2').removeClass('active');
@@ -885,7 +888,7 @@ if (finish) {
 |      FAVORITES      |
 \*********************/
 
-let favorites = document.querySelector(".btn-border");
+let favorites = document.querySelector(".button_favorite");
 if (favorites) {
 	favorites.addEventListener("click", e => {
 		$("#favorite").css("display", "block");
@@ -900,7 +903,6 @@ if (cancel) {
 	});
 }
 
-
 let accept = document.querySelector(".accpt-favorite");
 if (accept) {
 	accept.addEventListener("click", e => {
@@ -913,6 +915,9 @@ if (accept) {
 			"_token": token.value 
 		};
 
+		$("#favorite").fadeOut();
+		$("#loading").fadeIn();
+
 		request
 		   	.post('/addFavorite')
 		   	.send(data)
@@ -920,19 +925,213 @@ if (accept) {
 		   	.then(res => {
 		   		console.log(res);
 		   		if (res.body.message == 'ok') {
-		   			location.reload();
+		   			$("#loading .wrapper-form img").css("display", "none");
+		   			$("#loading .wrapper-form").append("<div class='container-form'> <h2> Successfully added </h2> </div>");
+		   			setTimeout(function() { location.reload() }, 2000);
 		   		}
 		   		else {
-		   			location.reload();
+		   			$("#loading .wrapper-form img").css("display", "none");
+		   			$("#loading .wrapper-form").append("<div class='container-form'> <h2> There was a problem, try again later </h2> </div>");
+		   			setTimeout(function() { location.reload() }, 2000);
 		   		}
 		   	})
 		   	.catch(err => {
       			// err.message, err.response
       			console.log(err.message);
-      			location.reload();
+      			$("#loading .wrapper-form img").css("display", "none");
+	   			$("#loading .wrapper-form").append("<div class='container-form'> <h2> There was a problem, try again later </h2> </div>");
+	   			setTimeout(function() { location.reload() }, 2000);
    			});
 	});
 }
+
+
+
+/*************************\
+|      EDITAR PERFIL      |
+\*************************/
+
+let info_user = document.querySelector(".edit-info_user");
+if (info_user) {
+
+	info_user.addEventListener("click", function() {
+
+		let email = document.querySelector("input[name='email']");
+		let username = document.querySelector("input[name='username']");
+		let password = document.querySelector("input[name='password_register']");
+		let name = document.querySelector("input[name='name_contact']");
+		let phone = document.querySelector("input[name='phone']");
+		let address = document.querySelector("input[name='address']");
+		let postal = document.querySelector("input[name='postal']");
+		let country = document.querySelector("input[name='country']");
+		let token = document.querySelector("input[name='_token']");
+
+
+		//Eliminar errores
+		$(".err").remove();
+
+
+		if (email.value.trim() == '') {
+			error(email, "The email field is required");
+			return false;	
+		}
+
+		if (!validar_email(email.value)) {
+			$(email).after("The email must be a valid email address.");
+			return false;
+		}
+
+		if (username.value.trim() == '') {
+			$(username).after("The username field is required");
+			return false;
+		}
+
+		if (name.value.trim() == '') {
+			error(name, "The name field is required");
+			return false;	
+		}
+
+		if (phone.value.trim() == '') {
+			error(phone, "The phone field is required");
+			return false;	
+		}
+
+		if (address.value.trim() == '') {
+			error(address, "The address field is required");
+			return false;	
+		}
+
+		if (postal.value.trim() == '') {
+			error(postal, "The postal field is required");
+			return false;	
+		}
+
+		if (country.value.trim() == '') {
+			error(country, "The country field is required");
+			return false;	
+		}
+
+
+		data = {
+			"email": email.value,
+			"username": username.value,
+			"password": password.value,
+			"name": name.value,
+			"phone": phone.value,
+			"address": address.value,
+			"postal": postal.value,
+			"country": country.value,
+			"_token": token.value  
+		};
+
+		$("#editinfo").fadeOut();
+		$("#loading").fadeIn();
+
+		request
+		   	.post('/myaccount/editProfile')
+		   	.send(data)
+		   	.set('Accept', 'application/json')
+		   	.then(res => {
+		   		console.log(res);
+		   		if (res.body.message == 'ok') {
+		   			$("#loading .wrapper-form img").css("display", "none");
+		   			$("#loading .wrapper-form").append("<div class='container-form'> <h2> Successfully uploaded </h2> </div>");
+		   			setTimeout(function() { location.reload() }, 2200);
+		   		}
+		   		else {
+
+		   			$("#editinfo").fadeIn();
+					$("#loading").fadeOut();
+
+		   			if (res.body.username) {
+		   				error(username, res.body.username[0]);
+		   			}
+		   			else if (res.body.email) {
+		   				error(email, res.body.email[0]);
+		   			}
+		   			else if (res.body.password) {
+		   				error(password, res.body.password[0]);
+		   			}
+		   			else if (res.body.name) {
+		   				error(name, res.body.name[0]);
+		   			}
+		   			else if (res.body.phone) {
+		   				error(phone, res.body.phone[0]);
+		   			}
+		   			else if (res.body.address) {
+		   				error(address, res.body.address[0]);
+		   			}
+		   			else if (res.body.postal) {
+		   				error(postal, res.body.postal[0]);
+		   			}
+		   			else if (res.body.country) {
+		   				error(country, res.body.country[0]);
+		   			}
+		   		}
+		   	})
+		   	.catch(err => {
+      			// err.message, err.response
+      			console.log(err.message);
+   			});
+
+
+	});
+}
+
+
+
+/**************************\
+|     Animal - Active      |
+\**************************/
+
+let col_animal = document.querySelectorAll(".col-animal");
+
+if (col_animal) {
+
+	for (let i = 0; i <= col_animal.length - 1; i++) {
+        col_animal[i].addEventListener('click', function(e) {
+        	$(".col-animal").removeClass("active-animal");
+        	$(this).addClass("active-animal");
+        	searchWP();
+        });
+    }
+}
+
+
+/**************************\
+|     search input         |
+\**************************/
+let search = document.querySelector(".search input");
+
+if (search) {
+	search.addEventListener('input', function(e) {
+		searchWP();
+	});
+}
+
+
+/****************************\
+|     search selects         |
+\****************************/
+
+let filtros = document.querySelectorAll(".row-filtros select");
+
+if (filtros) {
+
+	for (let i = 0; i <= filtros.length - 1; i++) {
+        filtros[i].addEventListener('change', function(e) {
+        	searchWP();
+        });
+    }
+}
+
+
+
+/**********************************\
+|     ACTIVAR MAPA DEL FILTRO      |
+\**********************************/
+
+$(".go-to_map").click(initialize);
 
 
 
@@ -947,8 +1146,8 @@ function validar_email( email ) {
 
 function error(element, msg) {
 	$(element)
-		.css("margin-bottom", "0px")
-		.after("<span class='err' style='display:block;margin-bottom:15px;color:red'>"+msg+"</span>");
+		//.css("margin-bottom", "0px")
+		.after("<span class='err' style='display:block;margin-bottom:15px;margin-top: -15px;color:red'>"+msg+"</span>");
 }
 
 
@@ -1066,6 +1265,63 @@ function initFile() {
 }
 
 
+
+function searchWP() {
+
+	let selector = ".back-animal";
+	let selector2 = ", .list-animal";
+	let animal = $(".active-animal").attr('data-animal');
+	let breeds = $("select[name='breeds']").val();
+	let colors = $("select[name='colors']").val();
+	let age = $("select[name='age']").val();
+	let gender = $("select[name='gender']").val();
+	let discipline = $("select[name='discipline']").val();
+	let search = $(".search input").val();
+
+
+	if (animal != null) {
+		selector += "[data-animal='"+animal+"']";
+		selector2 += "[data-animal='"+animal+"']";
+	}
+
+	if (breeds != null) {
+		selector += "[data-breed='"+breeds+"']";
+		selector2 += "[data-breed='"+breeds+"']";
+	}
+
+	if (colors != null) {
+		selector += "[data-color='"+colors+"']";
+		selector2 += "[data-color='"+colors+"']";
+	}
+
+	if (age != null) {
+		selector += "[data-age='"+age+"']";
+		selector2 += "[data-age='"+age+"']";
+	}
+
+	if (gender != null) {
+		selector += "[data-gender='"+gender+"']";
+		selector2 += "[data-gender='"+gender+"']";
+	}
+
+	if (discipline != null) {
+		selector += "[data-discipline='"+discipline+"']";
+		selector2 += "[data-discipline='"+discipline+"']";
+	}
+
+	if (search != '' && search != null) {
+		selector += "[data-description *= '"+search+"']";
+		selector2 += "[data-description *= '"+search+"']";
+	}
+
+
+	$(".back-animal, .list-animal").css("display", "none");
+	$(selector + selector2).css("display", "block");
+	cordenadas();
+
+}
+
+
 function stripeResponseHandler(status, response) {
     if (response.error) {
         $('.error')
@@ -1079,5 +1335,76 @@ function stripeResponseHandler(status, response) {
         $form.find('input[type=text]').empty();
         $form.append("<input type='hidden' name='stripeToken' value='" + token + "'/>");
         $form.get(0).submit();
+    }
+}
+
+
+
+function initialize() {
+
+ 	let vasni = $("#lat").val();
+    let p = JSON.parse(vasni);
+    let marcadores = p;
+    let ultimo = marcadores.length - 1;
+
+	var map = new google.maps.Map(document.getElementById('map-canvas'), {
+		zoom: 11,
+		center: new google.maps.LatLng(marcadores[0][1], marcadores[ultimo][2]),
+		mapTypeId: google.maps.MapTypeId.ROADMAP
+	});
+
+  	var infowindow = new google.maps.InfoWindow();
+  	var marker, i;
+	for (i = 0; i < marcadores.length; i++) {  
+		marker = new google.maps.Marker({
+			position: new google.maps.LatLng(marcadores[i][1], marcadores[i][2]),
+			map: map
+		});
+		google.maps.event.addListener(marker, 'click', (function(marker, i) {
+			return function() {
+		    	infowindow.setContent(marcadores[i][0]);
+		    	infowindow.open(map, marker);
+		  	}
+		})(marker, i));
+	}
+}
+
+
+
+function cordenadas() {
+
+	let address = [];
+
+	$(".back-animal:visible").each(function() {
+		address.push($(this).attr('data-address'));
+	});
+
+    var locationArray = [];
+
+    if (address == '') {
+        return false;
+    }
+
+    var geocoder = new google.maps.Geocoder();
+
+    for (let i = 0; i <= address.length - 0; i++) {
+
+    	geocoder.geocode({ 'address': address[i]}, function(results, status) {
+
+             if (status == 'OK') {
+
+                var latitud = results[0].geometry.location.lat();
+                var longitud = results[0].geometry.location.lng();
+
+                locationArray[i] = [ address[i], latitud, longitud ];
+                document.getElementById("lat").value = JSON.stringify(locationArray);
+
+
+               	//localStorage.setItem('nombre', JSON.stringify(locationArray));
+             }
+             else {
+                 console.log("Geocoding no tuvo éxito debido a: " + status);
+             }
+        });
     }
 }

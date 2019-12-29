@@ -37,7 +37,7 @@
 				<p class="price text-blue">Price: <span>${{ $animal->price }}</span></p>
 				<div class="flex align-items">
 					@if (!$favorite)
-						<button class="btn btn-border">Add to Favorites</button>
+						<button class="btn btn-border button_favorite">Add to Favorites</button>
 						<input type="hidden" id="nick" value="{{ $animal->nickname }}">
 						@csrf
 					@endif

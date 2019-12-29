@@ -36,6 +36,7 @@ Route::post('/sale.store', 'SaleController@store')->name('sale.store');
 
 //Myaccount
 Route::get('/myaccount', 'MyaccountController@index')->name('myaccount');
+Route::post('/myaccount/editProfile', 'MyaccountController@EditProfile')->name('editprofile');
 
 //Detalle
 Route::get('/detail/{id}', 'SaleController@show')->name('sale.show');
@@ -43,10 +44,15 @@ Route::get('/detail/{id}', 'SaleController@show')->name('sale.show');
 //Favorites
 Route::post("/addFavorite", "FavoritesController@addFavorite")->name("addFav");
 
+//Search
+Route::get('/search', 'SearchController@VistaSearch')->name('vistaSearch');
+Route::post('/searcha', 'SearchController@SerchAjax')->name('serchajax');
+
 //vistas val pendientes
 //Route::view('/sale', 'site.sale')->name('sale');
 //Route::view('/add_animals', 'site.add_animals')->name('add_animals');
 //Route::view('/upload', 'site.upload')->name('upload');
 //Route::view('/between', 'site.between')->name('between');
+
 Route::view('/faqs', 'site.faqs')->name('faqs');
-Route::view('/vista', 'site.vista')->name('vista');
+//Route::view('/vista', 'site.vista')->name('vista');
