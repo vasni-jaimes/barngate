@@ -245,6 +245,7 @@
 <script src="/mmenu/jquery.mmenu.all.js"></script>
 <script src="/slick/slick.js"></script>
 <script type="text/javascript" src="/js/main.js"></script>
+@yield("js-content_main")
 
 </body>
 </html>

@@ -6,5 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Favorite extends Model
 {
-    protected $primaryKey = 'sale_id';
+    protected $primaryKey = 'favorite_id';
+    protected $table = 'favorites';
 }

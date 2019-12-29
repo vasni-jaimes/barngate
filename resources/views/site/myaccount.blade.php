@@ -153,7 +153,24 @@
 
 			<div class="slide-account">
 
-				<div>
+
+				@if($misFavoritos != null)
+
+					@for($i = 0; $i <= count($misFavoritos) - 1; $i++)
+
+						<div>
+							<div class="slide-animal">							
+								<div class="image-slide" style="background-image: url({{ "/storage/images/".$misFavoritos[$i]["img"] }})"></div>
+							</div> <!-- /slide-animal -->
+							<p class="pt-10">{{ $misFavoritos[$i]["animal_name"] }}</p>
+							<a href="{{ route("sale.show", $misFavoritos[$i]["nickname"]) }}">See more</a>
+						</div>
+
+					@endfor
+
+				@endif
+
+				{{-- <div>
 					<div class="slide-animal">
 						<div class="image-slide" style="background-image: url('images/animals/horse-classifieds-barngate-picture-home.png')"></div>
 						<div class="image-slide" style="background-image: url('images/animals/horse-classifieds-barngate-picture-home.png')"></div>
@@ -196,7 +213,7 @@
 					</div> <!-- /slide-animal -->
 					<p class="pt-10">Breed</p>
 					<a href="#">See more</a>
-				</div>
+				</div> --}}
 
 			</div> <!-- /slide-account -->
 

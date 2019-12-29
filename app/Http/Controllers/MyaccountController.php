@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 //Moderl
 use App\User;
 use App\Sale;
+use App\favorite;
 
 //DB
 use DB;
@@ -38,7 +39,9 @@ class MyaccountController extends Controller
             }
         }
 
-    	return view("site.myaccount", compact("animal"));
+        $misFavoritos = $this->getFavorites(auth()->user()->user_id);
+
+    	return view("site.myaccount", compact("animal", "misFavoritos"));
     }
 
 
@@ -107,5 +110,32 @@ class MyaccountController extends Controller
         }
        
         return false;
+    }
+
+
+    public function getFavorites($user_id)
+    {
+        $favorite = favorite::where("user_id", $user_id)->get();
+        $favoriteArray = array();
+
+        if ($favorite->count() > 0) {
+            $cont = 0;
+            foreach ($favorite as $favorites) {
+                $favoritefull = Sale::where("sale_id", $favorites->sale_id)
+                                    ->join('animals', 'sales.animal_id', '=', 'animals.animal_id')
+                                    ->select('sales.*', 'animals.name as animal_name')
+                                    ->first();
+
+                $favoriteArray[$cont]["animal_name"]  = $favoritefull->animal_name;
+                $favoriteArray[$cont]["nickname"]      = $favoritefull->nickname;
+                $favoriteArray[$cont]["img"]           = $this->primerImagenProducto( $favoritefull->user_id, $favoritefull->animal_id, $favoritefull->sale_id );
+                $cont++;
+            }
+
+            return $favoriteArray;
+
+        }
+
+       return false;
     }
 }

@@ -28,6 +28,22 @@ jQuery('.close').click(function(e) {
 });
 
 
+
+jQuery('.vista1').click(function(){
+	jQuery('.vista2').removeClass('active');
+	jQuery(this).addClass('active');
+	jQuery('.row-lista').hide();
+	jQuery('.row-vista').show();
+});
+
+jQuery('.vista2').click(function(){
+	jQuery('.vista1').removeClass('active');
+	jQuery(this).addClass('active');
+	jQuery('.row-vista').hide();
+	jQuery('.row-lista').show();
+});
+
+
 /************************\
 |    MENU HAMBURGUESA    |
 \************************/
@@ -872,7 +888,7 @@ if (finish) {
 |      FAVORITES      |
 \*********************/
 
-let favorites = document.querySelector(".btn-border");
+let favorites = document.querySelector(".button_favorite");
 if (favorites) {
 	favorites.addEventListener("click", e => {
 		$("#favorite").css("display", "block");
@@ -886,7 +902,6 @@ if (cancel) {
 		$("#favorite").css("display", "none");
 	});
 }
-
 
 let accept = document.querySelector(".accpt-favorite");
 if (accept) {
@@ -931,6 +946,10 @@ if (accept) {
 }
 
 
+
+/*************************\
+|      EDITAR PERFIL      |
+\*************************/
 
 let info_user = document.querySelector(".edit-info_user");
 if (info_user) {
@@ -1058,6 +1077,61 @@ if (info_user) {
 
 	});
 }
+
+
+
+/**************************\
+|     Animal - Active      |
+\**************************/
+
+let col_animal = document.querySelectorAll(".col-animal");
+
+if (col_animal) {
+
+	for (let i = 0; i <= col_animal.length - 1; i++) {
+        col_animal[i].addEventListener('click', function(e) {
+        	$(".col-animal").removeClass("active-animal");
+        	$(this).addClass("active-animal");
+        	searchWP();
+        });
+    }
+}
+
+
+/**************************\
+|     search input         |
+\**************************/
+let search = document.querySelector(".search input");
+
+if (search) {
+	search.addEventListener('input', function(e) {
+		searchWP();
+	});
+}
+
+
+/****************************\
+|     search selects         |
+\****************************/
+
+let filtros = document.querySelectorAll(".row-filtros select");
+
+if (filtros) {
+
+	for (let i = 0; i <= filtros.length - 1; i++) {
+        filtros[i].addEventListener('change', function(e) {
+        	searchWP();
+        });
+    }
+}
+
+
+
+/**********************************\
+|     ACTIVAR MAPA DEL FILTRO      |
+\**********************************/
+
+$(".go-to_map").click(initialize);
 
 
 
@@ -1191,6 +1265,63 @@ function initFile() {
 }
 
 
+
+function searchWP() {
+
+	let selector = ".back-animal";
+	let selector2 = ", .list-animal";
+	let animal = $(".active-animal").attr('data-animal');
+	let breeds = $("select[name='breeds']").val();
+	let colors = $("select[name='colors']").val();
+	let age = $("select[name='age']").val();
+	let gender = $("select[name='gender']").val();
+	let discipline = $("select[name='discipline']").val();
+	let search = $(".search input").val();
+
+
+	if (animal != null) {
+		selector += "[data-animal='"+animal+"']";
+		selector2 += "[data-animal='"+animal+"']";
+	}
+
+	if (breeds != null) {
+		selector += "[data-breed='"+breeds+"']";
+		selector2 += "[data-breed='"+breeds+"']";
+	}
+
+	if (colors != null) {
+		selector += "[data-color='"+colors+"']";
+		selector2 += "[data-color='"+colors+"']";
+	}
+
+	if (age != null) {
+		selector += "[data-age='"+age+"']";
+		selector2 += "[data-age='"+age+"']";
+	}
+
+	if (gender != null) {
+		selector += "[data-gender='"+gender+"']";
+		selector2 += "[data-gender='"+gender+"']";
+	}
+
+	if (discipline != null) {
+		selector += "[data-discipline='"+discipline+"']";
+		selector2 += "[data-discipline='"+discipline+"']";
+	}
+
+	if (search != '' && search != null) {
+		selector += "[data-description *= '"+search+"']";
+		selector2 += "[data-description *= '"+search+"']";
+	}
+
+
+	$(".back-animal, .list-animal").css("display", "none");
+	$(selector + selector2).css("display", "block");
+	cordenadas();
+
+}
+
+
 function stripeResponseHandler(status, response) {
     if (response.error) {
         $('.error')
@@ -1204,5 +1335,76 @@ function stripeResponseHandler(status, response) {
         $form.find('input[type=text]').empty();
         $form.append("<input type='hidden' name='stripeToken' value='" + token + "'/>");
         $form.get(0).submit();
+    }
+}
+
+
+
+function initialize() {
+
+ 	let vasni = $("#lat").val();
+    let p = JSON.parse(vasni);
+    let marcadores = p;
+    let ultimo = marcadores.length - 1;
+
+	var map = new google.maps.Map(document.getElementById('map-canvas'), {
+		zoom: 11,
+		center: new google.maps.LatLng(marcadores[0][1], marcadores[ultimo][2]),
+		mapTypeId: google.maps.MapTypeId.ROADMAP
+	});
+
+  	var infowindow = new google.maps.InfoWindow();
+  	var marker, i;
+	for (i = 0; i < marcadores.length; i++) {  
+		marker = new google.maps.Marker({
+			position: new google.maps.LatLng(marcadores[i][1], marcadores[i][2]),
+			map: map
+		});
+		google.maps.event.addListener(marker, 'click', (function(marker, i) {
+			return function() {
+		    	infowindow.setContent(marcadores[i][0]);
+		    	infowindow.open(map, marker);
+		  	}
+		})(marker, i));
+	}
+}
+
+
+
+function cordenadas() {
+
+	let address = [];
+
+	$(".back-animal:visible").each(function() {
+		address.push($(this).attr('data-address'));
+	});
+
+    var locationArray = [];
+
+    if (address == '') {
+        return false;
+    }
+
+    var geocoder = new google.maps.Geocoder();
+
+    for (let i = 0; i <= address.length - 0; i++) {
+
+    	geocoder.geocode({ 'address': address[i]}, function(results, status) {
+
+             if (status == 'OK') {
+
+                var latitud = results[0].geometry.location.lat();
+                var longitud = results[0].geometry.location.lng();
+
+                locationArray[i] = [ address[i], latitud, longitud ];
+                document.getElementById("lat").value = JSON.stringify(locationArray);
+
+
+               	//localStorage.setItem('nombre', JSON.stringify(locationArray));
+             }
+             else {
+                 console.log("Geocoding no tuvo éxito debido a: " + status);
+             }
+        });
     }
 }
