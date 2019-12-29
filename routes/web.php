@@ -48,4 +48,5 @@ Route::post("/addFavorite", "FavoritesController@addFavorite")->name("addFav");
 //Route::view('/add_animals', 'site.add_animals')->name('add_animals');
 //Route::view('/upload', 'site.upload')->name('upload');
 //Route::view('/between', 'site.between')->name('between');
+Route::view('/faqs', 'site.faqs')->name('faqs');
 Route::view('/vista', 'site.vista')->name('vista');

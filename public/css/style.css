@@ -76,15 +76,15 @@ nav ul li{
 }
 
 
-.no-style{
-	display: inline-block; 
-	max-width: 144px;
-	width: 100%;
-    border: 0!important;
+.no-style {
+	border: 0!important;
 }
 
-.menu_top li.no-style a {
+.menu_top li.no-style a.btn {
 	font-size: 17px;
+	display: inline-block; 
+	width: 144px;
+	/*width: 100%;*/
 }
 
 .menu_top a,
@@ -1201,6 +1201,10 @@ textarea.form-input {
 	height: 25px;
 }
 
+.form-file {
+	text-align: right;
+}
+
 .cargar-picture {
 	width: 0.1px;
 	height: 0.1px;
@@ -1211,14 +1215,14 @@ textarea.form-input {
 }
 
 .cargar-picture + label {
-	display: block;
+	display: inline-block;
 	position: relative;
-	width: 150px;
-	height: 150px;
+	width: 175px;
+	height: 175px;
 	padding: 20px;
 	box-sizing: border-box;
 	text-align: center;
-	font-size: 12px;
+	font-size: 14px;
 	border: 2px dashed #969FAA;
 	border-radius: 50%;
 	cursor: pointer;
@@ -1244,7 +1248,7 @@ textarea.form-input {
 	position: relative;
 	margin: 20px 0 0;
 	font-family: Lato;
-	font-size: 15px;
+	font-size: 16px;
   	font-weight: 700;
 	color: #969FAA;
 	left: 50%;
