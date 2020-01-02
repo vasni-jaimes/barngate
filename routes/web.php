@@ -22,7 +22,7 @@ Route::view('/contact', 'site.contact')->name('contact');
 
 
 //Vistas Dinamicas
-Route::view('/', 'site.index')->name("home");
+Route::get('/', 'HomeController@index')->name("home");
 
 //Login, Logout, Register
 Auth::routes(["register" => false]);
@@ -37,6 +37,7 @@ Route::post('/sale.store', 'SaleController@store')->name('sale.store');
 //Myaccount
 Route::get('/myaccount', 'MyaccountController@index')->name('myaccount');
 Route::post('/myaccount/editProfile', 'MyaccountController@EditProfile')->name('editprofile');
+Route::post('/saveSettings', 'MyaccountController@SaveSettings')->name('SaveSettings');
 
 //Detalle
 Route::get('/detail/{id}', 'SaleController@show')->name('sale.show');
@@ -47,6 +48,7 @@ Route::post("/addFavorite", "FavoritesController@addFavorite")->name("addFav");
 //Search
 Route::get('/search', 'SearchController@VistaSearch')->name('vistaSearch');
 Route::post('/searcha', 'SearchController@SerchAjax')->name('serchajax');
+
 
 //vistas val pendientes
 //Route::view('/sale', 'site.sale')->name('sale');

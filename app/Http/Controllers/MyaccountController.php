@@ -40,7 +40,6 @@ class MyaccountController extends Controller
         }
 
         $misFavoritos = $this->getFavorites(auth()->user()->user_id);
-
     	return view("site.myaccount", compact("animal", "misFavoritos"));
     }
 
@@ -85,7 +84,38 @@ class MyaccountController extends Controller
 
         DB::rollback();
         return response()->json(["message" => "off"], 202);
-        
+    }
+
+
+
+    public function SaveSettings(Request $request)
+    {
+         if ($request->has('email_favorite') && 
+            $request->has('email_update') && 
+            $request->has('receive_text')) {
+
+
+             $validator = Validator::make($request->all(), [
+                'email_favorite' => ['required','boolean'],
+                'email_update' => ['required','boolean'],
+                'receive_text' => ['required','boolean'],
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json($validator->errors(), 202);
+            }
+
+            $usuario = User::find(auth()->user()->user_id);
+            $request->email_favorite == 1 ? $usuario->email_favorite = 1 : $usuario->email_favorite = 0;
+            $request->email_update == 1 ? $usuario->email_update = 1 : $usuario->email_update = 0;
+            $request->receive_text == 1 ? $usuario->receive_text = 1 : $usuario->receive_text = 0;
+
+            if ($usuario->save()) {
+                return response()->json(["message"=>"ok"], 202);
+            }
+
+            return response()->json(["message"=>"error_save"], 202);
+        }
     }
 
 
