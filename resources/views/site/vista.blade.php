@@ -18,7 +18,7 @@
 					<p class="fw-900 fz-22">Price</p>
 					
 					<div class="mt-20 mb-20">
-						<label class="price"><input id="input" type="range" value="{{ old("temperament", 0) }}" min="0" max="10" autocomplete="off" name="temperament"></label>
+						<label class="price"><input id="price_filtro" type="range" value="{{ old("price_filtro", 100) }}" min="0" max="100000" step="1" autocomplete="off" name="price_filtro"></label>
 						<p class="range">$<span id="etiqueta"></span></p>
 					</div> <!-- /flex -->
 					
@@ -144,7 +144,8 @@
 														data-gender="{{ $animal[$i]["gender_id"] }}"
 														data-discipline="{{ $animal[$i]["discipline_id"] }}"
 														data-description="{{ $animal[$i]["description"] }}"
-														data-address="{{ $animal[$i]["adress"] }}">
+														data-address="{{ $animal[$i]["adress"] }}"
+														data-price="{{ floatval($animal[$i]["price_filtro"]) }}">
 
 									<img src="{{ "/storage/images/".$animal[$i]["img"] }}">
 									<div class="mt-20 text-center">
@@ -162,7 +163,7 @@
 								</div> <!-- /col-md-6 -->
 
 						@php $cont++; @endphp
-						@if ($cont == 2)
+						@if ($cont == 2 || count($animal) -1 == $i)
 							</div> <!-- /row -->
 							@php $cont = 0; @endphp
 						@endif
@@ -170,7 +171,6 @@
 				</div> <!-- /row-vista -->
 				
 				<div class="row-lista">
-					
 					@for($i=0; $i <= count($animal) - 1; $i++)
 
 						<div class="item-lista flex between items-center list-animal" data-animal="{{ $animal[$i]["animal_id"] }}" 
@@ -180,7 +180,8 @@
 																						data-gender="{{ $animal[$i]["gender_id"] }}"
 																						data-discipline="{{ $animal[$i]["discipline_id"] }}"
 																						data-description="{{ $animal[$i]["description"] }}"
-																						data-address="{{ $animal[$i]["adress"] }}">
+																						data-address="{{ $animal[$i]["adress"] }}"
+																						data-price="{{ floatval($animal[$i]["price_filtro"]) }}">
 
 							<div class="flex items-center">
 								<img src="{{ "/storage/images/".$animal[$i]["img"] }}">
@@ -196,9 +197,7 @@
 								<button class="text-white btn btn-red">Message</button>
 							</div> <!-- /flex -->
 						</div> <!-- /flex -->
-
 					@endfor
-					
 				</div> <!-- /row-lista -->
 				
 			</div> <!-- /col-md-8 -->

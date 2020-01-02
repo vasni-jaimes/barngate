@@ -800,9 +800,7 @@ if (hompage2) {
 \******************************/
 
 let plancenter = document.querySelectorAll(".plancenter");
-
 if (plancenter) {
-
     $(".plancenter").click(function() {
 		$(".plancenter").removeClass("plan-selected");
 		$(this).addClass("plan-selected");
@@ -823,6 +821,24 @@ if (elInput) {
 		etiqueta.innerHTML = elInput.value;
 		elInput.addEventListener('input', function() {
 			etiqueta.innerHTML = elInput.value;
+		}, false);
+  	}
+}
+
+
+/*************************\
+|      RANGE FILTROS      |
+\*************************/
+
+var price_filtro = document.querySelector('#price_filtro');
+if (price_filtro) {
+	var etiqueta = document.querySelector('#etiqueta');
+
+	if (etiqueta) {
+		etiqueta.innerHTML = price_filtro.value;
+		price_filtro.addEventListener('input', function() {
+			etiqueta.innerHTML = format(price_filtro.value);
+			searchWP();
 		}, false);
   	}
 }
@@ -1085,7 +1101,6 @@ if (info_user) {
 \**************************/
 
 let col_animal = document.querySelectorAll(".col-animal");
-
 if (col_animal) {
 
 	for (let i = 0; i <= col_animal.length - 1; i++) {
@@ -1102,7 +1117,6 @@ if (col_animal) {
 |     search input         |
 \**************************/
 let search = document.querySelector(".search input");
-
 if (search) {
 	search.addEventListener('input', function(e) {
 		searchWP();
@@ -1113,9 +1127,7 @@ if (search) {
 /****************************\
 |     search selects         |
 \****************************/
-
 let filtros = document.querySelectorAll(".row-filtros select");
-
 if (filtros) {
 
 	for (let i = 0; i <= filtros.length - 1; i++) {
@@ -1126,13 +1138,90 @@ if (filtros) {
 }
 
 
-
 /**********************************\
 |     ACTIVAR MAPA DEL FILTRO      |
 \**********************************/
-
 $(".go-to_map").click(initialize);
 
+
+
+/***************************\
+|     SETTINGS GUARDAR      |
+\***************************/
+let save_radio = document.querySelector(".save-radio");
+if (save_radio) {
+	save_radio.addEventListener("click", function() {
+		let email_favorite = document.querySelector("input[name='email_favorite']");
+		let email_update = document.querySelector("input[name='email_update']");
+		let receive_text = document.querySelector("input[name='receive_text']");
+		let token = document.querySelector("input[name='_token']");
+		let email_favoriteq = 0;
+		let email_updateq = 0;
+		let receive_textq = 0;
+
+		if ($(email_favorite).is(":checked")) {
+			email_favoriteq = 1;
+		}
+
+		if ($(email_update).is(":checked")) {
+			email_updateq = 1;
+		}
+
+		if ($(receive_text).is(":checked")) {
+			receive_textq = 1;
+		}
+
+		$("#loading .wrapper-form img").css("display", "block");
+		$("#loading").fadeIn();
+
+		let data = {
+			"email_favorite": email_favoriteq,
+			"email_update": email_updateq,
+			"receive_text": receive_textq,
+			"_token": token.value
+		};
+
+
+		request
+		   	.post('/saveSettings')
+		   	.send(data)
+		   	.set('Accept', 'application/json')
+		   	.then(res => {
+		   		console.log(res.body);
+		   		if (res.body.message == 'ok') {
+		   			console.log("es ok");
+		   			$("#loading .wrapper-form img").css("display", "none");
+		   			$("#loading .wrapper-form").append("<div class='container-form'> <h2> Successfully added </h2> </div>");
+		   			setTimeout(function() {
+		   				$("#loading").fadeOut();
+						$("#loading .wrapper-form .container-form").remove();
+		   			}, 2000);
+		   		}
+		   		else if (res.body.message == 'error_save') {
+		   			$("#loading .wrapper-form img").css("display", "none");
+		   			$("#loading .wrapper-form").append("<div class='container-form'> <h2> An error occurred, try again later </h2> </div>");
+		   			setTimeout(function() {
+		   				$("#loading").fadeOut();
+						$("#loading .wrapper-form .container-form").remove();
+		   			}, 2000);
+		   		}
+		   		else {
+		   			$("#loading .wrapper-form img").css("display", "none");
+		   			$("#loading .wrapper-form").append("<div class='container-form'> <h2> An error occurred, try again later </h2> </div>");
+		   			setTimeout(function() {
+		   				$("#loading").fadeOut();
+						$("#loading .wrapper-form .container-form").remove();
+		   			}, 2000);
+		   		}
+		   	})
+		   	.catch(err => {
+      			// err.message, err.response
+      			console.log(err.message);
+      			//error(password_confirm, "A problem happened, try again later");
+   			});
+
+	});
+}
 
 
 /*********************\
@@ -1277,6 +1366,7 @@ function searchWP() {
 	let gender = $("select[name='gender']").val();
 	let discipline = $("select[name='discipline']").val();
 	let search = $(".search input").val();
+	let price_filtro = $("#price_filtro").val()
 
 
 	if (animal != null) {
@@ -1314,11 +1404,22 @@ function searchWP() {
 		selector2 += "[data-description *= '"+search+"']";
 	}
 
-
 	$(".back-animal, .list-animal").css("display", "none");
 	$(selector + selector2).css("display", "block");
-	cordenadas();
 
+	if (price_filtro != 0 && price_filtro != null) {
+		$(".back-animal[style*='block'], .list-animal[style*='block']").each(function() {
+			let precio = $(this).attr("data-price");
+			if (parseFloat(precio) <= parseFloat(price_filtro)) {
+				$(this).css("display", "block");
+			}
+			else {
+				$(this).css("display", "none");
+			}
+		});
+	}
+	console.log(selector + selector2);
+	cordenadas();
 }
 
 
@@ -1374,33 +1475,23 @@ function initialize() {
 function cordenadas() {
 
 	let address = [];
-
-	$(".back-animal:visible").each(function() {
+	var locationArray = [];
+	$(".back-animal[style*='block']").each(function() {
 		address.push($(this).attr('data-address'));
 	});
-
-    var locationArray = [];
 
     if (address == '') {
         return false;
     }
 
     var geocoder = new google.maps.Geocoder();
-
     for (let i = 0; i <= address.length - 0; i++) {
-
     	geocoder.geocode({ 'address': address[i]}, function(results, status) {
-
              if (status == 'OK') {
-
                 var latitud = results[0].geometry.location.lat();
                 var longitud = results[0].geometry.location.lng();
-
                 locationArray[i] = [ address[i], latitud, longitud ];
                 document.getElementById("lat").value = JSON.stringify(locationArray);
-
-
-               	//localStorage.setItem('nombre', JSON.stringify(locationArray));
              }
              else {
                  console.log("Geocoding no tuvo éxito debido a: " + status);

@@ -37,8 +37,10 @@ class SearchController extends Controller
                 $animal[$ban]["colors_name"]    = $animalrow->colors_name;
                 $animal[$ban]["breeds_name"]    = $animalrow->breeds_name;
                 $animal[$ban]["gender_name"]    = $animalrow->gender_name;
-                $animal[$ban]["description"]    = $animalrow->description;
                 $animal[$ban]["price"]    		= $animalrow->price;
+
+                $animal[$ban]["price_filtro"]   = str_replace(",", "", $animalrow->price);
+
                 $animal[$ban]["animal_id"]      = $animalrow->animal_id;
                 $animal[$ban]["breed_id"]       = $animalrow->breed_id;
                 $animal[$ban]["color_id"]       = $animalrow->color_id;

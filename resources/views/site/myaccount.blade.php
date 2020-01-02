@@ -54,14 +54,14 @@
 				<div id="tab-two-panel" class="panel">
 					<div class="box-tab">
 						<ul class="check-option">
-							<li><label>Receive Emails about Favorite Animal</label><input type="radio"></li>
-							<li><label>Receive  Update Emails for Watched Listings</label><input type="radio"></li>
-							<li><label>Receive Text Message Notifications</label><input type="radio"></li>
-							<li><label>Text Messaging Phone Number</label><input type="radio"></li>
-							<li><label>Only USA phone numbers are supported. Please enter your full 10-digit number.</label><input type="radio"></li>
+							<li><label>Receive Emails about Favorite Animal</label><input type="checkbox" name="email_favorite" {{ auth()->user()->email_favorite == 1 ? "checked" : "" }}></li>
+							<li><label>Receive  Update Emails for Watched Listings</label><input type="checkbox" name="email_update" {{ auth()->user()->email_update == 1 ? "checked" : "" }}></li>
+							<li><label>Receive Text Message Notifications</label><input type="checkbox" name="receive_text" {{ auth()->user()->receive_text == 1 ? "checked" : "" }}></li>
+							{{-- <li><label>Text Messaging Phone Number</label><input type="radio"></li> --}}
+							{{-- <li><label>Only USA phone numbers are supported. Please enter your full 10-digit number.</label><input type="radio"></li> --}}
 						</ul>
 						<div class="pt-20 pb-20 text-center">
-							<a href="#" class="mw-150 btn btn-primary">Save settings</a>
+							<a href="#" class="mw-150 btn btn-primary save-radio">Save settings</a>
 						</div>
 					</div> <!-- /box-tab -->
 				</div>
@@ -169,51 +169,6 @@
 					@endfor
 
 				@endif
-
-				{{-- <div>
-					<div class="slide-animal">
-						<div class="image-slide" style="background-image: url('images/animals/horse-classifieds-barngate-picture-home.png')"></div>
-						<div class="image-slide" style="background-image: url('images/animals/horse-classifieds-barngate-picture-home.png')"></div>
-					</div> <!-- /slide-animal -->
-					<p class="pt-10">Breed</p>
-					<a href="#">See more</a>
-				</div>
-
-				<div>
-					<div class="slide-animal">
-						<div class="image-slide" style="background-image: url('images/animals/horse-classifieds-barngate-picture-home.png')"></div>
-						<div class="image-slide" style="background-image: url('images/animals/horse-classifieds-barngate-picture-home.png')"></div>
-					</div> <!-- /slide-animal -->
-					<p class="pt-10">Breed</p>
-					<a href="#">See more</a>
-				</div>
-
-				<div>
-					<div class="slide-animal">
-						<div class="image-slide" style="background-image: url('images/animals/horse-classifieds-barngate-picture-home.png')"></div>
-						<div class="image-slide" style="background-image: url('images/animals/horse-classifieds-barngate-picture-home.png')"></div>
-					</div> <!-- /slide-animal -->
-					<p class="pt-10">Breed</p>
-					<a href="#">See more</a>
-				</div>
-
-				<div>
-					<div class="slide-animal">
-						<div class="image-slide" style="background-image: url('images/animals/horse-classifieds-barngate-picture-home.png')"></div>
-						<div class="image-slide" style="background-image: url('images/animals/horse-classifieds-barngate-picture-home.png')"></div>
-					</div> <!-- /slide-animal -->
-					<p class="pt-10">Breed</p>
-					<a href="#">See more</a>
-				</div>
-				
-				<div>
-					<div class="slide-animal">
-						<div class="image-slide" style="background-image: url('images/animals/horse-classifieds-barngate-picture-home.png')"></div>
-						<div class="image-slide" style="background-image: url('images/animals/horse-classifieds-barngate-picture-home.png')"></div>
-					</div> <!-- /slide-animal -->
-					<p class="pt-10">Breed</p>
-					<a href="#">See more</a>
-				</div> --}}
 
 			</div> <!-- /slide-account -->
 
