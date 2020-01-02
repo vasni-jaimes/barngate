@@ -3,30 +3,54 @@
 
 @section("content")
 
-	<div class="banner banner-contact">
-		<div class="container relative">
-			<div class="banner-text">
-				<h1>How can we help you?</h1>
-			</div>
-		</div> <!-- /container -->
-	</div> <!-- /banner-about -->
+	<div class="container margen mt-40 mb-40 row-animals">
 
-	<div class="bg-blue text-center pt-15 pb-15">
-		<h1 class="text-white fz-25">Contact us</h1>
-	</div> <!-- /bg-blue -->
+		<div class="row row-eq-height">
 
-	<div class="container pt-40 pb-40 text-blue">
-		<h2 class="fw-700 underline text-center">Frequent Asked Questions</h2>
-		<div class="row mt-30">
-			<div class="col-md-6">
-				<h2 class="fw-700">Is the purchase made on the platform?</h2>
-				<p class="fz-16">No. The purpose of the platform is to exchange information with the buyer and seller and agree to sell outside the platform.</p>
-			</div> <!-- /col-md-6 -->
-			<div class="col-md-6">
-				<h2 class="fw-700">Do you keep my information private?</h2>
-				<p class="fz-16">Barngate does not and will never sell or give your email address to anyone. Read our Privacy Policy.</p>
-			</div> <!-- /col-md-6 -->
+			<div class="col-md-2 col-animal active-animal">
+				<a href="#">
+					<img src="images/animals/horse-classifieds-barngate-icons-home-vaca.png" />
+					<p>Cattle for Sale</p>
+				</a>
+			</div> <!-- /col-md-2 -->
+
+			<div class="col-md-2 col-animal">
+				<div>
+					<img src="images/animals/horse-classifieds-barngate-icons-home-caballo.png" />
+					<p>Horse for Sale</p>
+				</div>
+			</div> <!-- /col-md-2 -->
+
+			<div class="col-md-2 col-animal">
+				<div>
+					<img src="images/animals/horse-classifieds-barngate-icons-home-oveja.png" />
+					<p>Sheep for Sale</p>
+				</div>
+			</div> <!-- /col-md-2 -->
+
+			<div class="col-md-2 col-animal">
+				<div>
+					<img src="images/animals/horse-classifieds-barngate-icons-home-becerro.png" />
+					<p>Goat for Sale</p>
+				</div>
+			</div> <!-- /col-md-2 -->
+
+			<div class="col-md-2 col-animal">
+				<div>
+					<img src="images/animals/horse-classifieds-barngate-icons-home-cerdo.png" />
+					<p>Pig for Sale</p>
+				</div>
+			</div> <!-- /col-md-2 -->
+
+			<div class="col-md-2 col-animal">
+				<div>
+					<img src="images/animals/horse-classifieds-barngate-icons-home-perro.png" />
+					<p>Pet Section</p>
+				</div>
+			</div> <!-- /col-md-2 -->
+
 		</div> <!-- /row -->
+
 	</div> <!-- /container -->
 
 	@include('site.layouts.form-site')
