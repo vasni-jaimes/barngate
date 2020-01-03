@@ -8,6 +8,14 @@ use DB;
 
 class FavoritesController extends Controller
 {
+
+
+    public function __construct()
+    {
+        $this->middleware("auth");
+    }
+
+
     public function addFavorite(Request $request) {
 
     	if ($request->has('idProducto')) {

@@ -18,7 +18,7 @@
 					<p class="fw-900 fz-22">Price</p>
 					
 					<div class="mt-20 mb-20">
-						<label class="price"><input id="price_filtro" type="range" value="{{ old("price_filtro", 100) }}" min="0" max="100000" step="1" autocomplete="off" name="price_filtro"></label>
+						<label class="price"><input id="price_filtro" type="range" value="{{ old("price_filtro", 0) }}" min="0" max="100000" step="1" autocomplete="off" name="price_filtro"></label>
 						<p class="range">$<span id="etiqueta"></span></p>
 					</div> <!-- /flex -->
 					
@@ -57,7 +57,6 @@
 						@endfor
 					</select>
 
-					
 
 					<p class="fw-900 fz-22">Discipline</p>
 
@@ -78,7 +77,7 @@
 			
 			<div class="col-md-9">
 			
-				<div class="row row-eq-height mw-700 auto">
+				<div class="row row-eq-height mw-700 auto content-serch">
 
 					<div class="col-md-2 col-animal" data-animal="1">
 						<div>
@@ -145,7 +144,7 @@
 														data-discipline="{{ $animal[$i]["discipline_id"] }}"
 														data-description="{{ $animal[$i]["description"] }}"
 														data-address="{{ $animal[$i]["adress"] }}"
-														data-price="{{ floatval($animal[$i]["price_filtro"]) }}">
+														data-price="{{ floatval($animal[$i]["price_filtro"]) }}" style="display: block;">
 
 									<img src="{{ "/storage/images/".$animal[$i]["img"] }}">
 									<div class="mt-20 text-center">
