@@ -17,44 +17,44 @@
 
 	<div class="container margen mt-40 mb-40 row-animals">
 
-		<div class="row row-eq-height">
+		<div class="row row-eq-height content-home">
 
-			<div class="col-md-2 col-animal active-animal">
+			<div class="col-md-2 col-animal" data-animal="1"> <!-- active-animal -->
 				<a href="#">
 					<img src="images/animals/horse-classifieds-barngate-icons-home-vaca.png" />
 					<p>Cattle for Sale</p>
 				</a>
 			</div> <!-- /col-md-2 -->
 
-			<div class="col-md-2 col-animal">
+			<div class="col-md-2 col-animal" data-animal="2">
 				<div>
 					<img src="images/animals/horse-classifieds-barngate-icons-home-caballo.png" />
 					<p>Horse for Sale</p>
 				</div>
 			</div> <!-- /col-md-2 -->
 
-			<div class="col-md-2 col-animal">
+			<div class="col-md-2 col-animal" data-animal="3">
 				<div>
 					<img src="images/animals/horse-classifieds-barngate-icons-home-oveja.png" />
 					<p>Sheep for Sale</p>
 				</div>
 			</div> <!-- /col-md-2 -->
 
-			<div class="col-md-2 col-animal">
+			<div class="col-md-2 col-animal" data-animal="4">
 				<div>
 					<img src="images/animals/horse-classifieds-barngate-icons-home-becerro.png" />
 					<p>Goat for Sale</p>
 				</div>
 			</div> <!-- /col-md-2 -->
 
-			<div class="col-md-2 col-animal">
+			<div class="col-md-2 col-animal" data-animal="5">
 				<div>
 					<img src="images/animals/horse-classifieds-barngate-icons-home-cerdo.png" />
 					<p>Pig for Sale</p>
 				</div>
 			</div> <!-- /col-md-2 -->
 
-			<div class="col-md-2 col-animal">
+			<div class="col-md-2 col-animal" data-animal="6">
 				<div>
 					<img src="images/animals/horse-classifieds-barngate-icons-home-perro.png" />
 					<p>Pet Section</p>
@@ -73,125 +73,20 @@
 
 			<div class="row row-eq-height">
 
-				<div class="col-2dot4">
-					<div class="img-top-animal">
-						<div style="background-image: url('images/animals/horse-classifieds-barngate-picture-home.png')"></div>
-						<p class="pt-10">Breed</p>
-						<a href="#">See more</a>
-					</div> <!-- /img-top-animal -->
-				</div> <!-- /col-2dot4 -->
 
-				<div class="col-2dot4">
-					<div class="img-top-animal">
-						<div style="background-image: url('images/animals/horse-classifieds-barngate-picture-home.png')"></div>
-						<p class="pt-10">Breed</p>
-						<a href="#">See more</a>
-					</div> <!-- /img-top-animal -->
-				</div> <!-- /col-2dot4 -->
+				@for($i = 0; $i <= count($topAnimals) - 1; $i++)
+					@if ($i > 14)
+						@php $display = "style=display:none" @endphp
+					@endif
 
-				<div class="col-2dot4">
-					<div class="img-top-animal">
-						<div style="background-image: url('images/animals/horse-classifieds-barngate-picture-home.png')"></div>
-						<p class="pt-10">Breed</p>
-						<a href="#">See more</a>
-					</div> <!-- /img-top-animal -->
-				</div> <!-- /col-2dot4 -->
-
-				<div class="col-2dot4">
-					<div class="img-top-animal">
-						<div style="background-image: url('images/animals/horse-classifieds-barngate-picture-home.png')"></div>
-						<p class="pt-10">Breed</p>
-						<a href="#">See more</a>
-					</div> <!-- /img-top-animal -->
-				</div> <!-- /col-2dot4 -->
-
-				<div class="col-2dot4">
-					<div class="img-top-animal">
-						<div style="background-image: url('images/animals/horse-classifieds-barngate-picture-home.png')"></div>
-						<p class="pt-10">Breed</p>
-						<a href="#">See more</a>
-					</div> <!-- /img-top-animal -->
-				</div> <!-- /col-2dot4 -->
-
-				<div class="col-2dot4">
-					<div class="img-top-animal">
-						<div style="background-image: url('images/animals/horse-classifieds-barngate-picture-home.png')"></div>
-						<p class="pt-10">Breed</p>
-						<a href="#">See more</a>
-					</div> <!-- /img-top-animal -->
-				</div> <!-- /col-2dot4 -->
-
-				<div class="col-2dot4">
-					<div class="img-top-animal">
-						<div style="background-image: url('images/animals/horse-classifieds-barngate-picture-home.png')"></div>
-						<p class="pt-10">Breed</p>
-						<a href="#">See more</a>
-					</div> <!-- /img-top-animal -->
-				</div> <!-- /col-2dot4 -->
-
-				<div class="col-2dot4">
-					<div class="img-top-animal">
-						<div style="background-image: url('images/animals/horse-classifieds-barngate-picture-home.png')"></div>
-						<p class="pt-10">Breed</p>
-						<a href="#">See more</a>
-					</div> <!-- /img-top-animal -->
-				</div> <!-- /col-2dot4 -->
-
-				<div class="col-2dot4">
-					<div class="img-top-animal">
-						<div style="background-image: url('images/animals/horse-classifieds-barngate-picture-home.png')"></div>
-						<p class="pt-10">Breed</p>
-						<a href="#">See more</a>
-					</div> <!-- /img-top-animal -->
-				</div> <!-- /col-2dot4 -->
-
-				<div class="col-2dot4">
-					<div class="img-top-animal">
-						<div style="background-image: url('images/animals/horse-classifieds-barngate-picture-home.png')"></div>
-						<p class="pt-10">Breed</p>
-						<a href="#">See more</a>
-					</div> <!-- /img-top-animal -->
-				</div> <!-- /col-2dot4 -->
-
-				<div class="col-2dot4">
-					<div class="img-top-animal">
-						<div style="background-image: url('images/animals/horse-classifieds-barngate-picture-home.png')"></div>
-						<p class="pt-10">Breed</p>
-						<a href="#">See more</a>
-					</div> <!-- /img-top-animal -->
-				</div> <!-- /col-2dot4 -->
-
-				<div class="col-2dot4">
-					<div class="img-top-animal">
-						<div style="background-image: url('images/animals/horse-classifieds-barngate-picture-home.png')"></div>
-						<p class="pt-10">Breed</p>
-						<a href="#">See more</a>
-					</div> <!-- /img-top-animal -->
-				</div> <!-- /col-2dot4 -->
-
-				<div class="col-2dot4">
-					<div class="img-top-animal">
-						<div style="background-image: url('images/animals/horse-classifieds-barngate-picture-home.png')"></div>
-						<p class="pt-10">Breed</p>
-						<a href="#">See more</a>
-					</div> <!-- /img-top-animal -->
-				</div> <!-- /col-2dot4 -->
-
-				<div class="col-2dot4">
-					<div class="img-top-animal">
-						<div style="background-image: url('images/animals/horse-classifieds-barngate-picture-home.png')"></div>
-						<p class="pt-10">Breed</p>
-						<a href="#">See more</a>
-					</div> <!-- /img-top-animal -->
-				</div> <!-- /col-2dot4 -->
-
-				<div class="col-2dot4">
-					<div class="img-top-animal">
-						<div style="background-image: url('images/animals/horse-classifieds-barngate-picture-home.png')"></div>
-						<p class="pt-10">Breed</p>
-						<a href="#">See more</a>
-					</div> <!-- /img-top-animal -->
-				</div> <!-- /col-2dot4 -->
+					<div class="col-2dot4" {{ @$display }} data-animal="{{ $topAnimals[$i]["animal_id"] }}">
+						<div class="img-top-animal">
+							<div style="background-image: url('{{ "/storage/images/".$topAnimals[$i]["img"] }}')"></div>
+							<p class="pt-10"> {{ $topAnimals[$i]["animal_name"] }} </p>
+							<a href="{{ route("sale.show", $topAnimals[$i]["nickname"]) }}">See more</a>
+						</div> <!-- /img-top-animal -->
+					</div> <!-- /col-2dot4 -->
+				@endfor
 
 			</div> <!-- /row -->
 

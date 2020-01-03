@@ -13,6 +13,13 @@ use DB;
 
 class SearchController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware("auth");
+    }
+
+
     public function VistaSearch()
     {
 
@@ -64,15 +71,6 @@ class SearchController extends Controller
 
     	return view('site.vista', compact("animal", "animals", "breeds", "colors", "genders", "disciplines"));
     }
-
-
-
-    public function SerchAjax(Request $request)
-    {
-
-    }
-
-
 
 
     public function primerImagenProducto($usuario, $categoria, $producto)

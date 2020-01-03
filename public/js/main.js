@@ -1096,15 +1096,42 @@ if (info_user) {
 
 
 
+/****************************\
+|     top Animal - Home      |
+\****************************/
+
+let home_col_animal = document.querySelectorAll(".content-home .col-animal");
+if (home_col_animal) {
+	for (let i = 0; i <= home_col_animal.length - 1; i++) {
+        home_col_animal[i].addEventListener('click', function(e) {
+        	e.preventDefault();
+        	$(".col-animal").removeClass("active-animal");
+        	$(this).addClass("active-animal");
+
+        	let animal = $(".active-animal").attr('data-animal');
+        	$(".col-2dot4").css("display", "none");
+			$(".col-2dot4[data-animal='"+animal+"']").each(function(index) {
+				if (index <= 14) {
+					$(this).css("display", "block");
+				}
+			});
+        });
+    }
+}
+
+
+
+
 /**************************\
 |     Animal - Active      |
 \**************************/
 
-let col_animal = document.querySelectorAll(".col-animal");
+let col_animal = document.querySelectorAll(".content-serch .col-animal");
 if (col_animal) {
 
 	for (let i = 0; i <= col_animal.length - 1; i++) {
         col_animal[i].addEventListener('click', function(e) {
+        	e.preventDefault();
         	$(".col-animal").removeClass("active-animal");
         	$(this).addClass("active-animal");
         	searchWP();
@@ -1418,7 +1445,7 @@ function searchWP() {
 			}
 		});
 	}
-	console.log(selector + selector2);
+	//console.log(selector + selector2);
 	cordenadas();
 }
 
