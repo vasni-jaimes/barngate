@@ -18,7 +18,7 @@
 	<div class="banner-sale">
 		<div class="container">
 			<div class="banner-text">
-				<h1>How selling with us work</h1>
+				<h1>How to buy with Barngate</h1>
 				<a href="#" class="btn-play btn btn-primary">Watch Video</a>
 			</div>
 		</div> <!-- /container -->

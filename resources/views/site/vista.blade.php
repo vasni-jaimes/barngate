@@ -206,12 +206,11 @@
 		
 	</div> <!-- /container -->
 
-	<div id="map-canvas" style="display: block;width: 500px;height: 500px;border: 1px solid red;">  
+	<div class="shadowbox" id="show-map">
+		<div id="map-canvas" style="display: block;width: 500px;height: 500px;border: 1px solid red;"></div>
+	</div> <!-- /shadowbox -->
 
-	</div>
-
-	<button id="ver-mapa" style="width: 200px;
-    height: 30px;"></button>
+	<!--<button id="ver-mapa" style="width: 200px;height: 30px;"></button>-->
 
     <input type="hidden" id="lat" value="">
 

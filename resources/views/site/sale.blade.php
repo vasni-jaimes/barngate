@@ -13,23 +13,20 @@
 	</style>
 @endsection
 
-
 @section("content")
-
 
 	@if (session()->has("status.success")))
 		<div class="shadowbox" id="success.register" style="display: block;">
 			<div class="wrapper-form">
 				<div class="container-form">
-					<h2> Congratulations </h2>
-					<p>you registered your animal correctly.</p>
-					<a href="{{ route('myaccount') }}"> my account </button>
-					<a href="{{ route('sale') }}"> register new animal </button>
+					<h3 class="text-center text-blue fz-30 mb-30">Congratulations</h3>
+					<p class="mb-15 fz-20">you registered your animal correctly.</p>
+					<a class="enviar" href="{{ route('myaccount') }}">My account</a>
+					<a class="enviar" href="{{ route('sale') }}">Register new animal</a>
 				</div> <!-- /container-form -->
 			</div> <!-- /wrapper-form -->
 		</div> <!-- /shadowbox -->
 	@endif
-
 
 	<div class="banner-sale">
 		<div class="container">
@@ -325,8 +322,6 @@
 	</form>
 
 @endsection
-
-
 
 
 @section("js-content")

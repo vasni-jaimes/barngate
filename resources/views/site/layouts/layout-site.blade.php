@@ -201,7 +201,7 @@
 					<div class="g-recaptcha" data-sitekey="6LcePAATAAAAAGPRWgx90814DTjgt5sXnNbV5WaW"></div>
 					<input class="enviar register-send" type="submit" value="Register">
 				</form>
-				<a href="#">Terms and conditions</a>
+				<a class="link" href="#">Terms and conditions</a>
 			</div> <!-- /container-form -->
 		</div> <!-- /wrapper-form -->
 	</div> <!-- /shadowbox -->
@@ -220,7 +220,7 @@
 					<input type="password" class="input" name="password" placeholder="Password">
 					<input class="enviar login_send" type="submit" value="Log in">
 				</form>
-				<a href="#">Forgot your password?</a>
+				<a class="link" href="#">Forgot your password?</a>
 			</div> <!-- /container-form -->
 		</div> <!-- /wrapper-form -->
 	</div> <!-- /shadowbox -->
