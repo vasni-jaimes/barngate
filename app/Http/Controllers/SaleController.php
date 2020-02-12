@@ -40,13 +40,18 @@ class SaleController extends Controller
      */
     public function create()
     {
-        $animals = DB::table("animals")->get();
-        $breeds = DB::table("breeds")->get();
-        $colors = DB::table("colors")->get();
-        $genders = DB::table("genders")->get();
+        $animals    = DB::table("animals")->get();
+        $type       = DB::table("types")->get();
+        $size       = DB::table("sizes")->get();
+        $categories = DB::table("categories")->get();
+        $breeds     = DB::table("breeds")->get();
+        $colors     = DB::table("colors")->get();
+        $genders    = DB::table("genders")->get();
+        $class      = DB::table("class")->get();
         $disciplines = DB::table("disciplines")->get();
+        $estados    = DB::table("cities")->groupBy("estado")->get();
 
-        return view('site.sale', compact("animals", "breeds", "colors", "genders", "disciplines"));
+        return view('site.sale', compact("animals", "breeds", "colors", "genders", "disciplines", "estados", "class", "categories", "type", "size"));
     }
 
     /**
@@ -58,24 +63,217 @@ class SaleController extends Controller
     public function store(Request $request)
     {
 
-        $validator = Validator::make($request->all(), [
-            "animals" => "required|max:2",
-            "breeds" => "required|max:2",
-            "colors" => "required|max:2",
-            "genders" => "required|max:2",
-            "ages" => "required|max:2",
-            "discipline" => "required|max:2",
-            "temperament" => "required|max:2",
-            "price" => "required|max:255",
-            "description" => "required",
-            "city" => "required|max:255",
-            "region" => "required|max:255",
-            "zip" => "required|numeric",
-            "zip" => "max:5",
-            "country" => "required|max:255",
-            "phone_number" => "required|numeric",
-            "phone_number" => "min:10|max:13"
-        ]);
+        if (request("animals") == 1) {
+            
+            $validator = Validator::make($request->all(), [
+                "animals" => "required|max:2",
+                "animals" => "numeric",
+                "breeds" => "required|max:4",
+                "breeds" => "numeric",
+                "ages" => "required|max:2",
+                "ages" => "numeric",
+                "vaccinations" => "required|max:2",
+                "vaccinations" => "numeric",
+                "horns" => "required|max:2",
+                "horns" => "numeric",
+                "categories" => "required|max:2",
+                "categories" => "numeric",
+                "weight" => "required",
+                "conditions" => "required",
+                "number_of_head" => "required|max:2",
+                "number_of_head" => "numeric",
+                "price" => "required|max:255",
+                "description" => "required",
+                "city" => "required|numeric",
+                "region" => "required|numeric",
+                "zip" => "required|numeric",
+                "zip" => "max:5",
+                "country" => "required|max:255",
+                "phone_number" => "required|numeric",
+                "phone_number" => "min:10|max:13"
+            ]);
+        }
+
+
+        else if (request("animals") == 2) {
+
+            $validator = Validator::make($request->all(), [
+                "animals" => "required|max:2",
+                "animals" => "numeric",
+                "breeds" => "required|max:4",
+                "breeds" => "numeric",
+                "colors" => "required|max:2",
+                "colors" => "numeric",
+                "genders" => "required|max:2",
+                "genders" => "numeric",
+                "ages" => "required|max:2",
+                "ages" => "numeric",
+                "discipline" => "required|max:2",
+                "temperament" => "required|max:2",
+                "price" => "required|max:255",
+                "description" => "required",
+                "city" => "required|numeric",
+                "region" => "required|numeric",
+                "zip" => "required|numeric",
+                "zip" => "max:5",
+                "country" => "required|max:255",
+                "phone_number" => "required|numeric",
+                "phone_number" => "min:10|max:13"
+            ]);
+        }
+
+
+        else if (request("animals") == 3) {
+
+            $validator = Validator::make($request->all(), [
+                "animals" => "required|max:2",
+                "animals" => "numeric",
+                "breeds" => "required|max:2",
+                "breeds" => "numeric",
+                "genders" => "required|max:2",
+                "genders" => "numeric",
+                "ages" => "required|max:2",
+                "ages" => "numeric",
+                "class" => "required|max:2",
+                "class" => "numeric",
+                "horns" => "required|max:2",
+                "horns" => "numeric",
+                "weight" => "required",
+                "number_of_head" => "required|max:2",
+                "number_of_head" => "numeric",
+                "price" => "required|max:255",
+                "description" => "required",
+                "city" => "required|numeric",
+                "region" => "required|numeric",
+                "zip" => "required|numeric",
+                "zip" => "max:5",
+                "country" => "required|max:255",
+                "phone_number" => "required|numeric",
+                "phone_number" => "min:10|max:13"
+            ]);
+        }
+
+
+        else if (request("animals") == 4) {
+
+            $validator = Validator::make($request->all(), [
+                "animals" => "required|max:2",
+                "animals" => "numeric",
+                "breeds" => "required|max:2",
+                "breeds" => "numeric",
+                "genders" => "required|max:2",
+                "genders" => "numeric",
+                "ages" => "required|max:2",
+                "ages" => "numeric",
+                "class" => "required|max:2",
+                "class" => "numeric",
+                "type" => "required|max:2",
+                "type" => "numeric",
+                "horns" => "required|max:2",
+                "horns" => "numeric",
+                "weight" => "required",
+                "number_of_head" => "required|max:2",
+                "number_of_head" => "numeric",
+                "price" => "required|max:255",
+                "description" => "required",
+                "city" => "required|numeric",
+                "region" => "required|numeric",
+                "zip" => "required|numeric",
+                "zip" => "max:5",
+                "country" => "required|max:255",
+                "phone_number" => "required|numeric",
+                "phone_number" => "min:10|max:13"
+            ]);
+        }
+
+
+        else if (request("animals") == 5) {
+
+            $validator = Validator::make($request->all(), [
+                "animals" => "required|max:2",
+                "animals" => "numeric",
+                "breeds" => "required|max:2",
+                "breeds" => "numeric",
+                "genders" => "required|max:2",
+                "genders" => "numeric",
+                "ages" => "required|max:2",
+                "ages" => "numeric",
+                "class" => "required|max:2",
+                "class" => "numeric",
+                "weight" => "required",
+                "number_of_head" => "required|max:2",
+                "number_of_head" => "numeric",
+                "price" => "required|max:255",
+                "description" => "required",
+                "city" => "required|numeric",
+                "region" => "required|numeric",
+                "zip" => "required|numeric",
+                "zip" => "max:5",
+                "country" => "required|max:255",
+                "phone_number" => "required|numeric",
+                "phone_number" => "min:10|max:13"
+            ]);
+        }
+
+
+
+        else if (request("animals") == 6) {
+
+            $validator = Validator::make($request->all(), [
+                "animals" => "required|max:2",
+                "animals" => "numeric",
+                "breeds" => "required|max:2",
+                "breeds" => "numeric",
+                "colors" => "required|max:2",
+                "colors" => "numeric",
+                "genders" => "required|max:2",
+                "genders" => "numeric",
+                "ages" => "required|max:2",
+                "ages" => "numeric",
+                "size" => "required|max:2",
+                "size" => "numeric",
+                "price" => "required|max:255",
+                "description" => "required",
+                "city" => "required|numeric",
+                "region" => "required|numeric",
+                "zip" => "required|numeric",
+                "zip" => "max:5",
+                "country" => "required|max:255",
+                "phone_number" => "required|numeric",
+                "phone_number" => "min:10|max:13"
+            ]);
+        }
+
+
+        else if (request("animals") == 7) {
+
+            $validator = Validator::make($request->all(), [
+                "animals" => "required|max:2",
+                "animals" => "numeric",
+                "breeds" => "required|max:2",
+                "breeds" => "numeric",
+                "colors" => "required|max:2",
+                "colors" => "numeric",
+                "genders" => "required|max:2",
+                "genders" => "numeric",
+                "ages" => "required|max:2",
+                "ages" => "numeric",
+                "size" => "required|max:2",
+                "size" => "numeric",
+                "declawed" => "required|max:2",
+                "declawed" => "numeric",
+                "price" => "required|max:255",
+                "description" => "required",
+                "city" => "required|numeric",
+                "region" => "required|numeric",
+                "zip" => "required|numeric",
+                "zip" => "max:5",
+                "country" => "required|max:255",
+                "phone_number" => "required|numeric",
+                "phone_number" => "min:10|max:13"
+            ]);
+        }
+
 
         if ($validator->fails()) {
             return redirect("sale")->withErrors($validator, "paso1")->withInput();
@@ -128,12 +326,74 @@ class SaleController extends Controller
         $sale                   = new Sale();
         $sale->user_id          = auth()->user()->user_id;
         $sale->animal_id        = request("animals");
-        $sale->breed_id         = request("breeds");
-        $sale->color_id         = request("colors");
-        $sale->gender_id        = request("genders");
-        $sale->age_id           = request("ages");
-        $sale->discipline_id    = request("discipline");
-        $sale->temperament      = request("temperament");
+
+        if (request("animals") == 1) {
+            $sale->breed_id         = request("breeds");
+            $sale->age_id           = request("ages");
+            $sale->vaccinations     = request("vaccinations");
+            $sale->horns            = request("horns");
+            $sale->weight           = request("weight");
+            $sale->conditions       = request("conditions");
+            $sale->number_of_head   = request("number_of_head");
+            $sales->categorie_id    = request("categories");
+        }
+
+        else if (request("animals") == 2) {
+            $sale->breed_id         = request("breeds");
+            $sale->color_id         = request("colors");
+            $sale->gender_id        = request("genders");
+            $sale->age_id           = request("ages");
+            $sale->discipline_id    = request("discipline");
+            $sale->temperament      = request("temperament");
+        }
+
+        else if (request("animals") == 3) {
+            $sale->breed_id         = request("breeds");
+            $sale->gender_id        = request("genders");
+            $sale->age_id           = request("ages");
+            $sale->class_id         = request("class");
+            $sale->horns            = request("horns");
+            $sale->weight           = request("weight");
+            $sale->number_of_head   = request("number_of_head");
+        }
+
+        else if (request("animals") == 4) {
+            $sale->breed_id         = request("breeds");
+            $sale->gender_id        = request("genders");
+            $sale->age_id           = request("ages");
+            $sale->type_id          = request("type");
+            $sale->class_id         = request("class");
+            $sale->horns            = request("horns");
+            $sale->weight           = request("weight");
+            $sale->number_of_head   = request("number_of_head");
+        }
+
+        else if (request("animals") == 5) {
+            $sale->breed_id         = request("breeds");
+            $sale->gender_id        = request("genders");
+            $sale->age_id           = request("ages");
+            $sale->class_id         = request("class");
+            $sale->weight           = request("weight");
+            $sale->number_of_head   = request("number_of_head");
+        }
+
+        else if (request("animals") == 6) {
+            $sale->breed_id         = request("breeds");
+            $sale->gender_id        = request("genders");
+            $sale->color_id         = request("colors");
+            $sale->age_id           = request("ages");
+            $sale->size_id         = request("size");
+        }
+
+        else if (request("animals") == 7) {
+            $sale->breed_id         = request("breeds");
+            $sale->gender_id        = request("genders");
+            $sale->color_id         = request("colors");
+            $sale->age_id           = request("ages");
+            $sale->size_id         = request("size");
+            $sale->declawed        = request("declawed");
+        }
+
         $sale->price            = request("price");
         $sale->description      = request("description");
         $sale->city             = request("city");
@@ -222,7 +482,27 @@ class SaleController extends Controller
      */
     public function show($id)
     {
-        $animal =   DB::table('sales')
+
+        $animalprincipal = DB::table('sales')->where('nickname', $id)->first();
+
+        if ($animalprincipal->animal_id == 1) {
+            
+            $animal =   DB::table('sales')
+                        ->join('animals', 'sales.animal_id', '=', 'animals.animal_id')
+                        ->join('breeds', 'sales.breed_id', '=', 'breeds.breed_id')
+                        ->join('categories', 'sales.categorie_id', '=', 'categories.categorie_id')
+                        ->join('users', 'sales.user_id', '=', 'users.user_id')
+                        ->select('sales.*', 
+                                    'animals.name as animal_name', 
+                                    'breeds.name as breeds_name',  
+                                    'categories.name as categories_name',
+                                    'users.username as user_name')
+                        ->where('nickname', $id)->first();
+        }
+
+        else if ($animalprincipal->animal_id == 2) {
+
+            $animal =   DB::table('sales')
                         ->join('animals', 'sales.animal_id', '=', 'animals.animal_id')
                         ->join('breeds', 'sales.breed_id', '=', 'breeds.breed_id')
                         ->join('colors', 'sales.color_id', '=', 'colors.color_id')
@@ -237,6 +517,99 @@ class SaleController extends Controller
                                     'disciplines.name as desc_name',
                                     'users.username as user_name')
                         ->where('nickname', $id)->first();
+        }
+
+        else if ($animalprincipal->animal_id == 3) {
+
+            $animal =   DB::table('sales')
+                        ->join('animals', 'sales.animal_id', '=', 'animals.animal_id')
+                        ->join('breeds', 'sales.breed_id', '=', 'breeds.breed_id')
+                        ->join('class', 'sales.class_id', '=', 'class.class_id')
+                        ->join('genders', 'sales.gender_id', '=', 'genders.gender_id')
+                        ->join('users', 'sales.user_id', '=', 'users.user_id')
+                        ->select('sales.*', 
+                                    'animals.name as animal_name', 
+                                    'breeds.name as breeds_name', 
+                                    'class.name as class_name', 
+                                    'genders.name as gender_name',
+                                    'users.username as user_name')
+                        ->where('nickname', $id)->first();
+        }
+
+        else if ($animalprincipal->animal_id == 4) {
+
+            $animal =   DB::table('sales')
+                        ->join('animals', 'sales.animal_id', '=', 'animals.animal_id')
+                        ->join('breeds', 'sales.breed_id', '=', 'breeds.breed_id')
+                        ->join('class', 'sales.class_id', '=', 'class.class_id')
+                        ->join('genders', 'sales.gender_id', '=', 'genders.gender_id')
+                        ->join('types', 'sales.type_id', '=', 'types.type_id')
+                        ->join('users', 'sales.user_id', '=', 'users.user_id')
+                        ->select('sales.*', 
+                                    'animals.name as animal_name', 
+                                    'breeds.name as breeds_name', 
+                                    'class.name as class_name', 
+                                    'genders.name as gender_name',
+                                    'types.name as types_name',
+                                    'users.username as user_name')
+                        ->where('nickname', $id)->first();
+        }
+
+        else if ($animalprincipal->animal_id == 5) {
+
+            $animal =   DB::table('sales')
+                        ->join('animals', 'sales.animal_id', '=', 'animals.animal_id')
+                        ->join('breeds', 'sales.breed_id', '=', 'breeds.breed_id')
+                        ->join('class', 'sales.class_id', '=', 'class.class_id')
+                        ->join('genders', 'sales.gender_id', '=', 'genders.gender_id')
+                        ->join('users', 'sales.user_id', '=', 'users.user_id')
+                        ->select('sales.*', 
+                                    'animals.name as animal_name', 
+                                    'breeds.name as breeds_name', 
+                                    'class.name as class_name', 
+                                    'genders.name as gender_name',
+                                    'users.username as user_name')
+                        ->where('nickname', $id)->first();
+        }
+
+        else if ($animalprincipal->animal_id == 6) {
+
+            $animal =   DB::table('sales')
+                        ->join('animals', 'sales.animal_id', '=', 'animals.animal_id')
+                        ->join('breeds', 'sales.breed_id', '=', 'breeds.breed_id')
+                        ->join('colors', 'sales.color_id', '=', 'colors.color_id')
+                        ->join('genders', 'sales.gender_id', '=', 'genders.gender_id')
+                        ->join('sizes', 'sales.size_id', '=', 'sizes.size_id')
+                        ->join('users', 'sales.user_id', '=', 'users.user_id')
+                        ->select('sales.*', 
+                                    'animals.name as animal_name', 
+                                    'breeds.name as breeds_name', 
+                                    'colors.name as colors_name', 
+                                    'genders.name as gender_name',
+                                    'sizes.name as sizes_name',
+                                    'users.username as user_name')
+                        ->where('nickname', $id)->first();
+        }
+
+        else if ($animalprincipal->animal_id == 7) {
+
+            $animal =   DB::table('sales')
+                        ->join('animals', 'sales.animal_id', '=', 'animals.animal_id')
+                        ->join('breeds', 'sales.breed_id', '=', 'breeds.breed_id')
+                        ->join('colors', 'sales.color_id', '=', 'colors.color_id')
+                        ->join('genders', 'sales.gender_id', '=', 'genders.gender_id')
+                        ->join('sizes', 'sales.size_id', '=', 'sizes.size_id')
+                        ->join('users', 'sales.user_id', '=', 'users.user_id')
+                        ->select('sales.*', 
+                                    'animals.name as animal_name', 
+                                    'breeds.name as breeds_name', 
+                                    'colors.name as colors_name', 
+                                    'genders.name as gender_name',
+                                    'sizes.name as sizes_name',
+                                    'users.username as user_name')
+                        ->where('nickname', $id)->first();
+        }
+        
 
         $favorite = $this->getFavoriteProduct($animal->sale_id, $animal->user_id);
         $todasImg = $this->todasImagenesProducto($animal->user_id, $animal->animal_id, $animal->sale_id);
@@ -278,6 +651,26 @@ class SaleController extends Controller
     }
 
 
+    public function SearchState(Request $request)
+    {
+        if ($request->has('estado')) {
+            
+           $codigo = DB::table('cities')
+                        ->where('id_estado', $request->estado)
+                        ->get();
+
+            if ($codigo) {
+               return response()->json(['message' => 'ok', 'result' => $codigo]);
+              
+            }
+
+            return response()->json(['message' => 'not']);
+        }
+
+        return response()->json(['message' => 'not parameters']);
+    }
+
+
 
     public function uploadImg($request, $i, $sale_id)
     {
@@ -312,6 +705,45 @@ class SaleController extends Controller
         }
 
         return false;
+    }
+
+
+    public function SearchAnimal(Request $request)
+    {
+        if ($request->has('animal')) {
+
+            $breed      = null;
+            $genders    = null;
+            $size       = null;
+            $color      = null;
+            $class      = null;
+
+            $breed  = DB::table('breeds')
+                        ->where('animal_id', $request->animal)
+                        ->get();
+
+            $genders = DB::table('genders')
+                        ->where('animal_id', $request->animal)
+                        ->get();
+
+            $color  = DB::table('colors')
+                        ->where('animal_id', $request->animal)
+                        ->get();
+
+
+             $class = DB::table('class')
+                        ->where('animal_id', $request->animal)
+                        ->get();
+
+
+            $result = array("breeds" => $breed, 
+                            "genders" => $genders, 
+                            "color" => $color, "class" => $class);
+
+            return response()->json(['message' => 'ok', "result" => $result]);
+        }
+
+        return response()->json(['message' => 'not parameters']);
     }
 
   

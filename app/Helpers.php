@@ -1,7 +1,6 @@
 <?php
 
 
-
 function selectOld($name, $value) 
 {
 	return old($name) == $value ? "selected" : '';
