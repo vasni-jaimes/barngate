@@ -62,7 +62,31 @@
 						<nav>
 							<ul class="menu_registro">
 								<li><a href="{{ route("myaccount") }}"><img src="/images/horse-classifieds-barngate-myaccount-icon.png" alt="Barngate">My account</a></li>
-								<li><a href=""><img src="/images/horse-classifieds-barngate-notificatios-icon.png" alt="Barngate">Notifications</a></li>
+								<li class="notificacion">
+									<a href="#"><img src="/images/horse-classifieds-barngate-notificatios-icon.png" alt="Barngate">Notifications</a>
+									<ul class="s-notificacion">
+										<span>Notifications</span>
+										<li>
+											<div class="flex txt-notificacion">
+												<img src="images/picture.jpg">
+												<div>
+													<p class="fw-700">Animal</p>
+													<p>Username</p>
+													<span>1 hr</span>
+												</div>
+											</div>
+											<div class="flex txt-notificacion">
+												<img src="images/picture.jpg">
+												<div>
+													<p class="fw-700">Animal</p>
+													<p>Username</p>
+													<span>1 hr</span>
+												</div>
+											</div>
+										</li>
+										<a href="/notifications">See all</a>
+									</ul>
+								</li>
 							</ul>
 						</nav>
 					@endauth
@@ -201,7 +225,7 @@
 					<div class="g-recaptcha" data-sitekey="6LcePAATAAAAAGPRWgx90814DTjgt5sXnNbV5WaW"></div>
 					<input class="enviar register-send" type="submit" value="Register">
 				</form>
-				<a class="link" href="#">Terms and conditions</a>
+				<a class="link" href="/privacy">Terms and conditions</a>
 			</div> <!-- /container-form -->
 		</div> <!-- /wrapper-form -->
 	</div> <!-- /shadowbox -->

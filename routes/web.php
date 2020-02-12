@@ -57,4 +57,7 @@ Route::post('/searcha', 'SearchController@SerchAjax')->name('serchajax');
 //Route::view('/between', 'site.between')->name('between');
 
 Route::view('/faqs', 'site.faqs')->name('faqs');
+Route::view('/privacy', 'site.privacy')->name('privacy');
+Route::view('/notifications', 'site.notifications')->name('notifications');
+Route::view('/chat', 'site.chat')->name('chat');
 //Route::view('/vista', 'site.vista')->name('vista');
