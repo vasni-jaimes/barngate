@@ -32,8 +32,12 @@ class AnimalsTableSeeder extends Seeder
             "name" => "Pig",
         ]);
 
-         DB::table('animals')->insert([
-            "name" => "Pet",
+        DB::table('animals')->insert([
+            "name" => "Dog",
+        ]);
+
+        DB::table('animals')->insert([
+            "name" => "Cat",
         ]);
     }
 }

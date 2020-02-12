@@ -16,7 +16,7 @@ class CreateAgesTable extends Migration
         Schema::create('ages', function (Blueprint $table) {
             $table->bigIncrements('age_id');
             $table->string("name");
-            $table->timestamps();
+            $table->integer("animal_id");
         });
     }
 

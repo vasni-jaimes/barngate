@@ -206,6 +206,7 @@
 	</div> <!-- /container -->
 
 	<div class="shadowbox" id="show-map">
+		<div class="close"></div> <!-- /close -->
 		<div id="map-canvas" style="display: block;width: 500px;height: 500px;border: 1px solid red;"></div>
 	</div> <!-- /shadowbox -->
 

@@ -16,7 +16,7 @@ class CreateGendersTable extends Migration
         Schema::create('genders', function (Blueprint $table) {
             $table->bigIncrements('gender_id');
             $table->string("name");
-            $table->timestamps();
+            $table->integer("animal_id");
         });
     }
 

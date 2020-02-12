@@ -23,13 +23,25 @@ class CreateSalesTable extends Migration
             $table->integer('gender_id');
             $table->integer('age_id');
             $table->integer('discipline_id');
+
+            $table->string('weight');
+            $table->integer('vaccinations');
+            $table->integer('horns');
+            $table->string('conditions');
+            $table->string('number_of_head');
+            $table->integer('class_id');
+            $table->integer('type_id');
+            $table->integer('size_id');
+            $table->integer('declawed');
+            $table->integer('categorie_id');
+            
             $table->integer('temperament');
             $table->string('price');
             $table->text('description');
-            $table->string('city');
-            $table->string('state');
+            $table->integer('city');
+            $table->integer('state');
             $table->string('zip');
-            $table->string('country');
+            $table->integer('country');
             $table->string('phone_number');
             $table->integer('plan_id');
             $table->dateTime('date_init');

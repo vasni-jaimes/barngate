@@ -491,11 +491,21 @@ if (next) {
 		let temperament = document.querySelector("input[name='temperament']");
 		let price = document.querySelector("input[name='price']");
 		let description = document.querySelector("textarea[name='description']");
-		let city = document.querySelector("input[name='city']");
-		let region = document.querySelector("input[name='region']");
+		let city = document.querySelector("select[name='city']");
+		let region = document.querySelector("select[name='region']");
 		let zip = document.querySelector("input[name='zip']");
-		let country = document.querySelector("input[name='country']");
+		let country = document.querySelector("select[name='country']");
 		let phone_number = document.querySelector("input[name='phone_number']");
+		let number_of_head = document.querySelector("input[name='number_of_head']");
+		let weight = document.querySelector("input[name='weight']");
+		let vaccinations = document.querySelector("select[name='vaccinations']");
+		let horns = document.querySelector("select[name='horns']");
+		let conditions = document.querySelector("input[name='conditions']");
+		let classo = document.querySelector("select[name='class']");
+		let type = document.querySelector("select[name='type']");
+		let size = document.querySelector("select[name='size']");
+		let declawed = document.querySelector("select[name='declawed']");
+		let conta = 0;
 
 		//Eliminar errores
 		$(".err").remove();
@@ -504,46 +514,351 @@ if (next) {
 		if (animals.value == '' || animals.value == 0 || animals.value == null || animals.value == undefined || isNaN(animals.value) == true) {
 			error(animals, "The animals field is required");
 			$('html, body').animate({scrollTop: $(animals).offset().top - 50},1000);
-			return false;	
-		}
-
-		if (breeds.value == '' || breeds.value == 0 || breeds.value == null || breeds.value == undefined || isNaN(breeds.value) == true) {
-			error(breeds, "The breeds field is required");
-			$('html, body').animate({scrollTop: $(breeds).offset().top - 50},1000);
-			return false;	
-		}
-
-		if (colors.value == '' || colors.value == 0 || colors.value == null || colors.value == undefined || isNaN(colors.value) == true) {
-			error(colors, "The colors field is required");
-			$('html, body').animate({scrollTop: $(colors).offset().top - 50},1000);
-			return false;	
-		}
-
-		if (genders.value == '' || genders.value == 0 || genders.value == null || genders.value == undefined || isNaN(genders.value) == true) {
-			error(genders, "The genders field is required");
-			$('html, body').animate({scrollTop: $(genders).offset().top - 50},1000);
-			return false;	
-		}
-
-		if (ages.value == '' || ages.value == 0 || ages.value == null || ages.value == undefined || isNaN(ages.value) == true) {
-			error(ages, "The ages field is required");
-			$('html, body').animate({scrollTop: $(ages).offset().top - 50},1000);
-			return false;	
+			return false;
 		}
 
 
-		if (discipline.value == '' || discipline.value == 0 || discipline.value == null || discipline.value == undefined || isNaN(discipline.value) == true) {
-			error(discipline, "The discipline field is required");
-			$('html, body').animate({scrollTop: $(discipline).offset().top - 50},1000);
-			return false;	
+		if (animals.value == 1) {
+
+			if (breeds.value == '' || breeds.value == 0 || breeds.value == null || breeds.value == undefined || isNaN(breeds.value) == true) {
+				error(breeds, "The breeds field is required");
+				$('html, body').animate({scrollTop: $(breeds).offset().top - 50},1000);
+				conta = 1;
+				return false;	
+			}
+
+			if (ages.value == '' || ages.value == 0 || ages.value == null || ages.value == undefined || isNaN(ages.value) == true) {
+				error(ages, "The ages field is required");
+				$('html, body').animate({scrollTop: $(ages).offset().top - 50},1000);
+				conta = 1;
+				return false;	
+			}
+
+			if (vaccinations.value == '' || vaccinations.value == 0 || vaccinations.value == null || vaccinations.value == undefined || isNaN(vaccinations.value) == true) {
+				error(vaccinations, "The vaccinations field is required");
+				$('html, body').animate({scrollTop: $(vaccinations).offset().top - 50},1000);
+				conta = 1;
+				return false;
+			}
+
+			if (horns.value == '' || horns.value == 0 || horns.value == null || horns.value == undefined || isNaN(horns.value) == true) {
+				error(horns, "The horns field is required");
+				$('html, body').animate({scrollTop: $(horns).offset().top - 50},1000);
+				conta = 1;
+				return false;
+			}
+
+			if (weight.value == '' || weight.value == null || weight.value == undefined) {
+				error(weight, "The weight field is required");
+				$('html, body').animate({scrollTop: $(weight).offset().top - 50},1000);
+				conta = 1;
+				return false;	
+			}
+
+			if (conditions.value == '' || conditions.value == null || conditions.value == undefined) {
+				error(conditions, "The conditions field is required");
+				$('html, body').animate({scrollTop: $(conditions).offset().top - 50},1000);
+				conta = 1;
+				return false;
+			}
+
+			if (number_of_head.value == '' || number_of_head.value == null || number_of_head.value == undefined || isNaN(number_of_head.value) == true) {
+				error(number_of_head, "the number of heads is required");
+				$('html, body').animate({scrollTop: $(number_of_head).offset().top - 50},1000);
+				conta = 1;
+				return false;
+			}
 		}
 
-		if (temperament.value == '' || temperament.value == 0 || temperament.value == null || temperament.value == undefined || isNaN(temperament.value) == true) {
-			error(temperament, "The temperament field is required");
-			$('html, body').animate({scrollTop: $(temperament).offset().top - 50},1000);
-			return false;	
+		if (animals.value == 2) {
+
+			if (breeds.value == '' || breeds.value == 0 || breeds.value == null || breeds.value == undefined || isNaN(breeds.value) == true) {
+				error(breeds, "The breeds field is required");
+				$('html, body').animate({scrollTop: $(breeds).offset().top - 50},1000);
+				conta = 1;
+				return false;	
+			}
+
+			if (colors.value == '' || colors.value == 0 || colors.value == null || colors.value == undefined || isNaN(colors.value) == true) {
+				error(colors, "The colors field is required");
+				$('html, body').animate({scrollTop: $(colors).offset().top - 50},1000);
+				conta = 1;
+				return false;	
+			}
+
+			if (genders.value == '' || genders.value == 0 || genders.value == null || genders.value == undefined || isNaN(genders.value) == true) {
+				error(genders, "The genders field is required");
+				$('html, body').animate({scrollTop: $(genders).offset().top - 50},1000);
+				conta = 1;
+				return false;	
+			}
+
+			if (ages.value == '' || ages.value == 0 || ages.value == null || ages.value == undefined || isNaN(ages.value) == true) {
+				error(ages, "The ages field is required");
+				$('html, body').animate({scrollTop: $(ages).offset().top - 50},1000);
+				conta = 1;
+				return false;	
+			}
+
+			if (discipline.value == '' || discipline.value == 0 || discipline.value == null || discipline.value == undefined || isNaN(discipline.value) == true) {
+				error(discipline, "The discipline field is required");
+				$('html, body').animate({scrollTop: $(discipline).offset().top - 50},1000);
+				conta = 1;
+				return false;	
+			}
+
+			if (temperament.value == '' || temperament.value == 0 || temperament.value == null || temperament.value == undefined || isNaN(temperament.value) == true) {
+				error(temperament, "The temperament field is required");
+				$('html, body').animate({scrollTop: $(temperament).offset().top - 50},1000);
+				conta = 1;
+				return false;	
+			}
 		}
 
+		if (animals.value == 3) {
+
+			if (breeds.value == '' || breeds.value == 0 || breeds.value == null || breeds.value == undefined || isNaN(breeds.value) == true) {
+				error(breeds, "The breeds field is required");
+				$('html, body').animate({scrollTop: $(breeds).offset().top - 50},1000);
+				conta = 1;
+				return false;	
+			}
+
+			if (genders.value == '' || genders.value == 0 || genders.value == null || genders.value == undefined || isNaN(genders.value) == true) {
+				error(genders, "The genders field is required");
+				$('html, body').animate({scrollTop: $(genders).offset().top - 50},1000);
+				conta = 1;
+				return false;	
+			}
+
+			if (ages.value == '' || ages.value == 0 || ages.value == null || ages.value == undefined || isNaN(ages.value) == true) {
+				error(ages, "The ages field is required");
+				$('html, body').animate({scrollTop: $(ages).offset().top - 50},1000);
+				conta = 1;
+				return false;	
+			}
+
+			if (classo.value == '' || classo.value == 0 || classo.value == null || classo.value == undefined || isNaN(classo.value) == true) {
+				error(classo, "The class field is required");
+				$('html, body').animate({scrollTop: $(classo).offset().top - 50},1000);
+				conta = 1;
+				return false;	
+			}
+
+			if (horns.value == '' || horns.value == 0 || horns.value == null || horns.value == undefined || isNaN(horns.value) == true) {
+				error(horns, "The horns field is required");
+				$('html, body').animate({scrollTop: $(horns).offset().top - 50},1000);
+				conta = 1;
+				return false;
+			}
+
+			if (weight.value == '' || weight.value == null || weight.value == undefined) {
+				error(weight, "The weight field is required");
+				$('html, body').animate({scrollTop: $(weight).offset().top - 50},1000);
+				conta = 1;
+				return false;	
+			}
+
+			if (number_of_head.value == '' || number_of_head.value == null || number_of_head.value == undefined || isNaN(number_of_head.value) == true) {
+				error(number_of_head, "the number of heads is required");
+				$('html, body').animate({scrollTop: $(number_of_head).offset().top - 50},1000);
+				conta = 1;
+				return false;
+			}
+		}
+
+		if (animals.value == 4) {
+
+			if (breeds.value == '' || breeds.value == 0 || breeds.value == null || breeds.value == undefined || isNaN(breeds.value) == true) {
+				error(breeds, "The breeds field is required");
+				$('html, body').animate({scrollTop: $(breeds).offset().top - 50},1000);
+				conta = 1;
+				return false;	
+			}
+
+			if (genders.value == '' || genders.value == 0 || genders.value == null || genders.value == undefined || isNaN(genders.value) == true) {
+				error(genders, "The genders field is required");
+				$('html, body').animate({scrollTop: $(genders).offset().top - 50},1000);
+				conta = 1;
+				return false;	
+			}
+
+			if (ages.value == '' || ages.value == 0 || ages.value == null || ages.value == undefined || isNaN(ages.value) == true) {
+				error(ages, "The ages field is required");
+				$('html, body').animate({scrollTop: $(ages).offset().top - 50},1000);
+				conta = 1;
+				return false;	
+			}
+
+			if (classo.value == '' || classo.value == 0 || classo.value == null || classo.value == undefined || isNaN(classo.value) == true) {
+				error(classo, "The class field is required");
+				$('html, body').animate({scrollTop: $(classo).offset().top - 50},1000);
+				conta = 1;
+				return false;	
+			}
+
+			if (type.value == '' || type.value == 0 || type.value == null || type.value == undefined || isNaN(type.value) == true) {
+				error(type, "The type field is required");
+				$('html, body').animate({scrollTop: $(type).offset().top - 50},1000);
+				conta = 1;
+				return false;	
+			}
+
+			if (horns.value == '' || horns.value == 0 || horns.value == null || horns.value == undefined || isNaN(horns.value) == true) {
+				error(horns, "The horns field is required");
+				$('html, body').animate({scrollTop: $(horns).offset().top - 50},1000);
+				conta = 1;
+				return false;
+			}
+
+			if (weight.value == '' || weight.value == null || weight.value == undefined) {
+				error(weight, "The weight field is required");
+				$('html, body').animate({scrollTop: $(weight).offset().top - 50},1000);
+				conta = 1;
+				return false;	
+			}
+
+			if (number_of_head.value == '' || number_of_head.value == null || number_of_head.value == undefined || isNaN(number_of_head.value) == true) {
+				error(number_of_head, "the number of heads is required");
+				$('html, body').animate({scrollTop: $(number_of_head).offset().top - 50},1000);
+				conta = 1;
+				return false;
+			}
+		}
+
+		if (animals.value == 5) {
+
+			if (breeds.value == '' || breeds.value == 0 || breeds.value == null || breeds.value == undefined || isNaN(breeds.value) == true) {
+				error(breeds, "The breeds field is required");
+				$('html, body').animate({scrollTop: $(breeds).offset().top - 50},1000);
+				conta = 1;
+				return false;	
+			}
+
+			if (genders.value == '' || genders.value == 0 || genders.value == null || genders.value == undefined || isNaN(genders.value) == true) {
+				error(genders, "The genders field is required");
+				$('html, body').animate({scrollTop: $(genders).offset().top - 50},1000);
+				conta = 1;
+				return false;	
+			}
+
+			if (ages.value == '' || ages.value == 0 || ages.value == null || ages.value == undefined || isNaN(ages.value) == true) {
+				error(ages, "The ages field is required");
+				$('html, body').animate({scrollTop: $(ages).offset().top - 50},1000);
+				conta = 1;
+				return false;	
+			}
+
+			if (classo.value == '' || classo.value == 0 || classo.value == null || classo.value == undefined || isNaN(classo.value) == true) {
+				error(classo, "The class field is required");
+				$('html, body').animate({scrollTop: $(classo).offset().top - 50},1000);
+				conta = 1;
+				return false;	
+			}
+
+			if (weight.value == '' || weight.value == null || weight.value == undefined) {
+				error(weight, "The weight field is required");
+				$('html, body').animate({scrollTop: $(weight).offset().top - 50},1000);
+				conta = 1;
+				return false;	
+			}
+
+			if (number_of_head.value == '' || number_of_head.value == null || number_of_head.value == undefined || isNaN(number_of_head.value) == true) {
+				error(number_of_head, "the number of heads is required");
+				$('html, body').animate({scrollTop: $(number_of_head).offset().top - 50},1000);
+				conta = 1;
+				return false;
+			}
+		}
+
+		if (animals.value == 6) {
+
+			if (breeds.value == '' || breeds.value == 0 || breeds.value == null || breeds.value == undefined || isNaN(breeds.value) == true) {
+				error(breeds, "The breeds field is required");
+				$('html, body').animate({scrollTop: $(breeds).offset().top - 50},1000);
+				conta = 1;
+				return false;	
+			}
+
+			if (colors.value == '' || colors.value == 0 || colors.value == null || colors.value == undefined || isNaN(colors.value) == true) {
+				error(colors, "The colors field is required");
+				$('html, body').animate({scrollTop: $(colors).offset().top - 50},1000);
+				conta = 1;
+				return false;	
+			}
+
+			if (genders.value == '' || genders.value == 0 || genders.value == null || genders.value == undefined || isNaN(genders.value) == true) {
+				error(genders, "The genders field is required");
+				$('html, body').animate({scrollTop: $(genders).offset().top - 50},1000);
+				conta = 1;
+				return false;	
+			}
+
+			if (ages.value == '' || ages.value == 0 || ages.value == null || ages.value == undefined || isNaN(ages.value) == true) {
+				error(ages, "The ages field is required");
+				$('html, body').animate({scrollTop: $(ages).offset().top - 50},1000);
+				conta = 1;
+				return false;	
+			}
+
+			if (size.value == '' || size.value == 0 || size.value == null || size.value == undefined || isNaN(size.value) == true) {
+				error(size, "The size field is required");
+				$('html, body').animate({scrollTop: $(size).offset().top - 50},1000);
+				conta = 1;
+				return false;	
+			}
+		}
+
+		if (animals.value == 7) {
+
+			if (breeds.value == '' || breeds.value == 0 || breeds.value == null || breeds.value == undefined || isNaN(breeds.value) == true) {
+				error(breeds, "The breeds field is required");
+				$('html, body').animate({scrollTop: $(breeds).offset().top - 50},1000);
+				conta = 1;
+				return false;	
+			}
+
+			if (colors.value == '' || colors.value == 0 || colors.value == null || colors.value == undefined || isNaN(colors.value) == true) {
+				error(colors, "The colors field is required");
+				$('html, body').animate({scrollTop: $(colors).offset().top - 50},1000);
+				conta = 1;
+				return false;	
+			}
+
+			if (genders.value == '' || genders.value == 0 || genders.value == null || genders.value == undefined || isNaN(genders.value) == true) {
+				error(genders, "The genders field is required");
+				$('html, body').animate({scrollTop: $(genders).offset().top - 50},1000);
+				conta = 1;
+				return false;	
+			}
+
+			if (ages.value == '' || ages.value == 0 || ages.value == null || ages.value == undefined || isNaN(ages.value) == true) {
+				error(ages, "The ages field is required");
+				$('html, body').animate({scrollTop: $(ages).offset().top - 50},1000);
+				conta = 1;
+				return false;	
+			}
+
+			if (size.value == '' || size.value == 0 || size.value == null || size.value == undefined || isNaN(size.value) == true) {
+				error(size, "The size field is required");
+				$('html, body').animate({scrollTop: $(size).offset().top - 50},1000);
+				conta = 1;
+				return false;	
+			}
+
+			if (declawed.value == '' || declawed.value == 0 || declawed.value == null || declawed.value == undefined || isNaN(declawed.value) == true) {
+				error(declawed, "The declawed field is required");
+				$('html, body').animate({scrollTop: $(declawed).offset().top - 50},1000);
+				conta = 1;
+				return false;	
+			}
+		}
+
+		if (conta == 1) {
+			return false;
+		}
+
+	
 		if (price.value == '' || price.value == 0 || price.value == null || price.value == undefined) {
 			error(price, "The price field is required");
 			$('html, body').animate({scrollTop: $(price).offset().top - 50},1000);
@@ -556,13 +871,13 @@ if (next) {
 			return false;	
 		}
 
-		if (city.value == '' || city.value == null || city.value == undefined) {
+		if (city.value == '' || city.value == null || city.value == undefined || city.value == 0) {
 			error(city, "The city field is required");
 			$('html, body').animate({scrollTop: $(city).offset().top - 50},1000);
 			return false;	
 		}
 
-		if (region.value == '' || region.value == null || region.value == undefined) {
+		if (region.value == '' || region.value == null || region.value == undefined || region.value == 0) {
 			error(region, "The region field is required");
 			$('html, body').animate({scrollTop: $(region).offset().top - 50},1000);
 			return false;	
@@ -593,7 +908,7 @@ if (next) {
 		}
 
 
-		if (country.value == '' || country.value == null || country.value == undefined) {
+		if (country.value == '' || country.value == null || country.value == undefined || country.value == 0) {
 			error(country, "The country field is required");
 			$('html, body').animate({scrollTop: $(country).offset().top - 50},1000);
 			return false;	
@@ -641,6 +956,59 @@ if (next) {
 		window.scrollTo(0, $(".step2").position().top);
 	});
 }
+
+
+/***************************************\
+|    SELECCION DE ESTADOS - CIUDADES    |
+\***************************************/
+
+let region = document.querySelector("select[name='region']");
+if (region) {
+
+	region.addEventListener("change", function(e) {
+		e.preventDefault();
+
+
+		let estado = e.target;
+		let token = document.querySelector("input[name='_token']");
+		if (estado.value == '' || estado.value == null || estado.value == 0 || isNaN(estado.value) == true) {
+			error(estado, "The region field is required");
+			$('html, body').animate({scrollTop: $(estado).offset().top - 50},1000);
+			return false;	
+		}
+
+		data = {
+			"estado": estado.value, 
+			"_token": token.value 
+		};
+
+		request
+		   	.post('/searchState')
+		   	.send(data)
+		   	.set('Accept', 'application/json')
+		   	.then(res => {
+		   		console.log(res);
+		   		if (res.body.message == 'ok') {
+		   			let html = "";
+		   			for (var i = 0; i < res.body.result.length; i++) {
+		   				html += "<option value='"+res.body.result[i]["id_ciudad"]+"'>"+res.body.result[i]["ciudad"]+"</option>";
+		   			}
+		   			$("select[name='city']").html(html);
+		   		}
+		 
+		   	})
+		   	.catch(err => {
+      			// err.message, err.response
+      			console.log(err.message);
+      			error(estado, "A problem occurred, try again later");
+				$('html, body').animate({scrollTop: $(estado).offset().top - 50},1000);
+				return false;	
+   			});
+
+
+	});
+}
+
 
 
 /**********************\
@@ -1096,6 +1464,232 @@ if (info_user) {
 
 
 
+
+/*******************************\
+|    ANIMAL SELECT - OPTIONS    |
+\*******************************/
+
+let animal = document.querySelector("select[name='animals']");
+if (animal) {
+	animal.addEventListener("change", e => {
+
+		let token = document.querySelector("input[name='_token']");
+		let animals = document.querySelector("select[name='animals']");
+		let data = { "_token": token.value, "animal": animals.value };
+
+		request
+		   	.post('/animal_config')
+		   	.send(data)
+		   	.set('Accept', 'application/json')
+		   	.then(res => {
+		   		console.log(res);
+		   		if (res.body.message == 'ok') {
+		   			//console.log(res.body.result.breeds.length);
+		   			$(".sale-row div").css("display", "none");
+		   			$("input[name='conditions']").parent().css("display", "none");
+		   			$("input[name='weight']").parent().css("display", "none");
+		   			$("input[name='number_of_head']").parent().css("display", "none");
+		   			$(".temperament-ok").css("display", "none");
+
+		   			if (animals.value == 1) {
+		   				let breedso = "<option value='0'>Make a selection</option>";
+
+		   				for (var i = 0; i <= res.body.result.breeds.length - 1; i++) {
+		   					breedso += "<option value='"+res.body.result.breeds[i].breed_id+"'>"+res.body.result.breeds[i].name+"</option>";
+		   				}
+
+		   				$("select[name='animals']").parent().css("display", "block");
+		   				$("select[name='breeds']").html(breedso).parent().css("display", "block");
+		   				$("select[name='categories']").parent().css("display", "block");
+		   				$("input[name='number_of_head']").parent().css("display", "block");
+		   				$("select[name='ages']").parent().css("display", "block");
+		   				$("input[name='weight']").parent().css("display", "block");
+		   				$("select[name='vaccinations']").parent().css("display", "block");
+		   				$("select[name='horns']").parent().css("display", "block");
+		   				$("input[name='conditions']").parent().css("display", "block");
+		   				
+		   			}
+
+		   			else if (animals.value == 2) {
+		   				let breedso = "<option value='0'>Make a selection</option>",
+		   					coloro = "<option value='0'>Make a selection</option>",
+		   					gendero = "<option value='0'>Make a selection</option>";
+
+		   				for (var i = 0; i <= res.body.result.breeds.length - 1; i++) {
+		   					breedso += "<option value='"+res.body.result.breeds[i].breed_id+"'>"+res.body.result.breeds[i].name+"</option>";
+		   				}
+
+		   				for (var i = 0; i <= res.body.result.color.length - 1; i++) {
+		   					coloro += "<option value='"+res.body.result.color[i].color_id+"'>"+res.body.result.color[i].name+"</option>";
+		   				}
+
+		   				for (var i = 0; i <= res.body.result.genders.length - 1; i++) {
+		   					gendero += "<option value='"+res.body.result.genders[i].gender_id+"'>"+res.body.result.genders[i].name+"</option>";
+		   				}
+
+		   				$("select[name='animals']").parent().css("display", "block");
+		   				$("select[name='genders']").html(gendero).parent().css("display", "block");
+		   				$("select[name='breeds']").html(breedso).parent().css("display", "block");
+		   				$("select[name='colors']").html(coloro).parent().css("display", "block");
+		   				$("select[name='discipline']").parent().css("display", "block");
+		   				$("select[name='ages']").parent().css("display", "block");
+		   				$(".temperament-ok").css("display", "block");
+		   				$("select[name='categories']").css("display", "block");
+		   			}
+
+		   			else if (animals.value == 3) {
+
+		   				let breedso = "<option value='0'>Make a selection</option>",
+		   					classo = "<option value='0'>Make a selection</option>",
+		   					gendero = "<option value='0'>Make a selection</option>";
+
+		   				for (var i = 0; i <= res.body.result.breeds.length - 1; i++) {
+		   					breedso += "<option value='"+res.body.result.breeds[i].breed_id+"'>"+res.body.result.breeds[i].name+"</option>";
+		   				}
+
+		   				for (var i = 0; i <= res.body.result.class.length - 1; i++) {
+		   					classo += "<option value='"+res.body.result.class[i].class_id+"'>"+res.body.result.class[i].name+"</option>";
+		   				}
+
+		   				for (var i = 0; i <= res.body.result.genders.length - 1; i++) {
+		   					gendero += "<option value='"+res.body.result.genders[i].gender_id+"'>"+res.body.result.genders[i].name+"</option>";
+		   				}
+
+		   				$("select[name='animals']").parent().css("display", "block");
+		   				$("select[name='breeds']").html(breedso).parent().css("display", "block");
+		   				$("select[name='genders']").html(gendero).parent().css("display", "block");
+		   				$("select[name='class']").html(classo).parent().css("display", "block");
+		   				$("input[name='number_of_head']").parent().css("display", "block");
+		   				$("select[name='ages']").parent().css("display", "block");
+		   				$("select[name='horns']").parent().css("display", "block");
+		   				$("input[name='weight']").parent().css("display", "block");
+		   			}
+
+
+		   			else if (animals.value == 4) {
+
+		   				let breedso = "<option value='0'>Make a selection</option>",
+		   					classo = "<option value='0'>Make a selection</option>",
+		   					gendero = "<option value='0'>Make a selection</option>";
+
+		   				for (var i = 0; i <= res.body.result.breeds.length - 1; i++) {
+		   					breedso += "<option value='"+res.body.result.breeds[i].breed_id+"'>"+res.body.result.breeds[i].name+"</option>";
+		   				}
+
+		   				for (var i = 0; i <= res.body.result.class.length - 1; i++) {
+		   					classo += "<option value='"+res.body.result.class[i].class_id+"'>"+res.body.result.class[i].name+"</option>";
+		   				}
+
+		   				for (var i = 0; i <= res.body.result.genders.length - 1; i++) {
+		   					gendero += "<option value='"+res.body.result.genders[i].gender_id+"'>"+res.body.result.genders[i].name+"</option>";
+		   				}
+
+		   				$("select[name='animals']").parent().css("display", "block");
+		   				$("select[name='breeds']").html(breedso).parent().css("display", "block");
+		   				$("select[name='genders']").html(gendero).parent().css("display", "block");
+		   				$("select[name='class']").html(classo).parent().css("display", "block");
+		   				$("select[name='type']").parent().css("display", "block");
+		   				$("select[name='horns']").parent().css("display", "block");
+		   				$("select[name='ages']").parent().css("display", "block");
+		   				$("input[name='number_of_head']").parent().css("display", "block");
+		   				$("input[name='weight']").parent().css("display", "block");
+		   			}
+
+		   			else if (animals.value == 5) {
+
+		   				let breedso = "<option value='0'>Make a selection</option>",
+		   					classo = "<option value='0'>Make a selection</option>",
+		   					gendero = "<option value='0'>Make a selection</option>";
+
+		   				for (var i = 0; i <= res.body.result.breeds.length - 1; i++) {
+		   					breedso += "<option value='"+res.body.result.breeds[i].breed_id+"'>"+res.body.result.breeds[i].name+"</option>";
+		   				}
+
+		   				for (var i = 0; i <= res.body.result.class.length - 1; i++) {
+		   					classo += "<option value='"+res.body.result.class[i].class_id+"'>"+res.body.result.class[i].name+"</option>";
+		   				}
+
+		   				for (var i = 0; i <= res.body.result.genders.length - 1; i++) {
+		   					gendero += "<option value='"+res.body.result.genders[i].gender_id+"'>"+res.body.result.genders[i].name+"</option>";
+		   				}
+
+		   				$("select[name='animals']").parent().css("display", "block");
+		   				$("select[name='breeds']").html(breedso).parent().css("display", "block");
+		   				$("select[name='genders']").html(gendero).parent().css("display", "block");
+		   				$("select[name='class']").html(classo).parent().css("display", "block");
+		   				$("select[name='ages']").parent().css("display", "block");
+		   				$("input[name='number_of_head']").parent().css("display", "block");
+		   				$("input[name='weight']").parent().css("display", "block");
+		   			}
+
+
+		   			else if (animals.value == 6) {
+
+		   				let breedso = "<option value='0'>Make a selection</option>",
+		   					gendero = "<option value='0'>Make a selection</option>",
+		   					coloro = "<option value='0'>Make a selection</option>";
+
+		   				for (var i = 0; i <= res.body.result.breeds.length - 1; i++) {
+		   					breedso += "<option value='"+res.body.result.breeds[i].breed_id+"'>"+res.body.result.breeds[i].name+"</option>";
+		   				}
+
+		   				for (var i = 0; i <= res.body.result.genders.length - 1; i++) {
+		   					gendero += "<option value='"+res.body.result.genders[i].gender_id+"'>"+res.body.result.genders[i].name+"</option>";
+		   				}
+
+		   				for (var i = 0; i <= res.body.result.color.length - 1; i++) {
+		   					coloro += "<option value='"+res.body.result.color[i].color_id+"'>"+res.body.result.color[i].name+"</option>";
+		   				}
+
+		   				$("select[name='animals']").parent().css("display", "block");
+		   				$("select[name='ages']").parent().css("display", "block");
+		   				$("select[name='colors']").html(coloro).parent().css("display", "block");
+		   				$("select[name='breeds']").html(breedso).parent().css("display", "block");
+		   				$("select[name='genders']").html(gendero).parent().css("display", "block");
+		   				$("select[name='size']").parent().css("display", "block");
+		   			}
+
+
+		   			else if (animals.value == 7) {
+
+		   				let breedso = "<option value='0'>Make a selection</option>",
+		   					gendero = "<option value='0'>Make a selection</option>",
+		   					coloro = "<option value='0'>Make a selection</option>";
+
+		   				for (var i = 0; i <= res.body.result.breeds.length - 1; i++) {
+		   					breedso += "<option value='"+res.body.result.breeds[i].breed_id+"'>"+res.body.result.breeds[i].name+"</option>";
+		   				}
+
+		   				for (var i = 0; i <= res.body.result.genders.length - 1; i++) {
+		   					gendero += "<option value='"+res.body.result.genders[i].gender_id+"'>"+res.body.result.genders[i].name+"</option>";
+		   				}
+
+		   				for (var i = 0; i <= res.body.result.color.length - 1; i++) {
+		   					coloro += "<option value='"+res.body.result.color[i].color_id+"'>"+res.body.result.color[i].name+"</option>";
+		   				}
+
+		   				$("select[name='animals']").parent().css("display", "block");
+		   				$("select[name='ages']").parent().css("display", "block");
+		   				$("select[name='colors']").html(coloro).parent().css("display", "block");
+		   				$("select[name='breeds']").html(breedso).parent().css("display", "block");
+		   				$("select[name='genders']").html(gendero).parent().css("display", "block")
+		   				$("select[name='size']").parent().css("display", "block");
+		   				$("select[name='declawed']").parent().css("display", "block");
+		   			}
+		   		}
+		   	})
+		   	.catch(err => {
+      			// err.message, err.response
+      			console.log(err.message);
+   			});
+
+	});
+}
+
+
+
+
+
 /****************************\
 |     top Animal - Home      |
 \****************************/
@@ -1263,7 +1857,7 @@ function validar_email( email ) {
 function error(element, msg) {
 	$(element)
 		//.css("margin-bottom", "0px")
-		.after("<span class='err' style='display:block;margin-bottom:15px;margin-top: -15px;color:red'>"+msg+"</span>");
+		.after("<span class='err' style='display:block;color:red'>"+msg+"</span>");
 }
 
 
@@ -1456,6 +2050,7 @@ function stripeResponseHandler(status, response) {
             .removeClass('hide')
             .find('.alert')
             .text(response.error.message);
+        $("#loading").css("display", "none");
     } else {
         // token contains id, last4, and card type
         var token = response['id'];
@@ -1495,6 +2090,8 @@ function initialize() {
 		  	}
 		})(marker, i));
 	}
+
+	$("#show-map").css("display", "block");
 }
 
 

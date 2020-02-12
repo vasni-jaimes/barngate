@@ -11,64 +11,59 @@ class ColorsTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('colors')->insert([
-            "name" => "All colors",
-        ]);
 
-        DB::table('colors')->insert([
-            "name" => "Bay",
-        ]);
+        /* horses */
+        
+        $horses = ["All colors", "Bay", "Black", "Brown", "Buckskin", "Chestnut", "Cremello", "Dun", "Gray", "Grulla", 
+                    "Palomino", "Perlino", "Roan", "Sorrel", "Other"];
 
-        DB::table('colors')->insert([
-            "name" => "Black",
-        ]);
 
-        DB::table('colors')->insert([
-            "name" => "Brown",
-        ]);
+        for ($i=0; $i <= count($horses) - 1; $i++) {
 
-        DB::table('colors')->insert([
-            "name" => "Buckskin",
-        ]);
+            DB::table('colors')->insert([
+                "name" => $horses[$i],
+                "animal_id" => 2,
+            ]);
+        }
 
-        DB::table('colors')->insert([
-            "name" => "Chestnut",
-        ]);
 
-        DB::table('colors')->insert([
-            "name" => "Cremello",
-        ]);
 
-        DB::table('colors')->insert([
-            "name" => "Dun",
-        ]);
 
-        DB::table('colors')->insert([
-            "name" => "Gray",
-        ]);
+        /* dogs */
 
-        DB::table('colors')->insert([
-            "name" => "Grulla",
-        ]);
+        $dogs = ["Apricot / Beige", "Bicolor", "Black", "Brindle", "Brown / Chocolate", "Golden", "Gray / Blue / Silver", "Harlequin", 
+                 "Merle (Blue)", "Merle (Red)", "Red / Chestnut / Orange", "Sable", "Tricolor (Brown, Black, & White)", "White / Cream", "Yellow / Tan / Blond / Fawn"];
 
-        DB::table('colors')->insert([
-            "name" => "Palomino",
-        ]);
 
-        DB::table('colors')->insert([
-            "name" => "Perlino",
-        ]);
+        for ($i=0; $i <= count($dogs) - 1; $i++) {
 
-        DB::table('colors')->insert([
-            "name" => "Roan",
-        ]);
+            DB::table('colors')->insert([
+                "name" => $dogs[$i],
+                "animal_id" => 6,
+            ]);
+        }
 
-        DB::table('colors')->insert([
-            "name" => "Sorrel",
-        ]);
 
-        DB::table('colors')->insert([
-            "name" => "Other",
-        ]);
+
+        /* cats */
+
+        $cats = ["Black", "Black & White / Tuxedo", "Blue Cream", "Blue Point", "Brown / Chocolate", "Buff & White", "Buff / Tan / Fawn", "Calico", "Chocolate Point", 
+                 "Cream / Ivory", "Cream Point", "Dilute Calico", "Dilute Tortoiseshell", "Flame Point", "Gray & White", "Gray / Blue / Silver", "Lilac Point", 
+                 "Orange & White", "Orange / Red", "Seal Point", "Smoke", "Tabby (Brown / Chocolate)", "Tabby (Buff / Tan / Fawn)", "Tabby (Gray / Blue / Silver)", 
+                 "Tabby (Leopard / Spotted)", "Tabby (Orange / Red)", "Tabby (Tiger Striped)", "Torbie", "Tortoiseshell", "White"];
+
+
+        for ($i=0; $i <= count($cats) - 1; $i++) {
+
+            DB::table('colors')->insert([
+                "name" => $cats[$i],
+                "animal_id" => 7,
+            ]);
+        }
+
+
+
+
+
     }
 }

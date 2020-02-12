@@ -28,11 +28,13 @@ class SearchController extends Controller
     						->join('breeds', 'sales.breed_id', '=', 'breeds.breed_id')
 	                        ->join('colors', 'sales.color_id', '=', 'colors.color_id')
 	                        ->join('genders', 'sales.gender_id', '=', 'genders.gender_id')
+                            ->join('cities', 'sales.city', '=', 'cities.id_ciudad')
 	    					->select('sales.*', 
 		    							'animals.name as animal_name', 
 	                                    'breeds.name as breeds_name', 
 	                                    'colors.name as colors_name', 
-	                                    'genders.name as gender_name')
+	                                    'genders.name as gender_name',
+                                        'cities.*')
 	    					->get();
 
         if ($animalsrow->count() > 0) {
@@ -55,7 +57,7 @@ class SearchController extends Controller
                 $animal[$ban]["gender_id"]      = $animalrow->gender_id;
                 $animal[$ban]["discipline_id"]  = $animalrow->discipline_id;
                 $animal[$ban]["description"]    = $animalrow->description;
-                $animal[$ban]["adress"]         = $animalrow->city.", ".$animalrow->state;
+                $animal[$ban]["adress"]         = $animalrow->ciudad.", ".$animalrow->estado;
                 $ban++;
             }
         }

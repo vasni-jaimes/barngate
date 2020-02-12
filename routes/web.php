@@ -33,6 +33,8 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout.get');
 //Sale
 Route::get('/sale', 'SaleController@create')->name('sale');
 Route::post('/sale.store', 'SaleController@store')->name('sale.store');
+Route::post('/searchState', 'SaleController@SearchState')->name('sale.state');
+Route::post('/animal_config', 'SaleController@SearchAnimal')->name('search.animal');
 
 //Myaccount
 Route::get('/myaccount', 'MyaccountController@index')->name('myaccount');

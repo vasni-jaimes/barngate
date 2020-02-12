@@ -10,6 +10,10 @@
 		    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
 		}
 
+		.oculto {
+			display: none;
+		}
+
 	</style>
 @endsection
 
@@ -46,7 +50,8 @@
 			<p class="fz-16 pt-20 pb-40">What Animal would you like to sell? Please fill out the form below.</p>
 			
 			<div class="wrapper-sale">
-				<div class="row">
+
+				<div class="row sale-row">
 					<div class="col-md-4 pb-20">
 						<h3 class="fw-700">Animal<span>*</span></h3>
 						<select size="5" name="animals">
@@ -79,7 +84,7 @@
 					</div> <!-- /col-4 -->
 				</div> <!-- /row -->
 
-				<div class="row pt-40">
+				<div class="row pt-40 sale-row">
 					<div class="col-md-4 pb-20">
 						<h3 class="fw-700">Gender<span>*</span></h3>
 						<select size="5" name="genders">
@@ -113,8 +118,116 @@
 					</div> <!-- /col-4 -->
 				</div> <!-- /row -->
 
-				<div class="row pt-40">
+				<div class="row pt-40 sale-row">
+					
+					<div class="col-md-4">
+						<h3 class="fw-700">Class<span>*</span></h3>
+						<select size="5" name="class">
+							<option>Make a selection</option>
+							@foreach($class as $clas)
+								<option value="{{ $clas->class_id }}" {{ selectOld("class", $clas->class_id) }}>{{ $clas->name }}</option>
+							@endforeach
+						</select>
+						{!! $errors->paso1->first('class', "<span class='err' style='display:block;margin-bottom:15px;color:red'>:message</span>") !!}
+					</div> <!-- /col-4 -->
+
+
+					<div class="col-md-4">
+						<h3 class="fw-700">Type<span>*</span></h3>
+						<select size="5" name="type">
+							<option>Make a selection</option>
+							@foreach($type as $typ)
+								<option value="{{ $typ->type_id }}" {{ selectOld("class", $typ->type_id) }}>{{ $typ->name }}</option>
+							@endforeach
+						</select>
+						{!! $errors->paso1->first('type', "<span class='err' style='display:block;margin-bottom:15px;color:red'>:message</span>") !!}
+					</div> <!-- /col-4 -->
+
+					<div class="col-md-4">
+						<h3 class="fw-700">Size<span>*</span></h3>
+						<select size="5" name="size">
+							<option>Make a selection</option>
+							@foreach($size as $siz)
+								<option value="{{ $siz->size_id }}" {{ selectOld("class", $siz->size_id) }}>{{ $siz->name }}</option>
+							@endforeach
+						</select>
+						{!! $errors->paso1->first('size', "<span class='err' style='display:block;margin-bottom:15px;color:red'>:message</span>") !!}
+					</div> <!-- /col-4 -->
+				</div>
+
+				<div class="row pt-40 sale-row">
+
+					<div class="col-md-4">
+						<h3 class="fw-700">Declawed<span>*</span></h3>
+						<select size="5" name="declawed">
+							<option>Make a selection</option>
+							<option value="1">Yes</option>
+							<option value="2">No</option>
+						</select>
+						{!! $errors->paso1->first('declawed', "<span class='err' style='display:block;margin-bottom:15px;color:red'>:message</span>") !!}
+					</div> <!-- /col-4 -->
+
+
+					<div class="col-md-4">
+						<h3 class="fw-700">Vaccinations<span>*</span></h3>
+						<select size="5" name="vaccinations">
+							<option>Make a selection</option>
+							<option value="1">Yes</option>
+							<option value="2">No</option>
+						</select>
+						{!! $errors->paso1->first('vaccinations', "<span class='err' style='display:block;margin-bottom:15px;color:red'>:message</span>") !!}
+					</div> <!-- /col-4 -->
+
+					<div class="col-md-4">
+						<h3 class="fw-700">Horns<span>*</span></h3>
+						<select size="5" name="horns">
+							<option>Make a selection</option>
+							<option value="1">Yes</option>
+							<option value="2">No</option>
+							<option value="3">Other</option>
+							<option value="4">Polled</option>
+						</select>
+						{!! $errors->paso1->first('horns', "<span class='err' style='display:block;margin-bottom:15px;color:red'>:message</span>") !!}
+					</div> <!-- /col-4 -->
+				</div>
+
+				<div class="row pt-40 sale-row">
+
+					<div class="col-md-4">
+						<h3 class="fw-700">Categories<span>*</span></h3>
+						<select size="5" name="categories">
+							<option>Make a selection</option>
+							@foreach($categories as $categorie)
+								<option value="{{ $categorie->categorie_id }}" {{ selectOld("categories", $categorie->categorie_id) }}>{{ $categorie->name }}</option>
+							@endforeach
+						</select>
+						{!! $errors->paso1->first('categories', "<span class='err' style='display:block;margin-bottom:15px;color:red'>:message</span>") !!}
+					</div> <!-- /col-4 -->
+
+				</div>
+
+				<div class="row pt-40 sale-row">
 					<div class="col-md-4 pb-20">
+						<h3 class="fw-700">Weight<span>*</span></h3>
+						<input type="text" class="form-input" name="weight" value="{{ old("weight") }}">
+						{!! $errors->paso1->first('weight', "<span class='err' style='display:block;margin-bottom:15px;color:red'>:message</span>") !!}
+					</div>
+
+					<div class="col-md-4 pb-20">
+						<h3 class="fw-700">Conditions<span>*</span></h3>
+						<input type="text" class="form-input" name="conditions" value="{{ old("conditions") }}">
+						{!! $errors->paso1->first('conditions', "<span class='err' style='display:block;margin-bottom:15px;color:red'>:message</span>") !!}
+					</div>
+
+					<div class="col-md-4 pb-20">
+						<h3 class="fw-700">Number of head<span>*</span></h3>
+						<input type="text" class="form-input" name="number_of_head" value="{{ old("number_of_head") }}">
+						{!! $errors->paso1->first('number_of_head', "<span class='err' style='display:block;margin-bottom:15px;color:red'>:message</span>") !!}
+					</div>
+				</div>
+
+				<div class="row pt-40">
+					<div class="col-md-4 pb-20 temperament-ok">
 						<h3 class="fw-700 pb-10">Temperament <small>(1=Calm, 10=Hot)</small></h3>
 						<div class="row items-center">	
 							<div class="col-md-9">
@@ -146,14 +259,20 @@
 				
 				<div class="row pt-20">
 					<div class="col-md-4 pb-20">
-						<h3 class="fw-700">City:<span>*</span></h3>
-						<input type="text" class="form-input" name="city" value="{{ old("city") }}">
-						{!! $errors->paso1->first('city', "<span class='err' style='display:block;margin-bottom:15px;color:red'>:message</span>") !!}
+						<h3 class="fw-700">State/Province/Region:<span>*</span></h3>
+						<select name="region">
+							@foreach($estados as $estado)
+								<option value="{{ $estado->id_estado }}"> {{ $estado->estado }} </option>
+							@endforeach
+						</select>
+						{{-- <input type="text" class="form-input" name="region" value="{{ old("region") }}">
+						{!! $errors->paso1->first('region', "<span class='err' style='display:block;margin-bottom:15px;color:red'>:message</span>") !!} --}}
 					</div>
 					<div class="col-md-4 pb-20">
-						<h3 class="fw-700">State/Province/Region:<span>*</span></h3>
-						<input type="text" class="form-input" name="region" value="{{ old("region") }}">
-						{!! $errors->paso1->first('region', "<span class='err' style='display:block;margin-bottom:15px;color:red'>:message</span>") !!}
+						<h3 class="fw-700">City:<span>*</span></h3>
+						<select name="city"></select>
+						{{-- <input type="text" class="form-input" name="city" value="{{ old("city") }}">
+						{!! $errors->paso1->first('city', "<span class='err' style='display:block;margin-bottom:15px;color:red'>:message</span>") !!} --}}
 					</div>
 					<div class="col-md-4 pb-20">
 						<h3 class="fw-700">ZIP:<span>*</span></h3>
@@ -165,8 +284,11 @@
 				<div class="row pt-20">
 					<div class="col-md-4 pb-20">
 						<h3 class="fw-700">Country:<span>*</span></h3>
-						<input type="text" class="form-input" name="country" value="{{ old("country") }}">
-						{!! $errors->paso1->first('country', "<span class='err' style='display:block;margin-bottom:15px;color:red'>:message</span>") !!}
+						<select name="country">
+							<option value="1"> United States </option>
+						</select>
+						{{-- <input type="text" class="form-input" name="country" value="{{ old("country") }}">
+						{!! $errors->paso1->first('country', "<span class='err' style='display:block;margin-bottom:15px;color:red'>:message</span>") !!} --}}
 					</div>
 					<div class="col-md-4 pb-20">
 						<h3 class="fw-700">Phone Number:<span>*</span></h3>
