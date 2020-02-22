@@ -1758,6 +1758,11 @@ if (animal) {
 		let animals = document.querySelector("select[name='animals']");
 		let data = { "_token": token.value, "animal": animals.value };
 
+		//console.log(animals.value);
+		if (animals.value == 0 || animals.value == '' || animals.value == null || animals.value == undefined) {
+			return false;
+		}
+
 		request
 		   	.post('/animal_config')
 		   	.send(data)

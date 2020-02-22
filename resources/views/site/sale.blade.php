@@ -55,7 +55,7 @@
 					<div class="col-md-4 pb-20">
 						<h3 class="fw-700">Animal<span>*</span></h3>
 						<select size="5" name="animals">
-							<option>Make a selection</option>
+							<option value="">Make a selection</option>
 							@foreach($animals as $animal)
 								<option value="{{ $animal->animal_id }}" {{ selectOld("animals", $animal->animal_id) }}>{{ $animal->name }}</option>
 							@endforeach
