@@ -63,6 +63,7 @@ class UsersController extends Controller
             'username' => ['required', 'string', 'max:255', 'unique:users'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'g-recaptcha-response' => ['required'],
         ]);
 
 
@@ -71,25 +72,50 @@ class UsersController extends Controller
         }
 
 
-    	DB::beginTransaction();
+        //VALIDAR RECAPTCHA
+        $url = 'https://www.google.com/recaptcha/api/siteverify';
+        $data = array(
+            'secret' => '6LebF9oUAAAAAIOcxP40_EwXLFLWrTgniA4jfFO6',
+            'response' => request("g-recaptcha-response"),
+        );
+        $options = array(
+            'http' => array (
+                'header' => "Content-Type: application/x-www-form-urlencoded",
+                'method' => 'POST',
+                'content' => http_build_query($data)
+            )
+        );
 
-    	$users 					= new User();
-        $users->username      	= $request->username;
-        $users->email       	= $request->email;
-        $users->password		= bcrypt($request->password);
+        $context            = stream_context_create($options);
+        $verify             = file_get_contents($url, false, $context);
+        $captcha_success    = json_decode($verify);
 
-        if ($users->save()) {
 
-            // login automatico
-            Auth::login($users);
+        if ($captcha_success->success) {
 
-           	Mail::to("853e9296af-b1cadc@inbox.mailtrap.io")->send(new MessageRegister($request));
-           	DB::commit();
-            return response()->json(["message" => "ok"], 202);
+    	   DB::beginTransaction();
+
+        	$users 					= new User();
+            $users->username      	= $request->username;
+            $users->email       	= $request->email;
+            $users->password		= bcrypt($request->password);
+
+            if ($users->save()) {
+
+                // login automatico
+                Auth::login($users);
+
+               	Mail::to("853e9296af-b1cadc@inbox.mailtrap.io")->send(new MessageRegister($request));
+               	DB::commit();
+                return response()->json(["message" => "ok"], 202);
+            }
+            else {
+                DB::rollback();
+                return response()->json(["message" => "off"], 202);
+            }
         }
         else {
-            DB::rollback();
-            return response()->json(["message" => "off"], 202);
+            return response()->json(["message" => "error_captcha"], 202);
         }
     }
 }

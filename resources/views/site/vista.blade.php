@@ -14,7 +14,8 @@
 				</div> <!-- /row-mapa -->
 				
 				<div class="row-filtros">
-				
+					
+					@csrf
 					<p class="fw-900 fz-22">Price</p>
 					
 					<div class="mt-20 mb-20">

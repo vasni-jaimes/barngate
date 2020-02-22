@@ -94,7 +94,6 @@ class SaleController extends Controller
             ]);
         }
 
-
         else if (request("animals") == 2) {
 
             $validator = Validator::make($request->all(), [
@@ -121,7 +120,6 @@ class SaleController extends Controller
                 "phone_number" => "min:10|max:13"
             ]);
         }
-
 
         else if (request("animals") == 3) {
 
@@ -153,11 +151,10 @@ class SaleController extends Controller
             ]);
         }
 
-
         else if (request("animals") == 4) {
 
             $validator = Validator::make($request->all(), [
-                "animals" => "required|max:2",
+                "animalss" => "required|max:2",
                 "animals" => "numeric",
                 "breeds" => "required|max:2",
                 "breeds" => "numeric",
@@ -186,11 +183,10 @@ class SaleController extends Controller
             ]);
         }
 
-
         else if (request("animals") == 5) {
 
             $validator = Validator::make($request->all(), [
-                "animals" => "required|max:2",
+                "animalss" => "required|max:2",
                 "animals" => "numeric",
                 "breeds" => "required|max:2",
                 "breeds" => "numeric",
@@ -215,12 +211,10 @@ class SaleController extends Controller
             ]);
         }
 
-
-
         else if (request("animals") == 6) {
 
             $validator = Validator::make($request->all(), [
-                "animals" => "required|max:2",
+                "animalss" => "required|max:2",
                 "animals" => "numeric",
                 "breeds" => "required|max:2",
                 "breeds" => "numeric",
@@ -244,11 +238,10 @@ class SaleController extends Controller
             ]);
         }
 
-
         else if (request("animals") == 7) {
 
             $validator = Validator::make($request->all(), [
-                "animals" => "required|max:2",
+                "animalss" => "required|max:2",
                 "animals" => "numeric",
                 "breeds" => "required|max:2",
                 "breeds" => "numeric",

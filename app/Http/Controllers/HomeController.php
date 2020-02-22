@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 //Moderl
 use App\User;
 use App\Sale;
+use App\Contact;
+
+use Validator;
+use DB;
 
 
 class HomeController extends Controller
@@ -66,7 +70,6 @@ class HomeController extends Controller
     }
 
 
-
     public function primerImagenProducto($usuario, $categoria, $producto)
     {
         $directory= base_path()."/storage/app/public/images/".$usuario."/".$categoria."/".$producto;
@@ -88,6 +91,43 @@ class HomeController extends Controller
         }
        
         return false;
+    }
+
+
+
+
+    public function ContactSend(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            "first_name" => "required|max:100",
+            "last_name" => "required|max:100",
+            "email_contact" => "required|max:50",
+            "phone" => "required|max:20",
+            "phone" => "numeric",
+            "questions" => "required|max:300"
+        ]);
+
+        if ($validator->fails()) {
+            return redirect("contact")->withErrors($validator)->withInput();
+        }
+
+        DB::beginTransaction();
+
+        $contact                = new Contact();
+        $contact->first_name    = $request->first_name;
+        $contact->last_name     = $request->last_name;
+        $contact->email         = $request->email_contact;
+        $contact->phone         = $request->phone;
+        $contact->questions     = $request->questions;
+
+        if ( $contact->save() ) {
+
+            DB::commit();
+            return back()->with('status.success', "1");
+        }
+
+        return back()->withInput()->with('status.error', "1");
+
     }
 
 }
