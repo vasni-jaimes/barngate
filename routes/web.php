@@ -51,6 +51,9 @@ Route::post("/addFavorite", "FavoritesController@addFavorite")->name("addFav");
 Route::get('/search', 'SearchController@VistaSearch')->name('vistaSearch');
 Route::post('/searcha', 'SearchController@SerchAjax')->name('serchajax');
 
+//Contact
+Route::post('/contact_send', 'HomeController@ContactSend')->name('contact.send');
+
 
 //vistas val pendientes
 //Route::view('/sale', 'site.sale')->name('sale');

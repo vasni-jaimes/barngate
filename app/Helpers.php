@@ -42,6 +42,14 @@ function planSelected($plan) {
 
 
 
+function planSelectDefault() {
+	if (old("planSelect") != 1 && old("planSelect") != 2 && old("planSelect") != 3) {
+		return "plan-selected";
+	}
+}
+
+
+
 function homepageReload() {
 	if (old("hompage") == true || old("hompage2") == true) {
 		return "checked";

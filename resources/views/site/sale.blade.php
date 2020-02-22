@@ -55,7 +55,7 @@
 					<div class="col-md-4 pb-20">
 						<h3 class="fw-700">Animal<span>*</span></h3>
 						<select size="5" name="animals">
-							<option>Make a selection</option>
+							<option value="">Make a selection</option>
 							@foreach($animals as $animal)
 								<option value="{{ $animal->animal_id }}" {{ selectOld("animals", $animal->animal_id) }}>{{ $animal->name }}</option>
 							@endforeach
@@ -131,7 +131,7 @@
 						<select size="5" name="type">
 							<option>Make a selection</option>
 							@foreach($type as $typ)
-								<option value="{{ $typ->type_id }}" {{ selectOld("class", $typ->type_id) }}>{{ $typ->name }}</option>
+								<option value="{{ $typ->type_id }}" {{ selectOld("type", $typ->type_id) }}>{{ $typ->name }}</option>
 							@endforeach
 						</select>
 						{!! $errors->paso1->first('type', "<span class='err' style='display:block;margin-bottom:15px;color:red'>:message</span>") !!}
@@ -142,7 +142,7 @@
 						<select size="5" name="size">
 							<option>Make a selection</option>
 							@foreach($size as $siz)
-								<option value="{{ $siz->size_id }}" {{ selectOld("class", $siz->size_id) }}>{{ $siz->name }}</option>
+								<option value="{{ $siz->size_id }}" {{ selectOld("size", $siz->size_id) }}>{{ $siz->name }}</option>
 							@endforeach
 						</select>
 						{!! $errors->paso1->first('size', "<span class='err' style='display:block;margin-bottom:15px;color:red'>:message</span>") !!}
@@ -152,8 +152,8 @@
 						<h3 class="fw-700">Declawed<span>*</span></h3>
 						<select size="5" name="declawed">
 							<option>Make a selection</option>
-							<option value="1">Yes</option>
-							<option value="2">No</option>
+							<option value="1" {{ selectOld("declawed", 1) }}>Yes</option>
+							<option value="2"  {{ selectOld("declawed", 2) }}>No</option>
 						</select>
 						{!! $errors->paso1->first('declawed', "<span class='err' style='display:block;margin-bottom:15px;color:red'>:message</span>") !!}
 					</div> <!-- /col-4 -->
@@ -162,8 +162,8 @@
 						<h3 class="fw-700">Vaccinations<span>*</span></h3>
 						<select size="5" name="vaccinations">
 							<option>Make a selection</option>
-							<option value="1">Yes</option>
-							<option value="2">No</option>
+							<option value="1"  {{ selectOld("vaccinations", 1) }}>Yes</option>
+							<option value="2" {{ selectOld("vaccinations", 2) }}>No</option>
 						</select>
 						{!! $errors->paso1->first('vaccinations', "<span class='err' style='display:block;margin-bottom:15px;color:red'>:message</span>") !!}
 					</div> <!-- /col-4 -->
@@ -172,10 +172,10 @@
 						<h3 class="fw-700">Horns<span>*</span></h3>
 						<select size="5" name="horns">
 							<option>Make a selection</option>
-							<option value="1">Yes</option>
-							<option value="2">No</option>
-							<option value="3">Other</option>
-							<option value="4">Polled</option>
+							<option value="1" {{ selectOld("horns", 1) }}>Yes</option>
+							<option value="2" {{ selectOld("horns", 2) }}>No</option>
+							<option value="3" {{ selectOld("horns", 3) }}>Other</option>
+							<option value="4" {{ selectOld("horns", 4) }}>Polled</option>
 						</select>
 						{!! $errors->paso1->first('horns', "<span class='err' style='display:block;margin-bottom:15px;color:red'>:message</span>") !!}
 					</div> <!-- /col-4 -->
@@ -301,7 +301,7 @@
 					</div> <!-- /wrapper-plan -->
 				</div>
 				<div class="col-md-4 pb-20">
-					<div class="wrapper-plan text-center plancenter plan-selected {{ planSelected(2) }}" data-plan="2">
+					<div class="wrapper-plan text-center plancenter  {{ planSelected(2) }} {{ planSelectDefault() }}" data-plan="2">
 						<small>Most Popular</small>
 						<h3 class="fw-700 fz-28">STANDARD</h3>
 						<span class="price fz-24 fw-700 standard">$10</span>

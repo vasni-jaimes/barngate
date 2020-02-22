@@ -137,17 +137,23 @@ if (register_send) {
 		let username = document.querySelector("input[name='username']");
 		let password = document.querySelector("input[name='password_register']");
 		let password_confirm = document.querySelector("input[name='password_confirmation']");
+		let captcha = document.querySelector("textarea[name='g-recaptcha-response']");
 		let token = document.querySelector("#form_register input[name='_token']");
 
 		//Eliminar errores
 		$(".err").remove();
 
+
 		if (email.value == '') {
 			error(email, "The email field is required");
+			email.style.marginBottom = "0px";
+			$(".err").css("marginBottom", "15px");
 			return false;
 		}
 		else if (!validar_email(email.value)) {
 			error(email, "The email must be a valid email address.");
+			email.style.marginBottom = "0px";
+			$(".err").css("marginBottom", "15px");
 			return false;
 		}
 		else {
@@ -157,10 +163,14 @@ if (register_send) {
 
 		if (username.value == '') {
 			error(username, "The username field is required");
+			username.style.marginBottom = "0px";
+			$(".err").css("marginBottom", "15px");
 			return false;
 		}
 		else if (!espacios_blanco_none(username.value)) {
 			error(username, "The username field does not accept spaces");
+			username.style.marginBottom = "0px";
+			$(".err").css("marginBottom", "15px");
 			return false;
 		}
 		else {
@@ -170,10 +180,14 @@ if (register_send) {
 
 		if (password.value == '') {
 			error(password, "The password field is required");
+			password.style.marginBottom = "0px";
+			$(".err").css("marginBottom", "15px");
 			return false;
 		}
 		else if (password.value.length < 8) {
 			error(password, "The password must be at least 8 characters.");
+			password.style.marginBottom = "0px";
+			$(".err").css("marginBottom", "15px");
 			return false;
 		}
 		else {
@@ -183,6 +197,8 @@ if (register_send) {
 
 		if (password_confirm.value != password.value) {
 			error(password_confirm, "The password confirmation does not match.");
+			password_confirm.style.marginBottom = "0px";
+			$(".err").css("marginBottom", "15px");
 			return false;
 		}
 		else {
@@ -190,14 +206,22 @@ if (register_send) {
 		}
 
 
-		e.target.disabled = true;
+		if (captcha.value == '') {
+			error(captcha, "The field is required");
+			$(".register-send").css("margin-top", '38px');
+			return false;
+		}
 
+
+		e.target.disabled = true;
+		$(".register-send").css("margin-top", '10px');
 
 		let data = { 
 			"email": email.value, 
 			"username": username.value,
 			"password": password.value, 
 			"password_confirmation": password_confirm.value,
+			"g-recaptcha-response": captcha.value,
 			"_token": token.value 
 		};
 
@@ -238,6 +262,11 @@ if (register_send) {
 		   			e.target.disabled = false;
 					return false;
 		   		}
+		   		else if (res.body.message == 'error_captcha') {
+		   			error(captcha, "The field is required");
+					$(".register-send").css("margin-top", '38px');
+					return false;
+		   		}
 		   	})
 		   	.catch(err => {
       			// err.message, err.response
@@ -270,6 +299,8 @@ if (login_send) {
 
 		if (email.value == '') {
 			error(email, "The email field is required");
+			email.style.marginBottom = "0px";
+			$(".err").css("marginBottom", "15px");
 			return false;
 		}
 		else if (!validar_email(email.value)) {
@@ -283,6 +314,8 @@ if (login_send) {
 
 		if (password.value == '') {
 			error(password, "The password field is required");
+			password.style.marginBottom = "0px";
+			$(".err").css("marginBottom", "15px");
 			return false;
 		}
 		else {
@@ -291,6 +324,8 @@ if (login_send) {
 
 
 		e.target.disabled = true;
+		$("#loading").css("display", "block");
+		$("#login").css("display", "none");
 
 		let data = {
 			"email": email.value,
@@ -308,20 +343,35 @@ if (login_send) {
 		   		if (res.body.auth == false) {
                     if (res.body.message == 'password') {
                         error(password, "The password is incorrect");
+                        password.style.marginBottom = "0px";
+						$(".err").css("marginBottom", "15px");
                         e.target.disabled = false;
                     }
                     else if (res.body.message == 'email') {
                         error(email, "The email is not registered");
+                        email.style.marginBottom = "0px";
+						$(".err").css("marginBottom", "15px");
                         e.target.disabled = false;
                     }
+
+                    $("#loading").css("display", "none");
+                    $("#login").css("display", "block");
                 }
                 else if (res.body.password) {
                 	 error(password, res.body.password[0]);
+                	 password.style.marginBottom = "0px";
+					$(".err").css("marginBottom", "15px");
                      e.target.disabled = false;
+                      $("#loading").css("display", "none");
+                      $("#login").css("display", "block");
                 }
                 else if (res.body.email) {
                 	 error(email, res.body.email[0]);
+                	 email.style.marginBottom = "0px";
+					$(".err").css("marginBottom", "15px");
                      e.target.disabled = false;
+                     $("#loading").css("display", "none");
+                     $("#login").css("display", "block");
                 }
                 else if (res.body.auth == true) {
                     location.reload();
@@ -407,9 +457,134 @@ if (phone_number) {
 |    VALIDAR PARA INICIAR EL PLUGIN DE UPLOAD FILE   |
 \***************************************************/
 
-if ($(".step3").is(":visible") || $(".step2").is(":visible") || $(".step3").is(":visible") || $(".step4").is(":visible")) {
+if ($(".step3").is(":visible") || $(".step2").is(":visible") || $(".step3").is(":visible") || $(".step4").is(":visible") || $(".step1").is(":visible")) {
 
 	$('html, body').animate({scrollTop: $(".alert-danger").offset().top - 300},1000);
+
+
+	//STEP-1
+	let animals = document.querySelector("select[name='animals']");
+	if (animals.value == 1) {
+
+		$(".sale-row div").css("display", "none");
+		$("input[name='conditions']").parent().css("display", "none");
+		$("input[name='weight']").parent().css("display", "none");
+		$("input[name='number_of_head']").parent().css("display", "none");
+		$(".temperament-ok").css("display", "none");
+
+		$("select[name='animals']").parent().css("display", "block");
+		$("select[name='breeds']").parent().css("display", "block");
+		$("select[name='categories']").parent().css("display", "block");
+		$("input[name='number_of_head']").parent().css("display", "block");
+		$("select[name='ages']").parent().css("display", "block");
+		$("input[name='weight']").parent().css("display", "block");
+		$("select[name='vaccinations']").parent().css("display", "block");
+		$("select[name='horns']").parent().css("display", "block");
+		$("input[name='conditions']").parent().css("display", "block");	
+	}
+	else if (animals.value == 2) {
+
+		$(".sale-row div").css("display", "none");
+		$("input[name='conditions']").parent().css("display", "none");
+		$("input[name='weight']").parent().css("display", "none");
+		$("input[name='number_of_head']").parent().css("display", "none");
+		$(".temperament-ok").css("display", "none");
+
+		$("select[name='animals']").parent().css("display", "block");
+		$("select[name='genders']").parent().css("display", "block");
+		$("select[name='breeds']").parent().css("display", "block");
+		$("select[name='colors']").parent().css("display", "block");
+		$("select[name='discipline']").parent().css("display", "block");
+		$("select[name='ages']").parent().css("display", "block");
+		$(".temperament-ok").css("display", "block");
+		$("select[name='categories']").css("display", "block");
+	}
+	else if (animals.value == 3) {
+
+		$(".sale-row div").css("display", "none");
+		$("input[name='conditions']").parent().css("display", "none");
+		$("input[name='weight']").parent().css("display", "none");
+		$("input[name='number_of_head']").parent().css("display", "none");
+		$(".temperament-ok").css("display", "none");
+
+		$("select[name='animals']").parent().css("display", "block");
+		$("select[name='breeds']").parent().css("display", "block");
+		$("select[name='genders']").parent().css("display", "block");
+		$("select[name='class']").parent().css("display", "block");
+		$("input[name='number_of_head']").parent().css("display", "block");
+		$("select[name='ages']").parent().css("display", "block");
+		$("select[name='horns']").parent().css("display", "block");
+		$("input[name='weight']").parent().css("display", "block");
+	}
+	else if (animals.value == 4) {
+
+		$(".sale-row div").css("display", "none");
+		$("input[name='conditions']").parent().css("display", "none");
+		$("input[name='weight']").parent().css("display", "none");
+		$("input[name='number_of_head']").parent().css("display", "none");
+		$(".temperament-ok").css("display", "none");
+
+
+		$("select[name='animals']").parent().css("display", "block");
+		$("select[name='breeds']").parent().css("display", "block");
+		$("select[name='genders']").parent().css("display", "block");
+		$("select[name='class']").parent().css("display", "block");
+		$("select[name='type']").parent().css("display", "block");
+		$("select[name='horns']").parent().css("display", "block");
+		$("select[name='ages']").parent().css("display", "block");
+		$("input[name='number_of_head']").parent().css("display", "block");
+		$("input[name='weight']").parent().css("display", "block");
+	}
+	else if (animals.value == 5) {
+
+		$(".sale-row div").css("display", "none");
+		$("input[name='conditions']").parent().css("display", "none");
+		$("input[name='weight']").parent().css("display", "none");
+		$("input[name='number_of_head']").parent().css("display", "none");
+		$(".temperament-ok").css("display", "none");
+
+		$("select[name='animals']").parent().css("display", "block");
+		$("select[name='breeds']").parent().css("display", "block");
+		$("select[name='genders']").parent().css("display", "block");
+		$("select[name='class']").parent().css("display", "block");
+		$("select[name='ages']").parent().css("display", "block");
+		$("input[name='number_of_head']").parent().css("display", "block");
+		$("input[name='weight']").parent().css("display", "block");
+	}
+	else if (animals.value == 6) {
+
+		$(".sale-row div").css("display", "none");
+		$("input[name='conditions']").parent().css("display", "none");
+		$("input[name='weight']").parent().css("display", "none");
+		$("input[name='number_of_head']").parent().css("display", "none");
+		$(".temperament-ok").css("display", "none");
+
+		$("select[name='animals']").parent().css("display", "block");
+		$("select[name='ages']").parent().css("display", "block");
+		$("select[name='colors']").parent().css("display", "block");
+		$("select[name='breeds']").parent().css("display", "block");
+		$("select[name='genders']").parent().css("display", "block");
+		$("select[name='size']").parent().css("display", "block");
+	}
+	else if (animals.value == 7) {
+
+		$(".sale-row div").css("display", "none");
+		$("input[name='conditions']").parent().css("display", "none");
+		$("input[name='weight']").parent().css("display", "none");
+		$("input[name='number_of_head']").parent().css("display", "none");
+		$(".temperament-ok").css("display", "none");
+
+		$("select[name='animals']").parent().css("display", "block");
+		$("select[name='ages']").parent().css("display", "block");
+		$("select[name='colors']").parent().css("display", "block");
+		$("select[name='breeds']").parent().css("display", "block");
+		$("select[name='genders']").parent().css("display", "block")
+		$("select[name='size']").parent().css("display", "block");
+		$("select[name='declawed']").parent().css("display", "block");
+	}
+
+
+
 
 	//VALIDAR QUE TIPO DE ANIMAL ES PARA CAMBIAR EL PRECIO DE LOS PLANES
 	if (document.querySelector("select[name='animals']").value == 6) {
@@ -1081,12 +1256,18 @@ if (next3) {
 		e.preventDefault();
 
 		let videos = document.querySelector("textarea[name='url-videos']");
-		let fotos = document.querySelector("input[name='filepond[]']");
+		let fotos = document.querySelector("input[name='filepond[]'][type='hidden']");
 		let planSelect = document.querySelector("input[name='planSelect']");
 		let formFile = document.querySelector(".form-file");
 
 		//Eliminar errores
 		$(".err").remove();
+
+		if (fotos == null || fotos == undefined) {
+			error(formFile, "The fotos field is required");
+			$('html, body').animate({scrollTop: $(fotos).offset().top - 50},1000);
+			return false;
+		}
 
 		if (fotos.value == '') {
 			error(formFile, "The fotos field is required");
@@ -1331,6 +1512,66 @@ if (accept) {
 
 
 
+/********************\
+|      CONTACTO      |
+\********************/
+
+let enviar_contacto = document.querySelector(".enviar_contacto");
+if (enviar_contacto) {
+	enviar_contacto.addEventListener("click", function(e) {
+		e.preventDefault();
+
+		let first_name = document.querySelector("input[name='first_name']");
+		let last_name = document.querySelector("input[name='last_name']");
+		let email = document.querySelector("input[name='email_contact']");
+		let phone = document.querySelector("input[name='phone']");
+		let questions = document.querySelector("textarea[name='questions']");
+
+		$(".error").html("");
+
+		if (first_name.value == '') {
+			$(".error").html("The first name field is required");
+			return false;
+		}
+
+		if (last_name.value == '') {
+			$(".error").html("The last name field is required");
+			return false;
+		}
+
+
+		if (email.value == '') {
+			$(".error").html("The email field is required");
+			return false;
+		}
+
+		if (!validar_email(email.value)) {
+			$(".error").html("the email field is not valid");
+			return false;
+		}
+
+		if (isNaN(phone.value)) {
+			$(".error").html("the phone field has to be numeric");
+			return false;
+		}
+
+		if (phone.value == '') {
+			$(".error").html("The phone field is required");
+			return false;
+		}
+
+		if (questions.value == '') {
+			$(".error").html("The questions field is required");
+			return false;
+		}
+
+		
+		$("#loading").css("display", "block");
+		$(".clearfix").submit();
+	});
+}
+
+
 /*************************\
 |      EDITAR PERFIL      |
 \*************************/
@@ -1357,42 +1598,82 @@ if (info_user) {
 
 		if (email.value.trim() == '') {
 			error(email, "The email field is required");
+			email.style.marginBottom = "0px";
+			$(".err").css("marginBottom", "15px");
 			return false;	
+		}
+		else {
+			email.style.marginBottom = "15px";
 		}
 
 		if (!validar_email(email.value)) {
 			$(email).after("The email must be a valid email address.");
+			email.style.marginBottom = "0px";
+			$(".err").css("marginBottom", "15px");
 			return false;
+		}
+		else {
+			email.style.marginBottom = "15px";
 		}
 
 		if (username.value.trim() == '') {
 			$(username).after("The username field is required");
+			username.style.marginBottom = "0px";
+			$(".err").css("marginBottom", "15px");
 			return false;
+		}
+		else {
+			username.style.marginBottom = "15px";
 		}
 
 		if (name.value.trim() == '') {
 			error(name, "The name field is required");
+			name.style.marginBottom = "0px";
+			$(".err").css("marginBottom", "15px");
 			return false;	
+		}
+		else {
+			name.style.marginBottom = "15px";
 		}
 
 		if (phone.value.trim() == '') {
 			error(phone, "The phone field is required");
+			phone.style.marginBottom = "0px";
+			$(".err").css("marginBottom", "15px");
 			return false;	
+		}
+		else {
+			phone.style.marginBottom = "15px";
 		}
 
 		if (address.value.trim() == '') {
 			error(address, "The address field is required");
+			address.style.marginBottom = "0px";
+			$(".err").css("marginBottom", "15px");
 			return false;	
+		}
+		else {
+			address.style.marginBottom = "15px";
 		}
 
 		if (postal.value.trim() == '') {
 			error(postal, "The postal field is required");
+			postal.style.marginBottom = "0px";
+			$(".err").css("marginBottom", "15px");
 			return false;	
+		}
+		else {
+			postal.style.marginBottom = "15px";
 		}
 
 		if (country.value.trim() == '') {
 			error(country, "The country field is required");
+			country.style.marginBottom = "0px";
+			$(".err").css("marginBottom", "15px");
 			return false;	
+		}
+		else {
+			country.style.marginBottom = "15px";
 		}
 
 
@@ -1477,6 +1758,11 @@ if (animal) {
 		let animals = document.querySelector("select[name='animals']");
 		let data = { "_token": token.value, "animal": animals.value };
 
+		//console.log(animals.value);
+		if (animals.value == 0 || animals.value == '' || animals.value == null || animals.value == undefined) {
+			return false;
+		}
+
 		request
 		   	.post('/animal_config')
 		   	.send(data)
@@ -1506,8 +1792,7 @@ if (animal) {
 		   				$("input[name='weight']").parent().css("display", "block");
 		   				$("select[name='vaccinations']").parent().css("display", "block");
 		   				$("select[name='horns']").parent().css("display", "block");
-		   				$("input[name='conditions']").parent().css("display", "block");
-		   				
+		   				$("input[name='conditions']").parent().css("display", "block");	
 		   			}
 
 		   			else if (animals.value == 2) {
@@ -1565,7 +1850,6 @@ if (animal) {
 		   				$("input[name='weight']").parent().css("display", "block");
 		   			}
 
-
 		   			else if (animals.value == 4) {
 
 		   				let breedso = "<option value='0'>Make a selection</option>",
@@ -1622,7 +1906,6 @@ if (animal) {
 		   				$("input[name='weight']").parent().css("display", "block");
 		   			}
 
-
 		   			else if (animals.value == 6) {
 
 		   				let breedso = "<option value='0'>Make a selection</option>",
@@ -1648,7 +1931,6 @@ if (animal) {
 		   				$("select[name='genders']").html(gendero).parent().css("display", "block");
 		   				$("select[name='size']").parent().css("display", "block");
 		   			}
-
 
 		   			else if (animals.value == 7) {
 
@@ -1728,7 +2010,58 @@ if (col_animal) {
         	e.preventDefault();
         	$(".col-animal").removeClass("active-animal");
         	$(this).addClass("active-animal");
-        	searchWP();
+
+
+
+        	//AJAX
+			let token = document.querySelector("input[name='_token']");
+			let animal = $(".active-animal").attr('data-animal');
+			let data = { "_token": token.value, "animal": animal };
+
+
+			if (animal == 2) {
+				$("select[name='discipline']").css("display", "block");
+				$("select[name='discipline']").prev().css("display", "block");
+			}
+			else {
+				$("select[name='discipline']").css("display", "none");
+				$("select[name='discipline']").prev().css("display", "none");
+			}
+
+			request
+			   	.post('/animal_config')
+			   	.send(data)
+			   	.set('Accept', 'application/json')
+			   	.then(res => {
+			   		console.log(res.body);
+			   		if (res.body.message == 'ok') {
+			   			let breedso = "<option value='0'>Make a selection</option>",
+		   					coloro = "<option value='0'>Make a selection</option>",
+		   					gendero = "<option value='0'>Make a selection</option>";
+
+			   			for (var i = 0; i <= res.body.result.breeds.length - 1; i++) {
+		   					breedso += "<option value='"+res.body.result.breeds[i].breed_id+"'>"+res.body.result.breeds[i].name+"</option>";
+		   				}
+
+		   				for (var i = 0; i <= res.body.result.color.length - 1; i++) {
+		   					coloro += "<option value='"+res.body.result.color[i].color_id+"'>"+res.body.result.color[i].name+"</option>";
+		   				}
+
+		   				for (var i = 0; i <= res.body.result.genders.length - 1; i++) {
+		   					gendero += "<option value='"+res.body.result.genders[i].gender_id+"'>"+res.body.result.genders[i].name+"</option>";
+		   				}
+
+		   				$("select[name='gender']").html(gendero);
+		   				$("select[name='breeds']").html(breedso);
+		   				$("select[name='colors']").html(coloro);
+
+		   				searchWP();
+			   		}
+			   	})
+			   	.catch(err => {
+		  			// err.message, err.response
+		  			console.log(err.message);
+				});
         });
     }
 }

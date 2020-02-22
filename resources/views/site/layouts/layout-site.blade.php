@@ -6,17 +6,21 @@
 
 <title>Barngate</title>
 
-
-{{-- <link rel="stylesheet" href="css/app.css" > --}}
+<link rel="stylesheet" href="css/app.css">
 <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
-<link rel="stylesheet" href="/css/style.css" >	
-<link rel="stylesheet" href="/css/message.css" >	
+<link rel="stylesheet" href="/css/style.css" >
+<link rel="stylesheet" type="text/css" href="/css/message.css">	
 <link href="/mmenu/jquery.mmenu.all.css" rel="stylesheet">
 @yield("css-content")
 <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
 <link href="/slick/slick.css" rel="stylesheet">
 <link href="/slick/slick-theme.css" rel="stylesheet">
+
+
+@guest
+	<script src='https://www.google.com/recaptcha/api.js'></script>
+@endguest
 	
 </head>
 
@@ -244,7 +248,7 @@
 					<input type="text" class="input" name="username" placeholder="Username (what others see when you comment)">
 					<input type="password" class="input" name="password_register" placeholder="Password">
 					<input type="password" class="input" name="password_confirmation" placeholder="Confirm Password">
-					<div class="g-recaptcha" data-sitekey="6LcePAATAAAAAGPRWgx90814DTjgt5sXnNbV5WaW"></div>
+					<div class="g-recaptcha" data-sitekey="6LebF9oUAAAAAFf4-pIX2rVrWIuArPHAPhjo3L38"></div>
 					<input class="enviar register-send" type="submit" value="Register">
 				</form>
 				<a class="link" href="/privacy">Terms and conditions</a>
@@ -273,7 +277,7 @@
 @endguest
 
 
-@auth
+{{-- @auth --}}
 
 	<div class="shadowbox" id="loading">
 		<div class="wrapper-form">
@@ -281,7 +285,7 @@
 		</div> <!-- /wrapper-form -->
 	</div> <!-- /shadowbox -->
 
-@endauth
+{{-- @endauth --}}
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/superagent/3.8.3/superagent.js"></script>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>

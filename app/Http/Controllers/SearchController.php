@@ -34,8 +34,7 @@ class SearchController extends Controller
 	                                    'breeds.name as breeds_name', 
 	                                    'colors.name as colors_name', 
 	                                    'genders.name as gender_name',
-                                        'cities.*')
-	    					->get();
+                                        'cities.*')->get();
 
         if ($animalsrow->count() > 0) {
             $ban = 0;
@@ -69,6 +68,10 @@ class SearchController extends Controller
         $colors = DB::table("colors")->get();
         $genders = DB::table("genders")->get();
         $disciplines = DB::table("disciplines")->get();
+
+
+        var_dump($animal);
+        exit();
 
 
     	return view('site.vista', compact("animal", "animals", "breeds", "colors", "genders", "disciplines"));
