@@ -1771,10 +1771,8 @@ if (animal) {
 		   		console.log(res);
 		   		if (res.body.message == 'ok') {
 		   			//console.log(res.body.result.breeds.length);
-		   			$(".sale-row div").css("display", "none");
+		   			$(".sale-row .select-sale").css("display", "none");
 		   			$("input[name='conditions']").parent().css("display", "none");
-		   			$("input[name='weight']").parent().css("display", "none");
-		   			$("input[name='number_of_head']").parent().css("display", "none");
 		   			$(".temperament-ok").css("display", "none");
 
 		   			if (animals.value == 1) {
