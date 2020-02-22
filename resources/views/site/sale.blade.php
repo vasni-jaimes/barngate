@@ -62,7 +62,7 @@
 						</select>
 						{!! $errors->paso1->first('animals', "<span class='err' style='display:block;margin-bottom:15px;color:red'>:message</span>") !!}
 					</div> <!-- /col-4 -->
-					<div class="col-md-4 pb-20">
+					<div class="col-md-4 pb-20 select-sale">
 						<h3 class="fw-700">Breed<span>*</span></h3>
 						<select size="5" name="breeds">
 							<option>Make a selection</option>
@@ -72,7 +72,7 @@
 						</select>
 						{!! $errors->paso1->first('breeds', "<span class='err' style='display:block;margin-bottom:15px;color:red'>:message</span>") !!}
 					</div> <!-- /col-4 -->
-					<div class="col-md-4 pb-20">
+					<div class="col-md-4 pb-20 select-sale">
 						<h3 class="fw-700">Color<span>*</span></h3>
 						<select size="5" name="colors">
 							<option>Make a selection</option>
@@ -83,7 +83,7 @@
 						{!! $errors->paso1->first('colors', "<span class='err' style='display:block;margin-bottom:15px;color:red'>:message</span>") !!}
 					</div> <!-- /col-4 -->
 				
-					<div class="col-md-4 pb-20">
+					<div class="col-md-4 pb-20 select-sale">
 						<h3 class="fw-700">Gender<span>*</span></h3>
 						<select size="5" name="genders">
 							<option>Make a selection</option>
@@ -93,7 +93,7 @@
 						</select>
 						{!! $errors->paso1->first('genders', "<span class='err' style='display:block;margin-bottom:15px;color:red'>:message</span>") !!}
 					</div> <!-- /col-4 -->
-					<div class="col-md-4 pb-20">
+					<div class="col-md-4 pb-20 select-sale">
 						<h3 class="fw-700">Age<span>*</span></h3>
 						<select size="5" name="ages">
 							<option>Make a selection</option>
@@ -104,7 +104,7 @@
 						</select>
 						{!! $errors->paso1->first('ages', "<span class='err' style='display:block;margin-bottom:15px;color:red'>:message</span>") !!}
 					</div> <!-- /col-4 -->
-					<div class="col-md-4 pb-20">
+					<div class="col-md-4 pb-20 select-sale">
 						<h3 class="fw-700">Discipline<span>*</span></h3>
 						<select size="5" name="discipline">
 							<option>Make a selection</option>
@@ -115,7 +115,7 @@
 						{!! $errors->paso1->first('discipline', "<span class='err' style='display:block;margin-bottom:15px;color:red'>:message</span>") !!}
 					</div> <!-- /col-4 -->
 					
-					<div class="col-md-4 pb-20">
+					<div class="col-md-4 pb-20 select-sale">
 						<h3 class="fw-700">Class<span>*</span></h3>
 						<select size="5" name="class">
 							<option>Make a selection</option>
@@ -126,7 +126,7 @@
 						{!! $errors->paso1->first('class', "<span class='err' style='display:block;margin-bottom:15px;color:red'>:message</span>") !!}
 					</div> <!-- /col-4 -->
 
-					<div class="col-md-4 pb-20">
+					<div class="col-md-4 pb-20 select-sale">
 						<h3 class="fw-700">Type<span>*</span></h3>
 						<select size="5" name="type">
 							<option>Make a selection</option>
@@ -137,7 +137,7 @@
 						{!! $errors->paso1->first('type', "<span class='err' style='display:block;margin-bottom:15px;color:red'>:message</span>") !!}
 					</div> <!-- /col-4 -->
 
-					<div class="col-md-4 pb-20">
+					<div class="col-md-4 pb-20 select-sale">
 						<h3 class="fw-700">Size<span>*</span></h3>
 						<select size="5" name="size">
 							<option>Make a selection</option>
@@ -148,7 +148,7 @@
 						{!! $errors->paso1->first('size', "<span class='err' style='display:block;margin-bottom:15px;color:red'>:message</span>") !!}
 					</div> <!-- /col-4 -->
 
-					<div class="col-md-4 pb-20">
+					<div class="col-md-4 pb-20 select-sale">
 						<h3 class="fw-700">Declawed<span>*</span></h3>
 						<select size="5" name="declawed">
 							<option>Make a selection</option>
@@ -158,7 +158,7 @@
 						{!! $errors->paso1->first('declawed', "<span class='err' style='display:block;margin-bottom:15px;color:red'>:message</span>") !!}
 					</div> <!-- /col-4 -->
 
-					<div class="col-md-4 pb-20">
+					<div class="col-md-4 pb-20 select-sale">
 						<h3 class="fw-700">Vaccinations<span>*</span></h3>
 						<select size="5" name="vaccinations">
 							<option>Make a selection</option>
@@ -168,7 +168,7 @@
 						{!! $errors->paso1->first('vaccinations', "<span class='err' style='display:block;margin-bottom:15px;color:red'>:message</span>") !!}
 					</div> <!-- /col-4 -->
 
-					<div class="col-md-4 pb-20">
+					<div class="col-md-4 pb-20 select-sale">
 						<h3 class="fw-700">Horns<span>*</span></h3>
 						<select size="5" name="horns">
 							<option>Make a selection</option>
@@ -180,7 +180,7 @@
 						{!! $errors->paso1->first('horns', "<span class='err' style='display:block;margin-bottom:15px;color:red'>:message</span>") !!}
 					</div> <!-- /col-4 -->
 				
-					<div class="col-md-4 pb-20">
+					<div class="col-md-4 pb-20 select-sale">
 						<h3 class="fw-700">Categories<span>*</span></h3>
 						<select size="5" name="categories">
 							<option>Make a selection</option>
@@ -192,19 +192,19 @@
 					</div> <!-- /col-4 -->
 
 				
-					<div class="col-md-4 pb-20">
+					<div class="col-md-4 pb-20 select-sale">
 						<h3 class="fw-700">Weight<span>*</span></h3>
 						<input type="text" class="form-input" name="weight" value="{{ old("weight") }}">
 						{!! $errors->paso1->first('weight', "<span class='err' style='display:block;margin-bottom:15px;color:red'>:message</span>") !!}
 					</div> <!-- /col-4 -->
 
-					<div class="col-md-4 pb-20">
+					<div class="col-md-4 pb-20 select-sale">
 						<h3 class="fw-700">Conditions<span>*</span></h3>
 						<input type="text" class="form-input" name="conditions" value="{{ old("conditions") }}">
 						{!! $errors->paso1->first('conditions', "<span class='err' style='display:block;margin-bottom:15px;color:red'>:message</span>") !!}
 					</div> <!-- /col-4 -->
 
-					<div class="col-md-4 pb-20">
+					<div class="col-md-4 pb-20 select-sale">
 						<h3 class="fw-700">Number of head<span>*</span></h3>
 						<input type="text" class="form-input" name="number_of_head" value="{{ old("number_of_head") }}">
 						{!! $errors->paso1->first('number_of_head', "<span class='err' style='display:block;margin-bottom:15px;color:red'>:message</span>") !!}
