@@ -10,6 +10,7 @@
 {{-- <link rel="stylesheet" href="css/app.css" > --}}
 <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
 <link rel="stylesheet" href="/css/style.css" >	
+<link rel="stylesheet" href="/css/message.css" >	
 <link href="/mmenu/jquery.mmenu.all.css" rel="stylesheet">
 @yield("css-content")
 <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
@@ -84,7 +85,7 @@
 												</div>
 											</div>
 										</li>
-										<a href="/notifications">See all</a>
+										<a class="seeall" href="/notifications">See all</a>
 									</ul>
 								</li>
 							</ul>
@@ -200,8 +201,29 @@
 
 		@auth
 			<li><a href="#">My account</a></li>
-			<li><a href="#">Notifications</a></li>
 			<li><a href="{{ route("sale") }}">Sale</a></li>
+			<li>
+				<a href="#">Notifications</a>
+				<ul>
+					<li class="flex txt-notificacion">
+						<img src="images/picture.jpg">
+						<span>
+							<p class="fw-700">Animal</p>
+							<p>Username</p>
+							<small>1 hr</small>
+						</span>
+					</li>
+					<li class="flex txt-notificacion">
+						<img src="images/picture.jpg">
+						<span>
+							<p class="fw-700">Animal</p>
+							<p>Username</p>
+							<small>1 hr</small>
+						</span>
+					</li>
+					<a class="seeall" href="/notifications">See all</a>
+				</ul>
+			</li>
 		@endauth
 		
 	</ul>

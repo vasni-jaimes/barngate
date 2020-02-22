@@ -180,12 +180,13 @@ nav ul li{
 	border-bottom: 1px solid #ccc;
 }
 
-.s-notificacion > a {
+a.seeall {
+	display: block;
 	text-decoration: none;
     padding: 8px;
     font-size: 14px;
-    text-align: center;
     border-top: 1px solid #ccc;
+	text-align: center;
 }
 
 .s-notificacion ul {
@@ -1156,6 +1157,19 @@ textarea.form-input {
 	#tab-four:checked ~ .tabs #tab-four-panel{
 		border-bottom: 1px solid #ccc;
 	}
+	
+	.txt-notificacion {
+		padding: 15px 0!important;
+	}
+	
+	.txt-notificacion span {
+		padding: 0 15px;
+	}
+	
+	.txt-notificacion.mm-listitem:after,
+	a.seeall.mm-listitem:after {
+		display: none;
+	}
 }
 
 .slide-account {
@@ -1688,6 +1702,15 @@ textarea.form-input {
 	padding-left: 30px;
 }
 
+.ma-widget-position {
+    min-height: 460px;
+}
+
+.msg-layout, 
+.msg-layout__primary {
+    border-color: rgb(234, 234, 234);
+}
+
 
 @media (min-width: 1200px){
     .container {
@@ -1773,6 +1796,14 @@ a[href="#page"],
 
 .mm-wrapper_opening a[href="#page"] {
     display: block !important;
+}
+
+.mm-listitem_vertical>.mm-panel {
+	padding: 0 15px!important;
+}
+
+.mm-listitem:after {
+	left: 0!important;
 }
 
 @media screen and (max-width: 767px) {

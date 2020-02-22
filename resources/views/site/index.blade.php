@@ -16,6 +16,8 @@
 	</div>
 
 	<div class="container margen mt-40 mb-40 row-animals">
+		
+		<!--<span>Animals</span>-->
 
 		<div class="row row-eq-height content-home">
 

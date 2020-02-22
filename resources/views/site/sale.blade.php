@@ -82,9 +82,7 @@
 						</select>
 						{!! $errors->paso1->first('colors', "<span class='err' style='display:block;margin-bottom:15px;color:red'>:message</span>") !!}
 					</div> <!-- /col-4 -->
-				</div> <!-- /row -->
-
-				<div class="row pt-40 sale-row">
+				
 					<div class="col-md-4 pb-20">
 						<h3 class="fw-700">Gender<span>*</span></h3>
 						<select size="5" name="genders">
@@ -106,7 +104,7 @@
 						</select>
 						{!! $errors->paso1->first('ages', "<span class='err' style='display:block;margin-bottom:15px;color:red'>:message</span>") !!}
 					</div> <!-- /col-4 -->
-					<div class="col-md-4">
+					<div class="col-md-4 pb-20">
 						<h3 class="fw-700">Discipline<span>*</span></h3>
 						<select size="5" name="discipline">
 							<option>Make a selection</option>
@@ -116,11 +114,8 @@
 						</select>
 						{!! $errors->paso1->first('discipline', "<span class='err' style='display:block;margin-bottom:15px;color:red'>:message</span>") !!}
 					</div> <!-- /col-4 -->
-				</div> <!-- /row -->
-
-				<div class="row pt-40 sale-row">
 					
-					<div class="col-md-4">
+					<div class="col-md-4 pb-20">
 						<h3 class="fw-700">Class<span>*</span></h3>
 						<select size="5" name="class">
 							<option>Make a selection</option>
@@ -131,8 +126,7 @@
 						{!! $errors->paso1->first('class', "<span class='err' style='display:block;margin-bottom:15px;color:red'>:message</span>") !!}
 					</div> <!-- /col-4 -->
 
-
-					<div class="col-md-4">
+					<div class="col-md-4 pb-20">
 						<h3 class="fw-700">Type<span>*</span></h3>
 						<select size="5" name="type">
 							<option>Make a selection</option>
@@ -143,7 +137,7 @@
 						{!! $errors->paso1->first('type', "<span class='err' style='display:block;margin-bottom:15px;color:red'>:message</span>") !!}
 					</div> <!-- /col-4 -->
 
-					<div class="col-md-4">
+					<div class="col-md-4 pb-20">
 						<h3 class="fw-700">Size<span>*</span></h3>
 						<select size="5" name="size">
 							<option>Make a selection</option>
@@ -153,11 +147,8 @@
 						</select>
 						{!! $errors->paso1->first('size', "<span class='err' style='display:block;margin-bottom:15px;color:red'>:message</span>") !!}
 					</div> <!-- /col-4 -->
-				</div>
 
-				<div class="row pt-40 sale-row">
-
-					<div class="col-md-4">
+					<div class="col-md-4 pb-20">
 						<h3 class="fw-700">Declawed<span>*</span></h3>
 						<select size="5" name="declawed">
 							<option>Make a selection</option>
@@ -167,8 +158,7 @@
 						{!! $errors->paso1->first('declawed', "<span class='err' style='display:block;margin-bottom:15px;color:red'>:message</span>") !!}
 					</div> <!-- /col-4 -->
 
-
-					<div class="col-md-4">
+					<div class="col-md-4 pb-20">
 						<h3 class="fw-700">Vaccinations<span>*</span></h3>
 						<select size="5" name="vaccinations">
 							<option>Make a selection</option>
@@ -178,7 +168,7 @@
 						{!! $errors->paso1->first('vaccinations', "<span class='err' style='display:block;margin-bottom:15px;color:red'>:message</span>") !!}
 					</div> <!-- /col-4 -->
 
-					<div class="col-md-4">
+					<div class="col-md-4 pb-20">
 						<h3 class="fw-700">Horns<span>*</span></h3>
 						<select size="5" name="horns">
 							<option>Make a selection</option>
@@ -189,11 +179,8 @@
 						</select>
 						{!! $errors->paso1->first('horns', "<span class='err' style='display:block;margin-bottom:15px;color:red'>:message</span>") !!}
 					</div> <!-- /col-4 -->
-				</div>
-
-				<div class="row pt-40 sale-row">
-
-					<div class="col-md-4">
+				
+					<div class="col-md-4 pb-20">
 						<h3 class="fw-700">Categories<span>*</span></h3>
 						<select size="5" name="categories">
 							<option>Make a selection</option>
@@ -204,29 +191,25 @@
 						{!! $errors->paso1->first('categories', "<span class='err' style='display:block;margin-bottom:15px;color:red'>:message</span>") !!}
 					</div> <!-- /col-4 -->
 
-				</div>
-
-				<div class="row pt-40 sale-row">
+				
 					<div class="col-md-4 pb-20">
 						<h3 class="fw-700">Weight<span>*</span></h3>
 						<input type="text" class="form-input" name="weight" value="{{ old("weight") }}">
 						{!! $errors->paso1->first('weight', "<span class='err' style='display:block;margin-bottom:15px;color:red'>:message</span>") !!}
-					</div>
+					</div> <!-- /col-4 -->
 
 					<div class="col-md-4 pb-20">
 						<h3 class="fw-700">Conditions<span>*</span></h3>
 						<input type="text" class="form-input" name="conditions" value="{{ old("conditions") }}">
 						{!! $errors->paso1->first('conditions', "<span class='err' style='display:block;margin-bottom:15px;color:red'>:message</span>") !!}
-					</div>
+					</div> <!-- /col-4 -->
 
 					<div class="col-md-4 pb-20">
 						<h3 class="fw-700">Number of head<span>*</span></h3>
 						<input type="text" class="form-input" name="number_of_head" value="{{ old("number_of_head") }}">
 						{!! $errors->paso1->first('number_of_head', "<span class='err' style='display:block;margin-bottom:15px;color:red'>:message</span>") !!}
-					</div>
-				</div>
-
-				<div class="row pt-40">
+					</div> <!-- /col-4 -->
+				
 					<div class="col-md-4 pb-20 temperament-ok">
 						<h3 class="fw-700 pb-10">Temperament <small>(1=Calm, 10=Hot)</small></h3>
 						<div class="row items-center">	
@@ -238,15 +221,14 @@
 								<span id="etiqueta"></span> / 10
 							</div> 
 						</div> <!-- /inputDiv -->
-					</div>
+					</div> <!-- /col-4 -->
+				
 					<div class="col-md-4 pb-20">
 						<h3 class="fw-700">Price<span>*</span></h3>
 						<input type="text" class="form-input" name="price" value="{{ old("price") }}">
 						{!! $errors->paso1->first('price', "<span class='err' style='display:block;margin-bottom:15px;color:red'>:message</span>") !!}
-					</div>
-				</div> <!-- /row -->
+					</div> <!-- /col-4 -->
 				
-				<div class="row pt-40 pb-20">
 					<div class="col-md-12">
 						<h3 class="fw-700">Description<span>*</span></h3>
 						<textarea class="form-input" name="description">{{ old("description") }}</textarea>
@@ -260,41 +242,38 @@
 				<div class="row pt-20">
 					<div class="col-md-4 pb-20">
 						<h3 class="fw-700">State/Province/Region:<span>*</span></h3>
-						<select name="region">
+						<select class="form-input" name="region">
 							@foreach($estados as $estado)
 								<option value="{{ $estado->id_estado }}"> {{ $estado->estado }} </option>
 							@endforeach
 						</select>
 						{{-- <input type="text" class="form-input" name="region" value="{{ old("region") }}">
 						{!! $errors->paso1->first('region', "<span class='err' style='display:block;margin-bottom:15px;color:red'>:message</span>") !!} --}}
-					</div>
+					</div> <!-- /col-4 -->
 					<div class="col-md-4 pb-20">
 						<h3 class="fw-700">City:<span>*</span></h3>
-						<select name="city"></select>
+						<select class="form-input" name="city"></select>
 						{{-- <input type="text" class="form-input" name="city" value="{{ old("city") }}">
 						{!! $errors->paso1->first('city', "<span class='err' style='display:block;margin-bottom:15px;color:red'>:message</span>") !!} --}}
-					</div>
+					</div> <!-- /col-4 -->
 					<div class="col-md-4 pb-20">
 						<h3 class="fw-700">ZIP:<span>*</span></h3>
 						<input type="text" class="form-input" name="zip" value="{{ old("zip") }}">
 						{!! $errors->paso1->first('zip', "<span class='err' style='display:block;margin-bottom:15px;color:red'>:message</span>") !!}
-					</div>
-				</div>
-				
-				<div class="row pt-20">
+					</div> <!-- /col-4 -->
 					<div class="col-md-4 pb-20">
 						<h3 class="fw-700">Country:<span>*</span></h3>
-						<select name="country">
+						<select class="form-input" name="country">
 							<option value="1"> United States </option>
 						</select>
 						{{-- <input type="text" class="form-input" name="country" value="{{ old("country") }}">
 						{!! $errors->paso1->first('country', "<span class='err' style='display:block;margin-bottom:15px;color:red'>:message</span>") !!} --}}
-					</div>
+					</div> <!-- /col-4 -->
 					<div class="col-md-4 pb-20">
 						<h3 class="fw-700">Phone Number:<span>*</span></h3>
 						<input type="text" class="form-input" name="phone_number" value="{{ old("phone_number") }}">
 						{!! $errors->paso1->first('phone_number', "<span class='err' style='display:block;margin-bottom:15px;color:red'>:message</span>") !!}
-					</div>
+					</div> <!-- /col-4 -->
 				</div>
 				
 				<div class="pt-40 pb-20 text-center">
