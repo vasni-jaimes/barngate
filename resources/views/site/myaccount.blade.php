@@ -5,7 +5,7 @@
 
 	<div class="container pt-40 pb-40">
 		
-		<div class="flex">
+		<div class="flex flex-account">
 		
 			<div class="wrapper-tabs">
 
@@ -100,19 +100,31 @@
 				<div id="tab-four-panel" class="panel">
 					<div class="box-tab">
 						<div class="pt-20 pb-20">
-							<div class="flex flex-inbox items-center">
-								<img class="icon" src="images/buy-horse-online-barngate-message-icon.png">
+							<div class="flex flex-inbox items-center between">
+								<div class="flex">
+									<img class="icon" src="images/buy-horse-online-barngate-message-icon.png">
+									<div class="txt-inbox">
+										<p>Animal</p>
+										<p>Username</p>
+									</div> <!-- /txt-list -->
+								</div>
 								<div class="txt-inbox">
-									<p>Animal</p>
-									<p>Username</p>
-								</div> <!-- /txt-list -->
+									<p>Date</p>
+									<p>Time</p>
+								</div>
 							</div> <!-- /flex -->
-							<div class="flex flex-inbox items-center">
-								<img class="icon" src="images/buy-horse-online-barngate-message-icon.png">
+							<div class="flex flex-inbox items-center between">
+								<div class="flex">
+									<img class="icon" src="images/buy-horse-online-barngate-message-icon.png">
+									<div class="txt-inbox">
+										<p>Animal</p>
+										<p>Username</p>
+									</div> <!-- /txt-list -->
+								</div>
 								<div class="txt-inbox">
-									<p>Animal</p>
-									<p>Username</p>
-								</div> <!-- /txt-list -->
+									<p>Date</p>
+									<p>Time</p>
+								</div>
 							</div> <!-- /flex -->
 						</div>
 					</div> <!-- /box-tab -->
