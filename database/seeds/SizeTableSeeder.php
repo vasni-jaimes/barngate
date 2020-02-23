@@ -17,7 +17,7 @@ class SizeTableSeeder extends Seeder
 
         for ($i=0; $i <= count($dog) - 1; $i++) {
 
-            DB::table('size')->insert([
+            DB::table('sizes')->insert([
                 "name" => $dog[$i]
             ]);
         }
