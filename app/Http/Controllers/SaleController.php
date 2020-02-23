@@ -186,7 +186,7 @@ class SaleController extends Controller
         else if (request("animals") == 5) {
 
             $validator = Validator::make($request->all(), [
-                "animalss" => "required|max:2",
+                "animals" => "required|max:2",
                 "animals" => "numeric",
                 "breeds" => "required|max:2",
                 "breeds" => "numeric",
@@ -214,7 +214,7 @@ class SaleController extends Controller
         else if (request("animals") == 6) {
 
             $validator = Validator::make($request->all(), [
-                "animalss" => "required|max:2",
+                "animals" => "required|max:2",
                 "animals" => "numeric",
                 "breeds" => "required|max:2",
                 "breeds" => "numeric",
@@ -241,7 +241,7 @@ class SaleController extends Controller
         else if (request("animals") == 7) {
 
             $validator = Validator::make($request->all(), [
-                "animalss" => "required|max:2",
+                "animals" => "required|max:2",
                 "animals" => "numeric",
                 "breeds" => "required|max:2",
                 "breeds" => "numeric",
