@@ -29,6 +29,15 @@
 
 }
 
+
+#imgSalida {
+	position: absolute;
+    top: 2px;
+    left: 2px;
+    border-radius: 50%;
+    display: none;
+}
+
 .step2,
 .step3, .step4 {
 	display: none;
@@ -1315,6 +1324,7 @@ textarea.form-input {
 	border: 2px dashed #969FAA;
 	border-radius: 50%;
 	cursor: pointer;
+	position: relative;
 }
 
 .cargar-picture + label:before {

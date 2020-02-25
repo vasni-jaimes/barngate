@@ -1,6 +1,5 @@
 @extends('site.layouts.layout-site')
 
-
 @section("content")
 
 	<div class="container pt-40 pb-40">
@@ -41,12 +40,22 @@
 								</ul>
 								<button class="show-info selector">Edit My Account Info</button>
 							</div> <!-- /item-flex -->
-							<div class="item-flex">
-								<fieldset class="form-file">
-									<input type="file" name="upload" id="upload" class="cargar-picture" data-multiple-caption="{count} files selected" multiple="">
-									<label for="upload"><span>Upload profile picture</span></label>
-								</fieldset>
-							</div> <!-- /item-flex -->
+							<form enctype="multipart/form-data" id="formupload">
+								<div class="item-flex">
+									<fieldset class="form-file">
+										<input type="file" name="upload" id="upload" class="cargar-picture">
+										<label for="upload">
+											<span>Upload profile picture</span>
+											@if (auth()->user()->urlImg != null)
+												<img id="imgSalida" style="display: block" width="98%" height="98%" src="{{ Storage::url(auth()->user()->urlImg) }}" />
+											@else
+												<img id="imgSalida" width="98%" height="98%" src="" />
+											@endif
+											@csrf
+										</label>
+									</fieldset>
+								</div> <!-- /item-flex -->
+							</form>
 						</div> <!-- /flex -->
 					</div> <!-- /box-tab -->
 				</div>
@@ -136,7 +145,7 @@
 			
 			<div class="wrapper-stars item-flex">
 				<div class="flex items-center">
-					<img src="images/picture.jpg">
+					<img src="{{ Storage::url(auth()->user()->urlImg) }}">
 					<div class="txt-list">
 						<div class="flex items-center">
 							<p class="fw-700">{{ auth()->user()->username }}</p>
@@ -160,16 +169,14 @@
 	<div class="bg-blue-light pt-40 pb-40">
 
 		<div class="container">
-			
-			<h3 class="text-center">Favorites</h3>
 
-			<div class="slide-account">
+			@if($misFavoritos != null)
 
+				<h3 class="text-center">Favorites</h3>
 
-				@if($misFavoritos != null)
+				<div class="slide-account">
 
 					@for($i = 0; $i <= count($misFavoritos) - 1; $i++)
-
 						<div>
 							<div class="slide-animal">							
 								<div class="image-slide" style="background-image: url({{ "/storage/images/".$misFavoritos[$i]["img"] }})"></div>
@@ -177,12 +184,11 @@
 							<p class="pt-10">{{ $misFavoritos[$i]["animal_name"] }}</p>
 							<a href="{{ route("sale.show", $misFavoritos[$i]["nickname"]) }}">See more</a>
 						</div>
-
 					@endfor
 
-				@endif
+				</div> <!-- /slide-account -->
 
-			</div> <!-- /slide-account -->
+			@endif
 
 		</div> <!-- /margen -->
 		

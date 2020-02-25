@@ -41,7 +41,9 @@
 						<input type="hidden" id="nick" value="{{ $animal->nickname }}">
 						@csrf
 					@endif
-					<button class="text-white btn btn-red">Message</button>
+					@if ($animal->user_id != auth()->user()->user_id)
+						<button class="text-white btn btn-red">Message</button>
+					@endif
 				</div> <!-- /flex -->
 			</div> <!-- /flex -->
 			
@@ -153,7 +155,7 @@
 		
 		<div class="wrapper-stars item-flex">
 			<div class="flex items-center">
-				<img src="/images/picture.jpg">
+				<img src="{{ Storage::url($animal->urlImg) }}">
 				<div class="txt-list">
 					<div class="flex items-center">
 						<p class="fw-700">{{ $animal->user_name }}</p>
