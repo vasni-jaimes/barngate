@@ -30,17 +30,35 @@ jQuery('.close').click(function(e) {
 
 
 jQuery('.vista1').click(function(){
+	jQuery('.fav').removeClass('active');
 	jQuery('.vista2').removeClass('active');
 	jQuery(this).addClass('active');
 	jQuery('.row-lista').hide();
+	jQuery('.row-fav').hide();
 	jQuery('.row-vista').show();
 });
 
 jQuery('.vista2').click(function(){
+	jQuery('.fav').removeClass('active');
 	jQuery('.vista1').removeClass('active');
 	jQuery(this).addClass('active');
 	jQuery('.row-vista').hide();
+	jQuery('.row-fav').hide();
 	jQuery('.row-lista').show();
+});
+
+jQuery('.fav').click(function(){
+	jQuery('.vista1').removeClass('active');
+	jQuery('.vista2').removeClass('active');
+	jQuery(this).addClass('active');
+	jQuery('.row-vista').hide();
+	jQuery('.row-lista').hide();
+	jQuery('.row-fav').show();
+});
+
+jQuery('.tab-p').click(function () {     
+   jQuery(this).toggleClass('tab-active');  
+   jQuery(this).next('.bullet-tab').slideToggle();
 });
 
 
