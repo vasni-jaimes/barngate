@@ -65,4 +65,6 @@ Route::view('/faqs', 'site.faqs')->name('faqs');
 Route::view('/privacy', 'site.privacy')->name('privacy');
 Route::view('/notifications', 'site.notifications')->name('notifications');
 Route::view('/chat', 'site.chat')->name('chat');
+Route::view('/reset', 'site.reset')->name('reset');
+Route::view('/edit_animal', 'site.edit_animal')->name('edit_animal');
 //Route::view('/vista', 'site.vista')->name('vista');

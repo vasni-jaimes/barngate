@@ -49,7 +49,7 @@
 				<div class="col-md-10 text-right">
 					<nav>
 						<ul class="menu_top">
-							<li><a href="#">FAQ's</a></li>
+							<li><a href="/faqs">FAQ's</a></li>
 							<li><a href="https://blog.barngate.com/">Blog</a> </li>
 							<li><a href="{{ route("contact") }}">Contact Us</a> </li>
 
@@ -195,7 +195,7 @@
 		</li>
 		<li><a href="{{ route("about") }}">About Us</a></li>
 		<li><a href="{{ route("contact") }}">Contact Us</a> </li>
-		<li><a href="#">FAQ's</a></li>
+		<li><a href="/faqs">FAQ's</a></li>
 		<li><a href="https://blog.barngate.com/">Blog</a></li>
 		@guest
 			<li><a class="show-log" href="#">Log in</a> </li>

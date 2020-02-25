@@ -43,6 +43,11 @@ jQuery('.vista2').click(function(){
 	jQuery('.row-lista').show();
 });
 
+jQuery('.tab-p').click(function () {     
+   jQuery(this).toggleClass('tab-active');  
+   jQuery(this).next('.bullet-tab').slideToggle();
+});
+
 
 /************************\
 |    MENU HAMBURGUESA    |

@@ -1711,19 +1711,38 @@ textarea.form-input {
     border-color: rgb(234, 234, 234);
 }
 
-.tab-p {
-	padding: 10px 40px 10px 0;
+.item-tab {
 	border-bottom: 1px solid #26375D;
+}
+
+.tab-p {
+	position: relative;
+	padding: 10px 40px 10px 0;
 	cursor: pointer;
+}
+
+.tab-p:before {
+    content: '+';
+    position: absolute;
+	top: 50%;
+	-webkit-transform: translateY(-50%);
+	-moz-transform: translateY(-50%);
+	transform: translateY(-50%);
+    right: 10px;
+    font-size: 25px;
+    font-weight: 700;
+    color: #26375D;
+}
+
+.tab-p.tab-active:before {
+    content: '-';
+    font-size: 40px;
+	font-weight: 400;
 }
 
 .bullet-tab {
 	display: none;
 	margin: 0 0 20px;
-}
-
-.bullet-tab p {
-	padding: 20px 0 0;
 }
 
 
