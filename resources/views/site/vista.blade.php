@@ -133,7 +133,7 @@
 				<div class="btn-vista mt-50 mb-20 flex">
 					<div class="vista1 active"></div>
 					<div class="vista2"></div>
-					<div><button class="btn btn-border">Favorites</button></div>
+					<div><button class="btn btn-border fav">Favorites</button></div>
 				</div>
 				
 				<div class="row-vista">
@@ -180,7 +180,7 @@
 				<div class="row-lista">
 					@for($i=0; $i <= count($animal) - 1; $i++)
 
-						<div class="item-lista flex between items-center list-animal" data-animal="{{ $animal[$i]["animal_id"] }}" 
+						<div class="item-lista list-animal" data-animal="{{ $animal[$i]["animal_id"] }}" 
 																						data-breed="{{ $animal[$i]["breed_id"] }}"
 																						data-color="{{ $animal[$i]["color_id"] }}"
 																						data-age="{{ $animal[$i]["age_id"] }}"
@@ -190,14 +190,35 @@
 																						data-address="{{ $animal[$i]["adress"] }}"
 																						data-state="{{ $animal[$i]["state"] }}"
 																						data-price="{{ floatval($animal[$i]["price_filtro"]) }}">
+							<div class="flex between items-center">
+								<div class="flex items-center">
+									<img src="{{ "/storage/images/".$animal[$i]["img"] }}">
+									<div class="item-d">
+										<a href="{{ route("sale.show", $animal[$i]["nickname"]) }}">
+											<p>{{ $animal[$i]["breeds_name"] }}  {{ $animal[$i]["gender_name"] }}</p>
+										</a>
+										<p class="price">Price: ${{ $animal[$i]["price"] }}</p>
+									</div> <!-- /item-d -->
+								</div> <!-- /flex -->
+								<div class="flex align-items">
+									<button class="btn btn-border">Add to Favorites</button>
+									<button class="text-white btn btn-red">Message</button>
+								</div> <!-- /flex -->
+							</div>
+						</div> <!-- /item-lista -->
+					@endfor
+				</div> <!-- /row-lista -->
 
+				<div class="row-fav">
+					<div class="item-lista list-animal">
+						<div class="flex between items-center">
 							<div class="flex items-center">
-								<img src="{{ "/storage/images/".$animal[$i]["img"] }}">
+								<img src="http://localhost:8000/storage/images/1/3/1/t38FEC9Wif1582606926.jpeg">
 								<div class="item-d">
-									<a href="{{ route("sale.show", $animal[$i]["nickname"]) }}">
-										<p>{{ $animal[$i]["breeds_name"] }}  {{ $animal[$i]["gender_name"] }}</p>
+									<a href="#">
+										<p>Black Welsh Mountain  Male</p>
 									</a>
-									<p class="price">Price: ${{ $animal[$i]["price"] }}</p>
+									<p class="price">Price: $5,000</p>
 								</div> <!-- /item-d -->
 							</div> <!-- /flex -->
 							<div class="flex align-items">
@@ -205,8 +226,8 @@
 								<button class="text-white btn btn-red">Message</button>
 							</div> <!-- /flex -->
 						</div> <!-- /flex -->
-					@endfor
-				</div> <!-- /row-lista -->
+					</div> <!--  /item-lista -->
+				</div> <!-- /row-fav -->
 				
 			</div> <!-- /col-md-8 -->
 			
