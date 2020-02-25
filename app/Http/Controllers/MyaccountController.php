@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
 
 //Moderl
 use App\User;
@@ -143,6 +144,48 @@ class MyaccountController extends Controller
     }
 
 
+    public function SaveImgMyaccount(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'upload' => ['required', 'mimes:jpg,jpeg,png']
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 202);
+        }
+
+        if ($request->hasFile("upload")) {
+
+
+            DB::beginTransaction();
+            $users = User::find(auth()->user()->user_id);
+
+            if ($users->urlImg != null) {
+                $name_img = basename($users->urlImg);
+                Storage::delete("images/".auth()->user()->user_id."/perfil/".$name_img);
+            }
+
+            if ( $url = $this->uploadImg($request) ) {
+
+                $users->urlImg = $url;
+
+                if ($users->save()) {
+                     DB::commit();
+                     return response()->json(["message" => "ok"], 202);
+                }
+
+                DB::rollback();
+                return response()->json(["message" => "error_save"], 202);
+            }
+            DB::rollback();
+            return response()->json(["message" => "error_upload"], 202);
+        }
+        DB::rollback();
+        return response()->json(["message" => "error_file"], 202);
+    }
+
+
+
     public function getFavorites($user_id)
     {
         $favorite = favorite::where("user_id", $user_id)->get();
@@ -167,5 +210,19 @@ class MyaccountController extends Controller
         }
 
        return false;
+    }
+
+
+
+    public function uploadImg($request)
+    {
+        try {
+            $rootImg = $request->file('upload')->store("images/".auth()->user()->user_id."/perfil/");
+            return $rootImg;
+        }
+        catch(Exception $e) {
+            \Log::error('La imagen '.$request->file('upload')->getClientOriginalName()." no se guardo correctamente: error: ".$e->getMessage());
+            return false;
+        }
     }
 }

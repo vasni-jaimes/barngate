@@ -24,6 +24,7 @@ class CreateUsersTable extends Migration
             $table->text('address')->nullable();
             $table->string('cp_zip')->nullable();
             $table->string('country', 255)->nullable();
+            $table->text('urlImg');->nullable();
             $table->boolean('email_favorite')->default(0);
             $table->boolean('email_update')->default(0);
             $table->boolean('receive_text')->default(0);

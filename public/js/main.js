@@ -2016,6 +2016,14 @@ if (col_animal) {
 			let animal = $(".active-animal").attr('data-animal');
 			let data = { "_token": token.value, "animal": animal };
 
+			if (animal == 1) {
+				$("select[name='gender']").css("display", "none");
+				$("select[name='gender']").prev().css("display", "none");
+			}
+			else {
+				$("select[name='gender']").css("display", "block");
+				$("select[name='gender']").prev().css("display", "block");
+			}
 
 			if (animal == 2) {
 				$("select[name='discipline']").css("display", "block");
@@ -2024,6 +2032,15 @@ if (col_animal) {
 			else {
 				$("select[name='discipline']").css("display", "none");
 				$("select[name='discipline']").prev().css("display", "none");
+			}
+
+			if (animal == 2 || animal == 6 || animal == 7) {
+				$("select[name='colors']").css("display", "block");
+				$("select[name='colors']").prev().css("display", "block");
+			}
+			else {
+				$("select[name='colors']").css("display", "none");
+				$("select[name='colors']").prev().css("display", "none");
 			}
 
 			request
@@ -2176,6 +2193,46 @@ if (save_radio) {
 }
 
 
+
+/*****************\
+|  IMAGEN PERFIL  |
+\*****************/
+let image = document.querySelector("input[name='upload']");
+if (image) {
+
+	$(image).change(function(e) {
+     	addImage(e);
+     	let img = document.querySelector("#upload");
+     	let token = document.querySelector("input[name='_token']");
+
+     	if (img.value != '' && img.value != null && img.value != undefined) {
+
+
+     		var formData = new FormData(document.getElementById("formupload"));
+	        //formData.append("img", img);
+	        formData.append( "_token", token.value);
+
+     		request
+		   	.post('/saveImgMyaccount')
+		   	.send(formData)
+		   	.set('Accept', 'application/json')
+		   	.then(res => {
+		   		console.log(res.body);
+
+		   	})
+		   	.catch(err => {
+      			// err.message, err.response
+      			console.log(err.message);
+      			//error(password_confirm, "A problem happened, try again later");
+   			});
+     	}
+
+    });
+}
+
+
+
+
 /*********************\
 |      FUNCIONES      |
 \*********************/
@@ -2191,6 +2248,21 @@ function error(element, msg) {
 		.after("<span class='err' style='display:block;color:red'>"+msg+"</span>");
 }
 
+
+function addImage(e){
+    var file = e.target.files[0],
+    imageType = /image.*/;
+    
+    if (!file.type.match(imageType))
+    	return;
+  
+    	var reader = new FileReader();
+      	reader.onload = function(e){
+        	var result=e.target.result;
+        	$('#imgSalida').attr("src",result).css("display", "block");
+    	}
+      	reader.readAsDataURL(file);
+}
 
 function espacios_blanco_none(valor) {
 	var noValido = /\s/;
@@ -2318,7 +2390,8 @@ function searchWP() {
 	let gender = $("select[name='gender']").val();
 	let discipline = $("select[name='discipline']").val();
 	let search = $(".search input").val();
-	let price_filtro = $("#price_filtro").val()
+	let price_filtro = $("#price_filtro").val();
+	let state = $("select[name='estado']").val();
 
 
 	if (animal != null) {
@@ -2354,6 +2427,11 @@ function searchWP() {
 	if (search != '' && search != null) {
 		selector += "[data-description *= '"+search+"']";
 		selector2 += "[data-description *= '"+search+"']";
+	}
+
+	if (state != '' && state != null && state != undefined && state != 0) {
+		selector += "[data-state='"+state+"']";
+		selector2 += "[data-state='"+state+"']";
 	}
 
 	$(".back-animal, .list-animal").css("display", "none");

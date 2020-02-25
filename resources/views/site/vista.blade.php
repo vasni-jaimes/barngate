@@ -68,9 +68,15 @@
 					</select>
 
 					
-					<div class="view-more">
+					{{-- <div class="view-more"> --}}
 						<p class="fw-900 fz-22">Location</p>
-					</div> <!-- /view-more -->
+						<select class="form-input" name="estado">
+							<option value=""> Make a selection </option>
+							@foreach($estados as $estado)
+								<option value="{{ $estado->id_estado }}"> {{ $estado->estado }} </option>
+							@endforeach
+						</select>
+					{{-- </div> /view-more --}}
 					
 				</div> <!-- /row-filtros -->
 				
@@ -145,12 +151,13 @@
 														data-discipline="{{ $animal[$i]["discipline_id"] }}"
 														data-description="{{ $animal[$i]["description"] }}"
 														data-address="{{ $animal[$i]["adress"] }}"
+														data-state="{{ $animal[$i]["state"] }}"
 														data-price="{{ floatval($animal[$i]["price_filtro"]) }}" style="display: block;">
 
 									<img src="{{ "/storage/images/".$animal[$i]["img"] }}">
 									<div class="mt-20 text-center">
 										<a href="{{ route("sale.show", $animal[$i]["nickname"]) }}">
-											<h3 class="fz-24 fw-700">{{ $animal[$i]["colors_name"] }}  {{ $animal[$i]["breeds_name"] }}  {{ $animal[$i]["gender_name"] }}
+											<h3 class="fz-24 fw-700">{{ $animal[$i]["breeds_name"] }}  {{ $animal[$i]["gender_name"] }}
 											</h3>
 										</a>
 										<p class="fz-18">{{ $animal[$i]["description"] }}</p>
@@ -181,13 +188,14 @@
 																						data-discipline="{{ $animal[$i]["discipline_id"] }}"
 																						data-description="{{ $animal[$i]["description"] }}"
 																						data-address="{{ $animal[$i]["adress"] }}"
+																						data-state="{{ $animal[$i]["state"] }}"
 																						data-price="{{ floatval($animal[$i]["price_filtro"]) }}">
 
 							<div class="flex items-center">
 								<img src="{{ "/storage/images/".$animal[$i]["img"] }}">
 								<div class="item-d">
 									<a href="{{ route("sale.show", $animal[$i]["nickname"]) }}">
-										<p>{{ $animal[$i]["colors_name"] }}  {{ $animal[$i]["breeds_name"] }}  {{ $animal[$i]["gender_name"] }}</p>
+										<p>{{ $animal[$i]["breeds_name"] }}  {{ $animal[$i]["gender_name"] }}</p>
 									</a>
 									<p class="price">Price: ${{ $animal[$i]["price"] }}</p>
 								</div> <!-- /item-d -->

@@ -489,7 +489,8 @@ class SaleController extends Controller
                                     'animals.name as animal_name', 
                                     'breeds.name as breeds_name',  
                                     'categories.name as categories_name',
-                                    'users.username as user_name')
+                                    'users.username as user_name',
+                                    'users.urlImg')
                         ->where('nickname', $id)->first();
         }
 
@@ -508,7 +509,8 @@ class SaleController extends Controller
                                     'colors.name as colors_name', 
                                     'genders.name as gender_name',
                                     'disciplines.name as desc_name',
-                                    'users.username as user_name')
+                                    'users.username as user_name',
+                                    'users.urlImg')
                         ->where('nickname', $id)->first();
         }
 
@@ -525,7 +527,8 @@ class SaleController extends Controller
                                     'breeds.name as breeds_name', 
                                     'class.name as class_name', 
                                     'genders.name as gender_name',
-                                    'users.username as user_name')
+                                    'users.username as user_name',
+                                    'users.urlImg')
                         ->where('nickname', $id)->first();
         }
 
@@ -544,7 +547,8 @@ class SaleController extends Controller
                                     'class.name as class_name', 
                                     'genders.name as gender_name',
                                     'types.name as types_name',
-                                    'users.username as user_name')
+                                    'users.username as user_name',
+                                    'users.urlImg')
                         ->where('nickname', $id)->first();
         }
 
@@ -561,7 +565,8 @@ class SaleController extends Controller
                                     'breeds.name as breeds_name', 
                                     'class.name as class_name', 
                                     'genders.name as gender_name',
-                                    'users.username as user_name')
+                                    'users.username as user_name',
+                                    'users.urlImg')
                         ->where('nickname', $id)->first();
         }
 
@@ -580,7 +585,8 @@ class SaleController extends Controller
                                     'colors.name as colors_name', 
                                     'genders.name as gender_name',
                                     'sizes.name as sizes_name',
-                                    'users.username as user_name')
+                                    'users.username as user_name',
+                                    'users.urlImg')
                         ->where('nickname', $id)->first();
         }
 
@@ -599,7 +605,8 @@ class SaleController extends Controller
                                     'colors.name as colors_name', 
                                     'genders.name as gender_name',
                                     'sizes.name as sizes_name',
-                                    'users.username as user_name')
+                                    'users.username as user_name',
+                                    'user.urlImg')
                         ->where('nickname', $id)->first();
         }
         

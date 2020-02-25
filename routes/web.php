@@ -40,6 +40,7 @@ Route::post('/animal_config', 'SaleController@SearchAnimal')->name('search.anima
 Route::get('/myaccount', 'MyaccountController@index')->name('myaccount');
 Route::post('/myaccount/editProfile', 'MyaccountController@EditProfile')->name('editprofile');
 Route::post('/saveSettings', 'MyaccountController@SaveSettings')->name('SaveSettings');
+Route::post('saveImgMyaccount', 'MyaccountController@SaveImgMyaccount')->name('saveimgmyaccount');
 
 //Detalle
 Route::get('/detail/{id}', 'SaleController@show')->name('sale.show');

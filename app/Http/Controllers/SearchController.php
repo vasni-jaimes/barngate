@@ -26,13 +26,13 @@ class SearchController extends Controller
     	$animal     = array();
     	$animalsrow = Sale::join('animals', 'sales.animal_id', '=', 'animals.animal_id')
     						->join('breeds', 'sales.breed_id', '=', 'breeds.breed_id')
-	                        ->join('colors', 'sales.color_id', '=', 'colors.color_id')
+	                        //->join('colors', 'sales.color_id', '=', 'colors.color_id')
 	                        ->join('genders', 'sales.gender_id', '=', 'genders.gender_id')
                             ->join('cities', 'sales.city', '=', 'cities.id_ciudad')
 	    					->select('sales.*', 
 		    							'animals.name as animal_name', 
 	                                    'breeds.name as breeds_name', 
-	                                    'colors.name as colors_name', 
+	                                    //'colors.name as colors_name', 
 	                                    'genders.name as gender_name',
                                         'cities.*')->get();
 
@@ -42,7 +42,7 @@ class SearchController extends Controller
                 $animal[$ban]["animal_name"] = $animalrow->animal_name;
                 $animal[$ban]["img"]         = $this->primerImagenProducto( $animalrow->user_id, $animalrow->animal_id, $animalrow->sale_id );
                 $animal[$ban]["nickname"]    = $animalrow->nickname;
-                $animal[$ban]["colors_name"]    = $animalrow->colors_name;
+                //$animal[$ban]["colors_name"]    = $animalrow->colors_name;
                 $animal[$ban]["breeds_name"]    = $animalrow->breeds_name;
                 $animal[$ban]["gender_name"]    = $animalrow->gender_name;
                 $animal[$ban]["price"]    		= $animalrow->price;
@@ -56,6 +56,7 @@ class SearchController extends Controller
                 $animal[$ban]["gender_id"]      = $animalrow->gender_id;
                 $animal[$ban]["discipline_id"]  = $animalrow->discipline_id;
                 $animal[$ban]["description"]    = $animalrow->description;
+                $animal[$ban]["state"]          = $animalrow->state;
                 $animal[$ban]["adress"]         = $animalrow->ciudad.", ".$animalrow->estado;
                 $ban++;
             }
@@ -68,13 +69,10 @@ class SearchController extends Controller
         $colors = DB::table("colors")->get();
         $genders = DB::table("genders")->get();
         $disciplines = DB::table("disciplines")->get();
+        $estados    = DB::table("cities")->groupBy("estado")->get();
 
 
-        var_dump($animal);
-        exit();
-
-
-    	return view('site.vista', compact("animal", "animals", "breeds", "colors", "genders", "disciplines"));
+    	return view('site.vista', compact("animal", "animals", "breeds", "colors", "genders", "disciplines", "estados"));
     }
 
 
