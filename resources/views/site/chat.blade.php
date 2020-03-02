@@ -29,6 +29,31 @@
 						<div class="msg-chat">
 
 							<ul class="msg-chat__items">
+
+
+								@forelse($msn_chat as $msn)
+
+									@if ($msn->user_id != auth()->user()->user_id)
+										<li class="msg-chat__item msg-chat__item_left-person">
+											<div class="msg-chat__time"> {{ $msn->created_at }} </div> 
+											<div class="msg-chat__bubble msg-chat__bubble_first-in-group msg-chat__bubble_third-person msg-chat__bubble_third-person__first-in-group"> <div class="msg-chat__text"> {{ $msn->message }} </div></div>
+										</li>
+									@else
+										<li class="msg-chat__item msg-chat__item_right-person">
+											<div class="msg-chat__time"> {{ $msn->created_at }} </div> 
+											<div class="msg-chat__bubble msg-chat__bubble_first-in-group msg-chat__bubble_first-person msg-chat__bubble_first-person__first-in-group"> 
+												<div class="msg-chat__text"> {{ $msn->message }} </div>
+											</div> 
+											{{-- <span class="msg-chat__item_status">visto</span> --}}
+										</li>
+									@endif
+
+									
+
+								@empty
+								@endforelse
+
+
 								{{-- <li class="msg-chat__item msg-chat__item_left-person">
 									<div class="msg-chat__time">24/12 22:03</div> 
 									<div class="msg-chat__bubble msg-chat__bubble_first-in-group msg-chat__bubble_third-person msg-chat__bubble_third-person__first-in-group"> <div class="msg-chat__text">hola, no tiene detalles?</div></div> 

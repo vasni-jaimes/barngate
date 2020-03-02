@@ -20,8 +20,8 @@ class ChatController extends Controller
     {
     	$channel = $request->user_id;
 
+    	//OBTENER LOS DATOS DEL USUARIO CON EL QUE CHATEA EL USUARIO DE LA SESSION ACTUAL
     	$user_client = DB::table("chats_rooms")->where("token_chat", $channel)->first();
-
     	if ($user_client->user_id == auth()->user()->user_id) {
     		$user_chat = DB::table("users")->where("user_id", $user_client->user_two_id)->first();
     	}
@@ -29,9 +29,13 @@ class ChatController extends Controller
     		$user_chat = DB::table("users")->where("user_id", $user_client->user_id)->first();
     	}
 
+
+    	//MENSAJES DE CHAT
+    	$msn_chat = DB::table("messages")->where("chat_id", $user_client->chat_id)->get();
+
     	//return response()->json($user_chat->name);
 
-		return view("site.chat", compact("channel", "user_chat"));
+		return view("site.chat", compact("channel", "user_chat", "msn_chat"));
 
     }
 
@@ -62,8 +66,10 @@ class ChatController extends Controller
   		$evento = $request->canal."-message";
   		if ( $pusher->trigger($request->canal, $evento, $data, $request->socket_id) ) {
 
+  			$canal = DB::table("chats_rooms")->where("token_chat", $request->canal)->first();
+
   			DB::table("messages")->insert([
-  				"chat_id" => $request->canal,
+  				"chat_id" => $canal->chat_id,
   				"user_id" => auth()->user()->user_id,
   				"message" => $request->message,
   				"created_at" => $date,
