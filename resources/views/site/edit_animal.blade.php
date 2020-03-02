@@ -161,11 +161,16 @@
 		
 	</div> <!-- /container -->
 
-	<div class="container pb-40">
+	<div class="container pb-40 text-center">
 
-		<h3 class="text-center pb-20">Change pictures</h3>
+		<h3 class="pb-20">Change pictures</h3>
+		
+		<fieldset class="form-file mb-20">
+			<input type="file" name="upload" id="upload" class="cargar-cv" data-multiple-caption="{count} files selected" multiple="">
+			<label for="upload" style="margin: auto;" ></label>
+		</fieldset>
 
-		<div class="slide-account">
+		<div class="slide-account ">
 
 			<div>
 				<div class="slide-animal">							
@@ -176,6 +181,10 @@
 			</div>
 
 		</div> <!-- /slide-account -->
+		
+		<div class="pt-20 pb-20 text-center">
+			<a href="#" class="mw-150 btn btn-primary">Edit animal</a>
+		</div>
 
 	</div> <!-- /container -->
 
