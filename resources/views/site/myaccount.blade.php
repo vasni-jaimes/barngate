@@ -190,7 +190,7 @@
 
 			@endif
 
-		</div> <!-- /margen -->
+		</div> <!-- /container -->
 		
 	</div> <!-- /bg-blue -->
 
