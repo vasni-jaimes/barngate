@@ -145,7 +145,11 @@
 			
 			<div class="wrapper-stars item-flex">
 				<div class="flex items-center">
-					<img src="{{ Storage::url(auth()->user()->urlImg) }}">
+					@if (auth()->user()->urlImg == null)
+						<img src="/images/sin_foto.jpeg" class="img_mini">
+					@else
+						<img src="{{ Storage::url(auth()->user()->urlImg) }}" class="img_mini">
+					@endif
 					<div class="txt-list">
 						<div class="flex items-center">
 							<p class="fw-700">{{ auth()->user()->username }}</p>
@@ -236,5 +240,29 @@
 
 		</div> <!-- /wrapper-form -->
 	</div> <!-- /shadowbox -->
+
+	@if (session()->has("myaccount"))
+		<div class="shadowbox" id="incompletep" style="display: block;">
+			<div class="close"></div> <!-- /close -->
+			<div class="wrapper-form">
+				<div class="container-form">
+					<h2> Fill in your contact information please </h2>
+				</div>
+			</div> <!-- /wrapper-form -->
+		</div> <!-- /shadowbox -->
+	@endif
+
+
+	<div class="shadowbox" id="img_changue">
+		<div class="close"></div> <!-- /close -->
+		<div class="wrapper-form">
+			<div class="container-form">
+				<h2> Your profile picture was changed correctly </h2>
+			</div>
+		</div> <!-- /wrapper-form -->
+	</div> <!-- /shadowbox -->
+
+
+
 
 @endsection

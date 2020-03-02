@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 //Moderl
 use App\User;
 use App\Sale;
+use App\Favorite;
 
 //DB
 use DB;
@@ -46,6 +47,7 @@ class SearchController extends Controller
                 $animal[$ban]["breeds_name"]    = $animalrow->breeds_name;
                 $animal[$ban]["gender_name"]    = $animalrow->gender_name;
                 $animal[$ban]["price"]    		= $animalrow->price;
+                $animal[$ban]["user_id"]        = $animalrow->user_id;
 
                 $animal[$ban]["price_filtro"]   = str_replace(",", "", $animalrow->price);
 
@@ -70,9 +72,38 @@ class SearchController extends Controller
         $genders = DB::table("genders")->get();
         $disciplines = DB::table("disciplines")->get();
         $estados    = DB::table("cities")->groupBy("estado")->get();
+        $misFavoritos   = $this->getFavorites(auth()->user()->user_id);
 
 
-    	return view('site.vista', compact("animal", "animals", "breeds", "colors", "genders", "disciplines", "estados"));
+    	return view('site.vista', compact("animal", "animals", "breeds", "colors", "genders", "disciplines", "estados", "misFavoritos"));
+    }
+
+
+    public function getFavorites($user_id)
+    {
+        $favorite = favorite::where("user_id", $user_id)->get();
+        $favoriteArray = array();
+
+        if ($favorite->count() > 0) {
+            $cont = 0;
+            foreach ($favorite as $favorites) {
+                $favoritefull = Sale::where("sale_id", $favorites->sale_id)
+                                    ->join('animals', 'sales.animal_id', '=', 'animals.animal_id')
+                                    ->select('sales.*', 'animals.name as animal_name')
+                                    ->first();
+
+                $favoriteArray[$cont]["animal_name"]  = $favoritefull->animal_name;
+                $favoriteArray[$cont]["nickname"]      = $favoritefull->nickname;
+                 $favoriteArray[$cont]["price"]         = $favoritefull->price;
+                $favoriteArray[$cont]["img"]           = $this->primerImagenProducto( $favoritefull->user_id, $favoritefull->animal_id, $favoritefull->sale_id );
+                $cont++;
+            }
+
+            return $favoriteArray;
+
+        }
+
+       return false;
     }
 
 

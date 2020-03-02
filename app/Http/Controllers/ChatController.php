@@ -1,0 +1,77 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+use App\User;
+use Pusher;
+use DB;
+
+class ChatController extends Controller
+{
+	function __construct()
+	{
+		$this->middleware("auth");
+		$this->middleware("CheckChatId", ["only" => ["index"]]);
+	}
+    
+    public function index(Request $request)
+    {
+    	$channel = $request->user_id;
+
+    	$user_client = DB::table("chats_rooms")->where("token_chat", $channel)->first();
+
+    	if ($user_client->user_id == auth()->user()->user_id) {
+    		$user_chat = DB::table("users")->where("user_id", $user_client->user_two_id)->first();
+    	}
+    	else {
+    		$user_chat = DB::table("users")->where("user_id", $user_client->user_id)->first();
+    	}
+
+    	//return response()->json($user_chat->name);
+
+		return view("site.chat", compact("channel", "user_chat"));
+
+    }
+
+
+    public function messagesChat(Request $request)
+    {
+    	if (!$request->has("message") || !$request->has("canal") || !$request->has("socket_id")) {
+    		return response()->json(["message" => "error"], 202);
+    	}
+
+    	date_default_timezone_set('America/Mexico_City');
+        $date = date('Y-m-d h:i:s', time());
+
+    	$options = array(
+		    'cluster' => 'us2',
+		    'useTLS' => true
+		);
+
+		$pusher = new Pusher(
+		    'fa91802443afec1d96ac',
+		    '0900c57c923b2096ffcd',
+		    '955993',
+		    $options
+  		);
+
+  		$data['mensaje'] = $request->message;
+  		$data['hora'] = $date;
+  		$evento = $request->canal."-message";
+  		if ( $pusher->trigger($request->canal, $evento, $data, $request->socket_id) ) {
+
+  			DB::table("messages")->insert([
+  				"chat_id" => $request->canal,
+  				"user_id" => auth()->user()->user_id,
+  				"message" => $request->message,
+  				"created_at" => $date,
+  				"updated_at" => $date
+  			]);
+
+
+  			return response()->json(["message" => "ok", "fecha" => $date], 202);
+  		}
+    }
+}

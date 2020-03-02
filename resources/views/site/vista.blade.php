@@ -137,6 +137,7 @@
 				</div>
 				
 				<div class="row-vista">
+					@csrf
 					@php $cont = 0; @endphp
 					@for($i=0; $i <= count($animal) - 1; $i++)
 
@@ -162,8 +163,16 @@
 										</a>
 										<p class="fz-18">{{ $animal[$i]["description"] }}</p>
 										<div class="mt-20 mb-20 text-center">
-											<button class="btn btn-border">Add to Favorites</button>
-											<button class="text-white btn btn-red">Message</button>
+											@if ($animal[$i]["user_id"] != auth()->user()->user_id)
+												@if (auth()->user()->name == null || auth()->user()->phone == null || auth()->user()->address == null || 
+														auth()->user()->cp_zip == null || auth()->user()->country == null) 
+													<h3> If you want to send a message or add to favorites first complete your profile </h3>
+												@else
+													<button class="btn btn-border add-favorite">Add to Favorites</button>
+													<input type="hidden" class="nick" value="{{ $animal[$i]["nickname"] }}">
+													<button class="text-white btn btn-red">Message</button>
+												@endif
+											@endif
 										</div> <!-- /flex -->
 										<p class="fz-25 fw-700">Price: <span class="price">${{ $animal[$i]["price"] }}</span></p>
 									</div>
@@ -201,8 +210,16 @@
 									</div> <!-- /item-d -->
 								</div> <!-- /flex -->
 								<div class="flex align-items">
-									<button class="btn btn-border">Add to Favorites</button>
-									<button class="text-white btn btn-red">Message</button>
+									@if ($animal[$i]["user_id"] != auth()->user()->user_id)
+										@if (auth()->user()->name == null || auth()->user()->phone == null || auth()->user()->address == null || 
+												auth()->user()->cp_zip == null || auth()->user()->country == null) 
+											<h3> If you want to send a message or add to favorites first complete your profile </h3>
+										@else
+											<button class="btn btn-border">Add to Favorites</button>
+											<input type="hidden" class="nick" value="{{ $animal[$i]["nickname"] }}">
+											<button class="text-white btn btn-red">Message</button>
+										@endif
+									@endif
 								</div> <!-- /flex -->
 							</div>
 						</div> <!-- /item-lista -->
@@ -211,29 +228,49 @@
 
 				<div class="row-fav">
 					<div class="item-lista list-animal">
-						<div class="flex between items-center">
-							<div class="flex items-center">
-								<img src="http://localhost:8000/storage/images/1/3/1/t38FEC9Wif1582606926.jpeg">
-								<div class="item-d">
-									<a href="#">
-										<p>Black Welsh Mountain  Male</p>
-									</a>
-									<p class="price">Price: $5,000</p>
-								</div> <!-- /item-d -->
-							</div> <!-- /flex -->
-							<div class="flex align-items">
-								<button class="btn btn-border">Add to Favorites</button>
-								<button class="text-white btn btn-red">Message</button>
-							</div> <!-- /flex -->
-						</div> <!-- /flex -->
+
+						@if ($misFavoritos)
+							@for ($i=0; $i <= count($misFavoritos) - 1; $i++)
+								<div class="flex between items-center">
+									<div class="flex items-center">
+										<img src="{{ "/storage/images/".$misFavoritos[$i]["img"] }}">
+										<div class="item-d">
+											<a href="{{ route("sale.show", $misFavoritos[$i]["nickname"]) }}">
+												<p>{{ $misFavoritos[$i]["animal_name"] }}</p>
+											</a>
+											<p class="price">Price: {{ $misFavoritos[$i]["price"] }}</p>
+										</div> <!-- /item-d -->
+									</div> <!-- /flex -->
+									<div class="flex align-items">
+										{{-- <button class="btn btn-border">Add to Favorites</button> --}}
+										<button class="text-white btn btn-red">Message</button>
+									</div> <!-- /flex -->
+								</div> <!-- /flex -->
+							@endfor
+						@else
+							<h2 style="text-align: center;"> There are no favorites yet </h2>
+						@endif
+
 					</div> <!--  /item-lista -->
 				</div> <!-- /row-fav -->
-				
+
 			</div> <!-- /col-md-8 -->
 			
 		</div> <!-- /row -->
 		
 	</div> <!-- /container -->
+
+	<!--  MODAL PARA FAVORITOS -->
+	<div class="shadowbox" id="favorite">
+		<div class="wrapper-form">
+			<div class="container-form">
+				<h2>Do you want to add to my favorites?</h2>
+				<button class="accpta-favorite"> Accept </button>
+				<button class="cancel-favorite"> Cancel </button>
+			</div> <!-- /container-form -->
+		</div> <!-- /wrapper-form -->
+	</div> <!-- /shadowbox -->
+
 
 	<div class="shadowbox" id="show-map">
 		<div class="close"></div> <!-- /close -->

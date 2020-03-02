@@ -40,8 +40,18 @@ class MyaccountController extends Controller
             }
         }
 
+
+        //CHAT
+        $chats = DB::table("chats_rooms")->where([
+                        ["user_id", auth()->user()->user_id],
+                    ])
+                    ->orWhere([
+                        ["user_two_id", auth()->user()->user_id],
+                    ])->get();
+
+
         $misFavoritos = $this->getFavorites(auth()->user()->user_id);
-    	return view("site.myaccount", compact("animal", "misFavoritos"));
+    	return view("site.myaccount", compact("animal", "misFavoritos", "chats"));
     }
 
 
