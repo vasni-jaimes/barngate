@@ -6,7 +6,7 @@
 
 <title>Barngate</title>
 
-<link rel="stylesheet" href="css/app.css">
+{{-- <link rel="stylesheet" href="css/app.css"> --}}
 <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
 <link rel="stylesheet" href="/css/style.css" >
 <link rel="stylesheet" type="text/css" href="/css/message.css">	
@@ -294,6 +294,7 @@
 
 <script src="/mmenu/jquery.mmenu.all.js"></script>
 <script src="/slick/slick.js"></script>
+<script src="https://js.pusher.com/5.1/pusher.min.js"></script>
 <script type="text/javascript" src="/js/main.js"></script>
 @yield("js-content_main")
 

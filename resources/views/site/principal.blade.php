@@ -36,13 +36,18 @@
 			<div class="flex between items-center">
 				<p class="price text-blue">Price: <span>${{ $animal->price }}</span></p>
 				<div class="flex align-items">
-					@if (!$favorite)
-						<button class="btn btn-border button_favorite">Add to Favorites</button>
-						<input type="hidden" id="nick" value="{{ $animal->nickname }}">
-						@csrf
-					@endif
-					@if ($animal->user_id != auth()->user()->user_id)
-						<button class="text-white btn btn-red">Message</button>
+					@if (auth()->user()->name == null || auth()->user()->phone == null || auth()->user()->address == null || 
+							auth()->user()->cp_zip == null || auth()->user()->country == null) 
+						<h3> If you want to send a message or add to favorites first complete your profile </h3>
+					@else
+						@if (!$favorite)
+							<button class="btn btn-border button_favorite">Add to Favorites</button>
+							<input type="hidden" id="nick" value="{{ $animal->nickname }}">
+							@csrf
+						@endif
+						@if ($animal->user_id != auth()->user()->user_id)
+							<a href="{{ route("chat.index", base64_encode($animal->user_name)) }}"> <button class="text-white btn btn-red">Message</button> </a>
+						@endif
 					@endif
 				</div> <!-- /flex -->
 			</div> <!-- /flex -->
@@ -155,7 +160,11 @@
 		
 		<div class="wrapper-stars item-flex">
 			<div class="flex items-center">
-				<img src="{{ Storage::url($animal->urlImg) }}">
+				@if (auth()->user()->urlImg == null)
+					<img src="/images/sin_foto.jpeg">
+				@else
+					<img src="{{ Storage::url($animal->urlImg) }}">
+				@endif
 				<div class="txt-list">
 					<div class="flex items-center">
 						<p class="fw-700">{{ $animal->user_name }}</p>

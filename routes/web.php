@@ -56,16 +56,16 @@ Route::post('/searcha', 'SearchController@SerchAjax')->name('serchajax');
 Route::post('/contact_send', 'HomeController@ContactSend')->name('contact.send');
 
 
-//vistas val pendientes
-//Route::view('/sale', 'site.sale')->name('sale');
-//Route::view('/add_animals', 'site.add_animals')->name('add_animals');
-//Route::view('/upload', 'site.upload')->name('upload');
-//Route::view('/between', 'site.between')->name('between');
+//Chat
+Route::get('/chat/{user_id}', 'ChatController@index')->name('chat.index');
+Route::post('/messageSend', 'ChatController@messagesChat')->name("message.send");
 
+
+//Vistas estaticas
 Route::view('/faqs', 'site.faqs')->name('faqs');
 Route::view('/privacy', 'site.privacy')->name('privacy');
 Route::view('/notifications', 'site.notifications')->name('notifications');
-Route::view('/chat', 'site.chat')->name('chat');
+//Route::view('/chat', 'site.chat')->name('chat');
 Route::view('/reset', 'site.reset')->name('reset');
 Route::view('/edit_animal', 'site.edit_animal')->name('edit_animal');
 //Route::view('/vista', 'site.vista')->name('vista');

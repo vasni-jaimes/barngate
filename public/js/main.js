@@ -1530,6 +1530,138 @@ if (accept) {
 
 
 
+let add_favorite = document.querySelectorAll(".add-favorite");
+if (add_favorite) {
+	for (var i = 0; i < add_favorite.length - 1; i++) {
+		add_favorite[i].addEventListener("click", e => {
+			$("#favorite").css("display", "block");
+			$(".nick").removeClass("favoriteAcc");
+			let b = e.target;
+			$(b).next().addClass("favoriteAcc");
+		});
+	}
+}
+
+
+
+let accepta = document.querySelector(".accpta-favorite");
+if (accepta) {
+	accepta.addEventListener("click", e => {
+
+		let idProducto = document.querySelector(".favoriteAcc");
+		let token = document.querySelector("input[name='_token']");
+
+		data = {
+			"idProducto": idProducto.value, 
+			"_token": token.value 
+		};
+
+		$("#favorite").fadeOut();
+		$("#loading").fadeIn();
+
+		request
+		   	.post('/addFavorite')
+		   	.send(data)
+		   	.set('Accept', 'application/json')
+		   	.then(res => {
+		   		console.log(res);
+		   		if (res.body.message == 'ok') {
+		   			// $("#loading .wrapper-form img").css("display", "none");
+		   			// $("#loading .wrapper-form").append("<div class='container-form'> <h2> Successfully added </h2> </div>");
+		   			// setTimeout(function() { location.reload() }, 2000);
+		   		}
+		   		else {
+		   			// $("#loading .wrapper-form img").css("display", "none");
+		   			// $("#loading .wrapper-form").append("<div class='container-form'> <h2> There was a problem, try again later </h2> </div>");
+		   			// setTimeout(function() { location.reload() }, 2000);
+		   		}
+		   	})
+		   	.catch(err => {
+      			// err.message, err.response
+      			console.log(err.message);
+      			$("#loading .wrapper-form img").css("display", "none");
+	   			$("#loading .wrapper-form").append("<div class='container-form'> <h2> There was a problem, try again later </h2> </div>");
+	   			setTimeout(function() { location.reload() }, 2000);
+   			});
+	});
+}
+
+
+
+/****************\
+|      CHAT      |
+\****************/
+
+let button_chat = document.querySelector(".button__chat");
+if (button_chat) {
+
+	Pusher.logToConsole = true;
+	let pusher = new Pusher('fa91802443afec1d96ac', {
+      	cluster: 'us2',
+      	forceTLS: true
+    });
+
+	let canal = document.querySelector("#channel").value;
+    let channel = pusher.subscribe(canal);
+    channel.bind(canal+'-message', function(data) {
+    	
+    	let html = '<li class="msg-chat__item msg-chat__item_left-person">'+
+    					'<div class="msg-chat__time">'+data.hora+'</div> '+
+    					'<div class="msg-chat__bubble msg-chat__bubble_first-in-group msg-chat__bubble_third-person msg-chat__bubble_third-person__first-in-group"> <div class="msg-chat__text">'+data.mensaje+'</div></div>'+
+    				'</li>';
+
+    	$(".msg-chat__items").append(html);
+    	$(".msg-chat").animate({ scrollTop: $(document).height() }, 1000);
+    	//console.log(JSON.stringify(data));
+    });
+
+	button_chat.addEventListener("click", e => {
+		
+		let token = document.querySelector("input[name='_token']");
+		let message = document.querySelector("#messaging-widget-textarea").value;
+
+		if (message.trim() == '' || message.trim() == null || message.trim() == undefined) {
+			return false;
+		}
+
+
+		let data = {
+			"canal": canal, 
+			"_token": token.value,
+			"message": message,
+			"socket_id": pusher.connection.socket_id
+		};
+
+		request
+		   	.post('/messageSend')
+		   	.send(data)
+		   	.set('Accept', 'application/json')
+		   	.then(res => {
+		   		console.log(res);
+		   		if (res.body.message == 'ok') {
+
+		   			let html = '<li class="msg-chat__item msg-chat__item_right-person">'+
+		   							'<div class="msg-chat__time">'+res.body.fecha+'</div> '+
+		   							'<div class="msg-chat__bubble msg-chat__bubble_first-in-group msg-chat__bubble_first-person msg-chat__bubble_first-person__first-in-group">'+
+		   								'<div class="msg-chat__text">'+message+'</div>'+
+		   							'</div>'+
+		   						'</li>';
+
+		   			$(".msg-chat__items").append(html);
+		   			$("#messaging-widget-textarea").val("");
+		   			$(".msg-chat").animate({ scrollTop: $(document).height() }, 1000);
+		   		}
+		   	})
+		   	.catch(err => {
+      			// err.message, err.response
+      			console.log(err.message);
+   			});
+
+	});
+}
+
+
+
 /********************\
 |      CONTACTO      |
 \********************/
@@ -2236,7 +2368,16 @@ if (image) {
 		   	.set('Accept', 'application/json')
 		   	.then(res => {
 		   		console.log(res.body);
-
+		   		if (res.body.message == 'ok') {
+		   			$("#img_changue h2").html("Your profile picture was changed correctly");
+		   			$("#img_changue").css("display", "block");
+		   			setTimeout(function(){ $("#img_changue").fadeOut(300) }, 2500);
+		   		}
+		   		else {
+		   			$("#img_changue h2").html("An error occurred, try again later");
+		   			$("#img_changue").css("display", "block");
+		   			setTimeout(function(){ $("#img_changue").fadeOut(300) }, 2500);
+		   		}
 		   	})
 		   	.catch(err => {
       			// err.message, err.response
@@ -2278,6 +2419,7 @@ function addImage(e){
       	reader.onload = function(e){
         	var result=e.target.result;
         	$('#imgSalida').attr("src",result).css("display", "block");
+        	$('.img_mini').attr("src",result);
     	}
       	reader.readAsDataURL(file);
 }

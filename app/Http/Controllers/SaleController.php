@@ -21,7 +21,8 @@ class SaleController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(["auth", "ValidateProfileFinSale"]);
+        $this->middleware("auth");
+        $this->middleware("ValidateProfileFinSale", ["except" => ["show"]]);
     }
     /**
      * Display a listing of the resource.

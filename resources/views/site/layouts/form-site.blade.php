@@ -27,6 +27,7 @@
 
 @if (session()->has("status.success"))
 	<div class="shadowbox" id="success.contact" style="display: block;">
+		<div class="close"></div>
 		<div class="wrapper-form">
 			<div class="container-form">
 				<h3 class="text-center text-blue fz-30 mb-30">Thanks</h3>
@@ -39,6 +40,7 @@
 
 @if (session()->has("status.error"))
 	<div class="shadowbox" id="error.contact" style="display: block;">
+		<div class="close"></div>
 		<div class="wrapper-form">
 			<div class="container-form">
 				<h3 class="text-center text-blue fz-30 mb-30">I'm sorry</h3>
@@ -47,10 +49,3 @@
 		</div> <!-- /wrapper-form -->
 	</div> <!-- /shadowbox -->
 @endif
-
-
-<div class="shadowbox" id="loading">
-	<div class="wrapper-form">
-		<img src="/images/loading.gif" alt="loading">
-	</div> <!-- /wrapper-form -->
-</div> <!-- /shadowbox -->

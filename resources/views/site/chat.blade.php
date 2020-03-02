@@ -12,7 +12,7 @@
 
 					<div>
 						<div id="messaging-widget-header" class="msg-header">
-							<div class="msg-header__username"><span class="msg-header__link">diego garduño quintero</span></div> 
+							<div class="msg-header__username"><span class="msg-header__link"> {{ $user_chat->name }} </span></div> 
 							<div>Calificación</div>
 							<ul class="rating">
 								<li><i class="fa fa-star"></i></li>
@@ -29,7 +29,7 @@
 						<div class="msg-chat">
 
 							<ul class="msg-chat__items">
-								<li class="msg-chat__item msg-chat__item_left-person">
+								{{-- <li class="msg-chat__item msg-chat__item_left-person">
 									<div class="msg-chat__time">24/12 22:03</div> 
 									<div class="msg-chat__bubble msg-chat__bubble_first-in-group msg-chat__bubble_third-person msg-chat__bubble_third-person__first-in-group"> <div class="msg-chat__text">hola, no tiene detalles?</div></div> 
 								</li> 
@@ -39,7 +39,7 @@
 										<div class="msg-chat__text">Hola, ninguno! está completamente nuevo</div>
 									</div> 
 									<span class="msg-chat__item_status">visto</span>
-								</li> 
+								</li>  --}}
 							</ul>
 
 						</div>  
@@ -51,7 +51,9 @@
 					<div>
 						<div class="msg-input"> 
 							<textarea maxlength="30000" autocomplete="off" placeholder="Escribe tu mensaje..." id="messaging-widget-textarea" class="msg-input__textarea" style=""></textarea> 
-							<button type="button" disabled="disabled" class="msg-input__button msg-input__button_disabled">Enviar</button>
+							<button type="button" class="msg-input__button button__chat">Enviar</button>
+							<input type="hidden" id="channel" value="{{ $channel }}">
+							@csrf
 						</div>
 					</div>
 
