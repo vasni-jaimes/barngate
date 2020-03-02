@@ -999,10 +999,21 @@ textarea.form-input {
 }
 
 .image-slide {
+	position: relative;
     padding-top: 100%;
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
+}
+
+.remove {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    color: #fff;
+    font-family: FontAwesome;
+    font-style: normal;
+    font-size: 18px;
 }
   
 .state {

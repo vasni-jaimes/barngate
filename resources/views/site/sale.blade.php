@@ -235,6 +235,7 @@
 						{!! $errors->paso1->first('description', "<span class='err' style='display:block;margin-bottom:15px;color:red'>:message</span>") !!}
 						<p class="text-red">Do not enter any contact information here (email or phone). Based on your preferences, it will be available to valid buyers al the bottom of the detail page.</p>
 					</div> <!-- /col-12 -->
+				
 				</div> <!-- /row -->
 				
 				<h3 class="fw-700 pt-20">Location</h3>
