@@ -206,7 +206,7 @@
 									<img src="{{ "/storage/images/".$animal[$i]["img"] }}">
 									<div class="item-d">
 										<a href="{{ route("sale.show", $animal[$i]["nickname"]) }}">
-											<p>{{ $animal[$i]["breeds_name"] }}  {{ $animal[$i]["animal_name"] }}</p>
+											<p>{{ $animal[$i]["breeds_name"] }}  {{ $animal[$i]["animal_name"] }}  </p>
 										</a>
 										<p class="price">Price: ${{ $animal[$i]["price"] }}</p>
 									</div> <!-- /item-d -->

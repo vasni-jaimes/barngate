@@ -26,7 +26,7 @@
 
 	<div class="row-principal pt-30 pb-30">
 		<div class="container text-center">
-			<h3> {{ $animal->breeds_name }}  {{ $animal->animal_id == 1 ? $animal->animal_name : $animal->gender_name }}  </h3>
+			<h3> {{ $animal->breeds_name }}  {{ $animal->animal_name }}  </h3>
 		</div> <!-- /container -->
 	</div> <!-- /row-principal -->
 
