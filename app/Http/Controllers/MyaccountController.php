@@ -51,6 +51,7 @@ class MyaccountController extends Controller
         //return response()->json($token_sala);
         
         $conta = 0;
+        $listado = null;
         foreach ($token_sala as $sala) {
             $chat       = DB::table("messages")->where("chat_id", $sala->chat_id)->orderBy('id', 'desc')->first();
             $chat_list  = false;

@@ -110,28 +110,32 @@
 					<div class="box-tab">
 						<div class="pt-20 pb-20">
 
-							@for ($i = 0; $i <= count($listado) - 1; $i++)
+							@if ($listado != null)
+								@for ($i = 0; $i <= count($listado) - 1; $i++)
 
-								<div class="flex flex-inbox items-center between">
-									<div class="flex">
-										<img class="icon" src="images/buy-horse-online-barngate-message-icon.png">
-										<a href=" {{ route("chat.index", $listado[$i]["token"]) }} ">
-											<div class="txt-inbox">
-												{{-- <p>Animal</p> --}}
-												<p> {{ $listado[$i]["nombre_user"] }} </p>
-												<p style="opacity: 0.5;"> {{ $listado[$i]["ultimo_mensaje"] }} </p>
-											</div> <!-- /txt-list -->
-										</a>
-									</div>
-									<div class="txt-inbox">
-										@php $fecha = explode(" ", $listado[$i]["fecha"]); @endphp
+									<div class="flex flex-inbox items-center between">
+										<div class="flex">
+											<img class="icon" src="images/buy-horse-online-barngate-message-icon.png">
+											<a href=" {{ route("chat.index", $listado[$i]["token"]) }} ">
+												<div class="txt-inbox">
+													{{-- <p>Animal</p> --}}
+													<p> {{ $listado[$i]["nombre_user"] }} </p>
+													<p style="opacity: 0.5;"> {{ $listado[$i]["ultimo_mensaje"] }} </p>
+												</div> <!-- /txt-list -->
+											</a>
+										</div>
+										<div class="txt-inbox">
+											@php $fecha = explode(" ", $listado[$i]["fecha"]); @endphp
 
-										<p> {{ $fecha[0] }} </p>
-										<p> {{ $fecha[1] }} </p>
-									</div>
-								</div> <!-- /flex -->
+											<p> {{ $fecha[0] }} </p>
+											<p> {{ $fecha[1] }} </p>
+										</div>
+									</div> <!-- /flex -->
 
-							@endfor
+								@endfor
+							@else
+								<h3> No chats </h3>
+							@endif
 						</div>
 					</div> <!-- /box-tab -->
 				</div>
