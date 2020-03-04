@@ -28,13 +28,11 @@ class SearchController extends Controller
     	$animalsrow = Sale::join('animals', 'sales.animal_id', '=', 'animals.animal_id')
     						->join('breeds', 'sales.breed_id', '=', 'breeds.breed_id')
 	                        ->join('users', 'sales.user_id', '=', 'users.user_id')
-	                        ->join('genders', 'sales.gender_id', '=', 'genders.gender_id')
                             ->join('cities', 'sales.city', '=', 'cities.id_ciudad')
 	    					->select('sales.*', 
 		    							'animals.name as animal_name', 
 	                                    'breeds.name as breeds_name', 
-	                                    'users.username as users_name', 
-	                                    'genders.name as gender_name',
+	                                    'users.username as users_name',
                                         'cities.*')->get();
 
         if ($animalsrow->count() > 0) {

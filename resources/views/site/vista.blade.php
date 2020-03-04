@@ -158,7 +158,7 @@
 									<img src="{{ "/storage/images/".$animal[$i]["img"] }}">
 									<div class="mt-20 text-center">
 										<a href="{{ route("sale.show", $animal[$i]["nickname"]) }}">
-											<h3 class="fz-24 fw-700">{{ $animal[$i]["breeds_name"] }}  {{ $animal[$i]["gender_name"] }}
+											<h3 class="fz-24 fw-700">{{ $animal[$i]["breeds_name"] }}  {{ $animal[$i]["animal_name"] }}
 											</h3>
 										</a>
 										<p class="fz-18">{{ $animal[$i]["description"] }}</p>
@@ -206,7 +206,7 @@
 									<img src="{{ "/storage/images/".$animal[$i]["img"] }}">
 									<div class="item-d">
 										<a href="{{ route("sale.show", $animal[$i]["nickname"]) }}">
-											<p>{{ $animal[$i]["breeds_name"] }}  {{ $animal[$i]["gender_name"] }}</p>
+											<p>{{ $animal[$i]["breeds_name"] }}  {{ $animal[$i]["animal_name"] }}</p>
 										</a>
 										<p class="price">Price: ${{ $animal[$i]["price"] }}</p>
 									</div> <!-- /item-d -->
