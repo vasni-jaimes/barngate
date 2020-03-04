@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Storage;
 //Moderl
 use App\User;
 use App\Sale;
-use App\favorite;
+use App\Favorite;
 
 //DB
 use DB;
@@ -223,7 +223,7 @@ class MyaccountController extends Controller
 
     public function getFavorites($user_id)
     {
-        $favorite = favorite::where("user_id", $user_id)->get();
+        $favorite = Favorite::where("user_id", $user_id)->get();
         $favoriteArray = array();
 
         if ($favorite->count() > 0) {
