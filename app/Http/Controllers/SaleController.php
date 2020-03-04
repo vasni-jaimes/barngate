@@ -329,7 +329,7 @@ class SaleController extends Controller
             $sale->weight           = request("weight");
             $sale->conditions       = request("conditions");
             $sale->number_of_head   = request("number_of_head");
-            $sales->categorie_id    = request("categories");
+            $sale->categorie_id    = request("categories");
         }
 
         else if (request("animals") == 2) {
