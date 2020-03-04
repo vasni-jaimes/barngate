@@ -18,6 +18,8 @@ class CreateChatsRoomsTable extends Migration
             $table->text('token_chat');
             $table->integer("user_id");
             $table->integer("user_two_id");
+            $table->boolean("disabled_user_id")->default(0);
+            $table->boolean("disabled_user_two_id")->default(0);
             $table->timestamps();
         });
     }

@@ -96,8 +96,8 @@
 											</div> <!-- /txt-list -->
 										</div>
 										<div class="btn-list">
-											<a href="#" class="mw-150 btn btn-primary">Edit</a>
-											<a href="#" class="mw-150 btn btn-primary">Sold</a>
+											<a href="{{ route("edit_animal") }}" class="mw-150 btn btn-primary">Edit</a>
+											<a href="#" class="mw-150 btn btn-primary sold">Sold</a>
 										</div> <!-- /item-flex -->
 									</div> <!-- /flex -->
 								</div> <!-- /flex-list -->
@@ -109,32 +109,29 @@
 				<div id="tab-four-panel" class="panel">
 					<div class="box-tab">
 						<div class="pt-20 pb-20">
-							<div class="flex flex-inbox items-center between">
-								<div class="flex">
-									<img class="icon" src="images/buy-horse-online-barngate-message-icon.png">
+
+							@for ($i = 0; $i <= count($listado) - 1; $i++)
+
+								<div class="flex flex-inbox items-center between">
+									<div class="flex">
+										<img class="icon" src="images/buy-horse-online-barngate-message-icon.png">
+										<a href=" {{ route("chat.index", $listado[$i]["token"]) }} ">
+											<div class="txt-inbox">
+												{{-- <p>Animal</p> --}}
+												<p> {{ $listado[$i]["nombre_user"] }} </p>
+												<p style="opacity: 0.5;"> {{ $listado[$i]["ultimo_mensaje"] }} </p>
+											</div> <!-- /txt-list -->
+										</a>
+									</div>
 									<div class="txt-inbox">
-										<p>Animal</p>
-										<p>Username</p>
-									</div> <!-- /txt-list -->
-								</div>
-								<div class="txt-inbox">
-									<p>Date</p>
-									<p>Time</p>
-								</div>
-							</div> <!-- /flex -->
-							<div class="flex flex-inbox items-center between">
-								<div class="flex">
-									<img class="icon" src="images/buy-horse-online-barngate-message-icon.png">
-									<div class="txt-inbox">
-										<p>Animal</p>
-										<p>Username</p>
-									</div> <!-- /txt-list -->
-								</div>
-								<div class="txt-inbox">
-									<p>Date</p>
-									<p>Time</p>
-								</div>
-							</div> <!-- /flex -->
+										@php $fecha = explode(" ", $listado[$i]["fecha"]); @endphp
+
+										<p> {{ $fecha[0] }} </p>
+										<p> {{ $fecha[1] }} </p>
+									</div>
+								</div> <!-- /flex -->
+
+							@endfor
 						</div>
 					</div> <!-- /box-tab -->
 				</div>

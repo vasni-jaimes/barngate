@@ -27,13 +27,13 @@ class SearchController extends Controller
     	$animal     = array();
     	$animalsrow = Sale::join('animals', 'sales.animal_id', '=', 'animals.animal_id')
     						->join('breeds', 'sales.breed_id', '=', 'breeds.breed_id')
-	                        //->join('colors', 'sales.color_id', '=', 'colors.color_id')
+	                        ->join('users', 'sales.user_id', '=', 'users.user_id')
 	                        ->join('genders', 'sales.gender_id', '=', 'genders.gender_id')
                             ->join('cities', 'sales.city', '=', 'cities.id_ciudad')
 	    					->select('sales.*', 
 		    							'animals.name as animal_name', 
 	                                    'breeds.name as breeds_name', 
-	                                    //'colors.name as colors_name', 
+	                                    'users.username as users_name', 
 	                                    'genders.name as gender_name',
                                         'cities.*')->get();
 
@@ -43,14 +43,12 @@ class SearchController extends Controller
                 $animal[$ban]["animal_name"] = $animalrow->animal_name;
                 $animal[$ban]["img"]         = $this->primerImagenProducto( $animalrow->user_id, $animalrow->animal_id, $animalrow->sale_id );
                 $animal[$ban]["nickname"]    = $animalrow->nickname;
-                //$animal[$ban]["colors_name"]    = $animalrow->colors_name;
+                $animal[$ban]["users_name"]    = base64_encode($animalrow->users_name);
                 $animal[$ban]["breeds_name"]    = $animalrow->breeds_name;
                 $animal[$ban]["gender_name"]    = $animalrow->gender_name;
                 $animal[$ban]["price"]    		= $animalrow->price;
                 $animal[$ban]["user_id"]        = $animalrow->user_id;
-
                 $animal[$ban]["price_filtro"]   = str_replace(",", "", $animalrow->price);
-
                 $animal[$ban]["animal_id"]      = $animalrow->animal_id;
                 $animal[$ban]["breed_id"]       = $animalrow->breed_id;
                 $animal[$ban]["color_id"]       = $animalrow->color_id;
@@ -60,6 +58,17 @@ class SearchController extends Controller
                 $animal[$ban]["description"]    = $animalrow->description;
                 $animal[$ban]["state"]          = $animalrow->state;
                 $animal[$ban]["adress"]         = $animalrow->ciudad.", ".$animalrow->estado;
+                $animal[$ban]["myfavorito"]     = false;
+
+                $myfavorito = DB::table("favorites")
+                                    ->where("user_id", auth()->user()->user_id)
+                                    ->where("sale_id", $animalrow->sale_id)
+                                    ->first();
+
+                if ($myfavorito != null) {
+                    $animal[$ban]["myfavorito"]   = true;
+                }
+
                 $ban++;
             }
         }
@@ -89,13 +98,15 @@ class SearchController extends Controller
             foreach ($favorite as $favorites) {
                 $favoritefull = Sale::where("sale_id", $favorites->sale_id)
                                     ->join('animals', 'sales.animal_id', '=', 'animals.animal_id')
-                                    ->select('sales.*', 'animals.name as animal_name')
+                                    ->join('users', 'sales.user_id', '=', 'users.user_id')
+                                    ->select('sales.*', 'animals.name as animal_name', 'users.username as users_name')
                                     ->first();
 
                 $favoriteArray[$cont]["animal_name"]  = $favoritefull->animal_name;
                 $favoriteArray[$cont]["nickname"]      = $favoritefull->nickname;
                  $favoriteArray[$cont]["price"]         = $favoritefull->price;
                 $favoriteArray[$cont]["img"]           = $this->primerImagenProducto( $favoritefull->user_id, $favoritefull->animal_id, $favoritefull->sale_id );
+                $favoriteArray[$cont]["users_name"]    = base64_encode($favoritefull->users_name);
                 $cont++;
             }
 

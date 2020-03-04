@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Mail\ConfirmFavorites;
+use Illuminate\Support\Facades\Mail;
 use App\Favorite;
+use App\Sale;
 use DB;
 
 class FavoritesController extends Controller
@@ -29,6 +32,17 @@ class FavoritesController extends Controller
                 $favorite->sale_id = $product->sale_id;
 
                 if ($favorite->save()) {
+
+                    try {
+                        if (auth()->user()->email_favorite == true) {
+                            $sale = Sale::find($product->sale_id);
+                            Mail::to("853e9296af-b1cadc@inbox.mailtrap.io")->send(new ConfirmFavorites($sale));
+                        }
+                    } catch(Exception $e) {
+                         \Log::error("El error de Email de Favoritos ".$e->getMessage());
+                    }
+                    
+
                     return response()->json(['message' => 'ok']);
                 }
 

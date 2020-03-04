@@ -29,12 +29,8 @@ class ChatController extends Controller
     		$user_chat = DB::table("users")->where("user_id", $user_client->user_id)->first();
     	}
 
-
     	//MENSAJES DE CHAT
     	$msn_chat = DB::table("messages")->where("chat_id", $user_client->chat_id)->get();
-
-    	//return response()->json($user_chat->name);
-
 		return view("site.chat", compact("channel", "user_chat", "msn_chat"));
 
     }

@@ -42,16 +42,41 @@ class MyaccountController extends Controller
 
 
         //CHAT
-        $chats = DB::table("chats_rooms")->where([
-                        ["user_id", auth()->user()->user_id],
-                    ])
-                    ->orWhere([
-                        ["user_two_id", auth()->user()->user_id],
-                    ])->get();
+        $token_sala = DB::table("chats_rooms")->where([
+                            ["chats_rooms.user_id", auth()->user()->user_id],
+                        ])->orWhere([
+                            ["chats_rooms.user_two_id", auth()->user()->user_id],
+                        ])->get();
+
+        //return response()->json($token_sala);
+        
+        $conta = 0;
+        foreach ($token_sala as $sala) {
+            $chat       = DB::table("messages")->where("chat_id", $sala->chat_id)->orderBy('id', 'desc')->first();
+            $chat_list  = false;
+            
+            if ($chat != null) {
+                $chat_list = true;
+            }
+
+            if ($sala->user_id == auth()->user()->user_id) {
+                $user_chat = DB::table("users")->where("user_id", $sala->user_two_id)->first();
+            }
+            else {
+                $user_chat = DB::table("users")->where("user_id", $sala->user_id)->first();
+            }
+
+            if ($chat_list) {
+                $listado[$conta] = array("nombre_user" => $user_chat->name, "ultimo_mensaje" => $chat->message, "fecha" => $chat->created_at, "token" => $sala->token_chat);
+                $conta++;
+            }
+        }
+
+        //return response()->json($listado);
 
 
         $misFavoritos = $this->getFavorites(auth()->user()->user_id);
-    	return view("site.myaccount", compact("animal", "misFavoritos", "chats"));
+    	return view("site.myaccount", compact("animal", "misFavoritos", "chats", "listado"));
     }
 
 

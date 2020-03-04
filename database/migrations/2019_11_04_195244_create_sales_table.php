@@ -48,6 +48,7 @@ class CreateSalesTable extends Migration
             $table->dateTime('date_end');
             $table->integer('homepage');
             $table->string('video')->nullable();
+            $table->boolean('disabled')->default(0);
             $table->timestamps();
         });
     }

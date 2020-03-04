@@ -1532,7 +1532,7 @@ if (accept) {
 
 let add_favorite = document.querySelectorAll(".add-favorite");
 if (add_favorite) {
-	for (var i = 0; i < add_favorite.length - 1; i++) {
+	for (var i = 0; i <= add_favorite.length - 1; i++) {
 		add_favorite[i].addEventListener("click", e => {
 			$("#favorite").css("display", "block");
 			$(".nick").removeClass("favoriteAcc");
@@ -1566,6 +1566,7 @@ if (accepta) {
 		   	.then(res => {
 		   		console.log(res);
 		   		if (res.body.message == 'ok') {
+		   			$(".add-favorite").remove();
 		   			// $("#loading .wrapper-form img").css("display", "none");
 		   			// $("#loading .wrapper-form").append("<div class='container-form'> <h2> Successfully added </h2> </div>");
 		   			// setTimeout(function() { location.reload() }, 2000);
@@ -1588,6 +1589,24 @@ if (accepta) {
 
 
 
+/************************\
+|      CALIFICACION      |
+\************************/
+
+let sold = document.querySelectorAll(".sold");
+if (sold) {
+
+	for (var i = 0; i <= sold.length - 1; i++) {
+		sold[i].addEventListener("click", e => {
+			e.preventDefault();
+			alert("Modal de lisado de chats");
+		});
+	}
+	
+}
+
+
+
 /****************\
 |      CHAT      |
 \****************/
@@ -1595,6 +1614,7 @@ if (accepta) {
 let button_chat = document.querySelector(".button__chat");
 if (button_chat) {
 
+	$(".msg-chat").animate({ scrollTop: $(document).height() }, 1000); //BAJAR EL SCROLL DEL CHAT
 	Pusher.logToConsole = true;
 	let pusher = new Pusher('fa91802443afec1d96ac', {
       	cluster: 'us2',

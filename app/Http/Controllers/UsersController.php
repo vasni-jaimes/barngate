@@ -105,7 +105,13 @@ class UsersController extends Controller
                 // login automatico
                 Auth::login($users);
 
-               	Mail::to("853e9296af-b1cadc@inbox.mailtrap.io")->send(new MessageRegister($request));
+                try {
+               	    Mail::to("853e9296af-b1cadc@inbox.mailtrap.io")->send(new MessageRegister($request));
+                } catch(Exception $e) {
+                     \Log::error("El error de Email de Registro ".$e->getMessage());
+                }
+
+
                	DB::commit();
                 return response()->json(["message" => "ok"], 202);
             }

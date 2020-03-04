@@ -48,9 +48,10 @@
 										</li>
 									@endif
 
-									
-
 								@empty
+									<li>
+										<h2> No messages </h2>
+									</li>
 								@endforelse
 
 

@@ -168,9 +168,11 @@
 														auth()->user()->cp_zip == null || auth()->user()->country == null) 
 													<h3> If you want to send a message or add to favorites first complete your profile </h3>
 												@else
-													<button class="btn btn-border add-favorite">Add to Favorites</button>
+													@if (!$animal[$i]["myfavorito"])
+														<button class="btn btn-border add-favorite">Add to Favorites</button>
+													@endif
 													<input type="hidden" class="nick" value="{{ $animal[$i]["nickname"] }}">
-													<button class="text-white btn btn-red">Message</button>
+													<a href="{{ route("chat.index", $animal[$i]["users_name"]) }}"> <button class="text-white btn btn-red">Message</button> </a>
 												@endif
 											@endif
 										</div> <!-- /flex -->
@@ -215,9 +217,11 @@
 												auth()->user()->cp_zip == null || auth()->user()->country == null) 
 											<h3> If you want to send a message or add to favorites first complete your profile </h3>
 										@else
-											<button class="btn btn-border">Add to Favorites</button>
+											@if (!$animal[$i]["myfavorito"])
+												<button class="btn btn-border">Add to Favorites</button>
+											@endif
 											<input type="hidden" class="nick" value="{{ $animal[$i]["nickname"] }}">
-											<button class="text-white btn btn-red">Message</button>
+											<a href="{{ route("chat.index", $animal[$i]["users_name"]) }}"> <button class="text-white btn btn-red">Message</button> </a>
 										@endif
 									@endif
 								</div> <!-- /flex -->
@@ -227,10 +231,10 @@
 				</div> <!-- /row-lista -->
 
 				<div class="row-fav">
-					<div class="item-lista list-animal">
 
-						@if ($misFavoritos)
-							@for ($i=0; $i <= count($misFavoritos) - 1; $i++)
+					@if ($misFavoritos)
+						@for ($i=0; $i <= count($misFavoritos) - 1; $i++)
+							<div class="item-lista">
 								<div class="flex between items-center">
 									<div class="flex items-center">
 										<img src="{{ "/storage/images/".$misFavoritos[$i]["img"] }}">
@@ -243,15 +247,15 @@
 									</div> <!-- /flex -->
 									<div class="flex align-items">
 										{{-- <button class="btn btn-border">Add to Favorites</button> --}}
-										<button class="text-white btn btn-red">Message</button>
+										<a href="{{ route("chat.index", $misFavoritos[$i]["users_name"]) }}"> <button class="text-white btn btn-red">Message</button> </a>
 									</div> <!-- /flex -->
 								</div> <!-- /flex -->
-							@endfor
-						@else
-							<h2 style="text-align: center;"> There are no favorites yet </h2>
-						@endif
+							</div>
+						@endfor
+					@else
+						<h2 style="text-align: center;"> There are no favorites yet </h2>
+					@endif
 
-					</div> <!--  /item-lista -->
 				</div> <!-- /row-fav -->
 
 			</div> <!-- /col-md-8 -->
