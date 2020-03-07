@@ -92,12 +92,21 @@
 											<img src="{{ "/storage/images/".$animal[$i]["img"] }}">
 											<div class="txt-list">
 												<a href="{{ route("sale.show", $animal[$i]["nickname"]) }}"><p>{{ $animal[$i]["animal_name"] }}</p></a>
-												<span class="active">Active</span>
+												@if ($animal[$i]["disabled"] == 0)
+													<span class="active">Active</span>
+												@else
+													<span class="expired">Expired</span>
+												@endif
 											</div> <!-- /txt-list -->
 										</div>
 										<div class="btn-list">
 											<a href="{{ route("edit_animal") }}" class="mw-150 btn btn-primary">Edit</a>
-											<a href="#" class="mw-150 btn btn-primary sold">Sold</a>
+											@if ($animal[$i]["disabled"] == 0)
+												<a href="#" class="mw-150 btn btn-primary sold">Sold</a>
+											@else
+												<a href="{{ route("sale.updateplan", $animal[$i]["nickname"]) }}" class="mw-150 btn btn-primary botton-renovate">Renovate</a>
+												<a href="#" class="mw-150 btn btn-primary botton-remove" data-animal="{{ $animal[$i]["sale_id"] }}">Remove</a>
+											@endif
 										</div> <!-- /item-flex -->
 									</div> <!-- /flex -->
 								</div> <!-- /flex-list -->
@@ -242,6 +251,7 @@
 		</div> <!-- /wrapper-form -->
 	</div> <!-- /shadowbox -->
 
+
 	@if (session()->has("myaccount"))
 		<div class="shadowbox" id="incompletep" style="display: block;">
 			<div class="close"></div> <!-- /close -->
@@ -264,6 +274,27 @@
 	</div> <!-- /shadowbox -->
 
 
+	<div class="shadowbox" id="animal_remove">
+		<div class="close"></div> <!-- /close -->
+		<div class="wrapper-form">
+			<div class="container-form">
+				<h2> Are you sure you want to delete this post? </h2>
+				<button class="accpt_remove"> Accept </button>
+				<button class="cancel_remove"> Cancel </button>
+			</div>
+		</div> <!-- /wrapper-form -->
+	</div> <!-- /shadowbox -->
+
+
+
+	<div class="shadowbox" id="error_report">
+		<div class="close"></div> <!-- /close -->
+		<div class="wrapper-form">
+			<div class="container-form">
+				<h3></h3>
+			</div>
+		</div> <!-- /wrapper-form -->
+	</div> <!-- /shadowbox -->
 
 
 @endsection

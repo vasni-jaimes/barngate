@@ -23,6 +23,7 @@ class SaleController extends Controller
     {
         $this->middleware("auth");
         $this->middleware("ValidateProfileFinSale", ["except" => ["show"]]);
+        $this->middleware("RestrictedAccessExpired", ["only" => ["show"]]);
     }
     /**
      * Display a listing of the resource.
@@ -405,7 +406,7 @@ class SaleController extends Controller
 
         $precio = 0;
 
-        if ($request->has("hompage") || $request->has("hompage")) {
+        if ($request->has("hompage") || $request->has("hompage2")) {
             $sale->homepage = 1;
             $precio = 20;
         }
@@ -637,7 +638,7 @@ class SaleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        //dd($request);
     }
 
     /**
@@ -649,6 +650,102 @@ class SaleController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+
+    public function updatePlan($id)
+    {
+        return view("site.renovate", compact("id"));
+    }
+
+
+    public function PageUpdatePlan(Request $request, $id)
+    {
+
+
+        //VALIDAR EL PLAN
+        $validator2 = Validator::make($request->all(), [
+            "planSelect" => "required|numeric",
+            "planSelect" => "max:2"
+        ]);
+
+        if ($validator2->fails()) {
+            return redirect("sale")->withErrors($validator2, "paso2")->withInput();
+        }
+
+
+        //Fecha del plan
+        date_default_timezone_set('America/Mexico_City');
+        $date = date('Y-m-d', time());
+
+        //GUARDAR FECHA PARA LOS DATOS
+        if (request("planSelect") == 1) {
+            $fechafinal = strtotime ( '+1 month' , strtotime ( $date ) ) ;
+            $fechafinal = date ( 'Y-m-j' , $fechafinal );
+        }
+        else if (request("planSelect") == 2) {
+            $fechafinal = strtotime ( '+3 month' , strtotime ( $date ) ) ;
+            $fechafinal = date ( 'Y-m-j' , $fechafinal );
+        }
+        else if (request("planSelect") == 3) {
+            $fechafinal = strtotime ( '+6 month' , strtotime ( $date ) ) ;
+            $fechafinal = date ( 'Y-m-j' , $fechafinal );
+        }
+
+        //OBTENER EL REGISTRO DEL ANIMAL
+        $saleGet    = Sale::where("nickname", $id)->first();
+        $sale       = Sale::find($saleGet->sale_id);
+
+        $precio = 0;
+        if ($request->has("hompage") || $request->has("hompage2")) {
+            $sale->homepage = 1;
+            $precio = 20;
+        }
+        else {
+             $sale->homepage = 0;
+        }
+
+
+        if ($request->animal_id == 6) {
+            if (request("planSelect") == 2) {
+                $precio += 5;
+            }
+            else if (request("planSelect") == 3) {
+                $precio += 10;
+            }
+        }
+        else {
+            if (request("planSelect") == 2) {
+                $precio += 10;
+            }
+            else if (request("planSelect") == 3) {
+                $precio += 20;
+            }
+        }
+
+        //UPDATE
+        $sale->plan_id      = request("planSelect");
+        $sale->date_init    = $date;
+        $sale->date_end     = $fechafinal;
+        $sale->disabled     = 0;
+
+
+        //PAGAR CON STRIPE
+        if ($sale->save()) {
+            if ($precio > 0 && $request->has("stripeToken")) {
+                if ($this->stripePost(request("stripeToken"), $precio)) {
+                    DB::commit();
+                    return back()->with('status.success', '1');
+                }
+
+                DB::rollback();
+                return back()->with('status.error.pago', '1');
+            }
+
+            DB::commit();
+            return back()->with('status.success', '1');
+        }
+
     }
 
 

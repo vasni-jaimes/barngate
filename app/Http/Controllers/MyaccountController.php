@@ -36,6 +36,8 @@ class MyaccountController extends Controller
                 $animal[$ban]["animal_name"] = $animalrow->animal_name;
                 $animal[$ban]["img"]         = $this->primerImagenProducto( auth()->user()->user_id, $animalrow->animal_id, $animalrow->sale_id );
                 $animal[$ban]["nickname"]    = $animalrow->nickname;
+                $animal[$ban]["disabled"]  = $animalrow->disabled;
+                $animal[$ban]["sale_id"]  = $animalrow->sale_id;
                 $ban++;
             }
         }
@@ -222,6 +224,27 @@ class MyaccountController extends Controller
 
 
 
+    public function removeAnimal(Request $request)
+    {
+
+        if ($request->has("idAnimal")) {
+            
+            $sale = Sale::find($request->idAnimal);
+            if ($sale->user_id == auth()->user()->user_id) {
+                if ($sale->delete()) {
+                    return response()->json(["message" => "ok"]);
+                }
+                return response()->json(["message" => "not_delete"]);
+            }
+
+            return response()->json(["message" => "not_user_animal"]);
+        }
+        
+        return response()->json(["message" => "not_parameters"]);
+    }
+
+
+
     public function getFavorites($user_id)
     {
         $favorite = Favorite::where("user_id", $user_id)->get();
@@ -231,14 +254,18 @@ class MyaccountController extends Controller
             $cont = 0;
             foreach ($favorite as $favorites) {
                 $favoritefull = Sale::where("sale_id", $favorites->sale_id)
+                                    ->where("disabled", 0)
                                     ->join('animals', 'sales.animal_id', '=', 'animals.animal_id')
                                     ->select('sales.*', 'animals.name as animal_name')
                                     ->first();
 
-                $favoriteArray[$cont]["animal_name"]  = $favoritefull->animal_name;
-                $favoriteArray[$cont]["nickname"]      = $favoritefull->nickname;
-                $favoriteArray[$cont]["img"]           = $this->primerImagenProducto( $favoritefull->user_id, $favoritefull->animal_id, $favoritefull->sale_id );
-                $cont++;
+                if ($favoritefull != null) {
+                
+                    $favoriteArray[$cont]["animal_name"]  = $favoritefull->animal_name;
+                    $favoriteArray[$cont]["nickname"]      = $favoritefull->nickname;
+                    $favoriteArray[$cont]["img"]           = $this->primerImagenProducto( $favoritefull->user_id, $favoritefull->animal_id, $favoritefull->sale_id );
+                    $cont++;
+                }
             }
 
             return $favoriteArray;
