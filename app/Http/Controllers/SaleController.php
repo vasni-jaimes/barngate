@@ -24,6 +24,7 @@ class SaleController extends Controller
         $this->middleware("auth");
         $this->middleware("ValidateProfileFinSale", ["except" => ["show"]]);
         $this->middleware("RestrictedAccessExpired", ["only" => ["show"]]);
+        $this->middleware("RestringUpdateSale", ["only" => "updatePlan", "PageUpdatePlan"]);
     }
     /**
      * Display a listing of the resource.
@@ -670,7 +671,7 @@ class SaleController extends Controller
         ]);
 
         if ($validator2->fails()) {
-            return redirect("sale")->withErrors($validator2, "paso2")->withInput();
+            return redirect("/plan/".$id)->withErrors($validator2, "paso2")->withInput();
         }
 
 
@@ -735,15 +736,15 @@ class SaleController extends Controller
             if ($precio > 0 && $request->has("stripeToken")) {
                 if ($this->stripePost(request("stripeToken"), $precio)) {
                     DB::commit();
-                    return back()->with('status.success', '1');
+                    return redirect("/myaccount")->with('status.success', '1');
                 }
 
                 DB::rollback();
-                return back()->with('status.error.pago', '1');
+                return redirect("/myaccount")->with('status.error.pago', '1');
             }
 
             DB::commit();
-            return back()->with('status.success', '1');
+            return redirect("/myaccount")->with('status.success', '1');
         }
 
     }
@@ -856,8 +857,8 @@ class SaleController extends Controller
 
             Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
             Stripe\Charge::create ([
-                    "amount" => 100 * $precio,
-                    "currency" => "MXN",
+                    "amount" => $precio * 100,
+                    "currency" => "USD",
                     "source" => $stripeToken,
                     "description" => "Test payment from itsolutionstuff.com." 
             ]);   

@@ -2,6 +2,17 @@
 
 @section("content")
 
+	@if (session()->has("status.success")))
+		<div class="shadowbox" id="success.register" style="display: block;">
+			<div class="close"></div> <!-- /close -->
+			<div class="wrapper-form">
+				<div class="container-form">
+					<h3 class="text-center text-blue fz-30 mb-30">Congratulations, your plan has been updated correctly</h3>
+				</div> <!-- /container-form -->
+			</div> <!-- /wrapper-form -->
+		</div> <!-- /shadowbox -->
+	@endif
+
 	<div class="container pt-40 pb-40">
 		
 		<div class="flex flex-account">
@@ -171,7 +182,6 @@
 								<li><i class="fa fa-star"></i></li>
 							</ul>
 						</div>
-						<p>Recommended by X people</p>
 					</div> <!-- /txt-list -->
 				</div>
 			</div> <!-- /item-flex -->
@@ -250,6 +260,7 @@
 
 		</div> <!-- /wrapper-form -->
 	</div> <!-- /shadowbox -->
+
 
 
 	@if (session()->has("myaccount"))

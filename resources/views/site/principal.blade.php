@@ -176,7 +176,6 @@
 							<li><i class="fa fa-star"></i></li>
 						</ul>
 					</div>
-					<p>Recommended by X people</p>
 				</div> <!-- /txt-list -->
 			</div>
 		</div> <!-- /item-flex -->

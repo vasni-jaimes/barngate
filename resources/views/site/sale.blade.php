@@ -248,14 +248,14 @@
 								<option value="{{ $estado->id_estado }}"> {{ $estado->estado }} </option>
 							@endforeach
 						</select>
-						{{-- <input type="text" class="form-input" name="region" value="{{ old("region") }}">
-						{!! $errors->paso1->first('region', "<span class='err' style='display:block;margin-bottom:15px;color:red'>:message</span>") !!} --}}
+						{{-- <input type="text" class="form-input" name="region" value="{{ old("region") }}"> --}}
+						{!! $errors->paso1->first('region', "<span class='err' style='display:block;margin-bottom:15px;color:red'>:message</span>") !!}
 					</div> <!-- /col-4 -->
 					<div class="col-md-4 pb-20">
 						<h3 class="fw-700">City:<span>*</span></h3>
 						<select class="form-input" name="city"></select>
-						{{-- <input type="text" class="form-input" name="city" value="{{ old("city") }}">
-						{!! $errors->paso1->first('city', "<span class='err' style='display:block;margin-bottom:15px;color:red'>:message</span>") !!} --}}
+						{{-- <input type="text" class="form-input" name="city" value="{{ old("city") }}"> --}}
+						{!! $errors->paso1->first('city', "<span class='err' style='display:block;margin-bottom:15px;color:red'>:message</span>") !!}
 					</div> <!-- /col-4 -->
 					<div class="col-md-4 pb-20">
 						<h3 class="fw-700">ZIP:<span>*</span></h3>

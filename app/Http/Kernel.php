@@ -63,6 +63,7 @@ class Kernel extends HttpKernel
         'ValidateProfileFinSale' => \App\Http\Middleware\ValidateProfileFinSale::class,
         'CheckChatId' => \App\Http\Middleware\CheckChatId::class,
         'RestrictedAccessExpired' => \App\Http\Middleware\RestrictedAccessExpired::class,
+        'RestringUpdateSale' => \App\Http\Middleware\RestringUpdateSale::class,
     ];
 
     /**

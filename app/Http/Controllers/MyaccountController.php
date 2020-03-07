@@ -79,7 +79,7 @@ class MyaccountController extends Controller
 
 
         $misFavoritos = $this->getFavorites(auth()->user()->user_id);
-    	return view("site.myaccount", compact("animal", "misFavoritos", "chats", "listado"));
+    	return view("site.myaccount", compact("animal", "misFavoritos", "listado"));
     }
 
 
@@ -232,6 +232,7 @@ class MyaccountController extends Controller
             $sale = Sale::find($request->idAnimal);
             if ($sale->user_id == auth()->user()->user_id) {
                 if ($sale->delete()) {
+                    Favorite::where("sale_id", $request->idAnimal)->delete();
                     return response()->json(["message" => "ok"]);
                 }
                 return response()->json(["message" => "not_delete"]);
