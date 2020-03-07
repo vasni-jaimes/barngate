@@ -150,7 +150,7 @@
 				@endguest
 
 				<div class="col-md-6">
-					<p class="text-blue-light fz-20 mb-5">Suscribe to our weekly Newsletter</p>
+					<p class="text-blue-light fz-20 mb-5">Subscribe to our weekly Newsletter</p>
 					<form class="form-inline">
 						<div class="form-group mb-2">
 							<label for="inputPassword2" class="sr-only">Enter your email</label>
@@ -158,7 +158,7 @@
 						<div class="form-group mx-sm-3 mb-2 w-60">
 							<input type="email" class="form-control w-100" id="email" placeholder="Enter your email">
 						</div>
-						<button type="submit" class="btn btn-primary btn-red mb-2 w-35">Suscribe</button>
+						<button type="submit" class="btn btn-primary btn-red mb-2 w-35">Subscribe</button>
 					</form>
 					<ul class="list-inline">
 						<li class="list-inline-item"><a href="#"><img src="/images/horse-classifieds-barngate-facebook-icon.png"> </a></li>
