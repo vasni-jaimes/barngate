@@ -29,6 +29,7 @@ class SearchController extends Controller
     						->join('breeds', 'sales.breed_id', '=', 'breeds.breed_id')
 	                        ->join('users', 'sales.user_id', '=', 'users.user_id')
                             ->join('cities', 'sales.city', '=', 'cities.id_ciudad')
+                            ->where("sales.disabled", 0)
 	    					->select('sales.*', 
 		    							'animals.name as animal_name', 
 	                                    'breeds.name as breeds_name', 
@@ -95,17 +96,20 @@ class SearchController extends Controller
             $cont = 0;
             foreach ($favorite as $favorites) {
                 $favoritefull = Sale::where("sale_id", $favorites->sale_id)
+                                    ->where("disabled", 0)
                                     ->join('animals', 'sales.animal_id', '=', 'animals.animal_id')
                                     ->join('users', 'sales.user_id', '=', 'users.user_id')
                                     ->select('sales.*', 'animals.name as animal_name', 'users.username as users_name')
                                     ->first();
 
-                $favoriteArray[$cont]["animal_name"]  = $favoritefull->animal_name;
-                $favoriteArray[$cont]["nickname"]      = $favoritefull->nickname;
-                 $favoriteArray[$cont]["price"]         = $favoritefull->price;
-                $favoriteArray[$cont]["img"]           = $this->primerImagenProducto( $favoritefull->user_id, $favoritefull->animal_id, $favoritefull->sale_id );
-                $favoriteArray[$cont]["users_name"]    = base64_encode($favoritefull->users_name);
-                $cont++;
+                if ($favoritefull) {
+                    $favoriteArray[$cont]["animal_name"]  = $favoritefull->animal_name;
+                    $favoriteArray[$cont]["nickname"]      = $favoritefull->nickname;
+                     $favoriteArray[$cont]["price"]         = $favoritefull->price;
+                    $favoriteArray[$cont]["img"]           = $this->primerImagenProducto( $favoritefull->user_id, $favoritefull->animal_id, $favoritefull->sale_id );
+                    $favoriteArray[$cont]["users_name"]    = base64_encode($favoritefull->users_name);
+                    $cont++;
+                }
             }
 
             return $favoriteArray;

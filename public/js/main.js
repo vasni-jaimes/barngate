@@ -1362,6 +1362,7 @@ if (hompage2) {
 
 
 
+
 /******************************\
 |      CLICK A LOS PLANES      |
 \******************************/
@@ -1391,6 +1392,47 @@ if (elInput) {
 		}, false);
   	}
 }
+
+
+
+/*******************\
+|    UPDATE PLAN    |
+\*******************/
+
+let nexts2_plan = document.querySelector(".nexts2_plan");
+if (nexts2_plan) {
+	nexts2_plan.addEventListener("click", e => {
+
+		//OBTENER DATOS DEL PLAN ELEGIDO
+		let skills = $(".plan-selected ul").html();
+		let titulo_plan = $(".plan-selected h3").html();
+		let precio = $(".plan-selected span").html();
+		let subtotal = precio.replace('$','');
+		let home = 0;
+
+		// MOSTRAR EL PLAN ELEGIDO EN EL PASO FINAL
+		$(".skills").html(skills);
+		$(".plan-title").html(titulo_plan+" <span>"+precio+"</span>");
+
+		if ($("input[name='hompage']").is(":checked")) {
+			$("input[name='hompage2']").prop("checked", true);
+			home = 20;
+		}
+
+		subtotal = (isNaN(subtotal)) ? 0 : subtotal;
+		let total = parseInt(subtotal) + home;
+		$(".row-total h3").html("Total: $"+total);
+
+		if (total <= 0) {
+			$(".not-freeplan").css("display", "none");
+		}
+
+		//CAMBIAR STEP
+		$(".step2_plan").css("display", "none");
+		$(".step3_plan").css("display", "block");
+	});
+}
+
 
 
 /*************************\
@@ -2165,6 +2207,81 @@ if (home_col_animal) {
 
 
 
+/**************************\
+|     Remover Animal       |
+\**************************/
+
+let botton_remove = document.querySelectorAll(".botton-remove");
+let idAnimal;
+if (botton_remove) {
+	for (var i = 0; i <= botton_remove.length - 1; i++) {
+		botton_remove[i].addEventListener("click", e => {
+			e.preventDefault();
+			$("#animal_remove").css("display", "block");
+			idAnimal = e.target.getAttribute("data-animal");
+		});
+	}
+}
+
+
+let accpt_remove = document.querySelector(".accpt_remove");
+if (accpt_remove) {
+	accpt_remove.addEventListener("click", e => {
+		e.preventDefault();
+
+		let token = document.querySelector("input[name='_token']").value;
+		data = {
+			"idAnimal": idAnimal,
+			"_token": token
+		};
+
+		$("#loading").css("display", "block");
+		$("#animal_remove").css("display", "none");
+
+		request
+		   	.post('/myaccount/removeAnimal')
+		   	.send(data)
+		   	.set('Accept', 'application/json')
+		   	.then(res => {
+		   		console.log(res);
+		   		if (res.body.message == 'ok') {
+		   			$(".botton-remove[data-animal="+idAnimal+"]").parent().parent().parent().remove();
+		   			$("#loading").css("display", "none");
+		   		}
+		   		else if (res.body.message == 'not_delete') {
+		   			$("#error_report .container-form h3").html("An error occurred while trying to delete the post");
+		   			$("#loading").css("display", "none");
+		   			$("#error_report").css("display", "block");
+		   		}
+		   		else if (res.body.message == 'not_user_animal') {
+		   			$("#error_report .container-form h3").html("An error occurred while trying to delete the post");
+		   			$("#loading").css("display", "none");
+		   			$("#error_report").css("display", "block");
+		   		}
+		   		else if (res.body.message == 'not_parameters') {
+		   			$("#error_report .container-form h3").html("An error occurred while trying to delete the post");
+		   			$("#loading").css("display", "none");
+		   			$("#error_report").css("display", "block");
+		   		}
+		   	})
+		   	.catch(err => {
+      			// err.message, err.response
+      			console.log(err.message);
+   			});
+
+	});
+}
+
+
+let cancel_remove = document.querySelector(".cancel_remove");
+if (cancel_remove) {
+	cancel_remove.addEventListener("click", e => {
+		e.preventDefault();
+		$("#animal_remove").css("display", "none");
+	});
+}
+
+
 
 /**************************\
 |     Animal - Active      |
@@ -2481,9 +2598,13 @@ var format = function(num) {
 
 function precio_planes() {
 	let planSelect = document.querySelector("input[name='planSelect']").value;
-	let animal = document.querySelector("select[name='animals']").value;
+	let animal = document.querySelector("select[name='animals']");
 
-	if (animal == 6) {
+	if (animal == null || animal == false || animal == undefined) {
+		animal = document.querySelector("input[name='animal_d']");
+	}
+
+	if (animal.value == 6) {
 		if (planSelect == 1) { total = 0; }
 		else if (planSelect == 2) { total = 5; }
 		else if (planSelect == 3) { total = 10; }

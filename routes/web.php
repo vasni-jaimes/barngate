@@ -35,12 +35,15 @@ Route::get('/sale', 'SaleController@create')->name('sale');
 Route::post('/sale.store', 'SaleController@store')->name('sale.store');
 Route::post('/searchState', 'SaleController@SearchState')->name('sale.state');
 Route::post('/animal_config', 'SaleController@SearchAnimal')->name('search.animal');
+Route::get('/plan/{id}', 'SaleController@updatePlan')->name('sale.updateplan');
+Route::post('/update/plan/{id}', 'SaleController@PageUpdatePlan')->name('sale.pageupdateplan');
 
 //Myaccount
 Route::get('/myaccount', 'MyaccountController@index')->name('myaccount');
 Route::post('/myaccount/editProfile', 'MyaccountController@EditProfile')->name('editprofile');
 Route::post('/saveSettings', 'MyaccountController@SaveSettings')->name('SaveSettings');
 Route::post('saveImgMyaccount', 'MyaccountController@SaveImgMyaccount')->name('saveimgmyaccount');
+Route::post('/myaccount/removeAnimal', 'MyaccountController@removeAnimal')->name('RemoveAnimal');
 
 //Detalle
 Route::get('/detail/{id}', 'SaleController@show')->name('sale.show');

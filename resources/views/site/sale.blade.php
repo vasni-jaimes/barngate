@@ -331,7 +331,7 @@
 			
 			<div class="listing-homepage">
 				<div class="flex between items-center fz-20 text-white">
-					<label><input type="checkbox" name="hompage" {{ homepageReload() }} value="1" >Feature your listing on our Homepage</label>
+					<label><input type="checkbox" name="hompage" {{ homepageReload() }} value="1">Feature your listing on our Homepage</label>
 					<input type="hidden" name="planSelect" value="{{ old("planSelect", 2) }}">
 					<span>$20</span>
 				</div> <!-- /flex -->

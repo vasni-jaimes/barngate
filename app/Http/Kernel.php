@@ -61,7 +61,8 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'ValidateProfileFinSale' => \App\Http\Middleware\ValidateProfileFinSale::class,
-        'CheckChatId' => \App\Http\Middleware\CheckChatId::class
+        'CheckChatId' => \App\Http\Middleware\CheckChatId::class,
+        'RestrictedAccessExpired' => \App\Http\Middleware\RestrictedAccessExpired::class,
     ];
 
     /**

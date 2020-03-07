@@ -40,9 +40,11 @@ class UsersController extends Controller
             $auth = false;
             $credentials = $request->only('email', 'password');
 
-            if ($val = Auth::attempt($credentials, $request->has('remember'))) {
+            if ( Auth::attempt($credentials, $request->has('remember')) ) {
                 $auth = true; // Success
             }
+
+            //return response()->json($credentials);
 
            return response()->json([
                 'auth' => $auth,
@@ -58,6 +60,8 @@ class UsersController extends Controller
     
     public function createRegistro(Request $request)
     {
+
+        //return response()->json(\Hash::make($request->password));
 
     	$validator = Validator::make($request->all(), [
             'username' => ['required', 'string', 'max:255', 'unique:users'],
@@ -98,7 +102,7 @@ class UsersController extends Controller
         	$users 					= new User();
             $users->username      	= $request->username;
             $users->email       	= $request->email;
-            $users->password		= bcrypt($request->password);
+            $users->password		= \Hash::make($request->password);
 
             if ($users->save()) {
 
@@ -106,7 +110,7 @@ class UsersController extends Controller
                 Auth::login($users);
 
                 try {
-               	    //Mail::to("853e9296af-b1cadc@inbox.mailtrap.io")->send(new MessageRegister($request));
+               	    Mail::to("853e9296af-b1cadc@inbox.mailtrap.io")->send(new MessageRegister($request));
                 } catch(Exception $e) {
                      \Log::error("El error de Email de Registro ".$e->getMessage());
                 }
