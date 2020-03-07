@@ -32,21 +32,14 @@
 		</div> <!-- /shadowbox -->
 	@endif
 
-	<div class="banner-sale">
-		<div class="container">
-			<div class="banner-text">
-				<h1>How selling with us work</h1>
-				<a href="#" class="btn-play btn btn-primary">Watch Video</a>
-			</div>
-		</div> <!-- /container -->
-	</div> <!-- /banner-sale -->
+	<div class="banner-sale"></div> <!-- /banner-sale -->
 
 	<form role="form" action="{{ route("sale.store") }}" method="POST" id="form_sale" accept-charset="UTF-8" class="require-validation" enctype="multipart/form-data" data-cc-on-file="false" data-stripe-publishable-key="{{ env('STRIPE_KEY') }}">
 		@csrf
 
 		<div class="wrapper-register container pt-40 pb-40 text-blue step1" {{ stepShow(1, $errors) }} {{ stepErrorCard(1) }}>
-			<h2 class="fw-700 text-left">Sell your animal with Farmgate</h2>
-			<p class="fz-16 pt-20">Farmgate is the best way to sell your animals online. Great Cattle, Horses and more for great prices thanks to a massive audience and a friendly format that helps buyers find exactly what their looking for with confidence.</p>
+			<h2 class="fw-700 text-left">Sell your animal with Barngate</h2>
+			<p class="fz-16 pt-20">Barngate is the best way to sell your animals online. Great Cattle, Horses and more for great prices thanks to a massive audience and a friendly format that helps buyers find exactly what their looking for with confidence.</p>
 			<p class="fz-16 pt-20 pb-40">What Animal would you like to sell? Please fill out the form below.</p>
 			
 			<div class="wrapper-sale">

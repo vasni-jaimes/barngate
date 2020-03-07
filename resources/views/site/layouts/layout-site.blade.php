@@ -50,7 +50,7 @@
 					<nav>
 						<ul class="menu_top">
 							<li><a href="/faqs">FAQ's</a></li>
-							<li><a href="https://blog.barngate.com/">Blog</a> </li>
+							<li><a href="https://blog.barngate.com/" target="_blank">Blog</a> </li>
 							<li><a href="{{ route("contact") }}">Contact Us</a> </li>
 
 							@auth
@@ -133,9 +133,9 @@
 				<div class="col-md-2">
 					<ul>
 						<li><a href="{{ route("home") }}">Home</a></li>
-						<li><a href="{{ route("about") }}">About</a></li>
-						<li><a href="#">FAQ's</a></li>
-						<li><a href="https://blog.barngate.com/">Blog</a> </li>
+						<li><a href="{{ route("about") }}">About Us</a></li>
+						<li><a href="/faqs">FAQ's</a></li>
+						<li><a href="https://blog.barngate.com/" target="_blank">Blog</a> </li>
 						<li><a href="{{ route("contact") }}">Contact Us</a> </li>
 					</ul>
 				</div>
@@ -161,8 +161,8 @@
 						<button type="submit" class="btn btn-primary btn-red mb-2 w-35">Subscribe</button>
 					</form>
 					<ul class="list-inline">
-						<li class="list-inline-item"><a href="#"><img src="/images/horse-classifieds-barngate-facebook-icon.png"> </a></li>
-						<li class="list-inline-item"><a href="#"><img src="/images/horse-classifieds-barngate-instagram-icon.png"> </a></li>
+						<li class="list-inline-item"><a href="https://www.facebook.com/barngate/" target="_blank"><img src="/images/horse-classifieds-barngate-facebook-icon.png"> </a></li>
+						<li class="list-inline-item"><a href="https://www.instagram.com/barngate_" target="_blank"><img src="/images/horse-classifieds-barngate-instagram-icon.png"> </a></li>
 					</ul>
 				</div>
 			</div>
@@ -172,7 +172,7 @@
 	<div class="container">
 		<div class="row text-center">
 			<div class="col-md-12 mt-20 mb-20 fz-18">
-				© 2019 by Barngate. All Rights Reserved.
+				© <?= date('Y'); ?> by Barngate. All Rights Reserved.
 			</div>
 		</div>
 	</div> <!-- /container -->

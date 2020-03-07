@@ -16,7 +16,7 @@
 	</div> <!-- /bg-blue -->
 
 	<div class="container pt-40 pb-40 text-blue">
-		<h2 class="fw-700 underline text-center">Frequent Asked Questions</h2>
+		<h2 class="fw-700 underline text-center"><a href="faqs">Frequent Asked Questions ></a></h2>
 		<div class="row mt-30">
 			<div class="col-md-6">
 				<h2 class="fw-700">Is the purchase made on the platform?</h2>

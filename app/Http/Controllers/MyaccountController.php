@@ -79,7 +79,7 @@ class MyaccountController extends Controller
 
 
         $misFavoritos = $this->getFavorites(auth()->user()->user_id);
-    	return view("site.myaccount", compact("animal", "misFavoritos", "chats", "listado"));
+    	return view("site.myaccount", compact("animal", "misFavoritos", "listado"));
     }
 
 

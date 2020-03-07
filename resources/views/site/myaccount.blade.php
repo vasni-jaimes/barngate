@@ -4,156 +4,156 @@
 
 	<div class="container pt-40 pb-40">
 		
-		<div class="flex flex-account">
+		<div class="flex flex-account between">
 		
 			<div class="wrapper-tabs">
 
-			<input class="state" type="radio" title="tab-one" name="tabs-state" id="tab-one" checked />
-			<input class="state" type="radio" title="tab-two" name="tabs-state" id="tab-two" />
-			<input class="state" type="radio" title="tab-three" name="tabs-state" id="tab-three" />
-			<input class="state" type="radio" title="tab-four" name="tabs-state" id="tab-four" />
+				<input class="state" type="radio" title="tab-one" name="tabs-state" id="tab-one" checked />
+				<input class="state" type="radio" title="tab-two" name="tabs-state" id="tab-two" />
+				<input class="state" type="radio" title="tab-three" name="tabs-state" id="tab-three" />
+				<input class="state" type="radio" title="tab-four" name="tabs-state" id="tab-four" />
 
-			<div class="tabs flex-tabs">
+				<div class="tabs flex-tabs">
 
-				<label for="tab-one" id="tab-one-label" class="tab">Account Info</label>
-				<label for="tab-two" id="tab-two-label" class="tab">Settings</label>
-				<label for="tab-three" id="tab-three-label" class="tab">My Listing</label>
-				<label for="tab-four" id="tab-four-label" class="tab">Inbox</label>
+					<label for="tab-one" id="tab-one-label" class="tab">Account Info</label>
+					<label for="tab-two" id="tab-two-label" class="tab">Settings</label>
+					<label for="tab-three" id="tab-three-label" class="tab">My Listing</label>
+					<label for="tab-four" id="tab-four-label" class="tab">Inbox</label>
 
-				<div id="tab-one-panel" class="panel active">
-					<div class="box-tab">
-						<div class="flex">
-							<div class="item-flex">
-								<h2>Basic Info</h2>
-								<ul>
-									<li><p>{{ auth()->user()->email }}</p></li>
-									<li><p>{{ auth()->user()->username }}</p></li>
-									<li><p> * * * * * * * * * * * </p></li>
-								</ul>
-								<h2>Contact Info</h2>
-								<ul>
-									<li><p>{{ ( auth()->user()->name == null ) ? "Name" :  auth()->user()->name }}</p></li>
-									<li><p>{{ ( auth()->user()->phone == null ) ? "Phone" :  auth()->user()->phone }}</p></li>
-									<li><p>{{ ( auth()->user()->address == null ) ? "Address" :  auth()->user()->address }}</p></li>
-									<li><p>{{ ( auth()->user()->cp_zip == null ) ? "Zip/Postal Code" :  auth()->user()->cp_zip }}</p></li>
-									<li><p>{{ ( auth()->user()->country == null ) ? "Country" :  auth()->user()->country }}</p></li>
-								</ul>
-								<button class="show-info selector">Edit My Account Info</button>
-							</div> <!-- /item-flex -->
-							<form enctype="multipart/form-data" id="formupload">
+					<div id="tab-one-panel" class="panel active">
+						<div class="box-tab">
+							<div class="flex">
 								<div class="item-flex">
-									<fieldset class="form-file">
-										<input type="file" name="upload" id="upload" class="cargar-picture">
-										<label for="upload">
-											<span>Upload profile picture</span>
-											@if (auth()->user()->urlImg != null)
-												<img id="imgSalida" style="display: block" width="98%" height="98%" src="{{ Storage::url(auth()->user()->urlImg) }}" />
-											@else
-												<img id="imgSalida" width="98%" height="98%" src="" />
-											@endif
-											@csrf
-										</label>
-									</fieldset>
+									<h2>Basic Info</h2>
+									<ul>
+										<li><p>{{ auth()->user()->email }}</p></li>
+										<li><p>{{ auth()->user()->username }}</p></li>
+										<li><p> * * * * * * * * * * * </p></li>
+									</ul>
+									<h2>Contact Info</h2>
+									<ul>
+										<li><p>{{ ( auth()->user()->name == null ) ? "Name" :  auth()->user()->name }}</p></li>
+										<li><p>{{ ( auth()->user()->phone == null ) ? "Phone" :  auth()->user()->phone }}</p></li>
+										<li><p>{{ ( auth()->user()->address == null ) ? "Address" :  auth()->user()->address }}</p></li>
+										<li><p>{{ ( auth()->user()->cp_zip == null ) ? "Zip/Postal Code" :  auth()->user()->cp_zip }}</p></li>
+										<li><p>{{ ( auth()->user()->country == null ) ? "Country" :  auth()->user()->country }}</p></li>
+									</ul>
+									<button class="show-info selector">Edit My Account Info</button>
 								</div> <!-- /item-flex -->
-							</form>
-						</div> <!-- /flex -->
-					</div> <!-- /box-tab -->
-				</div>
-				
-				<div id="tab-two-panel" class="panel">
-					<div class="box-tab">
-						<ul class="check-option">
-							<li><label>Receive Emails about Favorite Animal</label><input type="checkbox" name="email_favorite" {{ auth()->user()->email_favorite == 1 ? "checked" : "" }}></li>
-							<li><label>Receive  Update Emails for Watched Listings</label><input type="checkbox" name="email_update" {{ auth()->user()->email_update == 1 ? "checked" : "" }}></li>
-							<li><label>Receive Text Message Notifications</label><input type="checkbox" name="receive_text" {{ auth()->user()->receive_text == 1 ? "checked" : "" }}></li>
-							{{-- <li><label>Text Messaging Phone Number</label><input type="radio"></li> --}}
-							{{-- <li><label>Only USA phone numbers are supported. Please enter your full 10-digit number.</label><input type="radio"></li> --}}
-						</ul>
-						<div class="pt-20 pb-20 text-center">
-							<a href="#" class="mw-150 btn btn-primary save-radio">Save settings</a>
-						</div>
-					</div> <!-- /box-tab -->
-				</div>
-				
-				<div id="tab-three-panel" class="panel">
-					<div class="box-tab">
-						<div class="pb-20 text-center">
-							<a href="#" class="mw-150 btn btn-primary">Sale New Animal</a>
-						</div>
-						<h3 class="title-green">Your Listings</h3>
-						@if ($animal == null)
-							<p> <em> None Currently live </em> </p>
-						@endif
-						<div class="pt-20 pb-20">
-							@for($i=0; $i <= count($animal) - 1; $i++)
-								<div class="flex-list items-center">
-									<div class="flex between items-center">
-										<div class="flex">
-											<img src="{{ "/storage/images/".$animal[$i]["img"] }}">
-											<div class="txt-list">
-												<a href="{{ route("sale.show", $animal[$i]["nickname"]) }}"><p>{{ $animal[$i]["animal_name"] }}</p></a>
-												@if ($animal[$i]["disabled"] == 0)
-													<span class="active">Active</span>
+								<form enctype="multipart/form-data" id="formupload">
+									<div class="item-flex">
+										<fieldset class="form-file">
+											<input type="file" name="upload" id="upload" class="cargar-picture">
+											<label for="upload">
+												<span>Upload profile picture</span>
+												@if (auth()->user()->urlImg != null)
+													<img id="imgSalida" style="display: block" width="98%" height="98%" src="{{ Storage::url(auth()->user()->urlImg) }}" />
 												@else
-													<span class="expired">Expired</span>
+													<img id="imgSalida" width="98%" height="98%" src="" />
 												@endif
-											</div> <!-- /txt-list -->
-										</div>
-										<div class="btn-list">
-											<a href="{{ route("edit_animal") }}" class="mw-150 btn btn-primary">Edit</a>
-											@if ($animal[$i]["disabled"] == 0)
-												<a href="#" class="mw-150 btn btn-primary sold">Sold</a>
-											@else
-												<a href="{{ route("sale.updateplan", $animal[$i]["nickname"]) }}" class="mw-150 btn btn-primary botton-renovate">Renovate</a>
-												<a href="#" class="mw-150 btn btn-primary botton-remove" data-animal="{{ $animal[$i]["sale_id"] }}">Remove</a>
-											@endif
-										</div> <!-- /item-flex -->
-									</div> <!-- /flex -->
-								</div> <!-- /flex-list -->
-							@endfor
-						</div>
-					</div> <!-- /box-tab -->
-				</div>
-				
-				<div id="tab-four-panel" class="panel">
-					<div class="box-tab">
-						<div class="pt-20 pb-20">
+												@csrf
+											</label>
+										</fieldset>
+									</div> <!-- /item-flex -->
+								</form>
+							</div> <!-- /flex -->
+						</div> <!-- /box-tab -->
+					</div>
 
-							@if ($listado != null)
-								@for ($i = 0; $i <= count($listado) - 1; $i++)
+					<div id="tab-two-panel" class="panel">
+						<div class="box-tab">
+							<ul class="check-option">
+								<li><label>Receive Emails about Favorite Animal</label><input type="checkbox" name="email_favorite" {{ auth()->user()->email_favorite == 1 ? "checked" : "" }}></li>
+								<li><label>Receive  Update Emails for Watched Listings</label><input type="checkbox" name="email_update" {{ auth()->user()->email_update == 1 ? "checked" : "" }}></li>
+								<li><label>Receive Text Message Notifications</label><input type="checkbox" name="receive_text" {{ auth()->user()->receive_text == 1 ? "checked" : "" }}></li>
+								{{-- <li><label>Text Messaging Phone Number</label><input type="radio"></li> --}}
+								{{-- <li><label>Only USA phone numbers are supported. Please enter your full 10-digit number.</label><input type="radio"></li> --}}
+							</ul>
+							<div class="pt-20 pb-20 text-center">
+								<a href="#" class="mw-150 btn btn-primary save-radio">Save settings</a>
+							</div>
+						</div> <!-- /box-tab -->
+					</div>
 
-									<div class="flex flex-inbox items-center between">
-										<div class="flex">
-											<img class="icon" src="images/buy-horse-online-barngate-message-icon.png">
-											<a href=" {{ route("chat.index", $listado[$i]["token"]) }} ">
-												<div class="txt-inbox">
-													{{-- <p>Animal</p> --}}
-													<p> {{ $listado[$i]["nombre_user"] }} </p>
-													<p style="opacity: 0.5;"> {{ $listado[$i]["ultimo_mensaje"] }} </p>
-												</div> <!-- /txt-list -->
-											</a>
-										</div>
-										<div class="txt-inbox">
-											@php $fecha = explode(" ", $listado[$i]["fecha"]); @endphp
-
-											<p> {{ $fecha[0] }} </p>
-											<p> {{ $fecha[1] }} </p>
-										</div>
-									</div> <!-- /flex -->
-
-								@endfor
-							@else
-								<h3> No chats </h3>
+					<div id="tab-three-panel" class="panel">
+						<div class="box-tab">
+							<div class="pb-20 text-center">
+								<a href="#" class="mw-150 btn btn-primary">Sale New Animal</a>
+							</div>
+							<h3 class="title-green">Your Listings</h3>
+							@if ($animal == null)
+								<p> <em> None Currently live </em> </p>
 							@endif
-						</div>
-					</div> <!-- /box-tab -->
-				</div>
+							<div class="pt-20 pb-20">
+								@for($i=0; $i <= count($animal) - 1; $i++)
+									<div class="flex-list items-center">
+										<div class="flex between items-center">
+											<div class="flex">
+												<img src="{{ "/storage/images/".$animal[$i]["img"] }}">
+												<div class="txt-list">
+													<a href="{{ route("sale.show", $animal[$i]["nickname"]) }}"><p>{{ $animal[$i]["animal_name"] }}</p></a>
+													@if ($animal[$i]["disabled"] == 0)
+														<span class="active">Active</span>
+													@else
+														<span class="expired">Expired</span>
+													@endif
+												</div> <!-- /txt-list -->
+											</div>
+											<div class="btn-list">
+												<a href="{{ route("edit_animal") }}" class="mw-150 btn btn-primary">Edit</a>
+												@if ($animal[$i]["disabled"] == 0)
+													<a href="#" class="mw-150 btn btn-primary sold">Sold</a>
+												@else
+													<a href="{{ route("sale.updateplan", $animal[$i]["nickname"]) }}" class="mw-150 btn btn-primary botton-renovate">Renovate</a>
+													<a href="#" class="mw-150 btn btn-primary botton-remove" data-animal="{{ $animal[$i]["sale_id"] }}">Remove</a>
+												@endif
+											</div> <!-- /item-flex -->
+										</div> <!-- /flex -->
+									</div> <!-- /flex-list -->
+								@endfor
+							</div>
+						</div> <!-- /box-tab -->
+					</div>
 
-			</div> <!-- /tabs -->
-		
-		</div> <!-- /wrapper-tabs -->
+					<div id="tab-four-panel" class="panel">
+						<div class="box-tab">
+							<div class="pt-20 pb-20">
+
+								@if ($listado != null)
+									@for ($i = 0; $i <= count($listado) - 1; $i++)
+
+										<div class="flex flex-inbox items-center between">
+											<div class="flex">
+												<img class="icon" src="images/buy-horse-online-barngate-message-icon.png">
+												<a href=" {{ route("chat.index", $listado[$i]["token"]) }} ">
+													<div class="txt-inbox">
+														{{-- <p>Animal</p> --}}
+														<p> {{ $listado[$i]["nombre_user"] }} </p>
+														<p style="opacity: 0.5;"> {{ $listado[$i]["ultimo_mensaje"] }} </p>
+													</div> <!-- /txt-list -->
+												</a>
+											</div>
+											<div class="txt-inbox">
+												@php $fecha = explode(" ", $listado[$i]["fecha"]); @endphp
+
+												<p> {{ $fecha[0] }} </p>
+												<p> {{ $fecha[1] }} </p>
+											</div>
+										</div> <!-- /flex -->
+
+									@endfor
+								@else
+									<p><em>No chats</em></p>
+								@endif
+							</div>
+						</div> <!-- /box-tab -->
+					</div>
+
+				</div> <!-- /tabs -->
+
+			</div> <!-- /wrapper-tabs -->
 			
-			<div class="wrapper-stars item-flex">
+			<div class="wrapper-stars">
 				<div class="flex items-center">
 					@if (auth()->user()->urlImg == null)
 						<img src="/images/sin_foto.jpeg" class="img_mini">
@@ -171,7 +171,6 @@
 								<li><i class="fa fa-star"></i></li>
 							</ul>
 						</div>
-						<p>Recommended by X people</p>
 					</div> <!-- /txt-list -->
 				</div>
 			</div> <!-- /item-flex -->
@@ -243,7 +242,8 @@
 				</div> <!-- /flex -->
 
 				<div class="text-center pt-20 pb-20">
-					<input class="mw-150 btn btn-primary edit-info_user" type="submit" value="Edit">
+					<input class="mw-150 btn btn-primary edit-info_user" type="submit" value="Save changes
+">
 				</div>
 				
 			</div>
