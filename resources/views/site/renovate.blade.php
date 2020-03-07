@@ -3,19 +3,6 @@
 
 @section("content")
 
-	@if (session()->has("status.success")))
-		<div class="shadowbox" id="success.register" style="display: block;">
-			<div class="wrapper-form">
-				<div class="container-form">
-					<h3 class="text-center text-blue fz-30 mb-30">Congratulations, your plan has been updated correctly</h3>
-					<p class="mb-15 fz-20">you registered your animal correctly.</p>
-					<a class="enviar" href="{{ route('myaccount') }}">My account</a>
-					<a class="enviar" href="{{ route('sale') }}">Register new animal</a>
-				</div> <!-- /container-form -->
-			</div> <!-- /wrapper-form -->
-		</div> <!-- /shadowbox -->
-	@endif
-
 	<form role="form" action="{{ route("sale.pageupdateplan", $id) }}" method="POST" id="form_sale" accept-charset="UTF-8" class="require-validation" enctype="multipart/form-data" data-cc-on-file="false" data-stripe-publishable-key="{{ env('STRIPE_KEY') }}">
 		@csrf
 
