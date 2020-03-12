@@ -105,13 +105,13 @@
 			<div class="col-md-12">
 				<nav>
 					<ul class="menu_home">
-						<li><a href="#"><img src="/images/horse-classifieds-barngate-home-icon.png"></a></li>
-						<li><a href="#">Cattle for Sale</a></li>
-						<li><a href="#">Horse for Sale</a></li>
-						<li><a href="#">Sheep for Sale</a></li>
-						<li><a href="#">Goat for Sale</a></li>
-						<li><a href="#">Pig for Sale</a></li>
-						<li><a href="#">Pet Section</a></li>
+						<li><a href="{{ route("home") }}"><img src="/images/horse-classifieds-barngate-home-icon.png"></a></li>
+						<li><a href="{{ route("vistaSearch", base64_encode(1)) }}">Cattle for Sale</a></li>
+						<li><a href="{{ route("vistaSearch", base64_encode(2)) }}">Horse for Sale</a></li>
+						<li><a href="{{ route("vistaSearch", base64_encode(3)) }}">Sheep for Sale</a></li>
+						<li><a href="{{ route("vistaSearch", base64_encode(4)) }}">Goat for Sale</a></li>
+						<li><a href="{{ route("vistaSearch", base64_encode(5)) }}">Pig for Sale</a></li>
+						<li><a href="{{ route("vistaSearch", base64_encode(6)) }}">Pet Section</a></li>
 					</ul>
 				</nav>
 			</div>

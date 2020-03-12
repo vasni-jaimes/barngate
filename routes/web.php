@@ -45,6 +45,10 @@ Route::post('/saveSettings', 'MyaccountController@SaveSettings')->name('SaveSett
 Route::post('saveImgMyaccount', 'MyaccountController@SaveImgMyaccount')->name('saveimgmyaccount');
 Route::post('/myaccount/removeAnimal', 'MyaccountController@removeAnimal')->name('RemoveAnimal');
 
+//Qualify
+Route::post('/addqualifyl', 'MyaccountController@qualify')->name('qualify');
+
+
 //Detalle
 Route::get('/detail/{id}', 'SaleController@show')->name('sale.show');
 
@@ -52,7 +56,7 @@ Route::get('/detail/{id}', 'SaleController@show')->name('sale.show');
 Route::post("/addFavorite", "FavoritesController@addFavorite")->name("addFav");
 
 //Search
-Route::get('/search', 'SearchController@VistaSearch')->name('vistaSearch');
+Route::get('/search/{category?}', 'SearchController@VistaSearch')->name('vistaSearch');
 Route::post('/searcha', 'SearchController@SerchAjax')->name('serchajax');
 
 //Contact

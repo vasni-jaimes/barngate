@@ -21,7 +21,7 @@ class SaleController extends Controller
 {
     public function __construct()
     {
-        $this->middleware("auth");
+        $this->middleware("auth", ["except" => ["show"]]);
         $this->middleware("ValidateProfileFinSale", ["except" => ["show"]]);
         $this->middleware("RestrictedAccessExpired", ["only" => ["show"]]);
         $this->middleware("RestringUpdateSale", ["only" => "updatePlan", "PageUpdatePlan"]);
@@ -881,6 +881,11 @@ class SaleController extends Controller
 
     public function getFavoriteProduct($idsale, $userid)
     {
+
+        if (!auth()->check()) {
+            return false;
+        }
+
         if ($userid == auth()->user()->user_id) {
            return true;
         }

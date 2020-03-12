@@ -36,7 +36,8 @@ class MyaccountController extends Controller
                 $animal[$ban]["animal_name"] = $animalrow->animal_name;
                 $animal[$ban]["img"]         = $this->primerImagenProducto( auth()->user()->user_id, $animalrow->animal_id, $animalrow->sale_id );
                 $animal[$ban]["nickname"]    = $animalrow->nickname;
-                $animal[$ban]["disabled"]  = $animalrow->disabled;
+                $animal[$ban]["disabled"]    = $animalrow->disabled;
+                $animal[$ban]["sold"]        = $animalrow->sold;
                 $animal[$ban]["sale_id"]  = $animalrow->sale_id;
                 $ban++;
             }
@@ -70,7 +71,7 @@ class MyaccountController extends Controller
             }
 
             if ($chat_list) {
-                $listado[$conta] = array("nombre_user" => $user_chat->name, "ultimo_mensaje" => $chat->message, "fecha" => $chat->created_at, "token" => $sala->token_chat);
+                $listado[$conta] = array("nombre_user" => $user_chat->name, "ultimo_mensaje" => $chat->message, "fecha" => $chat->created_at, "token" => $sala->token_chat, "username" => $user_chat->username);
                 $conta++;
             }
         }
@@ -82,6 +83,51 @@ class MyaccountController extends Controller
     	return view("site.myaccount", compact("animal", "misFavoritos", "listado"));
     }
 
+
+    public function qualify(Request $request)
+    {
+        if (!$request->has("contador")) {
+            return response()->json(["message" => "error", "input" => "input_contador_require"]);
+        }
+
+        if (!$request->has("username")) {
+            return response()->json(["message" => "error", "input" => "input_username_require"]);
+        }
+
+        if (!is_numeric($request->contador)) {
+            return response()->json(["message" => "error", "input" => "input_contador_numeric"]);
+        }
+
+        if (!$request->has("animal_id")) {
+            return response()->json(["message" => "error", "input" => "input_animal_id_require"]);
+        }
+
+        $user_calificado    = DB::table("users")->where("username", $request->username)->first();
+        $animal             = DB::table("sales")->where("nickname", $request->animal_id)->where("user_id", auth()->user()->user_id)->first();
+
+        //Fecha
+        date_default_timezone_set('America/Mexico_City');
+        $date = date('Y-m-d', time());
+
+        DB::beginTransaction();
+        $save_ratings = DB::table("ratings")->insert([
+                            "user_id" => auth()->user()->user_id,
+                            "rating" => $request->contador,
+                            "calificado_id" => $user_calificado->user_id,
+                            "sale_id" => $animal->sale_id,
+                            "created_at" => $date,
+                            "updated_at" => $date,
+                        ]);
+
+        if ($save_ratings) {
+            DB::commit();
+            DB::table("sales")->where("sale_id", $animal->sale_id)->where("user_id", auth()->user()->user_id)->update(["sold" => 1]);
+            return response()->json(["message" => "ok"]);
+        }
+
+        DB::rollback();
+        return response()->json(["message" => "error"]);
+    }
 
     public function EditProfile(Request $request)
     {

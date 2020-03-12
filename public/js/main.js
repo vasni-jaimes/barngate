@@ -477,10 +477,15 @@ if (phone_number) {
 
 if ($(".step3").is(":visible") || $(".step2").is(":visible") || $(".step3").is(":visible") || $(".step4").is(":visible") || $(".step1").is(":visible")) {
 
-	$('html, body').animate({scrollTop: $(".alert-danger").offset().top - 300},1000);
-
+	if ($(".step4").is(":visible")) {
+		$('html, body').animate({scrollTop: $(".alert-danger").offset().top - 300},1000);
+	}
 
 	//STEP-1
+	let err = document.querySelector(".err");
+	if (err) {
+		$('html, body').animate({scrollTop: $(err).prev().offset().top - 50},1500);
+	}
 	let animals = document.querySelector("select[name='animals']");
 	if (animals.value == 1) {
 
@@ -1636,15 +1641,73 @@ if (accepta) {
 \************************/
 
 let sold = document.querySelectorAll(".sold");
+let animal_id = "";
 if (sold) {
 
 	for (var i = 0; i <= sold.length - 1; i++) {
 		sold[i].addEventListener("click", e => {
 			e.preventDefault();
-			alert("Modal de lisado de chats");
+			$("#calificacion").css("display", "block");
+			animal_id = e.target.getAttribute("data-animal");
+			$(e.target).parent(".btn-list").addClass("bonti")
 		});
 	}
 	
+}
+
+let contador = 0;
+$(".lista-calificacion .fa-star").click(function() {
+	$(".lista-calificacion ul li").removeClass("active");
+	$(".lista-calificacion ul").removeClass("activeParent");
+	$(this).parent().addClass("active");
+	$(this).parent().parent().addClass("activeParent");
+	$(".lista-calificacion ul li i").removeClass("starta");
+
+	$(".lista-calificacion ul.activeParent li").each(function(index) {
+		if ($(this).hasClass("active")) {
+			$(this).children().css("color", "#FFBA5C");
+			$(this).children().addClass("starta");
+			contador = index + 1;
+			return false;
+		}
+		$(this).children().css("color", "#FFBA5C");
+		$(this).children().addClass("starta");
+	});
+
+	$(".lista-calificacion ul.activeParent li i:not(.starta)").css("color", "#fff");
+});
+
+
+let qualify = document.querySelectorAll(".qualify");
+if (qualify) {
+	$(".qualify").click(function() {
+		$(this).prev(".qualify_calc").val(contador);
+		let data = {
+			"contador": contador,
+			"_token": document.querySelector("input[name='_token']").value,
+			"username": document.querySelector("ul.activeParent").getAttribute("data-user"),
+			"animal_id": animal_id,
+		};
+
+		//ajax
+		request
+		   	.post('/addqualifyl')
+		   	.send(data)
+		   	.set('Accept', 'application/json')
+		   	.then(res => {
+		   		console.log(res);
+		   		if (res.body.message == 'ok') {
+		   			//$("a.sold[data-animal='"+animal_id+"']").parent(".btn-list");
+		   			$(".bonti .sold").remove();
+		   			$(".bonti").append('<a href="#" class="mw-150 btn btn-primary botton-public" data-animal="'+animal_id+'">Post again</a>');
+		   			$(".bonti").append('<a href="#" class="mw-150 btn btn-primary botton-remove" data-animal="'+animal_id+'">Remove</a>');
+		   		}
+		   	})
+		   	.catch(err => {
+      			// err.message, err.response
+      			console.log(err.message);
+   			});
+	});
 }
 
 
@@ -1739,6 +1802,7 @@ if (enviar_contacto) {
 		let phone = document.querySelector("input[name='phone']");
 		let questions = document.querySelector("textarea[name='questions']");
 
+
 		$(".error").html("");
 
 		if (first_name.value == '') {
@@ -1772,10 +1836,11 @@ if (enviar_contacto) {
 			return false;
 		}
 
-		if (questions.value == '') {
+		if (questions.value.trim() == '') {
 			$(".error").html("The questions field is required");
 			return false;
 		}
+
 
 		
 		$("#loading").css("display", "block");
@@ -2180,33 +2245,6 @@ if (animal) {
 
 
 
-
-
-/****************************\
-|     top Animal - Home      |
-\****************************/
-
-let home_col_animal = document.querySelectorAll(".content-home .col-animal");
-if (home_col_animal) {
-	for (let i = 0; i <= home_col_animal.length - 1; i++) {
-        home_col_animal[i].addEventListener('click', function(e) {
-        	e.preventDefault();
-        	$(".col-animal").removeClass("active-animal");
-        	$(this).addClass("active-animal");
-
-        	let animal = $(".active-animal").attr('data-animal');
-        	$(".col-2dot4").css("display", "none");
-			$(".col-2dot4[data-animal='"+animal+"']").each(function(index) {
-				if (index <= 14) {
-					$(this).css("display", "block");
-				}
-			});
-        });
-    }
-}
-
-
-
 /**************************\
 |     Remover Animal       |
 \**************************/
@@ -2259,6 +2297,11 @@ if (accpt_remove) {
 		   			$("#error_report").css("display", "block");
 		   		}
 		   		else if (res.body.message == 'not_parameters') {
+		   			$("#error_report .container-form h3").html("An error occurred while trying to delete the post");
+		   			$("#loading").css("display", "none");
+		   			$("#error_report").css("display", "block");
+		   		}
+		   		else {
 		   			$("#error_report .container-form h3").html("An error occurred while trying to delete the post");
 		   			$("#loading").css("display", "none");
 		   			$("#error_report").css("display", "block");

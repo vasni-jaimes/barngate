@@ -19,6 +19,15 @@ class RestrictedAccessExpired
         //dd($request->id);
 
         $animalprincipal = DB::table('sales')->where('nickname', $request->id)->first();
+
+        if (!auth()->check()) {
+            if ($animalprincipal->disabled == 0 && $animalprincipal->sold == 0) {
+                return $next($request);
+            }
+
+            return redirect()->route("home");
+        }
+
         if ( $animalprincipal->disabled == 0 && $animalprincipal->user_id != auth()->user()->user_id) {
             return $next($request);
         }
