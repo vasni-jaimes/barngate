@@ -1689,6 +1689,10 @@ if (qualify) {
 			"animal_id": animal_id,
 		};
 
+		$("#calificacion").css("display", "none");
+		$("#loading").css("display", "block");
+
+
 		//ajax
 		request
 		   	.post('/addqualifyl')
@@ -1701,6 +1705,9 @@ if (qualify) {
 		   			$(".bonti .sold").remove();
 		   			$(".bonti").append('<a href="#" class="mw-150 btn btn-primary botton-public" data-animal="'+animal_id+'">Post again</a>');
 		   			$(".bonti").append('<a href="#" class="mw-150 btn btn-primary botton-remove" data-animal="'+animal_id+'">Remove</a>');
+		   			$("#error_report h3").html("Was rated correctly");
+		   			$("#loading").css("display", "none");
+		   			$("#error_report").css("display", "block");
 		   		}
 		   	})
 		   	.catch(err => {
