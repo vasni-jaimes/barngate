@@ -69,7 +69,7 @@
 
 	<div class="pt-30 pb-30 bg-blue-light">
 
-		<h3 class="text-blue text-center fw-700">Top animals</h3>
+		<h3 class="text-blue text-center fw-700 pb-20">Top animals</h3>
 
 		<div class="container margen">
 
