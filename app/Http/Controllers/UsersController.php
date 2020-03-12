@@ -110,7 +110,7 @@ class UsersController extends Controller
                 Auth::login($users);
 
                 try {
-               	    Mail::to("853e9296af-b1cadc@inbox.mailtrap.io")->send(new MessageRegister($request));
+               	    //Mail::to("853e9296af-b1cadc@inbox.mailtrap.io")->send(new MessageRegister($request));
                 } catch(Exception $e) {
                      \Log::error("El error de Email de Registro ".$e->getMessage());
                 }
