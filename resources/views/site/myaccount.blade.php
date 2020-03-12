@@ -113,7 +113,12 @@
 										<div class="btn-list">
 											<a href="{{ route("edit_animal") }}" class="mw-150 btn btn-primary">Edit</a>
 											@if ($animal[$i]["disabled"] == 0)
-												<a href="#" class="mw-150 btn btn-primary sold">Sold</a>
+												@if ($animal[$i]["sold"] == 1)
+													<a href="#" class="mw-150 btn btn-primary botton-public" data-animal="{{ $animal[$i]["nickname"] }}">Post again</a>
+													<a href="#" class="mw-150 btn btn-primary botton-remove" data-animal="{{ $animal[$i]["sale_id"] }}">Remove</a>
+												@else
+													<a href="#" class="mw-150 btn btn-primary sold" data-animal="{{ $animal[$i]["nickname"] }}">Sold</a>
+												@endif
 											@else
 												<a href="{{ route("sale.updateplan", $animal[$i]["nickname"]) }}" class="mw-150 btn btn-primary botton-renovate">Renovate</a>
 												<a href="#" class="mw-150 btn btn-primary botton-remove" data-animal="{{ $animal[$i]["sale_id"] }}">Remove</a>
@@ -296,6 +301,50 @@
 		</div> <!-- /wrapper-form -->
 	</div> <!-- /shadowbox -->
 
+
+	<div class="shadowbox" id="calificacion">
+		<div class="close"></div> <!-- /close -->
+		<div class="wrapper-form">
+			<div class="container-form">
+				<h3>who did you come to?</h3>
+				<div>
+					@if ($listado != null)
+						<ul>
+							@for ($i = 0; $i <= count($listado) - 1; $i++)
+
+								<li class="lista-calificacion">
+									<div class="flex flex-inbox items-center between">
+										<div class="flex">
+											<img class="icon" src="images/buy-horse-online-barngate-message-icon.png">
+											<a>
+												<div class="txt-inbox">
+													<p> {{ $listado[$i]["nombre_user"] }} </p>
+												</div> <!-- /txt-list -->
+											</a>
+										</div>
+										<div class="txt-inbox">
+											<ul class="rating" data-user="{{ $listado[$i]["username"] }}">
+												<li><i class="fa fa-star"></i></li>
+												<li><i class="fa fa-star"></i></li>
+												<li><i class="fa fa-star"></i></li>
+												<li><i class="fa fa-star"></i></li>
+												<li><i class="fa fa-star"></i></li>
+											</ul>
+											<input type="hidden" class="qualify_calc">
+											<button class="qualify" style="cursor: pointer;"> Qualify </button>
+										</div>
+									</div> <!-- /flex -->
+								</li>
+
+							@endfor
+						</ul>
+					@else
+						<h3> No Chats </h3>
+					@endif
+				</div>
+			</div>
+		</div> <!-- /wrapper-form -->
+	</div> <!-- /shadowbox -->
 
 
 	<div class="shadowbox" id="error_report">

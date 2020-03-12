@@ -21,9 +21,10 @@ class SearchController extends Controller
     }
 
 
-    public function VistaSearch()
+    public function VistaSearch($category = null)
     {
 
+        $category   = ( $category != null ) ? base64_decode($category) : null;
     	$animal     = array();
     	$animalsrow = Sale::join('animals', 'sales.animal_id', '=', 'animals.animal_id')
     						->join('breeds', 'sales.breed_id', '=', 'breeds.breed_id')
@@ -39,10 +40,10 @@ class SearchController extends Controller
         if ($animalsrow->count() > 0) {
             $ban = 0;
             foreach ($animalsrow as $animalrow) {
-                $animal[$ban]["animal_name"] = $animalrow->animal_name;
-                $animal[$ban]["img"]         = $this->primerImagenProducto( $animalrow->user_id, $animalrow->animal_id, $animalrow->sale_id );
-                $animal[$ban]["nickname"]    = $animalrow->nickname;
-                $animal[$ban]["users_name"]    = base64_encode($animalrow->users_name);
+                $animal[$ban]["animal_name"]    = $animalrow->animal_name;
+                $animal[$ban]["img"]            = $this->primerImagenProducto( $animalrow->user_id, $animalrow->animal_id, $animalrow->sale_id );
+                $animal[$ban]["nickname"]       = $animalrow->nickname;
+                $animal[$ban]["users_name"]     = base64_encode($animalrow->users_name);
                 $animal[$ban]["breeds_name"]    = $animalrow->breeds_name;
                 $animal[$ban]["gender_name"]    = $animalrow->gender_name;
                 $animal[$ban]["price"]    		= $animalrow->price;
@@ -67,23 +68,20 @@ class SearchController extends Controller
                 if ($myfavorito != null) {
                     $animal[$ban]["myfavorito"]   = true;
                 }
-
                 $ban++;
             }
         }
 
-
-
-        $animals = DB::table("animals")->get();
-        $breeds = DB::table("breeds")->get();
-        $colors = DB::table("colors")->get();
-        $genders = DB::table("genders")->get();
-        $disciplines = DB::table("disciplines")->get();
-        $estados    = DB::table("cities")->groupBy("estado")->get();
+        $animals        = DB::table("animals")->get();
+        $breeds         = DB::table("breeds")->get();
+        $colors         = DB::table("colors")->get();
+        $genders        = DB::table("genders")->get();
+        $disciplines    = DB::table("disciplines")->get();
+        $estados        = DB::table("cities")->groupBy("estado")->get();
         $misFavoritos   = $this->getFavorites(auth()->user()->user_id);
 
 
-    	return view('site.vista', compact("animal", "animals", "breeds", "colors", "genders", "disciplines", "estados", "misFavoritos"));
+    	return view('site.vista', compact("animal", "animals", "breeds", "colors", "genders", "disciplines", "estados", "misFavoritos", "category"));
     }
 
 

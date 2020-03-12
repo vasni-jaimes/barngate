@@ -88,42 +88,42 @@
 
 					<div class="col-md-2 col-animal" data-animal="1">
 						<div>
-							<img src="images/animals/horse-classifieds-barngate-icons-home-vaca.png" />
+							<img src="/images/animals/horse-classifieds-barngate-icons-home-vaca.png" />
 							<p>Cattle for Sale</p>
 						</div>
 					</div> <!-- /col-md-2 -->
 
 					<div class="col-md-2 col-animal" data-animal="2">
 						<div>
-							<img src="images/animals/horse-classifieds-barngate-icons-home-caballo.png" />
+							<img src="/images/animals/horse-classifieds-barngate-icons-home-caballo.png" />
 							<p>Horse for Sale</p>
 						</div>
 					</div> <!-- /col-md-2 -->
 
 					<div class="col-md-2 col-animal" data-animal="3">
 						<div>
-							<img src="images/animals/horse-classifieds-barngate-icons-home-oveja.png" />
+							<img src="/images/animals/horse-classifieds-barngate-icons-home-oveja.png" />
 							<p>Sheep for Sale</p>
 						</div>
 					</div> <!-- /col-md-2 -->
 
 					<div class="col-md-2 col-animal" data-animal="4">
 						<div>
-							<img src="images/animals/horse-classifieds-barngate-icons-home-becerro.png" />
+							<img src="/images/animals/horse-classifieds-barngate-icons-home-becerro.png" />
 							<p>Goat for Sale</p>
 						</div>
 					</div> <!-- /col-md-2 -->
 
 					<div class="col-md-2 col-animal" data-animal="5">
 						<div>
-							<img src="images/animals/horse-classifieds-barngate-icons-home-cerdo.png" />
+							<img src="/images/animals/horse-classifieds-barngate-icons-home-cerdo.png" />
 							<p>Pig for Sale</p>
 						</div>
 					</div> <!-- /col-md-2 -->
 
 					<div class="col-md-2 col-animal" data-animal="6">
 						<div>
-							<img src="images/animals/horse-classifieds-barngate-icons-home-perro.png" />
+							<img src="/images/animals/horse-classifieds-barngate-icons-home-perro.png" />
 							<p>Pet Section</p>
 						</div>
 					</div> <!-- /col-md-2 -->
@@ -144,6 +144,7 @@
 						@if($cont == 0)
 							<div class="flex-tabs between">
 						@endif
+
 								<div class="back-animal" data-animal="{{ $animal[$i]["animal_id"] }}" 
 														data-breed="{{ $animal[$i]["breed_id"] }}"
 														data-color="{{ $animal[$i]["color_id"] }}"
@@ -153,7 +154,16 @@
 														data-description="{{ $animal[$i]["description"] }}"
 														data-address="{{ $animal[$i]["adress"] }}"
 														data-state="{{ $animal[$i]["state"] }}"
-														data-price="{{ floatval($animal[$i]["price_filtro"]) }}" style="display: block;">
+														data-price="{{ floatval($animal[$i]["price_filtro"]) }}"
+														@if ($category != null)  
+															@if ($category != $animal[$i]["animal_id"])
+																style="display: none"
+															@else
+																style="display: block"
+															@endif
+														@else
+															style="display: block"
+														@endif>
 
 									<img src="{{ "/storage/images/".$animal[$i]["img"] }}">
 									<div class="mt-20 text-center">
@@ -200,7 +210,17 @@
 																						data-description="{{ $animal[$i]["description"] }}"
 																						data-address="{{ $animal[$i]["adress"] }}"
 																						data-state="{{ $animal[$i]["state"] }}"
-																						data-price="{{ floatval($animal[$i]["price_filtro"]) }}">
+																						data-price="{{ floatval($animal[$i]["price_filtro"]) }}"
+																						@if ($category != null)  
+																							@if ($category != $animal[$i]["animal_id"])
+																								style="display: none"
+																							@else
+																								style="display: block"
+																							@endif
+																						@else
+																							style="display: block"
+																						@endif>
+																						
 							<div class="flex between items-center">
 								<div class="flex items-center">
 									<img src="{{ "/storage/images/".$animal[$i]["img"] }}">

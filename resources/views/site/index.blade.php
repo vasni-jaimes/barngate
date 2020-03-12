@@ -22,45 +22,45 @@
 		<div class="row row-eq-height content-home">
 
 			<div class="col-md-2 col-animal" data-animal="1"> <!-- active-animal -->
-				<a href="#">
+				<a href="{{ route("vistaSearch", base64_encode(1)) }}">
 					<img src="images/animals/horse-classifieds-barngate-icons-home-vaca.png" />
 					<p>Cattle for Sale</p>
 				</a>
 			</div> <!-- /col-md-2 -->
 
 			<div class="col-md-2 col-animal" data-animal="2">
-				<div>
+				<a href="{{ route("vistaSearch", base64_encode(2)) }}">
 					<img src="images/animals/horse-classifieds-barngate-icons-home-caballo.png" />
 					<p>Horse for Sale</p>
-				</div>
+				</a>
 			</div> <!-- /col-md-2 -->
 
 			<div class="col-md-2 col-animal" data-animal="3">
-				<div>
+				<a href="{{ route("vistaSearch", base64_encode(3)) }}">
 					<img src="images/animals/horse-classifieds-barngate-icons-home-oveja.png" />
 					<p>Sheep for Sale</p>
-				</div>
+				</a>
 			</div> <!-- /col-md-2 -->
 
 			<div class="col-md-2 col-animal" data-animal="4">
-				<div>
+				<a href="{{ route("vistaSearch", base64_encode(4)) }}">
 					<img src="images/animals/horse-classifieds-barngate-icons-home-becerro.png" />
 					<p>Goat for Sale</p>
-				</div>
+				</a>
 			</div> <!-- /col-md-2 -->
 
 			<div class="col-md-2 col-animal" data-animal="5">
-				<div>
+				<a href="{{ route("vistaSearch", base64_encode(5)) }}">
 					<img src="images/animals/horse-classifieds-barngate-icons-home-cerdo.png" />
 					<p>Pig for Sale</p>
-				</div>
+				</a>
 			</div> <!-- /col-md-2 -->
 
 			<div class="col-md-2 col-animal" data-animal="6">
-				<div>
+				<a href="{{ route("vistaSearch", base64_encode(6)) }}">
 					<img src="images/animals/horse-classifieds-barngate-icons-home-perro.png" />
 					<p>Pet Section</p>
-				</div>
+				</a>
 			</div> <!-- /col-md-2 -->
 
 		</div> <!-- /row -->
@@ -77,11 +77,7 @@
 
 
 				@for($i = 0; $i <= count($topAnimals) - 1; $i++)
-					@if ($i > 14)
-						@php $display = "style=display:none" @endphp
-					@endif
-
-					<div class="col-2dot4" {{ @$display }} data-animal="{{ $topAnimals[$i]["animal_id"] }}">
+					<div class="col-2dot4" data-animal="{{ $topAnimals[$i]["animal_id"] }}">
 						<div class="img-top-animal">
 							<div style="background-image: url('{{ "/storage/images/".$topAnimals[$i]["img"] }}')"></div>
 							<p class="pt-10"> {{ $topAnimals[$i]["animal_name"] }} </p>
