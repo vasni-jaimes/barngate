@@ -174,9 +174,13 @@ nav ul li{
 	background: #29385A;
 }
 
+.menu_home li a img {
+	display: block;
+}
+
 .menu_home li a img,
 .menu_registro li a img {
-	width: 20px; 
+	width: 21px; 
 	height: auto;
 	margin: 0 5px;
 }
@@ -1121,6 +1125,11 @@ textarea.form-input {
 	list-style: none;
 }
 
+.box-tab ul.check-option {
+	max-width: 395px; 
+	width: 100%;
+}
+
 .box-tab ul li {
 	display: flex;
 	color: #26375D;
@@ -1397,10 +1406,10 @@ textarea.form-input {
 	line-height: 130%;
 }
 
-.wrapper-stars {
+/*.wrapper-stars {
 	max-width: 254px; 
 	width: 100%;
-}
+}*/
 
 .wrapper-stars > div {
 	padding: 10px 0; 
