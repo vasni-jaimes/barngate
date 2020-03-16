@@ -36,16 +36,16 @@
 				<p class="price text-blue">Price: <span>${{ $animal->price }}</span></p>
 				<div class="flex align-items">
 					@if (auth()->check())
-						@if (auth()->user()->name == null || auth()->user()->phone == null || auth()->user()->address == null || 
-								auth()->user()->cp_zip == null || auth()->user()->country == null) 
-							<h3> If you want to send a message or add to favorites first complete your profile </h3>
-						@else
-							@if (!$favorite)
-								<button class="btn btn-border button_favorite">Add to Favorites</button>
-								<input type="hidden" id="nick" value="{{ $animal->nickname }}">
-								@csrf
-							@endif
-							@if ($animal->user_id != auth()->user()->user_id)
+						@if ($animal->user_id != auth()->user()->user_id)
+							@if (auth()->user()->name == null || auth()->user()->phone == null || auth()->user()->address == null || 
+									auth()->user()->cp_zip == null || auth()->user()->state == null) 
+								<h3> If you want to send a message or add to favorites first complete your profile </h3>
+							@else
+								@if (!$favorite)
+									<button class="btn btn-border button_favorite">Add to Favorites</button>
+									<input type="hidden" id="nick" value="{{ $animal->nickname }}">
+									@csrf
+								@endif
 								<a href="{{ route("chat.index", base64_encode($animal->user_name)) }}"> <button class="text-white btn btn-red">Message</button> </a>
 							@endif
 						@endif

@@ -44,6 +44,7 @@ Route::post('/myaccount/editProfile', 'MyaccountController@EditProfile')->name('
 Route::post('/saveSettings', 'MyaccountController@SaveSettings')->name('SaveSettings');
 Route::post('saveImgMyaccount', 'MyaccountController@SaveImgMyaccount')->name('saveimgmyaccount');
 Route::post('/myaccount/removeAnimal', 'MyaccountController@removeAnimal')->name('RemoveAnimal');
+Route::post('/postagain', 'MyaccountController@PostAgain')->name("postagain");
 
 //Qualify
 Route::post('/addqualifyl', 'MyaccountController@qualify')->name('qualify');

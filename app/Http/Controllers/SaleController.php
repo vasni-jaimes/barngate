@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 //Moderl
 use App\User;
@@ -21,8 +22,8 @@ class SaleController extends Controller
 {
     public function __construct()
     {
-        $this->middleware("auth", ["except" => ["show"]]);
-        $this->middleware("ValidateProfileFinSale", ["except" => ["show"]]);
+        $this->middleware("auth", ["except" => ["show", "SearchAnimal"]]);
+        $this->middleware("ValidateProfileFinSale", ["except" => ["show", "SearchAnimal"]]);
         $this->middleware("RestrictedAccessExpired", ["only" => ["show"]]);
         $this->middleware("RestringUpdateSale", ["only" => "updatePlan", "PageUpdatePlan"]);
     }
@@ -693,9 +694,37 @@ class SaleController extends Controller
             $fechafinal = date ( 'Y-m-j' , $fechafinal );
         }
 
+
         //OBTENER EL REGISTRO DEL ANIMAL
         $saleGet    = Sale::where("nickname", $id)->first();
         $sale       = Sale::find($saleGet->sale_id);
+
+
+
+        //SABER QUE PLAN TIENE PARA RECORTAR LA CANTIDAD DE IMAGENES
+        $directory = 'images/'.auth()->user()->user_id.'/'.$sale->animal_id.'/'.$sale->sale_id.'/';
+        $files = Storage::allFiles($directory);
+
+
+        if (request("planSelect") == 1) {
+            if (count($files) > 1) {
+                $counta = count($files) - 2;
+                for ($i=0; $i <= $counta; $i++) { 
+                    Storage::delete($files[$i]);
+                }
+            }
+        }
+        else if (request("planSelect") == 2) {
+            if (count($files) > 5) {
+                $counta = count($files) - 6;
+                for ($i=0; $i <= $counta; $i++) { 
+                    Storage::delete($files[$i]);
+                }
+            }
+        }
+
+
+
 
         $precio = 0;
         if ($request->has("hompage") || $request->has("hompage2")) {

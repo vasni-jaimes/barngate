@@ -17,7 +17,7 @@ class SearchController extends Controller
 
     public function __construct()
     {
-        $this->middleware("auth");
+        //$this->middleware("auth");
     }
 
 
@@ -60,13 +60,16 @@ class SearchController extends Controller
                 $animal[$ban]["adress"]         = $animalrow->ciudad.", ".$animalrow->estado;
                 $animal[$ban]["myfavorito"]     = false;
 
-                $myfavorito = DB::table("favorites")
-                                    ->where("user_id", auth()->user()->user_id)
-                                    ->where("sale_id", $animalrow->sale_id)
-                                    ->first();
 
-                if ($myfavorito != null) {
-                    $animal[$ban]["myfavorito"]   = true;
+                if (auth()->check()) {
+                    $myfavorito = DB::table("favorites")
+                                        ->where("user_id", auth()->user()->user_id)
+                                        ->where("sale_id", $animalrow->sale_id)
+                                        ->first();
+
+                    if ($myfavorito != null) {
+                        $animal[$ban]["myfavorito"]   = true;
+                    }
                 }
                 $ban++;
             }
@@ -78,7 +81,12 @@ class SearchController extends Controller
         $genders        = DB::table("genders")->get();
         $disciplines    = DB::table("disciplines")->get();
         $estados        = DB::table("cities")->groupBy("estado")->get();
-        $misFavoritos   = $this->getFavorites(auth()->user()->user_id);
+        $misFavoritos   = false;
+
+        if (auth()->check()) {
+            $misFavoritos   = $this->getFavorites(auth()->user()->user_id);
+        }
+        
 
 
     	return view('site.vista', compact("animal", "animals", "breeds", "colors", "genders", "disciplines", "estados", "misFavoritos", "category"));

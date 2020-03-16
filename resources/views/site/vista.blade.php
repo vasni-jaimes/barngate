@@ -133,7 +133,11 @@
 				<div class="btn-vista mt-50 mb-20 flex">
 					<div class="vista1 active"></div>
 					<div class="vista2"></div>
-					<div><button class="btn btn-border fav">Favorites</button></div>
+					<div>
+						@if (auth()->check())
+							<button class="btn btn-border fav">Favorites</button>
+						@endif
+					</div>
 				</div>
 				
 				<div class="row-vista">
@@ -173,16 +177,18 @@
 										</a>
 										<p class="fz-18">{{ $animal[$i]["description"] }}</p>
 										<div class="mt-20 mb-20 text-center">
-											@if ($animal[$i]["user_id"] != auth()->user()->user_id)
-												@if (auth()->user()->name == null || auth()->user()->phone == null || auth()->user()->address == null || 
-														auth()->user()->cp_zip == null || auth()->user()->country == null) 
-													<h3> If you want to send a message or add to favorites first complete your profile </h3>
-												@else
-													@if (!$animal[$i]["myfavorito"])
-														<button class="btn btn-border add-favorite">Add to Favorites</button>
+											@if (auth()->check())
+												@if ($animal[$i]["user_id"] != auth()->user()->user_id)
+													@if (auth()->user()->name == null || auth()->user()->phone == null || auth()->user()->address == null || 
+															auth()->user()->cp_zip == null || auth()->user()->country == null) 
+														<h3> If you want to send a message or add to favorites first complete your profile </h3>
+													@else
+														@if (!$animal[$i]["myfavorito"])
+															<button class="btn btn-border add-favorite">Add to Favorites</button>
+														@endif
+														<input type="hidden" class="nick" value="{{ $animal[$i]["nickname"] }}">
+														<a href="{{ route("chat.index", $animal[$i]["users_name"]) }}"> <button class="text-white btn btn-red">Message</button> </a>
 													@endif
-													<input type="hidden" class="nick" value="{{ $animal[$i]["nickname"] }}">
-													<a href="{{ route("chat.index", $animal[$i]["users_name"]) }}"> <button class="text-white btn btn-red">Message</button> </a>
 												@endif
 											@endif
 										</div> <!-- /flex -->
@@ -232,16 +238,18 @@
 									</div> <!-- /item-d -->
 								</div> <!-- /flex -->
 								<div class="flex align-items">
-									@if ($animal[$i]["user_id"] != auth()->user()->user_id)
-										@if (auth()->user()->name == null || auth()->user()->phone == null || auth()->user()->address == null || 
-												auth()->user()->cp_zip == null || auth()->user()->country == null) 
-											<h3> If you want to send a message or add to favorites first complete your profile </h3>
-										@else
-											@if (!$animal[$i]["myfavorito"])
-												<button class="btn btn-border">Add to Favorites</button>
+									@if (auth()->check())
+										@if ($animal[$i]["user_id"] != auth()->user()->user_id)
+											@if (auth()->user()->name == null || auth()->user()->phone == null || auth()->user()->address == null || 
+													auth()->user()->cp_zip == null || auth()->user()->country == null) 
+												<h3> If you want to send a message or add to favorites first complete your profile </h3>
+											@else
+												@if (!$animal[$i]["myfavorito"])
+													<button class="btn btn-border">Add to Favorites</button>
+												@endif
+												<input type="hidden" class="nick" value="{{ $animal[$i]["nickname"] }}">
+												<a href="{{ route("chat.index", $animal[$i]["users_name"]) }}"> <button class="text-white btn btn-red">Message</button> </a>
 											@endif
-											<input type="hidden" class="nick" value="{{ $animal[$i]["nickname"] }}">
-											<a href="{{ route("chat.index", $animal[$i]["users_name"]) }}"> <button class="text-white btn btn-red">Message</button> </a>
 										@endif
 									@endif
 								</div> <!-- /flex -->
