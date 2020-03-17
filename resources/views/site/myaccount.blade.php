@@ -374,4 +374,18 @@
 	</div> <!-- /shadowbox -->
 
 
+	@if (session()->has("session_succes-qualify"))
+
+		<div class="shadowbox" id="session_succes-qualify" style="display: block;">
+			<div class="close"></div> <!-- /close -->
+			<div class="wrapper-form">
+				<div class="container-form">
+					<h3> {{ session("session_succes-qualify") }} </h3>
+				</div>
+			</div> <!-- /wrapper-form -->
+		</div> <!-- /shadowbox -->
+
+	@endif
+
+
 @endsection

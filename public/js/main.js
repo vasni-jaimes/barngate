@@ -1640,6 +1640,27 @@ if (accepta) {
 |      CALIFICACION      |
 \************************/
 
+
+$(".fa-calificacion-send .fa-star").click(function() {
+	$(".fa-calificacion-send ul li").removeClass("active");
+	$(".fa-calificacion-send ul li i").removeClass("starta");
+	$(this).parent().addClass("active");
+
+	$(".fa-calificacion-send ul li").each(function(index) {
+		if ($(this).hasClass("active")) {
+			$(this).children().css("color", "#FFBA5C");
+			$(this).children().addClass("starta");
+			contador = index + 1;
+			return false;
+		}
+		$(this).children().css("color", "#FFBA5C");
+		$(this).children().addClass("starta");
+	});
+
+	$("input[name='contador']").val(contador);
+	$(".fa-calificacion-send ul li i:not(.starta)").css("color", "#fff");
+});
+
 let sold = document.querySelectorAll(".sold");
 let animal_id = "";
 if (sold) {
@@ -1676,6 +1697,23 @@ $(".lista-calificacion .fa-star").click(function() {
 
 	$(".lista-calificacion ul.activeParent li i:not(.starta)").css("color", "#fff");
 });
+
+
+
+let qualify_v = document.querySelector(".qualify_v");
+if (qualify_v) {
+	qualify_v.addEventListener("click", e => {
+		e.preventDefault();
+		let mycontador = document.querySelector("input[name='contador']").value;
+		if (mycontador == '' || mycontador == 0 || isNaN(mycontador) || mycontador > 5 || mycontador < 0) {
+			$("#error_report").css("display", "block");
+			return false;
+		}
+
+		$("#loading").css("display", "block");
+		$("#form_qualify").submit();
+	});
+}
 
 
 let qualify = document.querySelectorAll(".qualify");

@@ -38,6 +38,7 @@ Route::post('/animal_config', 'SaleController@SearchAnimal')->name('search.anima
 Route::get('/plan/{id}', 'SaleController@updatePlan')->name('sale.updateplan');
 Route::post('/update/plan/{id}', 'SaleController@PageUpdatePlan')->name('sale.pageupdateplan');
 
+
 //Myaccount
 Route::get('/myaccount', 'MyaccountController@index')->name('myaccount');
 Route::post('/myaccount/editProfile', 'MyaccountController@EditProfile')->name('editprofile');
@@ -45,9 +46,11 @@ Route::post('/saveSettings', 'MyaccountController@SaveSettings')->name('SaveSett
 Route::post('saveImgMyaccount', 'MyaccountController@SaveImgMyaccount')->name('saveimgmyaccount');
 Route::post('/myaccount/removeAnimal', 'MyaccountController@removeAnimal')->name('RemoveAnimal');
 Route::post('/postagain', 'MyaccountController@PostAgain')->name("postagain");
+Route::get('/score/{sale_id}/{calificado_id}', 'MyaccountController@scoreQualify')->name('sale.score');
 
 //Qualify
 Route::post('/addqualifyl', 'MyaccountController@qualify')->name('qualify');
+Route::post('/addqualifyform', 'MyaccountController@qualifyForm')->name('qualifyForm');
 
 
 //Detalle

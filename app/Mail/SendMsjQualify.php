@@ -14,16 +14,18 @@ class SendMsjQualify extends Mailable
     public $msj;
     public $subject = "Rate your seller";
     public $username;
+    public $sale_id;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($msj, $username)
+    public function __construct($msj, $username, $sale_id)
     {
          $this->msj      = $msj;
          $this->username = $username;
+         $this->sale_id  = $sale_id;
     }
 
     /**

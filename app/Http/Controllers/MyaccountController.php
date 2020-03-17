@@ -22,6 +22,7 @@ class MyaccountController extends Controller
 	public function __construct()
 	{
 		$this->middleware("auth");
+        $this->middleware("ScoreReviewIds", ["only" => "scoreQualify"]);
 	}
     
     public function index()
@@ -136,7 +137,7 @@ class MyaccountController extends Controller
                 DB::commit();
                 DB::table("sales")->where("sale_id", $animal->sale_id)->where("user_id", auth()->user()->user_id)->update(["sold" => 1]);
                 $usuario_calificado = DB::table("users")->where("user_id", $user_calificado->user_id)->first();
-                Mail::to("853e9296af-b1cadc@inbox.mailtrap.io")->send(new SendMsjQualify($usuario_calificado, auth()->user()->username));
+                Mail::to("853e9296af-b1cadc@inbox.mailtrap.io")->send(new SendMsjQualify($usuario_calificado, auth()->user()->username, $animal->nickname));
 
                 return response()->json(["message" => "ok"]);
             }
@@ -147,6 +148,67 @@ class MyaccountController extends Controller
 
         DB::rollback();
         return response()->json(["message" => "error"]);
+    }
+
+
+    public function scoreQualify($sale_id, $calificado_id)
+    {
+        $username   = base64_decode($calificado_id);
+        $sale_id    = $sale_id;
+        return view("site.qualify", compact("username", "sale_id"));
+    }
+
+
+    public function qualifyForm(Request $request)
+    {
+        if (!$request->has("contador")) {
+            return redirect()->back()->with("session_error", "A problem occurred try again later");
+        }
+
+        if (!$request->has("username")) {
+           return redirect()->back()->with("session_error", "A problem occurred try again later");
+        }
+
+        if (!is_numeric($request->contador)) {
+            return redirect()->back()->with("session_error", "A problem occurred try again later");
+        }
+
+        if (!$request->has("animal_id")) {
+            return redirect()->back()->with("session_error", "A problem occurred try again later");
+        }
+
+        $user_calificado    = DB::table("users")->where("username", $request->username)->first();
+        $animal             = DB::table("sales")->where("nickname", $request->animal_id)->first();
+
+        //Fecha
+        date_default_timezone_set('America/Mexico_City');
+        $date = date('Y-m-d', time());
+
+        if ($animal == null) {
+            return redirect()->back()->with("session_error", "A problem occurred try again later");
+        }
+
+        if ($user_calificado == null) {
+            return redirect()->back()->with("session_error", "A problem occurred try again later");
+        }
+
+
+        DB::beginTransaction();
+        $rating = DB::table("ratings")
+                        ->where("user_id", auth()->user()->user_id)
+                        ->where("calificado_id", $user_calificado->user_id)
+                        ->where("sale_id", $animal->sale_id)
+                        ->update(["rating" => $request->contador, "created_at" => $date, "updated_at" => $date]);
+
+        if ($rating) {
+            DB::commit();
+            return redirect()->route("myaccount")->with("session_succes-qualify", "Was rated correctly");
+        }
+
+
+        DB::rollback();
+        return redirect()->back()->with("session_error", "A problem occurred try again later");
+        
     }
 
     public function EditProfile(Request $request)

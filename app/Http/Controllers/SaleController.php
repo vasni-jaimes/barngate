@@ -58,6 +58,8 @@ class SaleController extends Controller
         return view('site.sale', compact("animals", "breeds", "colors", "genders", "disciplines", "estados", "class", "categories", "type", "size"));
     }
 
+
+
     /**
      * Store a newly created resource in storage.
      *
