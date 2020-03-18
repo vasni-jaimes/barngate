@@ -23,7 +23,8 @@ class HomeController extends Controller
     public function index()
     {
         $topAnimals = $this->TopAnimals();
-        return view('site.index', ['blog' => $this->blog(), 'topAnimals' => $topAnimals]);
+        $notificaciones = $this->getNotify();
+        return view('site.index', ['blog' => $this->blog(), 'topAnimals' => $topAnimals, 'notificaciones' => $notificaciones]);
     }
 
     public function blog()
