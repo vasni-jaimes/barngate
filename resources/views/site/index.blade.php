@@ -94,7 +94,7 @@
 
 	<div class="container mt-40 mb-40">
 
-		<h3 class="text-blue text-center pb-20 fw-700">Our latest Blog Posts</h3>
+		<h3 class="text-blue text-center pb-20 fw-700">Learn all about buy and sell horses and cattle in our Blog</h3>
 
 		<div class="row row-eq-height">
 

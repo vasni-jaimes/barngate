@@ -27,7 +27,7 @@
 					
 					<p class="fw-900 fz-22">Breed</p>
 					
-					<select size="5" name="breeds"> 
+					<select class="form-input" name="breeds"> 
 						@foreach($breeds as $breed)
 							<option value="{{ $breed->breed_id }}" {{ selectOld("breeds", $breed->breed_id) }}>{{ $breed->name }}</option>
 						@endforeach
@@ -35,7 +35,7 @@
 					
 					<p class="fw-900 fz-22">Color</p>
 					
-					<select size="5" name="colors"> 
+					<select class="form-input" name="colors"> 
 						@foreach($colors as $color)
 							<option value="{{ $color->color_id }}" {{ selectOld("colors", $color->color_id) }}>{{ $color->name }}</option>
 						@endforeach
@@ -43,7 +43,7 @@
 					
 					<p class="fw-900 fz-22">Gender</p>
 					
-					<select size="5" name="gender"> 
+					<select class="form-input" name="gender"> 
 						@foreach($genders as $gender)
 							<option value="{{ $gender->gender_id }}" {{ selectOld("genders", $gender->gender_id) }}>{{ $gender->name }}</option>
 						@endforeach
@@ -52,7 +52,7 @@
 					
 					<p class="fw-900 fz-22">Age</p>
 
-					<select size="5" name="age"> 
+					<select class="form-input" name="age"> 
 						@for ($i = 1; $i <= 15; $i++)
 							<option value="{{ $i }}" {{ selectOld("ages", $i) }} >{{ $i }}</option>
 						@endfor
@@ -61,7 +61,7 @@
 
 					<p class="fw-900 fz-22">Discipline</p>
 
-					<select size="5" name="discipline"> 
+					<select class="form-input" name="discipline"> 
 						@foreach($disciplines as $discipline)
 							<option value="{{ $discipline->discipline_id }}" {{ selectOld("discipline", $discipline->discipline_id) }}>{{ $discipline->name }}</option>
 						@endforeach
@@ -84,7 +84,7 @@
 			
 			<div class="col-md-9">
 			
-				<div class="row row-eq-height mw-700 auto content-serch">
+				<div class="row row-eq-height content-serch">
 
 					<div class="col-md-2 col-animal" data-animal="1">
 						<div>
@@ -165,7 +165,7 @@
 															style="display: block"
 														@endif>
 
-									<img src="{{ "/storage/images/".$animal[$i]["img"] }}">
+									<div class="img-lista" style="background-image: url('{{ "/storage/images/".$animal[$i]["img"] }}')"></div>
 									<div class="mt-20 text-center">
 										<a href="{{ route("sale.show", $animal[$i]["nickname"]) }}">
 											<h3 class="fz-24 fw-700">{{ $animal[$i]["breeds_name"] }}  {{ $animal[$i]["animal_name"] }}

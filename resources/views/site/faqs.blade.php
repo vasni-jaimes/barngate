@@ -5,13 +5,61 @@
 
 	<?php /*?><div class="banner banner-about"></div> <!-- /banner-about --><?php */?>
 
-	<div class="bg-blue text-center pt-15 pb-15">
-		<h1 class="text-white fz-25">FAQ's</h1>
-	</div> <!-- /bg-blue -->
-
 	<div class="container pt-40 pb-40 text-blue">
 		
+		<div class="row row-eq-height content-serch">
+
+			<div class="col-md-2 col-animal" data-animal="1">
+				<div>
+					<img src="/images/animals/horse-classifieds-barngate-icons-home-vaca.png" />
+					<p>Cattle for Sale</p>
+				</div>
+			</div> <!-- /col-md-2 -->
+
+			<div class="col-md-2 col-animal" data-animal="2">
+				<div>
+					<img src="/images/animals/horse-classifieds-barngate-icons-home-caballo.png" />
+					<p>Horse for Sale</p>
+				</div>
+			</div> <!-- /col-md-2 -->
+
+			<div class="col-md-2 col-animal" data-animal="3">
+				<div>
+					<img src="/images/animals/horse-classifieds-barngate-icons-home-oveja.png" />
+					<p>Sheep for Sale</p>
+				</div>
+			</div> <!-- /col-md-2 -->
+
+			<div class="col-md-2 col-animal" data-animal="4">
+				<div>
+					<img src="/images/animals/horse-classifieds-barngate-icons-home-becerro.png" />
+					<p>Goat for Sale</p>
+				</div>
+			</div> <!-- /col-md-2 -->
+
+			<div class="col-md-2 col-animal" data-animal="5">
+				<div>
+					<img src="/images/animals/horse-classifieds-barngate-icons-home-cerdo.png" />
+					<p>Pig for Sale</p>
+				</div>
+			</div> <!-- /col-md-2 -->
+
+			<div class="col-md-2 col-animal" data-animal="6">
+				<div>
+					<img src="/images/animals/horse-classifieds-barngate-icons-home-perro.png" />
+					<p>Pet Section</p>
+				</div>
+			</div> <!-- /col-md-2 -->
+
+		</div> <!-- /row -->
+		
+		<div class="text-center pt-40 pb-40">
+			<h2 class="fw-700 text-center">Frequent Asked Questions</h2>
+		</div> <!-- /bg-blue -->
+		
 		<div class="col-md-12">
+			
+			<h2 class="fw-700">Purchasing</h2>
 				
 			<div class="item-tab">
 				<div class="tab-p fz-18 fw-700">I bought an animal and the animal now has a problem. Doesn’t the seller have to take it back? When do I have a legal claim against the seller?</div>
@@ -154,6 +202,20 @@
 				<div class="tab-p fz-18 fw-700">I want to email a seller. Why do I have to register to contact them?</div>
 				<div class="fz-16 bullet-tab">
 					<p>All users must be registered so we can protect our buyers and sellers from scams and scammers.</p>
+				</div> <!-- /bullet-tab -->
+			</div> <!-- /item-tab -->
+			
+			<div class="item-tab">
+				<div class="tab-p fz-18 fw-700">Is the purchase made on the platform?</div>
+				<div class="fz-16 bullet-tab">
+					<p>No. The purpose of the platform is to exchange information with the buyer and seller and agree to sell outside the platform.</p>
+				</div> <!-- /bullet-tab -->
+			</div> <!-- /item-tab -->
+			
+			<div class="item-tab">
+				<div class="tab-p fz-18 fw-700">Do you keep my information private?</div>
+				<div class="fz-16 bullet-tab">
+					<p>Barngate does not and will never sell or give your email address to anyone. Read our <a href="/privacy">Privacy Policy.</a></p>
 				</div> <!-- /bullet-tab -->
 			</div> <!-- /item-tab -->
 			

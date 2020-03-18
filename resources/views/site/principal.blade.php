@@ -8,20 +8,13 @@
 		<div class="wrapper-form">
 			<div class="container-form">
 				<h2>Do you want to add to my favorites?</h2>
-				<button class="accpt-favorite"> Accept </button>
-				<button class="cancel-favorite"> Cancel </button>
+				<button class="enviar accpt-favorite"> Accept </button>
+				<button class="enviar cancel-favorite"> Cancel </button>
 			</div> <!-- /container-form -->
 		</div> <!-- /wrapper-form -->
 	</div> <!-- /shadowbox -->
 
-
-	<div class="banner-sale">
-		<div class="container">
-			<div class="banner-text">
-				<h1>How to buy with Barngate</h1>
-			</div>
-		</div> <!-- /container -->
-	</div> <!-- /banner-sale -->
+	<div class="banner-sale"></div> <!-- /banner-sale -->
 
 	<div class="row-principal pt-30 pb-30">
 		<div class="container text-center">
@@ -163,9 +156,9 @@
 			<div class="wrapper-stars item-flex">
 				<div class="flex items-center">
 					@if (auth()->user()->urlImg == null)
-						<img src="/images/sin_foto.jpeg">
+						<div style="background-image: url('/images/sin_foto.jpeg')" class="img_mini"></div>
 					@else
-						<img src="{{ Storage::url($animal->urlImg) }}">
+						<div style="background-image: url('{{ Storage::url(auth()->user()->urlImg) }}')" class="img_mini"></div>
 					@endif
 					<div class="txt-list">
 						<div class="flex items-center">

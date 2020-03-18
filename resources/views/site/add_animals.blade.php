@@ -13,7 +13,7 @@
 	</div> <!-- /banner-sale -->
 
 	<div class="wrapper-register container pt-40 pb-40 text-blue">
-		<h2 class="fw-700 text-left">Sell your animal with Farmgate</h2>
+		<h2 class="fw-700 text-left">Sell your animal with Barngate</h2>
 		<p class="fz-20 fw-700 pt-20 pb-20">Select your plan</p>
 		
 		<div class="row">
@@ -27,7 +27,7 @@
 							<li>1 photo</li>
 						</ul>
 					</div>
-					<a class="btn-red" href="#">Choose the Basic Plan (1 Photo)</a>
+					<a class="btn-red" href="#">Choose the Basic Plan ></a>
 				</div> <!-- /wrapper-plan -->
 			</div>
 			<div class="col-md-4 pb-20">
@@ -39,7 +39,7 @@
 						<li>Add duration <span class="fw-700">(90 days)</span></li>
 						<li>5 photos</li>
 					</ul>
-					<a class="btn-red" href="#">Choose the Basic Plan (1 Photo)</a>
+					<a class="btn-red" href="#">Choose the Standard Plan ></a>
 				</div> <!-- /wrapper-plan -->
 			</div>
 			<div class="col-md-4 pb-20">
@@ -53,7 +53,7 @@
 						<li>Upload Videos</li>
 						<li>Guide to take the best Videos of your Animal</li>
 					</ul>
-					<a class="btn-red" href="#">Choose the Basic Plan (1 Photo)</a>
+					<a class="btn-red" href="#">Choose the Premium Plan ></a>
 				</div> <!-- /wrapper-plan -->
 			</div>
 		</div> <!-- /row -->
@@ -66,7 +66,7 @@
 		</div> <!-- /listing-homepage -->
 		
 		<div class="pt-40 pb-20 text-center">
-			<a href="#" class="mw-150 btn btn-primary">Next</a>
+			<a href="#" class="mw-150 btn btn-primary">Next ></a>
 		</div>
 		
 	</div> <!-- /container -->

@@ -13,7 +13,7 @@
 	</div> <!-- /banner-sale -->
 
 	<div class="wrapper-register container pt-40 pb-40 text-blue">
-		<h2 class="fw-700 text-left">Sell your animal with Farmgate</h2>
+		<h2 class="fw-700 text-left">Sell your animal with Barngate</h2>
 		<div class="pt-40 pb-40 row-plan">
 			<h3 class="fw-700 fz-28 text-center">STANDARD <span>$10</span></h3>
 			<ul class="flex-auto pt-40 check-list fz-20 text-left">
