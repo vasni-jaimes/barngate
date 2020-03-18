@@ -277,7 +277,7 @@
 		</div> <!-- /container -->
 
 		<div class="wrapper-register container pt-40 pb-40 text-blue step2" {{ stepShow(2, $errors) }} {{ stepErrorCard(2) }}>
-			<h2 class="fw-700 text-left">Sell your animal with Farmgate</h2>
+			<h2 class="fw-700 text-left">Sell your animal with Barngate</h2>
 			<p class="fz-20 fw-700 pt-20 pb-20">Select your plan</p>
 			
 			<div class="row">
@@ -337,7 +337,7 @@
 		</div> <!-- /container -->
 
 		<div class="wrapper-register container pt-40 pb-40 text-blue step3" {{ stepShow(3, $errors) }} {{ stepErrorCard(3) }}>
-			<h2 class="fw-700 text-left">Sell your animal with Farmgate</h2>
+			<h2 class="fw-700 text-left">Sell your animal with Barngate</h2>
 			<p class="fz-20 fw-700 pt-20 pb-20">Drag and drop images here or click to select images</p>
 			<fieldset class="form-file">
 				<input type="file" class="filepond" multiple name="filepond[]" />
@@ -364,7 +364,7 @@
 		</div> <!-- /container -->
 
 		<div class="wrapper-register container pt-40 pb-40 text-blue step4" {{ stepErrorCard(4) }}>
-			<h2 class="fw-700 text-left">Sell your animal with Farmgate</h2>
+			<h2 class="fw-700 text-left">Sell your animal with Barngate</h2>
 			<div class="pt-40 pb-40 row-plan">
 				<h3 class="fw-700 fz-28 text-center plan-title">STANDARD <span>$10</span></h3>
 				<ul class="flex-auto pt-40 check-list fz-20 text-left skills">
