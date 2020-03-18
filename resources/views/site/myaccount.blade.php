@@ -253,7 +253,7 @@
 							<input type="text" class="input" name="country" value="{{ old("country", auth()->user()->country) }}" placeholder="Country">
 							<input type="text" class="input" name="postal" value="{{ old("postal", auth()->user()->cp_zip) }}" placeholder="Postal Code">
 							{{-- <input type="text" class="input" name="country" value="{{ old("country", auth()->user()->country) }}" placeholder="Country"> --}}
-							<select name="state">
+							<select class="input" name="state">
 								<option value=""> Select a state </option>
 								@foreach($estados as $estado)
 									<option value="{{ $estado->id_estado }}" @if( auth()->user()->state == $estado->id_estado ) selected @endif> {{ $estado->estado }} </option>
@@ -266,7 +266,6 @@
 
 				<div class="text-center pt-20 pb-20">
 					<input class="mw-150 btn btn-primary edit-info_user" type="submit" value="Save changes >">
-					<input class="mw-150 btn btn-primary edit-info_user" type="submit" value="Save changes">
 				</div>
 			</div>
 
