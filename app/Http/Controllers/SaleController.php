@@ -54,8 +54,36 @@ class SaleController extends Controller
         $class      = DB::table("class")->get();
         $disciplines = DB::table("disciplines")->get();
         $estados    = DB::table("cities")->groupBy("estado")->get();
+        $notificaciones = $this->getNotify();
 
-        return view('site.sale', compact("animals", "breeds", "colors", "genders", "disciplines", "estados", "class", "categories", "type", "size"));
+        return view('site.sale', compact("animals", "breeds", "colors", "genders", "disciplines", "estados", "class", "categories", "type", "size", "notificaciones"));
+    }
+
+
+    public function getNotify()
+    {
+        if (auth()->check()) {
+        
+            $noti = DB::table("notifications")->where("user_id", auth()->user()->user_id)->get();
+            $i = 0;
+            $arrNot = null;
+            
+            if ($noti != null) {        
+                foreach ($noti as $notify) {
+                    $usuario = DB::table("users")->where("user_id", $notify->other_user_id)->first();
+                    $arrNot[$i]["nombre_usuario"] = $usuario->username;
+                    $arrNot[$i]["img_user"] = $usuario->urlImg;
+                    $arrNot[$i]["typo_not"] = $notify->typo_notify_id;
+                    $arrNot[$i]["time"] = $notify->created_at;
+                    $i++;
+                }
+            }
+
+            return $arrNot;
+
+        }
+
+        return null;
     }
 
 
@@ -619,7 +647,8 @@ class SaleController extends Controller
 
         $favorite = $this->getFavoriteProduct($animal->sale_id, $animal->user_id);
         $todasImg = $this->todasImagenesProducto($animal->user_id, $animal->animal_id, $animal->sale_id);
-        return view("site.principal", compact("animal", "todasImg", "favorite"));
+        $notificaciones = $this->getNotify();
+        return view("site.principal", compact("animal", "todasImg", "favorite", "notificaciones"));
     }
 
     /**
@@ -659,7 +688,8 @@ class SaleController extends Controller
 
     public function updatePlan($id)
     {
-        return view("site.renovate", compact("id"));
+         $notificaciones = $this->getNotify();
+        return view("site.renovate", compact("id", "notificaciones"));
     }
 
 

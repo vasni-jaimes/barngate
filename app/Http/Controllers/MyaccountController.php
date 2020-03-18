@@ -91,22 +91,28 @@ class MyaccountController extends Controller
 
     public function getNotify()
     {
-        $noti = DB::table("notifications")->where("user_id", auth()->user()->user_id)->get();
-        $i = 0;
-        $arrNot = null;
+        if (auth()->check()) {
         
-        if ($noti != null) {        
-            foreach ($noti as $notify) {
-                $usuario = DB::table("users")->where("user_id", $notify->other_user_id)->first();
-                $arrNot[$i]["nombre_usuario"] = $usuario->username;
-                $arrNot[$i]["img_user"] = $usuario->urlImg;
-                $arrNot[$i]["typo_not"] = $notify->typo_notify_id;
-                $arrNot[$i]["time"] = $notify->created_at;
-                $i++;
+            $noti = DB::table("notifications")->where("user_id", auth()->user()->user_id)->get();
+            $i = 0;
+            $arrNot = null;
+            
+            if ($noti != null) {        
+                foreach ($noti as $notify) {
+                    $usuario = DB::table("users")->where("user_id", $notify->other_user_id)->first();
+                    $arrNot[$i]["nombre_usuario"] = $usuario->username;
+                    $arrNot[$i]["img_user"] = $usuario->urlImg;
+                    $arrNot[$i]["typo_not"] = $notify->typo_notify_id;
+                    $arrNot[$i]["time"] = $notify->created_at;
+                    $i++;
+                }
             }
+
+            return $arrNot;
+
         }
 
-        return $arrNot;
+        return null;
     }
 
 
@@ -177,7 +183,9 @@ class MyaccountController extends Controller
     {
         $username   = base64_decode($calificado_id);
         $sale_id    = $sale_id;
-        return view("site.qualify", compact("username", "sale_id"));
+        $notificaciones = $this->getNotify();
+
+        return view("site.qualify", compact("username", "sale_id", "notificaciones"));
     }
 
 
