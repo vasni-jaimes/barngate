@@ -72,7 +72,7 @@
 									<ul class="s-notificacion">
 										<span>Notifications</span>
 										<li>
-											@if ($notificaciones != null)	
+											@if (@$notificaciones != null)	
 												@for($i=0; $i <= count($notificaciones) - 1; $i++)
 													<div class="flex txt-notificacion">
 														<img src="{{ Storage::url($notificaciones[$i]["img_user"]) }}">
@@ -85,6 +85,8 @@
 														</div>
 													</div>
 												@endfor
+											@else
+												<li> <h2>No notifications</h2> </li>
 											@endif
 										</li>
 										<a class="seeall" href="/notifications">See all</a>
