@@ -64,6 +64,17 @@ class ChatController extends Controller
 
   			$canal = DB::table("chats_rooms")->where("token_chat", $request->canal)->first();
 
+            //NOTIFICACIONES DE CHAT
+            $primerMsj = DB::table("messages")->where("chat_id", $canal->chat_id)->first();
+            if ($primerMsj == null) {
+                DB::table("notifications")->insert([
+                    "user_id" => $canal->user_two_id,
+                    "typo_notify_id" => 1,
+                    "other_user_id" => auth()->user()->user_id,
+                    "created_at" => $date,
+                ]);
+            }
+
   			DB::table("messages")->insert([
   				"chat_id" => $canal->chat_id,
   				"user_id" => auth()->user()->user_id,

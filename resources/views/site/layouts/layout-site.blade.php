@@ -72,22 +72,20 @@
 									<ul class="s-notificacion">
 										<span>Notifications</span>
 										<li>
-											<div class="flex txt-notificacion">
-												<img src="images/picture.jpg">
-												<div>
-													<p class="fw-700">Animal</p>
-													<p>Username</p>
-													<span>1 hr</span>
-												</div>
-											</div>
-											<div class="flex txt-notificacion">
-												<img src="images/picture.jpg">
-												<div>
-													<p class="fw-700">Animal</p>
-													<p>Username</p>
-													<span>1 hr</span>
-												</div>
-											</div>
+											@if ($notificaciones != null)	
+												@for($i=0; $i <= count($notificaciones) - 1; $i++)
+													<div class="flex txt-notificacion">
+														<img src="{{ Storage::url($notificaciones[$i]["img_user"]) }}">
+														<div>
+															<p class="fw-700">{{ $notificaciones[$i]["nombre_usuario"] }}</p>
+															@if ($notificaciones[$i]["typo_not"] == 1)
+																<p>El usurio te mando mensaje</p>
+															@endif
+															<span>{{ $notificaciones[$i]["time"] }}</span>
+														</div>
+													</div>
+												@endfor
+											@endif
 										</li>
 										<a class="seeall" href="/notifications">See all</a>
 									</ul>

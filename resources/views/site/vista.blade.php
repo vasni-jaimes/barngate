@@ -180,7 +180,7 @@
 											@if (auth()->check())
 												@if ($animal[$i]["user_id"] != auth()->user()->user_id)
 													@if (auth()->user()->name == null || auth()->user()->phone == null || auth()->user()->address == null || 
-															auth()->user()->cp_zip == null || auth()->user()->country == null) 
+															auth()->user()->cp_zip == null || auth()->user()->state == null) 
 														<h3> If you want to send a message or add to favorites first complete your profile </h3>
 													@else
 														@if (!$animal[$i]["myfavorito"])
@@ -241,7 +241,7 @@
 									@if (auth()->check())
 										@if ($animal[$i]["user_id"] != auth()->user()->user_id)
 											@if (auth()->user()->name == null || auth()->user()->phone == null || auth()->user()->address == null || 
-													auth()->user()->cp_zip == null || auth()->user()->country == null) 
+													auth()->user()->cp_zip == null || auth()->user()->state == null) 
 												<h3> If you want to send a message or add to favorites first complete your profile </h3>
 											@else
 												@if (!$animal[$i]["myfavorito"])

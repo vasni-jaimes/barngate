@@ -2965,6 +2965,10 @@ function stripeResponseHandler(status, response) {
 function initialize(e) {
 	e.preventDefault();
 
+	if (!$(".back-animal").is(":visible")) {
+		return false;
+	}
+
  	let vasni = $("#lat").val();
     let p = JSON.parse(vasni);
     let marcadores = p;

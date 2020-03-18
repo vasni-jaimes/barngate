@@ -83,8 +83,30 @@ class MyaccountController extends Controller
         //return response()->json($listado);
         $misFavoritos   = $this->getFavorites(auth()->user()->user_id);
         $estados        = DB::table("cities")->groupBy("estado")->get();
+        $notificaciones = $this->getNotify();
 
-    	return view("site.myaccount", compact("animal", "misFavoritos", "listado", "estados"));
+    	return view("site.myaccount", compact("animal", "misFavoritos", "listado", "estados", "notificaciones"));
+    }
+
+
+    public function getNotify()
+    {
+        $noti = DB::table("notifications")->where("user_id", auth()->user()->user_id)->get();
+        $i = 0;
+        $arrNot = null;
+        
+        if ($noti != null) {        
+            foreach ($noti as $notify) {
+                $usuario = DB::table("users")->where("user_id", $notify->other_user_id)->first();
+                $arrNot[$i]["nombre_usuario"] = $usuario->username;
+                $arrNot[$i]["img_user"] = $usuario->urlImg;
+                $arrNot[$i]["typo_not"] = $notify->typo_notify_id;
+                $arrNot[$i]["time"] = $notify->created_at;
+                $i++;
+            }
+        }
+
+        return $arrNot;
     }
 
 
