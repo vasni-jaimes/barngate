@@ -249,10 +249,8 @@
 							<input type="text" class="input" name="name_contact" value="{{ old("name_contact", auth()->user()->name) }}" placeholder="Name">
 							<input type="tel" class="input" name="phone" value="{{ old("phone", auth()->user()->phone) }}" placeholder="Phone">
 							<input type="text" class="input" name="address" value="{{ old("address", auth()->user()->address) }}" placeholder="Address">
-<<<<<<< HEAD
 							<input type="text" class="input" name="postal" value="{{ old("postal", auth()->user()->cp_zip) }}" placeholder="Zip Code">
 							<input type="text" class="input" name="country" value="{{ old("country", auth()->user()->country) }}" placeholder="Country">
-=======
 							<input type="text" class="input" name="postal" value="{{ old("postal", auth()->user()->cp_zip) }}" placeholder="Postal Code">
 							{{-- <input type="text" class="input" name="country" value="{{ old("country", auth()->user()->country) }}" placeholder="Country"> --}}
 							<select name="state">
@@ -261,18 +259,14 @@
 									<option value="{{ $estado->id_estado }}" @if( auth()->user()->state == $estado->id_estado ) selected @endif> {{ $estado->estado }} </option>
 								@endforeach
 							</select>
->>>>>>> 7358a6c230843b31ad0a3657b897a7dfbc54c51c
 						</form>
 					</div> <!-- /item-flex -->
 
 				</div> <!-- /flex -->
 
 				<div class="text-center pt-20 pb-20">
-<<<<<<< HEAD
 					<input class="mw-150 btn btn-primary edit-info_user" type="submit" value="Save changes >">
-=======
 					<input class="mw-150 btn btn-primary edit-info_user" type="submit" value="Save changes">
->>>>>>> 7358a6c230843b31ad0a3657b897a7dfbc54c51c
 				</div>
 			</div>
 
