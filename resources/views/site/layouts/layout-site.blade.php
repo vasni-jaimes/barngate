@@ -71,8 +71,8 @@
 									<a href="#"><img src="/images/horse-classifieds-barngate-notificatios-icon.png" alt="Barngate">Notifications</a>
 									<ul class="s-notificacion">
 										<span>Notifications</span>
-										<li>
-											@if (@$notificaciones != null)	
+										@if (@$notificaciones != null)	
+											<li>
 												@for($i=0; $i <= count($notificaciones) - 1; $i++)
 													<div class="flex txt-notificacion">
 														<img src="{{ Storage::url($notificaciones[$i]["img_user"]) }}">
@@ -86,9 +86,9 @@
 													</div>
 												@endfor
 											@else
-												<li> <h2>No notifications</h2> </li>
-											@endif
-										</li>
+												<li><p><em>No notifications</em></p></li>
+											</li>
+										@endif
 										<a class="seeall" href="/notifications">See all</a>
 									</ul>
 								</li>

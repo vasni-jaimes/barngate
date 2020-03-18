@@ -281,7 +281,7 @@
 							</div>
 						@endfor
 					@else
-						<h2 style="text-align: center;"> There are no favorites yet </h2>
+						<p style="text-align: center;" class="fz-18">There are no favorites yet</p>
 					@endif
 
 				</div> <!-- /row-fav -->
@@ -297,8 +297,8 @@
 		<div class="wrapper-form">
 			<div class="container-form">
 				<h2>Do you want to add to my favorites?</h2>
-				<button class="accpta-favorite"> Accept </button>
-				<button class="cancel-favorite"> Cancel </button>
+				<button class="enviar accpta-favorite"> Accept </button>
+				<button class="enviar cancel-favorite"> Cancel </button>
 			</div> <!-- /container-form -->
 		</div> <!-- /wrapper-form -->
 	</div> <!-- /shadowbox -->
@@ -306,7 +306,7 @@
 
 	<div class="shadowbox" id="show-map">
 		<div class="close"></div> <!-- /close -->
-		<div id="map-canvas" style="display: block;width: 500px;height: 500px;border: 1px solid red;"></div>
+		<div id="map-canvas" style="display: block;width: 500px;height: 500px;border: 1px solid red; margin: auto;"></div>
 	</div> <!-- /shadowbox -->
 
 	<!--<button id="ver-mapa" style="width: 200px;height: 30px;"></button>-->
