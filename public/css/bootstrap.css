@@ -2037,7 +2037,7 @@ box-shadow:0 0 0 .2rem rgba(255,80,80,.25)
 	font-size: .875rem;
 	line-height: 1.5;
 	border-radius: 2px;
-	transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out
+	/*transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out*/
 }
 
 @media screen and (prefers-reduced-motion: reduce) {
@@ -14188,7 +14188,7 @@ opacity:0
 }
 .btn {
 	position: relative;
-	transition: all .2s ease-in-out
+	/*transition: all .2s ease-in-out*/
 }
 .btn-circle {
 	border-radius: 100%;

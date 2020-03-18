@@ -58,9 +58,9 @@
 											<label for="upload">
 												<span>Upload profile picture</span>
 												@if (auth()->user()->urlImg != null)
-													<img id="imgSalida" style="display: block" width="98%" height="98%" src="{{ Storage::url(auth()->user()->urlImg) }}" />
+													<div id="imgSalida" width="98%" height="98%" style="display: block; background-image: url('{{ Storage::url(auth()->user()->urlImg) }}')" ></div>
 												@else
-													<img id="imgSalida" width="98%" height="98%" src="" />
+													<div id="imgSalida" width="98%" height="98%" style="" ></div>
 												@endif
 												@csrf
 											</label>
@@ -81,7 +81,7 @@
 								{{-- <li><label>Only USA phone numbers are supported. Please enter your full 10-digit number.</label><input type="radio"></li> --}}
 							</ul>
 							<div class="pt-20 pb-20 text-center">
-								<a href="#" class="mw-150 btn btn-primary save-radio">Save settings</a>
+								<a href="#" class="mw-150 btn btn-primary save-radio">Save settings ></a>
 							</div>
 						</div> <!-- /box-tab -->
 					</div>
@@ -99,7 +99,7 @@
 								@for($i=0; $i <= count($animal) - 1; $i++)
 									<div class="flex-list items-center">
 										<div class="flex between items-center">
-											<div class="flex">
+											<div class="flex items-center">
 												<img src="{{ "/storage/images/".$animal[$i]["img"] }}">
 												<div class="txt-list">
 													<a href="{{ route("sale.show", $animal[$i]["nickname"]) }}"><p>{{ $animal[$i]["animal_name"] }}</p></a>
@@ -139,7 +139,7 @@
 									@for ($i = 0; $i <= count($listado) - 1; $i++)
 
 										<div class="flex flex-inbox items-center between">
-											<div class="flex">
+											<div class="flex items-center">
 												<img class="icon" src="images/buy-horse-online-barngate-message-icon.png">
 												<a href=" {{ route("chat.index", $listado[$i]["token"]) }} ">
 													<div class="txt-inbox">
@@ -172,9 +172,9 @@
 			<div class="wrapper-stars">
 				<div class="flex items-center">
 					@if (auth()->user()->urlImg == null)
-						<img src="/images/sin_foto.jpeg" class="img_mini">
+						<div style="background-image: url('/images/sin_foto.jpeg')" class="img_mini"></div>
 					@else
-						<img src="{{ Storage::url(auth()->user()->urlImg) }}" class="img_mini">
+						<div style="background-image: url('{{ Storage::url(auth()->user()->urlImg) }}')" class="img_mini"></div>
 					@endif
 					<div class="txt-list">
 						<div class="flex items-center">
@@ -195,33 +195,33 @@
 			
 	</div> <!-- /container -->
 
+	@if($misFavoritos != null)
+
 	<div class="bg-blue-light pt-40 pb-40">
 
 		<div class="container">
 
-			@if($misFavoritos != null)
+			<h3 class="text-blue text-center fw-700 pb-20">Favorites</h3>
 
-				<h3 class="text-center">Favorites</h3>
+			<div class="slide-account">
 
-				<div class="slide-account">
+				@for($i = 0; $i <= count($misFavoritos) - 1; $i++)
+					<div>
+						<div class="slide-animal">							
+							<div class="image-slide" style="background-image: url({{ "/storage/images/".$misFavoritos[$i]["img"] }})"></div>
+						</div> <!-- /slide-animal -->
+						<p class="pt-10">{{ $misFavoritos[$i]["animal_name"] }}</p>
+						<a href="{{ route("sale.show", $misFavoritos[$i]["nickname"]) }}">See more</a>
+					</div>
+				@endfor
 
-					@for($i = 0; $i <= count($misFavoritos) - 1; $i++)
-						<div>
-							<div class="slide-animal">							
-								<div class="image-slide" style="background-image: url({{ "/storage/images/".$misFavoritos[$i]["img"] }})"></div>
-							</div> <!-- /slide-animal -->
-							<p class="pt-10">{{ $misFavoritos[$i]["animal_name"] }}</p>
-							<a href="{{ route("sale.show", $misFavoritos[$i]["nickname"]) }}">See more</a>
-						</div>
-					@endfor
-
-				</div> <!-- /slide-account -->
-
-			@endif
+			</div> <!-- /slide-account -->
 
 		</div> <!-- /container -->
 		
 	</div> <!-- /bg-blue -->
+
+	@endif
 
 
 	<div class="shadowbox" id="editinfo">
@@ -249,6 +249,8 @@
 							<input type="text" class="input" name="name_contact" value="{{ old("name_contact", auth()->user()->name) }}" placeholder="Name">
 							<input type="tel" class="input" name="phone" value="{{ old("phone", auth()->user()->phone) }}" placeholder="Phone">
 							<input type="text" class="input" name="address" value="{{ old("address", auth()->user()->address) }}" placeholder="Address">
+							<input type="text" class="input" name="postal" value="{{ old("postal", auth()->user()->cp_zip) }}" placeholder="Zip Code">
+							<input type="text" class="input" name="country" value="{{ old("country", auth()->user()->country) }}" placeholder="Country">
 							<input type="text" class="input" name="postal" value="{{ old("postal", auth()->user()->cp_zip) }}" placeholder="Postal Code">
 							{{-- <input type="text" class="input" name="country" value="{{ old("country", auth()->user()->country) }}" placeholder="Country"> --}}
 							<select name="state">
@@ -263,6 +265,7 @@
 				</div> <!-- /flex -->
 
 				<div class="text-center pt-20 pb-20">
+					<input class="mw-150 btn btn-primary edit-info_user" type="submit" value="Save changes >">
 					<input class="mw-150 btn btn-primary edit-info_user" type="submit" value="Save changes">
 				</div>
 			</div>
@@ -277,7 +280,7 @@
 			<div class="close"></div> <!-- /close -->
 			<div class="wrapper-form">
 				<div class="container-form">
-					<h2> Fill in your contact information please </h2>
+					<h2>You need to fill in your contact information before selling!</h2>
 				</div>
 			</div> <!-- /wrapper-form -->
 		</div> <!-- /shadowbox -->
@@ -288,7 +291,7 @@
 		<div class="close"></div> <!-- /close -->
 		<div class="wrapper-form">
 			<div class="container-form">
-				<h2> Your profile picture was changed correctly </h2>
+				<h2>Your profile picture was changed correctly!</h2>
 			</div>
 		</div> <!-- /wrapper-form -->
 	</div> <!-- /shadowbox -->

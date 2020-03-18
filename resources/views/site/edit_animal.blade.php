@@ -175,7 +175,7 @@
 			<div>
 				<div class="slide-animal">							
 					<div class="image-slide" style="background-image: url(../images/vaca.jpg)">
-						<i class="fal fa-times remove"></i>
+						<i class="far fa-times-circle remove"></i>
 					</div> <!-- /img-slide -->
 				</div> <!-- /slide-animal -->
 			</div>

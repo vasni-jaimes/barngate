@@ -361,8 +361,8 @@
 }
 
 .msg-header__username {
-	padding-right: 112px;
-	padding-left: 16px;
+	/*padding-right: 112px;
+	padding-left: 16px;*/
 	display: inline-block;
 	vertical-align: middle;
 	-webkit-box-flex: 1;
@@ -515,9 +515,9 @@
 }
 
 @media only screen and (min-width:769px) {
-.msg-header {
+/*.msg-header {
 	padding-right: 56px
-}
+}*/
 .msg-header__username {
 	border: 0;
 	width: 50%
@@ -2228,9 +2228,9 @@ transform:rotate(1turn)
 }
 
 @media only screen and (min-width:769px) {
-.msg-header {
+/*.msg-header {
 	padding-right: 56px
-}
+}*/
 .msg-header__username {
 	border: 0;
 	width: 50%

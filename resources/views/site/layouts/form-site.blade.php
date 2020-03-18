@@ -6,20 +6,20 @@
 			<div class="row">
 				<div class="col-md-6">
 					<fieldset>
-						<input type="text" class="input" placeholder="First Name" name="first_name" value="{{ old("first_name") }}">
-						<input type="text" class="input" placeholder="Last Name" name="last_name" value="{{ old("last_name") }}">
+						<input type="text" class="input" placeholder="First Name*" name="first_name" value="{{ old("first_name") }}">
+						<input type="text" class="input" placeholder="Last Name*" name="last_name" value="{{ old("last_name") }}">
 					</fieldset>
 					<fieldset>
-						<input type="email" class="input" placeholder="Email" name="email_contact" value="{{ old("email_contact") }}">
+						<input type="email" class="input" placeholder="Email*" name="email_contact" value="{{ old("email_contact") }}">
 						<input type="tel" class="input" placeholder="Phone" name="phone" value="{{ old("phone") }}">
 					</fieldset>
 				</div> <!-- /col-md-6 -->
 				<div class="col-md-6">
-					<textarea class="input" placeholder="Submit your Question" name="questions"> {{ old("questions") }} </textarea>
+					<textarea class="input" placeholder="Message" name="questions"> {{ old("questions") }} </textarea>
 				</div> <!-- /col-md-6 -->
 			</div> <!-- /row -->
 			<div class="error" style="display: inline-block; color: red"></div>
-			<input class="enviar enviar_contacto" type="submit" value="Submit">
+			<input class="enviar enviar_contacto" type="submit" value="Submit >">
 		</form>
 	</div> <!-- /container -->
 </div> <!-- /bg-blue-light -->

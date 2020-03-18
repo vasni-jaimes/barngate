@@ -44,7 +44,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-2">
-					<a href="{{ route("home") }}"><img src="/images/logos/logo-header.png" alt="Barngate"></a>
+					<a href="{{ route("home") }}"><img class="logo" src="/images/logos/logo-barngate.svg" alt="Barngate"></a>
 				</div>
 				<div class="col-md-10 text-right">
 					<nav>
@@ -126,7 +126,7 @@
 		<div class="container">
 			<div class="row align-items-center row-eq-height">
 				<div class="col-md-2">
-					<img src="/images/logos/logo-footer.png">
+					<img src="/images/logos/logo-footer.svg">
 				</div>
 				<div class="col-md-2">
 					<ul>
@@ -149,15 +149,16 @@
 
 				<div class="col-md-6">
 					<p class="text-blue-light fz-20 mb-5">Subscribe to our weekly Newsletter</p>
-					<form class="form-inline">
+					<form id="signup" action="" method="post" class="form-inline">
 						<div class="form-group mb-2">
 							<label for="inputPassword2" class="sr-only">Enter your email</label>
 						</div>
 						<div class="form-group mx-sm-3 mb-2 w-60">
-							<input type="email" class="form-control w-100" id="email" placeholder="Enter your email">
+							<input type="email" class="form-control w-100" id="email" name="email" placeholder="Enter your email" data-name="Email" data-required="true" data-mail="true">
 						</div>
-						<button type="submit" class="btn btn-primary btn-red mb-2 w-35">Subscribe</button>
+						<input type="submit" class="btn btn-primary btn-red mb-2 w-35" id="mc-embedded-subscribe" value="Subscribe >">
 					</form>
+					<div class="fz-16 mb-10" id="message"></div>
 					<ul class="list-inline">
 						<li class="list-inline-item"><a href="https://www.facebook.com/barngate/" target="_blank"><img src="/images/horse-classifieds-barngate-facebook-icon.png"> </a></li>
 						<li class="list-inline-item"><a href="https://www.instagram.com/barngate_" target="_blank"><img src="/images/horse-classifieds-barngate-instagram-icon.png"> </a></li>
@@ -239,7 +240,7 @@
 		<div class="wrapper-form">
 			<div class="container-form">
 				{{-- {{ var_dump($errors->all()) }} --}}
-				<h3 class="text-center text-blue fz-30 mb-30">Register to Buy</h3>
+				<h3 class="text-center text-blue fz-30 mb-30">Welcome to Barngate!</h3>
 				<form class="forma" action="/register" method="POST" id="form_register">
 					<input type="hidden" name="_token" value="{{ csrf_token() }}">
 					<input type="text" class="input" name="email_register" placeholder="Email">
@@ -247,9 +248,9 @@
 					<input type="password" class="input" name="password_register" placeholder="Password">
 					<input type="password" class="input" name="password_confirmation" placeholder="Confirm Password">
 					<div class="g-recaptcha" data-sitekey="6LebF9oUAAAAAFf4-pIX2rVrWIuArPHAPhjo3L38"></div>
-					<input class="enviar register-send" type="submit" value="Register">
+					<input class="enviar register-send" type="submit" value="Register >">
 				</form>
-				<a class="link" href="/privacy">Terms and conditions</a>
+				<a class="link" href="/privacy">Privacy policy</a>
 			</div> <!-- /container-form -->
 		</div> <!-- /wrapper-form -->
 	</div> <!-- /shadowbox -->

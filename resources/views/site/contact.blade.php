@@ -15,6 +15,8 @@
 		<h1 class="text-white fz-25">Contact us</h1>
 	</div> <!-- /bg-blue -->
 
+	@include('site.layouts.form-site')
+
 	<div class="container pt-40 pb-40 text-blue">
 		<h2 class="fw-700 underline text-center"><a href="faqs">Frequent Asked Questions ></a></h2>
 		<div class="row mt-30">
@@ -28,7 +30,5 @@
 			</div> <!-- /col-md-6 -->
 		</div> <!-- /row -->
 	</div> <!-- /container -->
-
-	@include('site.layouts.form-site')
 
 @endsection
