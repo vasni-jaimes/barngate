@@ -12,7 +12,7 @@ class MessageRegister extends Mailable
     use Queueable, SerializesModels;
 
     public $msj;
-    public $subject = "Registro";
+    public $subject = "Register";
 
     /**
      * Create a new message instance.

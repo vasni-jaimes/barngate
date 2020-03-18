@@ -17,7 +17,7 @@ class SearchController extends Controller
 
     public function __construct()
     {
-        $this->middleware("auth");
+        //$this->middleware("auth");
     }
 
 
@@ -60,13 +60,16 @@ class SearchController extends Controller
                 $animal[$ban]["adress"]         = $animalrow->ciudad.", ".$animalrow->estado;
                 $animal[$ban]["myfavorito"]     = false;
 
-                $myfavorito = DB::table("favorites")
-                                    ->where("user_id", auth()->user()->user_id)
-                                    ->where("sale_id", $animalrow->sale_id)
-                                    ->first();
 
-                if ($myfavorito != null) {
-                    $animal[$ban]["myfavorito"]   = true;
+                if (auth()->check()) {
+                    $myfavorito = DB::table("favorites")
+                                        ->where("user_id", auth()->user()->user_id)
+                                        ->where("sale_id", $animalrow->sale_id)
+                                        ->first();
+
+                    if ($myfavorito != null) {
+                        $animal[$ban]["myfavorito"]   = true;
+                    }
                 }
                 $ban++;
             }
@@ -78,10 +81,42 @@ class SearchController extends Controller
         $genders        = DB::table("genders")->get();
         $disciplines    = DB::table("disciplines")->get();
         $estados        = DB::table("cities")->groupBy("estado")->get();
-        $misFavoritos   = $this->getFavorites(auth()->user()->user_id);
+        $misFavoritos   = false;
+
+        if (auth()->check()) {
+            $misFavoritos   = $this->getFavorites(auth()->user()->user_id);
+        }
+        
+        $notificaciones = $this->getNotify();
+
+    	return view('site.vista', compact("animal", "animals", "breeds", "colors", "genders", "disciplines", "estados", "misFavoritos", "category", "notificaciones"));
+    }
 
 
-    	return view('site.vista', compact("animal", "animals", "breeds", "colors", "genders", "disciplines", "estados", "misFavoritos", "category"));
+    public function getNotify()
+    {
+        if (auth()->check()) {
+        
+            $noti = DB::table("notifications")->where("user_id", auth()->user()->user_id)->get();
+            $i = 0;
+            $arrNot = null;
+            
+            if ($noti != null) {        
+                foreach ($noti as $notify) {
+                    $usuario = DB::table("users")->where("user_id", $notify->other_user_id)->first();
+                    $arrNot[$i]["nombre_usuario"] = $usuario->username;
+                    $arrNot[$i]["img_user"] = $usuario->urlImg;
+                    $arrNot[$i]["typo_not"] = $notify->typo_notify_id;
+                    $arrNot[$i]["time"] = $notify->created_at;
+                    $i++;
+                }
+            }
+
+            return $arrNot;
+
+        }
+
+        return null;
     }
 
 

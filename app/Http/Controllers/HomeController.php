@@ -48,6 +48,33 @@ class HomeController extends Controller
     }
 
 
+    public function getNotify()
+    {
+        if (auth()->check()) {
+        
+            $noti = DB::table("notifications")->where("user_id", auth()->user()->user_id)->get();
+            $i = 0;
+            $arrNot = null;
+            
+            if ($noti != null) {        
+                foreach ($noti as $notify) {
+                    $usuario = DB::table("users")->where("user_id", $notify->other_user_id)->first();
+                    $arrNot[$i]["nombre_usuario"] = $usuario->username;
+                    $arrNot[$i]["img_user"] = $usuario->urlImg;
+                    $arrNot[$i]["typo_not"] = $notify->typo_notify_id;
+                    $arrNot[$i]["time"] = $notify->created_at;
+                    $i++;
+                }
+            }
+
+            return $arrNot;
+
+        }
+
+        return null;
+    }
+
+
     public function TopAnimals()
     {
         $homepage = Sale::where("homepage", 1)

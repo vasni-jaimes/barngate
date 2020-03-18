@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
+use App\Mail\SendMsjQualify;
+use Illuminate\Support\Facades\Mail;
 
 //Moderl
 use App\User;
@@ -20,6 +22,7 @@ class MyaccountController extends Controller
 	public function __construct()
 	{
 		$this->middleware("auth");
+        $this->middleware("ScoreReviewIds", ["only" => "scoreQualify"]);
 	}
     
     public function index()
@@ -53,8 +56,9 @@ class MyaccountController extends Controller
 
         //return response()->json($token_sala);
         
-        $conta = 0;
-        $listado = null;
+        $conta     = 0;
+        $listado   = null;
+
         foreach ($token_sala as $sala) {
             $chat       = DB::table("messages")->where("chat_id", $sala->chat_id)->orderBy('id', 'desc')->first();
             $chat_list  = false;
@@ -77,10 +81,38 @@ class MyaccountController extends Controller
         }
 
         //return response()->json($listado);
+        $misFavoritos   = $this->getFavorites(auth()->user()->user_id);
+        $estados        = DB::table("cities")->groupBy("estado")->get();
+        $notificaciones = $this->getNotify();
+
+    	return view("site.myaccount", compact("animal", "misFavoritos", "listado", "estados", "notificaciones"));
+    }
 
 
-        $misFavoritos = $this->getFavorites(auth()->user()->user_id);
-    	return view("site.myaccount", compact("animal", "misFavoritos", "listado"));
+    public function getNotify()
+    {
+        if (auth()->check()) {
+        
+            $noti = DB::table("notifications")->where("user_id", auth()->user()->user_id)->get();
+            $i = 0;
+            $arrNot = null;
+            
+            if ($noti != null) {        
+                foreach ($noti as $notify) {
+                    $usuario = DB::table("users")->where("user_id", $notify->other_user_id)->first();
+                    $arrNot[$i]["nombre_usuario"] = $usuario->username;
+                    $arrNot[$i]["img_user"] = $usuario->urlImg;
+                    $arrNot[$i]["typo_not"] = $notify->typo_notify_id;
+                    $arrNot[$i]["time"] = $notify->created_at;
+                    $i++;
+                }
+            }
+
+            return $arrNot;
+
+        }
+
+        return null;
     }
 
 
@@ -120,13 +152,93 @@ class MyaccountController extends Controller
                         ]);
 
         if ($save_ratings) {
-            DB::commit();
-            DB::table("sales")->where("sale_id", $animal->sale_id)->where("user_id", auth()->user()->user_id)->update(["sold" => 1]);
-            return response()->json(["message" => "ok"]);
+            //INSERTAR PARA QUE EL COMPRADOR CALIFIQUE AL VENDEDOR
+            $save_r_vendedor = DB::table("ratings")->insert([
+                                "user_id" => $user_calificado->user_id,
+                                "calificado_id" => auth()->user()->user_id,
+                                "sale_id" => $animal->sale_id,
+                                "created_at" => $date,
+                                "updated_at" => $date,
+                            ]);
+
+            if ($save_r_vendedor) {
+                DB::commit();
+                DB::table("sales")->where("sale_id", $animal->sale_id)->where("user_id", auth()->user()->user_id)->update(["sold" => 1]);
+                $usuario_calificado = DB::table("users")->where("user_id", $user_calificado->user_id)->first();
+                Mail::to("853e9296af-b1cadc@inbox.mailtrap.io")->send(new SendMsjQualify($usuario_calificado, auth()->user()->username, $animal->nickname));
+
+                return response()->json(["message" => "ok"]);
+            }
+
+            DB::rollback();
+            return response()->json(["message" => "error"]);
         }
 
         DB::rollback();
         return response()->json(["message" => "error"]);
+    }
+
+
+    public function scoreQualify($sale_id, $calificado_id)
+    {
+        $username   = base64_decode($calificado_id);
+        $sale_id    = $sale_id;
+        $notificaciones = $this->getNotify();
+
+        return view("site.qualify", compact("username", "sale_id", "notificaciones"));
+    }
+
+
+    public function qualifyForm(Request $request)
+    {
+        if (!$request->has("contador")) {
+            return redirect()->back()->with("session_error", "A problem occurred try again later");
+        }
+
+        if (!$request->has("username")) {
+           return redirect()->back()->with("session_error", "A problem occurred try again later");
+        }
+
+        if (!is_numeric($request->contador)) {
+            return redirect()->back()->with("session_error", "A problem occurred try again later");
+        }
+
+        if (!$request->has("animal_id")) {
+            return redirect()->back()->with("session_error", "A problem occurred try again later");
+        }
+
+        $user_calificado    = DB::table("users")->where("username", $request->username)->first();
+        $animal             = DB::table("sales")->where("nickname", $request->animal_id)->first();
+
+        //Fecha
+        date_default_timezone_set('America/Mexico_City');
+        $date = date('Y-m-d', time());
+
+        if ($animal == null) {
+            return redirect()->back()->with("session_error", "A problem occurred try again later");
+        }
+
+        if ($user_calificado == null) {
+            return redirect()->back()->with("session_error", "A problem occurred try again later");
+        }
+
+
+        DB::beginTransaction();
+        $rating = DB::table("ratings")
+                        ->where("user_id", auth()->user()->user_id)
+                        ->where("calificado_id", $user_calificado->user_id)
+                        ->where("sale_id", $animal->sale_id)
+                        ->update(["rating" => $request->contador, "created_at" => $date, "updated_at" => $date]);
+
+        if ($rating) {
+            DB::commit();
+            return redirect()->route("myaccount")->with("session_succes-qualify", "Was rated correctly");
+        }
+
+
+        DB::rollback();
+        return redirect()->back()->with("session_error", "A problem occurred try again later");
+        
     }
 
     public function EditProfile(Request $request)
@@ -139,7 +251,7 @@ class MyaccountController extends Controller
             'phone' => ['required','string','max:255'],
             'address' => ['required','string','max:300'],
             'postal' => ['required','string','max:10'],
-            'country' => ['required','string','max:255'],
+            'state' => ['required','string','max:255'],
         ]);
 
         if ($validator->fails()) {
@@ -160,7 +272,7 @@ class MyaccountController extends Controller
         $users->phone           = $request->phone;
         $users->address         = $request->address;
         $users->cp_zip          = $request->postal;
-        $users->country         = $request->country;
+        $users->state           = $request->state;
 
         if ($users->save()) {
             DB::commit();
@@ -175,9 +287,10 @@ class MyaccountController extends Controller
 
     public function SaveSettings(Request $request)
     {
-         if ($request->has('email_favorite') && 
+        if ($request->has('email_favorite') && 
             $request->has('email_update') && 
-            $request->has('receive_text')) {
+            $request->has('receive_text')) 
+        {
 
 
              $validator = Validator::make($request->all(), [
@@ -275,11 +388,24 @@ class MyaccountController extends Controller
 
         if ($request->has("idAnimal")) {
             
-            $sale = Sale::find($request->idAnimal);
+            $sale       = Sale::where("nickname", $request->idAnimal)->first();
+            $idAnimal   = $sale->sale_id;
             if ($sale->user_id == auth()->user()->user_id) {
                 if ($sale->delete()) {
-                    Favorite::where("sale_id", $request->idAnimal)->delete();
-                    return response()->json(["message" => "ok"]);
+                    DB::beginTransaction();
+                    Favorite::where("sale_id", $idAnimal)->delete();
+
+                    //ELIMINAR IMAGENES Y CARPETA
+                    $directory = 'images/'.auth()->user()->user_id.'/'.$sale->animal_id.'/'.$idAnimal.'/';
+                    $files = Storage::allFiles($directory);
+                    if (Storage::delete($files)) {
+                        Storage::deleteDirectory($directory);
+                        DB::commit();
+                        return response()->json(["message" => "ok"]);
+                    }
+
+                    DB::rollback();
+                    return response()->json(["message" => "not_delete"]);
                 }
                 return response()->json(["message" => "not_delete"]);
             }
@@ -335,4 +461,25 @@ class MyaccountController extends Controller
             return false;
         }
     }
+
+
+
+    public function PostAgain(Request $request)
+    {
+        if (!$request->has("id_animal")) {
+            return response()->json(["message" => "error", "input" => "not_parameters"]);
+        }
+
+        $animal = DB::table("Sales")->where("nickname", $request->id_animal)->where("user_id", auth()->user()->user_id)->first();
+
+        if ($animal != null) {
+             DB::table("Sales")->where("nickname", $request->id_animal)->where("user_id", auth()->user()->user_id)->update(["sold" => 0]);
+             //MAIL
+             return response()->json(["message" => "ok"]);
+        }
+
+        return response()->json(["message" => "error", "input" => "not_animal"]);
+
+    }
+
 }

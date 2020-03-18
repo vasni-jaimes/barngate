@@ -23,7 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('phone')->nullable();
             $table->text('address')->nullable();
             $table->string('cp_zip')->nullable();
-            $table->string('country', 255)->nullable();
+            $table->boolean('state')->nullable();
             $table->text('urlImg')->nullable();
             $table->boolean('email_favorite')->default(0);
             $table->boolean('email_update')->default(0);

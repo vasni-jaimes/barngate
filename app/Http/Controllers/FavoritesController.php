@@ -36,7 +36,7 @@ class FavoritesController extends Controller
                     try {
                         if (auth()->user()->email_favorite == true) {
                             $sale = Sale::find($product->sale_id);
-                            Mail::to("853e9296af-b1cadc@inbox.mailtrap.io")->send(new ConfirmFavorites($sale));
+                            //Mail::to("853e9296af-b1cadc@inbox.mailtrap.io")->send(new ConfirmFavorites($sale));
                         }
                     } catch(Exception $e) {
                          \Log::error("El error de Email de Favoritos ".$e->getMessage());

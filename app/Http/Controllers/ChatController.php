@@ -31,8 +31,38 @@ class ChatController extends Controller
 
     	//MENSAJES DE CHAT
     	$msn_chat = DB::table("messages")->where("chat_id", $user_client->chat_id)->get();
-		return view("site.chat", compact("channel", "user_chat", "msn_chat"));
+        $notificaciones = $this->getNotify();
 
+		return view("site.chat", compact("channel", "user_chat", "msn_chat", "notifications"));
+
+    }
+
+
+
+    public function getNotify()
+    {
+        if (auth()->check()) {
+        
+            $noti = DB::table("notifications")->where("user_id", auth()->user()->user_id)->get();
+            $i = 0;
+            $arrNot = null;
+            
+            if ($noti != null) {        
+                foreach ($noti as $notify) {
+                    $usuario = DB::table("users")->where("user_id", $notify->other_user_id)->first();
+                    $arrNot[$i]["nombre_usuario"] = $usuario->username;
+                    $arrNot[$i]["img_user"] = $usuario->urlImg;
+                    $arrNot[$i]["typo_not"] = $notify->typo_notify_id;
+                    $arrNot[$i]["time"] = $notify->created_at;
+                    $i++;
+                }
+            }
+
+            return $arrNot;
+
+        }
+
+        return null;
     }
 
 
@@ -63,6 +93,17 @@ class ChatController extends Controller
   		if ( $pusher->trigger($request->canal, $evento, $data, $request->socket_id) ) {
 
   			$canal = DB::table("chats_rooms")->where("token_chat", $request->canal)->first();
+
+            //NOTIFICACIONES DE CHAT
+            $primerMsj = DB::table("messages")->where("chat_id", $canal->chat_id)->first();
+            if ($primerMsj == null) {
+                DB::table("notifications")->insert([
+                    "user_id" => $canal->user_two_id,
+                    "typo_notify_id" => 1,
+                    "other_user_id" => auth()->user()->user_id,
+                    "created_at" => $date,
+                ]);
+            }
 
   			DB::table("messages")->insert([
   				"chat_id" => $canal->chat_id,

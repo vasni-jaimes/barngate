@@ -1718,6 +1718,27 @@ if (accepta) {
 |      CALIFICACION      |
 \************************/
 
+
+$(".fa-calificacion-send .fa-star").click(function() {
+	$(".fa-calificacion-send ul li").removeClass("active");
+	$(".fa-calificacion-send ul li i").removeClass("starta");
+	$(this).parent().addClass("active");
+
+	$(".fa-calificacion-send ul li").each(function(index) {
+		if ($(this).hasClass("active")) {
+			$(this).children().css("color", "#FFBA5C");
+			$(this).children().addClass("starta");
+			contador = index + 1;
+			return false;
+		}
+		$(this).children().css("color", "#FFBA5C");
+		$(this).children().addClass("starta");
+	});
+
+	$("input[name='contador']").val(contador);
+	$(".fa-calificacion-send ul li i:not(.starta)").css("color", "#fff");
+});
+
 let sold = document.querySelectorAll(".sold");
 let animal_id = "";
 if (sold) {
@@ -1727,7 +1748,7 @@ if (sold) {
 			e.preventDefault();
 			$("#calificacion").css("display", "block");
 			animal_id = e.target.getAttribute("data-animal");
-			$(e.target).parent(".btn-list").addClass("bonti")
+			$(e.target).parent(".btn-list").addClass("bonti");
 		});
 	}
 	
@@ -1756,6 +1777,23 @@ $(".lista-calificacion .fa-star").click(function() {
 });
 
 
+
+let qualify_v = document.querySelector(".qualify_v");
+if (qualify_v) {
+	qualify_v.addEventListener("click", e => {
+		e.preventDefault();
+		let mycontador = document.querySelector("input[name='contador']").value;
+		if (mycontador == '' || mycontador == 0 || isNaN(mycontador) || mycontador > 5 || mycontador < 0) {
+			$("#error_report").css("display", "block");
+			return false;
+		}
+
+		$("#loading").css("display", "block");
+		$("#form_qualify").submit();
+	});
+}
+
+
 let qualify = document.querySelectorAll(".qualify");
 if (qualify) {
 	$(".qualify").click(function() {
@@ -1767,6 +1805,10 @@ if (qualify) {
 			"animal_id": animal_id,
 		};
 
+		$("#calificacion").css("display", "none");
+		$("#loading").css("display", "block");
+
+
 		//ajax
 		request
 		   	.post('/addqualifyl')
@@ -1775,10 +1817,37 @@ if (qualify) {
 		   	.then(res => {
 		   		console.log(res);
 		   		if (res.body.message == 'ok') {
-		   			//$("a.sold[data-animal='"+animal_id+"']").parent(".btn-list");
 		   			$(".bonti .sold").remove();
 		   			$(".bonti").append('<a href="#" class="mw-150 btn btn-primary botton-public" data-animal="'+animal_id+'">Post again</a>');
 		   			$(".bonti").append('<a href="#" class="mw-150 btn btn-primary botton-remove" data-animal="'+animal_id+'">Remove</a>');
+		   			$("#error_report h3").html("Was rated correctly");
+		   			$("#loading").css("display", "none");
+		   			$("#error_report").css("display", "block");
+
+		   			let botton_public = document.querySelectorAll(".botton-public");
+					if (botton_public) {
+						for (var i = 0; i <= botton_public.length - 1; i++) {
+							botton_public[i].addEventListener("click", e => {
+								e.preventDefault();
+								$(".btn-list").removeClass("post-a__gain");
+								$(e.target).parent(".btn-list").addClass("post-a__gain");
+								$("#animal_again-post").css("display", "block");
+							});
+						}
+					}
+
+
+					let botton_remove = document.querySelectorAll(".botton-remove");
+					if (botton_remove) {
+						for (var i = 0; i <= botton_remove.length - 1; i++) {
+							botton_remove[i].addEventListener("click", e => {
+								e.preventDefault();
+								$("#animal_remove").css("display", "block");
+								idAnimal = e.target.getAttribute("data-animal");
+							});
+						}
+					}
+
 		   		}
 		   	})
 		   	.catch(err => {
@@ -1835,6 +1904,24 @@ if (button_chat) {
 			"socket_id": pusher.connection.socket_id
 		};
 
+		//TIEMPO
+		let today = new Date();
+		let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+		let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+		let fecha = date+" "+time;
+
+		//ESCRIBIR EL MENSAJE EN EL CHAT LOCAL
+		let html = '<li class="msg-chat__item msg-chat__item_right-person">'+
+		   							'<div class="msg-chat__time">'+fecha+'</div> '+
+		   							'<div class="msg-chat__bubble msg-chat__bubble_first-in-group msg-chat__bubble_first-person msg-chat__bubble_first-person__first-in-group">'+
+		   								'<div class="msg-chat__text">'+message+'</div>'+
+		   							'</div>'+
+		   						'</li>';
+
+		$(".msg-chat__items").append(html);
+		$("#messaging-widget-textarea").val("");
+		$(".msg-chat").animate({ scrollTop: $(document).height() }, 1000);
+
 		request
 		   	.post('/messageSend')
 		   	.send(data)
@@ -1842,17 +1929,7 @@ if (button_chat) {
 		   	.then(res => {
 		   		console.log(res);
 		   		if (res.body.message == 'ok') {
-
-		   			let html = '<li class="msg-chat__item msg-chat__item_right-person">'+
-		   							'<div class="msg-chat__time">'+res.body.fecha+'</div> '+
-		   							'<div class="msg-chat__bubble msg-chat__bubble_first-in-group msg-chat__bubble_first-person msg-chat__bubble_first-person__first-in-group">'+
-		   								'<div class="msg-chat__text">'+message+'</div>'+
-		   							'</div>'+
-		   						'</li>';
-
-		   			$(".msg-chat__items").append(html);
-		   			$("#messaging-widget-textarea").val("");
-		   			$(".msg-chat").animate({ scrollTop: $(document).height() }, 1000);
+		   			console.log("ok");
 		   		}
 		   	})
 		   	.catch(err => {
@@ -1877,7 +1954,7 @@ if (enviar_contacto) {
 		let first_name = document.querySelector("input[name='first_name']");
 		let last_name = document.querySelector("input[name='last_name']");
 		let email = document.querySelector("input[name='email_contact']");
-		let phone = document.querySelector("input[name='phone']");
+		//let phone = document.querySelector("input[name='phone']");
 		let questions = document.querySelector("textarea[name='questions']");
 
 
@@ -1904,15 +1981,15 @@ if (enviar_contacto) {
 			return false;
 		}
 
-		if (isNaN(phone.value)) {
-			$(".error").html("the phone field has to be numeric");
-			return false;
-		}
+		// if (isNaN(phone.value)) {
+		// 	$(".error").html("the phone field has to be numeric");
+		// 	return false;
+		// }
 
-		if (phone.value == '') {
-			$(".error").html("The phone field is required");
-			return false;
-		}
+		// if (phone.value == '') {
+		// 	$(".error").html("The phone field is required");
+		// 	return false;
+		// }
 
 		if (questions.value.trim() == '') {
 			$(".error").html("The questions field is required");
@@ -1925,6 +2002,28 @@ if (enviar_contacto) {
 		$(".clearfix").submit();
 	});
 }
+
+
+
+
+/************************************************************\
+|      VALIDAR QUE EL PHONE - CONTACT SOLO SEAN NUMEROS      |
+\************************************************************/
+
+let phone = document.querySelector("input[name='phone']");
+if (phone) {
+	phone.addEventListener('keypress', (e) => {
+        var key = window.event ? e.which : e.keyCode;
+        if (key < 48 || key > 57) {
+            e.preventDefault();
+        }
+        if (e.target.value.length >= 13) {
+			e.preventDefault();
+		}
+    });
+}
+
+
 
 
 /*************************\
@@ -1943,7 +2042,7 @@ if (info_user) {
 		let phone = document.querySelector("input[name='phone']");
 		let address = document.querySelector("input[name='address']");
 		let postal = document.querySelector("input[name='postal']");
-		let country = document.querySelector("input[name='country']");
+		let state = document.querySelector("select[name='state']");
 		let token = document.querySelector("input[name='_token']");
 
 
@@ -2021,14 +2120,14 @@ if (info_user) {
 			postal.style.marginBottom = "15px";
 		}
 
-		if (country.value.trim() == '') {
-			error(country, "The country field is required");
-			country.style.marginBottom = "0px";
+		if (state.value.trim() == '' || state.value.trim() == null || state.value.trim() == undefined || state.value.trim() == 0) {
+			error(state, "The state field is required");
+			state.style.marginBottom = "0px";
 			$(".err").css("marginBottom", "15px");
 			return false;	
 		}
 		else {
-			country.style.marginBottom = "15px";
+			state.style.marginBottom = "15px";
 		}
 
 
@@ -2040,7 +2139,7 @@ if (info_user) {
 			"phone": phone.value,
 			"address": address.value,
 			"postal": postal.value,
-			"country": country.value,
+			"state": state.value,
 			"_token": token.value  
 		};
 
@@ -2340,6 +2439,25 @@ if (botton_remove) {
 }
 
 
+
+/*********************\
+|     Post Again      |
+\*********************/
+
+let botton_public = document.querySelectorAll(".botton-public");
+if (botton_public) {
+	for (var i = 0; i <= botton_public.length - 1; i++) {
+		botton_public[i].addEventListener("click", e => {
+			e.preventDefault();
+			$(".btn-list").removeClass("post-a__gain");
+			$(e.target).parent(".btn-list").addClass("post-a__gain");
+			$("#animal_again-post").css("display", "block");
+		});
+	}
+}
+
+
+
 let accpt_remove = document.querySelector(".accpt_remove");
 if (accpt_remove) {
 	accpt_remove.addEventListener("click", e => {
@@ -2394,12 +2512,40 @@ if (accpt_remove) {
 }
 
 
+/**************************\
+|     Remove - Animal      |
+\**************************/
+
 let cancel_remove = document.querySelector(".cancel_remove");
 if (cancel_remove) {
 	cancel_remove.addEventListener("click", e => {
 		e.preventDefault();
 		$("#animal_remove").css("display", "none");
 	});
+}
+
+
+/**************************\
+|     Repost - Animal      |
+\**************************/
+
+let cancel_again = document.querySelector(".cancel_again");
+if (cancel_again) {
+	cancel_again.addEventListener("click", e => {
+		e.preventDefault();
+		$("#animal_again-post").css("display", "none");
+	});
+}
+
+
+
+/********************************\
+|     Again - Animal-accept      |
+\********************************/
+
+let accpt_again = document.querySelector(".accpt_again");
+if (accpt_again) {
+	accpt_again.addEventListener("click", postAgain);
 }
 
 
@@ -2894,7 +3040,12 @@ function stripeResponseHandler(status, response) {
 
 
 
-function initialize() {
+function initialize(e) {
+	e.preventDefault();
+
+	if (!$(".back-animal").is(":visible")) {
+		return false;
+	}
 
  	let vasni = $("#lat").val();
     let p = JSON.parse(vasni);
@@ -2923,6 +3074,65 @@ function initialize() {
 	}
 
 	$("#show-map").css("display", "block");
+}
+
+
+
+function postAgain(e) {
+
+	e.preventDefault();
+	let idAnimal = document.querySelector(".post-a__gain .botton-public").getAttribute("data-animal");
+	let data = {
+		"id_animal": idAnimal,
+		"_token": document.querySelector("input[name='_token']").value
+	};
+
+	$("#animal_again-post").css("display", "none");
+	$("#loading").css("display", "block");
+
+	request
+	   	.post('/postagain')
+	   	.send(data)
+	   	.set('Accept', 'application/json')
+	   	.then(res => {
+	   		console.log(res.body);
+	   		if (res.body.message == 'ok') {
+	   			$(".post-a__gain .botton-public").remove();
+	   			$(".post-a__gain .botton-remove").remove();
+
+	   			$(".post-a__gain").append('<a href="#" class="mw-150 btn btn-primary sold" data-animal="'+idAnimal+'">Sold</a>');
+	   			let sold = document.querySelectorAll(".sold");
+				let animal_id = "";
+				if (sold) {
+					for (var i = 0; i <= sold.length - 1; i++) {
+						sold[i].addEventListener("click", e => {
+							e.preventDefault();
+							$("#calificacion").css("display", "block");
+							animal_id = e.target.getAttribute("data-animal");
+							$(e.target).parent(".btn-list").addClass("bonti")
+						});
+					}
+				}
+
+				$("#loading").css("display", "none");
+	   		}
+	   		else {
+	   			if (res.body.input == 'not_parameters') {
+	   				$("#error_report h3").html("An error occurred, please try again later");
+		   			$("#loading").css("display", "none");
+		   			$("#error_report").css("display", "block");
+	   			}
+	   			else if (res.body.input == 'not_animal') {
+	   				$("#error_report h3").html("An error occurred, please try again later");
+		   			$("#loading").css("display", "none");
+		   			$("#error_report").css("display", "block");
+	   			}
+	   		}
+	   	})
+	   	.catch(err => {
+			// err.message, err.response
+			console.log(err.message);
+		});	
 }
 
 

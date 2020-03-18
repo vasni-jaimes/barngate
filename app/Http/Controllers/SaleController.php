@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 //Moderl
 use App\User;
@@ -21,8 +22,8 @@ class SaleController extends Controller
 {
     public function __construct()
     {
-        $this->middleware("auth", ["except" => ["show"]]);
-        $this->middleware("ValidateProfileFinSale", ["except" => ["show"]]);
+        $this->middleware("auth", ["except" => ["show", "SearchAnimal"]]);
+        $this->middleware("ValidateProfileFinSale", ["except" => ["show", "SearchAnimal"]]);
         $this->middleware("RestrictedAccessExpired", ["only" => ["show"]]);
         $this->middleware("RestringUpdateSale", ["only" => "updatePlan", "PageUpdatePlan"]);
     }
@@ -53,9 +54,39 @@ class SaleController extends Controller
         $class      = DB::table("class")->get();
         $disciplines = DB::table("disciplines")->get();
         $estados    = DB::table("cities")->groupBy("estado")->get();
+        $notificaciones = $this->getNotify();
 
-        return view('site.sale', compact("animals", "breeds", "colors", "genders", "disciplines", "estados", "class", "categories", "type", "size"));
+        return view('site.sale', compact("animals", "breeds", "colors", "genders", "disciplines", "estados", "class", "categories", "type", "size", "notificaciones"));
     }
+
+
+    public function getNotify()
+    {
+        if (auth()->check()) {
+        
+            $noti = DB::table("notifications")->where("user_id", auth()->user()->user_id)->get();
+            $i = 0;
+            $arrNot = null;
+            
+            if ($noti != null) {        
+                foreach ($noti as $notify) {
+                    $usuario = DB::table("users")->where("user_id", $notify->other_user_id)->first();
+                    $arrNot[$i]["nombre_usuario"] = $usuario->username;
+                    $arrNot[$i]["img_user"] = $usuario->urlImg;
+                    $arrNot[$i]["typo_not"] = $notify->typo_notify_id;
+                    $arrNot[$i]["time"] = $notify->created_at;
+                    $i++;
+                }
+            }
+
+            return $arrNot;
+
+        }
+
+        return null;
+    }
+
+
 
     /**
      * Store a newly created resource in storage.
@@ -616,7 +647,8 @@ class SaleController extends Controller
 
         $favorite = $this->getFavoriteProduct($animal->sale_id, $animal->user_id);
         $todasImg = $this->todasImagenesProducto($animal->user_id, $animal->animal_id, $animal->sale_id);
-        return view("site.principal", compact("animal", "todasImg", "favorite"));
+        $notificaciones = $this->getNotify();
+        return view("site.principal", compact("animal", "todasImg", "favorite", "notificaciones"));
     }
 
     /**
@@ -656,7 +688,8 @@ class SaleController extends Controller
 
     public function updatePlan($id)
     {
-        return view("site.renovate", compact("id"));
+         $notificaciones = $this->getNotify();
+        return view("site.renovate", compact("id", "notificaciones"));
     }
 
 
@@ -693,9 +726,37 @@ class SaleController extends Controller
             $fechafinal = date ( 'Y-m-j' , $fechafinal );
         }
 
+
         //OBTENER EL REGISTRO DEL ANIMAL
         $saleGet    = Sale::where("nickname", $id)->first();
         $sale       = Sale::find($saleGet->sale_id);
+
+
+
+        //SABER QUE PLAN TIENE PARA RECORTAR LA CANTIDAD DE IMAGENES
+        $directory = 'images/'.auth()->user()->user_id.'/'.$sale->animal_id.'/'.$sale->sale_id.'/';
+        $files = Storage::allFiles($directory);
+
+
+        if (request("planSelect") == 1) {
+            if (count($files) > 1) {
+                $counta = count($files) - 2;
+                for ($i=0; $i <= $counta; $i++) { 
+                    Storage::delete($files[$i]);
+                }
+            }
+        }
+        else if (request("planSelect") == 2) {
+            if (count($files) > 5) {
+                $counta = count($files) - 6;
+                for ($i=0; $i <= $counta; $i++) { 
+                    Storage::delete($files[$i]);
+                }
+            }
+        }
+
+
+
 
         $precio = 0;
         if ($request->has("hompage") || $request->has("hompage2")) {

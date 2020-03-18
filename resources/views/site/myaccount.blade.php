@@ -47,7 +47,7 @@
 										<li><p>{{ ( auth()->user()->phone == null ) ? "Phone" :  auth()->user()->phone }}</p></li>
 										<li><p>{{ ( auth()->user()->address == null ) ? "Address" :  auth()->user()->address }}</p></li>
 										<li><p>{{ ( auth()->user()->cp_zip == null ) ? "Zip/Postal Code" :  auth()->user()->cp_zip }}</p></li>
-										<li><p>{{ ( auth()->user()->country == null ) ? "Country" :  auth()->user()->country }}</p></li>
+										<li><p>{{ ( auth()->user()->state == null ) ? "State" :  auth()->user()->getState()->estado }}</p></li>
 									</ul>
 									<button class="show-info selector">Edit My Account Info</button>
 								</div> <!-- /item-flex -->
@@ -115,13 +115,13 @@
 												@if ($animal[$i]["disabled"] == 0)
 													@if ($animal[$i]["sold"] == 1)
 														<a href="#" class="mw-150 btn btn-primary botton-public" data-animal="{{ $animal[$i]["nickname"] }}">Post again</a>
-														<a href="#" class="mw-150 btn btn-primary botton-remove" data-animal="{{ $animal[$i]["sale_id"] }}">Remove</a>
+														<a href="#" class="mw-150 btn btn-primary botton-remove" data-animal="{{ $animal[$i]["nickname"] }}">Remove</a>
 													@else
 														<a href="#" class="mw-150 btn btn-primary sold" data-animal="{{ $animal[$i]["nickname"] }}">Sold</a>
 													@endif
 												@else
 													<a href="{{ route("sale.updateplan", $animal[$i]["nickname"]) }}" class="mw-150 btn btn-primary botton-renovate">Renovate</a>
-													<a href="#" class="mw-150 btn btn-primary botton-remove" data-animal="{{ $animal[$i]["sale_id"] }}">Remove</a>
+													<a href="#" class="mw-150 btn btn-primary botton-remove" data-animal="{{ $animal[$i]["nickname"] }}">Remove</a>
 												@endif
 											</div> <!-- /item-flex -->
 										</div> <!-- /flex -->
@@ -229,7 +229,6 @@
 		<div class="wrapper-form">
 			
 			<div>
-				
 				<div class="flex w-100">
 
 					<div class="container-form item-flex">
@@ -250,17 +249,31 @@
 							<input type="text" class="input" name="name_contact" value="{{ old("name_contact", auth()->user()->name) }}" placeholder="Name">
 							<input type="tel" class="input" name="phone" value="{{ old("phone", auth()->user()->phone) }}" placeholder="Phone">
 							<input type="text" class="input" name="address" value="{{ old("address", auth()->user()->address) }}" placeholder="Address">
+<<<<<<< HEAD
 							<input type="text" class="input" name="postal" value="{{ old("postal", auth()->user()->cp_zip) }}" placeholder="Zip Code">
 							<input type="text" class="input" name="country" value="{{ old("country", auth()->user()->country) }}" placeholder="Country">
+=======
+							<input type="text" class="input" name="postal" value="{{ old("postal", auth()->user()->cp_zip) }}" placeholder="Postal Code">
+							{{-- <input type="text" class="input" name="country" value="{{ old("country", auth()->user()->country) }}" placeholder="Country"> --}}
+							<select name="state">
+								<option value=""> Select a state </option>
+								@foreach($estados as $estado)
+									<option value="{{ $estado->id_estado }}" @if( auth()->user()->state == $estado->id_estado ) selected @endif> {{ $estado->estado }} </option>
+								@endforeach
+							</select>
+>>>>>>> 7358a6c230843b31ad0a3657b897a7dfbc54c51c
 						</form>
 					</div> <!-- /item-flex -->
 
 				</div> <!-- /flex -->
 
 				<div class="text-center pt-20 pb-20">
+<<<<<<< HEAD
 					<input class="mw-150 btn btn-primary edit-info_user" type="submit" value="Save changes >">
+=======
+					<input class="mw-150 btn btn-primary edit-info_user" type="submit" value="Save changes">
+>>>>>>> 7358a6c230843b31ad0a3657b897a7dfbc54c51c
 				</div>
-				
 			</div>
 
 		</div> <!-- /wrapper-form -->
@@ -297,6 +310,19 @@
 				<h2> Are you sure you want to delete this post? </h2>
 				<button class="accpt_remove"> Accept </button>
 				<button class="cancel_remove"> Cancel </button>
+			</div>
+		</div> <!-- /wrapper-form -->
+	</div> <!-- /shadowbox -->
+
+
+
+	<div class="shadowbox" id="animal_again-post">
+		<div class="close"></div> <!-- /close -->
+		<div class="wrapper-form">
+			<div class="container-form">
+				<h2> Are you sure you want to republish your animal? </h2>
+				<button class="accpt_again"> Accept </button>
+				<button class="cancel_again"> Cancel </button>
 			</div>
 		</div> <!-- /wrapper-form -->
 	</div> <!-- /shadowbox -->
@@ -355,6 +381,20 @@
 			</div>
 		</div> <!-- /wrapper-form -->
 	</div> <!-- /shadowbox -->
+
+
+	@if (session()->has("session_succes-qualify"))
+
+		<div class="shadowbox" id="session_succes-qualify" style="display: block;">
+			<div class="close"></div> <!-- /close -->
+			<div class="wrapper-form">
+				<div class="container-form">
+					<h3> {{ session("session_succes-qualify") }} </h3>
+				</div>
+			</div> <!-- /wrapper-form -->
+		</div> <!-- /shadowbox -->
+
+	@endif
 
 
 @endsection
