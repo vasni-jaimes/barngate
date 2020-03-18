@@ -31,9 +31,9 @@ class ChatController extends Controller
 
     	//MENSAJES DE CHAT
     	$msn_chat = DB::table("messages")->where("chat_id", $user_client->chat_id)->get();
-        $notificaciones = $this->getNotify();
+      $notificaciones = $this->getNotify();
 
-		return view("site.chat", compact("channel", "user_chat", "msn_chat", "notifications"));
+		return view("site.chat", compact("channel", "user_chat", "msn_chat", "notificaciones"));
 
     }
 
