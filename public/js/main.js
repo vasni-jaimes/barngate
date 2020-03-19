@@ -3027,12 +3027,13 @@ function searchWP() {
 
 	//dar mensaje si no hay animales
 	cuentas = $(".back-animal:visible").length;
-	if (cuentas <= 0) {
-		$(".flex-tabs.between .msj-not").remove();
-		$(".flex-tabs.between").append("<h2 class='msj-not' style='display: block;margin: 0 auto'>No animals yet</h2>");
+	console.log(cuentas);
+	if (cuentas <= 0 || cuentas == null || cuentas == undefined || cuentas == '') {
+		$(".row-vista .msj-not, .row-lista .msj-not").remove();
+		$(".row-vista, .row-lista").append("<h2 class='msj-not' style='text-align: center'>No animals yet</h2>");
 	}
 	else if (cuentas > 0) {
-		$(".flex-tabs.between .msj-not").remove();
+		$(".row-vista .msj-not, .row-lista .msj-not").remove();
 	}
 
 	cordenadas();
