@@ -26,7 +26,6 @@ class CreateUsersTable extends Migration
             $table->boolean('state')->nullable();
             $table->text('urlImg')->nullable();
             $table->boolean('email_favorite')->default(0);
-            $table->boolean('email_update')->default(0);
             $table->boolean('receive_text')->default(0);
             $table->rememberToken();
             $table->timestamps();

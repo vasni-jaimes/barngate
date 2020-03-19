@@ -75,10 +75,7 @@
 						<div class="box-tab">
 							<ul class="check-option">
 								<li><label>Receive Emails about Favorite Animal</label><input type="checkbox" name="email_favorite" {{ auth()->user()->email_favorite == 1 ? "checked" : "" }}></li>
-								<li><label>Receive  Update Emails for Watched Listings</label><input type="checkbox" name="email_update" {{ auth()->user()->email_update == 1 ? "checked" : "" }}></li>
 								<li><label>Receive Text Message Notifications</label><input type="checkbox" name="receive_text" {{ auth()->user()->receive_text == 1 ? "checked" : "" }}></li>
-								{{-- <li><label>Text Messaging Phone Number</label><input type="radio"></li> --}}
-								{{-- <li><label>Only USA phone numbers are supported. Please enter your full 10-digit number.</label><input type="radio"></li> --}}
 							</ul>
 							<div class="pt-20 pb-20 text-center">
 								<a href="#" class="mw-150 btn btn-primary save-radio">Save settings ></a>
@@ -89,7 +86,7 @@
 					<div id="tab-three-panel" class="panel">
 						<div class="box-tab">
 							<div class="pb-20 text-center">
-								<a href="#" class="mw-150 btn btn-primary">Sale New Animal</a>
+								<a href="{{ route("sale") }}" class="mw-150 btn btn-primary">Sale New Animal</a>
 							</div>
 							<h3 class="title-green">Your Listings</h3>
 							@if ($animal == null)
@@ -180,11 +177,24 @@
 						<div class="flex items-center">
 							<p class="fw-700">{{ auth()->user()->username }}</p>
 							<ul class="rating">
-								<li><i class="fa fa-star"></i></li>
-								<li><i class="fa fa-star"></i></li>
-								<li><i class="fa fa-star"></i></li>
-								<li><i class="fa fa-star"></i></li>
-								<li><i class="fa fa-star"></i></li>
+								@if ($promedio != null)
+									@php $bandera = 5; @endphp
+									@for($j=1; $j <= $promedio; $j++)
+										<li><i class="fa fa-star" style="color: #FFBA5C;"></i></li>
+										@php $bandera--; @endphp
+									@endfor
+									@if ($bandera > 0)
+										@for($i=1; $i <= $bandera; $i++)
+											<li><i class="fa fa-star"></i></li>
+										@endfor
+									@endif
+								@else
+									<li><i class="fa fa-star"></i></li>
+									<li><i class="fa fa-star"></i></li>
+									<li><i class="fa fa-star"></i></li>
+									<li><i class="fa fa-star"></i></li>
+									<li><i class="fa fa-star"></i></li>
+								@endif
 							</ul>
 						</div>
 					</div> <!-- /txt-list -->

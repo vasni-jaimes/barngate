@@ -1471,9 +1471,17 @@ textarea.form-input {
 	cursor: pointer;
 }
 
-.rating li i:hover {
+.lista-calificacion .fa-star:hover {
 	color: #FFBA5C;
 }
+
+.fa-calificacion-send .fa-star:hover {
+	color: #FFBA5C;
+}
+
+/*.rating li i:hover {
+	color: #FFBA5C;
+}*/
 
 .row-principal h2 {
 	margin-bottom: 0;

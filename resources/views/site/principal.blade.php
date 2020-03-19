@@ -151,89 +151,72 @@
 			<h2 class="fz-18 fw-900 text-left">Description</h2>
 			<p class="fz-18">{{ $animal->description }}</p>
 		</div>
-		
-		@if (auth()->check())
-			<div class="wrapper-stars item-flex">
-				<div class="flex items-center">
-					@if (auth()->user()->urlImg == null)
-						<div style="background-image: url('/images/sin_foto.jpeg')" class="img_mini"></div>
-					@else
-						<div style="background-image: url('{{ Storage::url(auth()->user()->urlImg) }}')" class="img_mini"></div>
-					@endif
-					<div class="txt-list">
-						<div class="flex items-center">
-							<p class="fw-700">{{ $animal->user_name }}</p>
-							<ul class="rating">
+
+		<div class="wrapper-stars item-flex">
+			<div class="flex items-center">
+				@if ($animal->urlImg == null)
+					<div style="background-image: url('/images/sin_foto.jpeg')" class="img_mini"></div>
+				@else
+					<div style="background-image: url('{{ Storage::url($animal->urlImg) }}')" class="img_mini"></div>
+				@endif
+				<div class="txt-list">
+					<div class="flex items-center">
+						<p class="fw-700">{{ $animal->user_name }}</p>
+						<ul class="rating">
+							@if ($promedio != null)
+								@php $bandera = 5; @endphp
+								@for($j=1; $j <= $promedio; $j++)
+									<li><i class="fa fa-star" style="color: #FFBA5C;"></i></li>
+									@php $bandera--; @endphp
+								@endfor
+								@if ($bandera > 0)
+									@for($i=1; $i <= $bandera; $i++)
+										<li><i class="fa fa-star"></i></li>
+									@endfor
+								@endif
+							@else
 								<li><i class="fa fa-star"></i></li>
 								<li><i class="fa fa-star"></i></li>
 								<li><i class="fa fa-star"></i></li>
 								<li><i class="fa fa-star"></i></li>
 								<li><i class="fa fa-star"></i></li>
-							</ul>
-						</div>
-					</div> <!-- /txt-list -->
-				</div>
-			</div> <!-- /item-flex -->
-		@endif
+							@endif
+						</ul>
+					</div>
+				</div> <!-- /txt-list -->
+			</div>
+		</div> <!-- /item-flex -->
 			
 	</div> <!-- /container -->
 
 	<div class="bg-blue-light pt-40 pb-40">
 
-		<div class="container">
+		@if ($relacionados != null)
 			
-			<h3 class="text-center pb-20 underline">Animals related to your search</h3>
-
-			<div class="slide-account">
-
-				<div>
-					<div class="slide-animal">
-						<div class="image-slide" style="background-image: url('/images/animals/horse-classifieds-barngate-picture-home.png')"></div>
-						<div class="image-slide" style="background-image: url('/images/animals/horse-classifieds-barngate-picture-home.png')"></div>
-					</div> <!-- /slide-animal -->
-					<p class="pt-10">Breed</p>
-					<a href="#">See more</a>
-				</div>
-
-				<div>
-					<div class="slide-animal">
-						<div class="image-slide" style="background-image: url('/images/animals/horse-classifieds-barngate-picture-home.png')"></div>
-						<div class="image-slide" style="background-image: url('/images/animals/horse-classifieds-barngate-picture-home.png')"></div>
-					</div> <!-- /slide-animal -->
-					<p class="pt-10">Breed</p>
-					<a href="#">See more</a>
-				</div>
-
-				<div>
-					<div class="slide-animal">
-						<div class="image-slide" style="background-image: url('/images/animals/horse-classifieds-barngate-picture-home.png')"></div>
-						<div class="image-slide" style="background-image: url('/images/animals/horse-classifieds-barngate-picture-home.png')"></div>
-					</div> <!-- /slide-animal -->
-					<p class="pt-10">Breed</p>
-					<a href="#">See more</a>
-				</div>
-
-				<div>
-					<div class="slide-animal">
-						<div class="image-slide" style="background-image: url('/images/animals/horse-classifieds-barngate-picture-home.png')"></div>
-						<div class="image-slide" style="background-image: url('/images/animals/horse-classifieds-barngate-picture-home.png')"></div>
-					</div> <!-- /slide-animal -->
-					<p class="pt-10">Breed</p>
-					<a href="#">See more</a>
-				</div>
+			<div class="container">
 				
-				<div>
-					<div class="slide-animal">
-						<div class="image-slide" style="background-image: url('/images/animals/horse-classifieds-barngate-picture-home.png')"></div>
-						<div class="image-slide" style="background-image: url('/images/animals/horse-classifieds-barngate-picture-home.png')"></div>
-					</div> <!-- /slide-animal -->
-					<p class="pt-10">Breed</p>
-					<a href="#">See more</a>
-				</div>
+				<h3 class="text-center pb-20 underline">Animals related to your search</h3>
 
-			</div> <!-- /slide-account -->
+				<div class="slide-account">
 
-		</div> <!-- /margen -->
+					@for($i=0; $i <= count($relacionados) - 1; $i++)
+
+						<div>
+							<div class="slide-animal">
+								<div class="image-slide" style="background-image: url('{{ Storage::url("images/".$relacionados[$i]["img"]) }}')"></div>
+								{{-- <div class="image-slide" style="background-image: url('/images/animals/horse-classifieds-barngate-picture-home.png')"></div> --}}
+							</div> <!-- /slide-animal -->
+							<p class="pt-10"> {{ $relacionados[$i]["breed"] }} </p>
+							<a href="{{ route("sale.show", $relacionados[$i]["nickname"]) }} ">See more</a>
+						</div>
+
+					@endfor
+
+				</div> <!-- /slide-account -->
+
+			</div> <!-- /margen -->
+
+		@endif
 		
 	</div> <!-- /bg-blue -->
 

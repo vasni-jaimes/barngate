@@ -52,7 +52,8 @@
 					
 					<p class="fw-900 fz-22">Age</p>
 
-					<select class="form-input" name="age"> 
+					<select class="form-input" name="age">
+						<option value=""> Make a selection </option> 
 						@for ($i = 1; $i <= 15; $i++)
 							<option value="{{ $i }}" {{ selectOld("ages", $i) }} >{{ $i }}</option>
 						@endfor
@@ -61,7 +62,8 @@
 
 					<p class="fw-900 fz-22">Discipline</p>
 
-					<select class="form-input" name="discipline"> 
+					<select class="form-input" name="discipline">
+						<option value=""> Make a selection </option> 
 						@foreach($disciplines as $discipline)
 							<option value="{{ $discipline->discipline_id }}" {{ selectOld("discipline", $discipline->discipline_id) }}>{{ $discipline->name }}</option>
 						@endforeach

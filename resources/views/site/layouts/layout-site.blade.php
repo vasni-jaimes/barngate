@@ -267,7 +267,7 @@
 				<h3 class="text-center text-blue fz-30 mb-30">Log In</h3>
 				<form class="forma" action="/login" method="POST" id="form_login">
 					@csrf
-					<input type="text" class="input" name="email" placeholder="Email">
+					<input type="text" class="input" name="email_login" placeholder="Email">
 					<input type="password" class="input" name="password" placeholder="Password">
 					<input class="enviar login_send" type="submit" value="Log in">
 				</form>

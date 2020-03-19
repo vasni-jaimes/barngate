@@ -78,9 +78,7 @@ class SaleController extends Controller
                     $i++;
                 }
             }
-
             return $arrNot;
-
         }
 
         return null;
@@ -645,10 +643,60 @@ class SaleController extends Controller
         }
         
 
-        $favorite = $this->getFavoriteProduct($animal->sale_id, $animal->user_id);
-        $todasImg = $this->todasImagenesProducto($animal->user_id, $animal->animal_id, $animal->sale_id);
+        $favorite       = $this->getFavoriteProduct($animal->sale_id, $animal->user_id);
+        $todasImg       = $this->todasImagenesProducto($animal->user_id, $animal->animal_id, $animal->sale_id);
         $notificaciones = $this->getNotify();
-        return view("site.principal", compact("animal", "todasImg", "favorite", "notificaciones"));
+        $promedio       = $this->getPromedio($animal->user_id);
+        $relacionados   = $this->getRelaciones($animalprincipal->animal_id, $animal->sale_id);
+
+        return view("site.principal", compact("animal", "todasImg", "favorite", "notificaciones", "promedio", "relacionados"));
+    }
+
+    public function getRelaciones($animal_id, $except_sale)
+    {
+        $sales = null;
+        $salesRela = DB::table("sales")
+                            ->join('breeds', 'sales.breed_id', '=', 'breeds.breed_id')
+                            ->select('sales.*', 'breeds.name as breeds_name')
+                            ->where([
+                                "sales.animal_id" => $animal_id,
+                                "disabled" => 0,
+                                "sold" => 0,
+                            ])
+                            ->where("sale_id", "!=", $except_sale)
+                            ->inRandomOrder()
+                            // ->limit(5)
+                            ->get();
+
+        if ($salesRela != null) {
+            $conta = 0;
+            foreach ($salesRela as $ksale) {
+                $sales[$conta]["breed"] = $ksale->breeds_name;
+                $sales[$conta]["img"] = $this->primerImagenProducto( $ksale->user_id, $ksale->animal_id, $ksale->sale_id );
+                $sales[$conta]["nickname"] = $ksale->nickname;
+                $conta++;
+            }
+        }
+
+        return $sales;
+    }
+
+    public function getPromedio($user_id)
+    {
+        $prom   = DB::table("ratings")->where("calificado_id", $user_id)->get();
+        $calify = 0;
+        $cont   = 0;
+        if ($prom != null) {
+            foreach ($prom as $key) {
+                $calify += $key->rating;
+                $cont++;
+            }
+
+            $mypromedio = floatval($calify) / floatval($cont);
+            return round($mypromedio);
+        }
+
+        return null;
     }
 
     /**
@@ -864,6 +912,30 @@ class SaleController extends Controller
             return $todas;
         }
 
+        return false;
+    }
+
+
+    public function primerImagenProducto($usuario, $categoria, $producto)
+    {
+        $directory= base_path()."/storage/app/public/images/".$usuario."/".$categoria."/".$producto;
+        if (is_dir($directory)) {
+            $dirint = dir($directory);
+            $primero = "";
+
+            while (($archivo = $dirint->read()) !== false)
+            {
+                if (preg_match("{gif}", $archivo) || preg_match("{jpeg}", $archivo) || preg_match("{png}", $archivo) || preg_match("{jpg}", $archivo) || preg_match("{webp}", $archivo)){
+                    $primero = $archivo;
+                    break;
+                }
+            }
+            $dirint->close();
+
+
+            return $usuario."/".$categoria."/".$producto."/".$primero;
+        }
+       
         return false;
     }
 

@@ -23,20 +23,41 @@ class ChatController extends Controller
     	//OBTENER LOS DATOS DEL USUARIO CON EL QUE CHATEA EL USUARIO DE LA SESSION ACTUAL
     	$user_client = DB::table("chats_rooms")->where("token_chat", $channel)->first();
     	if ($user_client->user_id == auth()->user()->user_id) {
-    		$user_chat = DB::table("users")->where("user_id", $user_client->user_two_id)->first();
+    		$user_chat  = DB::table("users")->where("user_id", $user_client->user_two_id)->first();
+            $usuario    = $user_client->user_two_id;
     	}
     	else {
-    		$user_chat = DB::table("users")->where("user_id", $user_client->user_id)->first();
+    		$user_chat  = DB::table("users")->where("user_id", $user_client->user_id)->first();
+            $usuario    = $user_client->user_id;
     	}
 
     	//MENSAJES DE CHAT
-    	$msn_chat = DB::table("messages")->where("chat_id", $user_client->chat_id)->get();
-      $notificaciones = $this->getNotify();
+    	$msn_chat       = DB::table("messages")->where("chat_id", $user_client->chat_id)->get();
+        $notificaciones = $this->getNotify();
+        $promedio       = $this->getPromedio($usuario);
 
-		return view("site.chat", compact("channel", "user_chat", "msn_chat", "notificaciones"));
+		return view("site.chat", compact("channel", "user_chat", "msn_chat", "notificaciones", "promedio"));
 
     }
 
+
+    public function getPromedio($user_id)
+    {
+        $prom   = DB::table("ratings")->where("calificado_id", $user_id)->get();
+        $calify = 0;
+        $cont   = 0;
+        if ($prom != null) {
+            foreach ($prom as $key) {
+                $calify += $key->rating;
+                $cont++;
+            }
+
+            $mypromedio = floatval($calify) / floatval($cont);
+            return round($mypromedio);
+        }
+
+        return null;
+    }
 
 
     public function getNotify()
@@ -57,9 +78,7 @@ class ChatController extends Controller
                     $i++;
                 }
             }
-
             return $arrNot;
-
         }
 
         return null;

@@ -27,6 +27,7 @@ class MyaccountController extends Controller
     
     public function index()
     {
+        //ANIMALES MYLISTING -------------
         $animal     = array();
     	$animalsrow = Sale::where('user_id', auth()->user()->user_id)
     					->join('animals', 'sales.animal_id', '=', 'animals.animal_id')
@@ -47,18 +48,15 @@ class MyaccountController extends Controller
         }
 
 
-        //CHAT
-        $token_sala = DB::table("chats_rooms")->where([
+        //CHAT ------------------
+        $token_sala =   DB::table("chats_rooms")->where([
                             ["chats_rooms.user_id", auth()->user()->user_id],
                         ])->orWhere([
                             ["chats_rooms.user_two_id", auth()->user()->user_id],
                         ])->get();
 
-        //return response()->json($token_sala);
-        
         $conta     = 0;
         $listado   = null;
-
         foreach ($token_sala as $sala) {
             $chat       = DB::table("messages")->where("chat_id", $sala->chat_id)->orderBy('id', 'desc')->first();
             $chat_list  = false;
@@ -80,14 +78,33 @@ class MyaccountController extends Controller
             }
         }
 
-        //return response()->json($listado);
+        //FAVORITOS, ESTADOS, CALIFICACION Y NORIFICACIONES --------------------
         $misFavoritos   = $this->getFavorites(auth()->user()->user_id);
         $estados        = DB::table("cities")->groupBy("estado")->get();
         $notificaciones = $this->getNotify();
+        $promedio       = $this->getPromedio();
 
-    	return view("site.myaccount", compact("animal", "misFavoritos", "listado", "estados", "notificaciones"));
+    	return view("site.myaccount", compact("animal", "misFavoritos", "listado", "estados", "notificaciones", "promedio"));
     }
 
+
+    public function getPromedio()
+    {
+        $prom   = DB::table("ratings")->where("calificado_id", auth()->user()->user_id)->get();
+        $calify = 0;
+        $cont   = 0;
+        if ($prom != null) {
+            foreach ($prom as $key) {
+                $calify += $key->rating;
+                $cont++;
+            }
+
+            $mypromedio = floatval($calify) / floatval($cont);
+            return round($mypromedio);
+        }
+
+        return null;
+    }
 
     public function getNotify()
     {
