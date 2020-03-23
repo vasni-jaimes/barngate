@@ -52,7 +52,8 @@
 					
 					<p class="fw-900 fz-22">Age</p>
 
-					<select class="form-input" name="age"> 
+					<select class="form-input" name="age">
+						<option value=""> Make a selection </option> 
 						@for ($i = 1; $i <= 15; $i++)
 							<option value="{{ $i }}" {{ selectOld("ages", $i) }} >{{ $i }}</option>
 						@endfor
@@ -61,7 +62,8 @@
 
 					<p class="fw-900 fz-22">Discipline</p>
 
-					<select class="form-input" name="discipline"> 
+					<select class="form-input" name="discipline">
+						<option value=""> Make a selection </option> 
 						@foreach($disciplines as $discipline)
 							<option value="{{ $discipline->discipline_id }}" {{ selectOld("discipline", $discipline->discipline_id) }}>{{ $discipline->name }}</option>
 						@endforeach
@@ -142,120 +144,128 @@
 				
 				<div class="row-vista">
 					@csrf
-					@php $cont = 0; @endphp
-					@for($i=0; $i <= count($animal) - 1; $i++)
+					@if ($animal != null)
+						@php $cont = 0; @endphp
+						@for($i=0; $i <= count($animal) - 1; $i++)
 
-						@if($cont == 0)
-							<div class="flex-tabs between">
-						@endif
+							@if($cont == 0)
+								<div class="flex-tabs between">
+							@endif
 
-								<div class="back-animal" data-animal="{{ $animal[$i]["animal_id"] }}" 
-														data-breed="{{ $animal[$i]["breed_id"] }}"
-														data-color="{{ $animal[$i]["color_id"] }}"
-														data-age="{{ $animal[$i]["age_id"] }}"
-														data-gender="{{ $animal[$i]["gender_id"] }}"
-														data-discipline="{{ $animal[$i]["discipline_id"] }}"
-														data-description="{{ $animal[$i]["description"] }}"
-														data-address="{{ $animal[$i]["adress"] }}"
-														data-state="{{ $animal[$i]["state"] }}"
-														data-price="{{ floatval($animal[$i]["price_filtro"]) }}"
-														@if ($category != null)  
-															@if ($category != $animal[$i]["animal_id"])
-																style="display: none"
+									<div class="back-animal" data-animal="{{ $animal[$i]["animal_id"] }}" 
+															data-breed="{{ $animal[$i]["breed_id"] }}"
+															data-color="{{ $animal[$i]["color_id"] }}"
+															data-age="{{ $animal[$i]["age_id"] }}"
+															data-gender="{{ $animal[$i]["gender_id"] }}"
+															data-discipline="{{ $animal[$i]["discipline_id"] }}"
+															data-description="{{ $animal[$i]["description"] }}"
+															data-address="{{ $animal[$i]["adress"] }}"
+															data-state="{{ $animal[$i]["state"] }}"
+															data-price="{{ floatval($animal[$i]["price_filtro"]) }}"
+															@if ($category != null)  
+																@if ($category != $animal[$i]["animal_id"])
+																	style="display: none"
+																@else
+																	style="display: block"
+																@endif
 															@else
 																style="display: block"
-															@endif
-														@else
-															style="display: block"
-														@endif>
+															@endif>
 
-									<div class="img-lista" style="background-image: url('{{ "/storage/images/".$animal[$i]["img"] }}')"></div>
-									<div class="mt-20 text-center">
-										<a href="{{ route("sale.show", $animal[$i]["nickname"]) }}">
-											<h3 class="fz-24 fw-700">{{ $animal[$i]["breeds_name"] }}  {{ $animal[$i]["animal_name"] }}
-											</h3>
-										</a>
-										<p class="fz-18">{{ $animal[$i]["description"] }}</p>
-										<div class="mt-20 mb-20 text-center">
-											@if (auth()->check())
-												@if ($animal[$i]["user_id"] != auth()->user()->user_id)
-													@if (auth()->user()->name == null || auth()->user()->phone == null || auth()->user()->address == null || 
-															auth()->user()->cp_zip == null || auth()->user()->state == null) 
-														<h3> If you want to send a message or add to favorites first complete your profile </h3>
-													@else
-														@if (!$animal[$i]["myfavorito"])
-															<button class="btn btn-border add-favorite">Add to Favorites</button>
+										<div class="img-lista" style="background-image: url('{{ "/storage/images/".$animal[$i]["img"] }}')"></div>
+										<div class="mt-20 text-center">
+											<a href="{{ route("sale.show", $animal[$i]["nickname"]) }}">
+												<h3 class="fz-24 fw-700">{{ $animal[$i]["breeds_name"] }}  {{ $animal[$i]["animal_name"] }}
+												</h3>
+											</a>
+											<p class="fz-18">{{ $animal[$i]["description"] }}</p>
+											<div class="mt-20 mb-20 text-center">
+												@if (auth()->check())
+													@if ($animal[$i]["user_id"] != auth()->user()->user_id)
+														@if (auth()->user()->name == null || auth()->user()->phone == null || auth()->user()->address == null || 
+																auth()->user()->cp_zip == null || auth()->user()->state == null) 
+															<h3> If you want to send a message or add to favorites first complete your profile </h3>
+														@else
+															@if (!$animal[$i]["myfavorito"])
+																<button class="btn btn-border add-favorite">Add to Favorites</button>
+															@endif
+															<input type="hidden" class="nick" value="{{ $animal[$i]["nickname"] }}">
+															<a href="{{ route("chat.index", $animal[$i]["users_name"]) }}"> <button class="text-white btn btn-red">Message</button> </a>
 														@endif
-														<input type="hidden" class="nick" value="{{ $animal[$i]["nickname"] }}">
-														<a href="{{ route("chat.index", $animal[$i]["users_name"]) }}"> <button class="text-white btn btn-red">Message</button> </a>
 													@endif
 												@endif
-											@endif
-										</div> <!-- /flex -->
-										<p class="fz-25 fw-700">Price: <span class="price">${{ $animal[$i]["price"] }}</span></p>
-									</div>
-								</div> <!-- /col-md-6 -->
+											</div> <!-- /flex -->
+											<p class="fz-25 fw-700">Price: <span class="price">${{ $animal[$i]["price"] }}</span></p>
+										</div>
+									</div> <!-- /col-md-6 -->
 
-						@php $cont++; @endphp
-						@if ($cont == 2 || count($animal) -1 == $i)
-							</div> <!-- /row -->
-							@php $cont = 0; @endphp
-						@endif
-					@endfor
+							@php $cont++; @endphp
+							@if ($cont == 2 || count($animal) -1 == $i)
+								</div> <!-- /row -->
+								@php $cont = 0; @endphp
+							@endif
+						@endfor
+					@else
+						<h2 style="text-align: center;"> No animals yet </h2>
+					@endif
 				</div> <!-- /row-vista -->
 				
 				<div class="row-lista">
-					@for($i=0; $i <= count($animal) - 1; $i++)
+					@if ($animal != null)
+						@for($i=0; $i <= count($animal) - 1; $i++)
 
-						<div class="item-lista list-animal" data-animal="{{ $animal[$i]["animal_id"] }}" 
-																						data-breed="{{ $animal[$i]["breed_id"] }}"
-																						data-color="{{ $animal[$i]["color_id"] }}"
-																						data-age="{{ $animal[$i]["age_id"] }}"
-																						data-gender="{{ $animal[$i]["gender_id"] }}"
-																						data-discipline="{{ $animal[$i]["discipline_id"] }}"
-																						data-description="{{ $animal[$i]["description"] }}"
-																						data-address="{{ $animal[$i]["adress"] }}"
-																						data-state="{{ $animal[$i]["state"] }}"
-																						data-price="{{ floatval($animal[$i]["price_filtro"]) }}"
-																						@if ($category != null)  
-																							@if ($category != $animal[$i]["animal_id"])
-																								style="display: none"
+							<div class="item-lista list-animal" data-animal="{{ $animal[$i]["animal_id"] }}" 
+																							data-breed="{{ $animal[$i]["breed_id"] }}"
+																							data-color="{{ $animal[$i]["color_id"] }}"
+																							data-age="{{ $animal[$i]["age_id"] }}"
+																							data-gender="{{ $animal[$i]["gender_id"] }}"
+																							data-discipline="{{ $animal[$i]["discipline_id"] }}"
+																							data-description="{{ $animal[$i]["description"] }}"
+																							data-address="{{ $animal[$i]["adress"] }}"
+																							data-state="{{ $animal[$i]["state"] }}"
+																							data-price="{{ floatval($animal[$i]["price_filtro"]) }}"
+																							@if ($category != null)  
+																								@if ($category != $animal[$i]["animal_id"])
+																									style="display: none"
+																								@else
+																									style="display: block"
+																								@endif
 																							@else
 																								style="display: block"
-																							@endif
-																						@else
-																							style="display: block"
-																						@endif>
-																						
-							<div class="flex between items-center">
-								<div class="flex items-center">
-									<img src="{{ "/storage/images/".$animal[$i]["img"] }}">
-									<div class="item-d">
-										<a href="{{ route("sale.show", $animal[$i]["nickname"]) }}">
-											<p>{{ $animal[$i]["breeds_name"] }}  {{ $animal[$i]["animal_name"] }}  </p>
-										</a>
-										<p class="price">Price: ${{ $animal[$i]["price"] }}</p>
-									</div> <!-- /item-d -->
-								</div> <!-- /flex -->
-								<div class="flex align-items">
-									@if (auth()->check())
-										@if ($animal[$i]["user_id"] != auth()->user()->user_id)
-											@if (auth()->user()->name == null || auth()->user()->phone == null || auth()->user()->address == null || 
-													auth()->user()->cp_zip == null || auth()->user()->state == null) 
-												<h3> If you want to send a message or add to favorites first complete your profile </h3>
-											@else
-												@if (!$animal[$i]["myfavorito"])
-													<button class="btn btn-border">Add to Favorites</button>
+																							@endif>
+																							
+								<div class="flex between items-center">
+									<div class="flex items-center">
+										<img src="{{ "/storage/images/".$animal[$i]["img"] }}">
+										<div class="item-d">
+											<a href="{{ route("sale.show", $animal[$i]["nickname"]) }}">
+												<p>{{ $animal[$i]["breeds_name"] }}  {{ $animal[$i]["animal_name"] }}  </p>
+											</a>
+											<p class="price">Price: ${{ $animal[$i]["price"] }}</p>
+										</div> <!-- /item-d -->
+									</div> <!-- /flex -->
+									<div class="flex align-items">
+										@if (auth()->check())
+											@if ($animal[$i]["user_id"] != auth()->user()->user_id)
+												@if (auth()->user()->name == null || auth()->user()->phone == null || auth()->user()->address == null || 
+														auth()->user()->cp_zip == null || auth()->user()->state == null) 
+													<h3> If you want to send a message or add to favorites first complete your profile </h3>
+												@else
+													@if (!$animal[$i]["myfavorito"])
+														<button class="btn btn-border">Add to Favorites</button>
+													@endif
+													<input type="hidden" class="nick" value="{{ $animal[$i]["nickname"] }}">
+													<a href="{{ route("chat.index", $animal[$i]["users_name"]) }}"> <button class="text-white btn btn-red">Message</button> </a>
 												@endif
-												<input type="hidden" class="nick" value="{{ $animal[$i]["nickname"] }}">
-												<a href="{{ route("chat.index", $animal[$i]["users_name"]) }}"> <button class="text-white btn btn-red">Message</button> </a>
 											@endif
 										@endif
-									@endif
-								</div> <!-- /flex -->
-							</div>
-						</div> <!-- /item-lista -->
-					@endfor
+									</div> <!-- /flex -->
+								</div>
+							</div> <!-- /item-lista -->
+						@endfor
+					@else
+						<h2 style="text-align: center;"> No animals yet </h2>
+					@endif
 				</div> <!-- /row-lista -->
 
 				<div class="row-fav">

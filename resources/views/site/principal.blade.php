@@ -41,6 +41,8 @@
 								@endif
 								<a href="{{ route("chat.index", base64_encode($animal->user_name)) }}"> <button class="text-white btn btn-red">Message</button> </a>
 							@endif
+						@elseif ($animal->disabled == 1)
+							<h3 style="color: red"> Expired </h3>
 						@endif
 					@endif
 				</div> <!-- /flex -->
@@ -88,7 +90,7 @@
 						<li>Temperament: <small>(1=Calm, 10=Hot)</small></li>
 						<li>
 							<div class="flex items-center">
-								<label class="flex-auto"><input id="input" type="range" value="{{ $animal->temperament }}" min="0" max="10" autocomplete="off" name="temperament"></label>
+								<label class="flex-auto"><input id="input" type="range" value="{{ $animal->temperament }}" min="0" max="10" autocomplete="off" disabled></label>
 								<p class="range"><span id="etiqueta"></span> / 10</p>
 							</div> <!-- /flex -->
 						</li>
@@ -151,89 +153,72 @@
 			<h2 class="fz-18 fw-900 text-left">Description</h2>
 			<p class="fz-18">{{ $animal->description }}</p>
 		</div>
-		
-		@if (auth()->check())
-			<div class="wrapper-stars item-flex">
-				<div class="flex items-center">
-					@if (auth()->user()->urlImg == null)
-						<div style="background-image: url('/images/sin_foto.jpeg')" class="img_mini"></div>
-					@else
-						<div style="background-image: url('{{ Storage::url(auth()->user()->urlImg) }}')" class="img_mini"></div>
-					@endif
-					<div class="txt-list">
-						<div class="flex items-center">
-							<p class="fw-700">{{ $animal->user_name }}</p>
-							<ul class="rating">
+
+		<div class="wrapper-stars item-flex">
+			<div class="flex items-center">
+				@if ($animal->urlImg == null)
+					<div style="background-image: url('/images/sin_foto.jpeg')" class="img_mini"></div>
+				@else
+					<div style="background-image: url('{{ Storage::url($animal->urlImg) }}')" class="img_mini"></div>
+				@endif
+				<div class="txt-list">
+					<div class="flex items-center">
+						<p class="fw-700">{{ $animal->user_name }}</p>
+						<ul class="rating">
+							@if ($promedio != null)
+								@php $bandera = 5; @endphp
+								@for($j=1; $j <= $promedio; $j++)
+									<li><i class="fa fa-star" style="color: #FFBA5C;"></i></li>
+									@php $bandera--; @endphp
+								@endfor
+								@if ($bandera > 0)
+									@for($i=1; $i <= $bandera; $i++)
+										<li><i class="fa fa-star"></i></li>
+									@endfor
+								@endif
+							@else
 								<li><i class="fa fa-star"></i></li>
 								<li><i class="fa fa-star"></i></li>
 								<li><i class="fa fa-star"></i></li>
 								<li><i class="fa fa-star"></i></li>
 								<li><i class="fa fa-star"></i></li>
-							</ul>
-						</div>
-					</div> <!-- /txt-list -->
-				</div>
-			</div> <!-- /item-flex -->
-		@endif
+							@endif
+						</ul>
+					</div>
+				</div> <!-- /txt-list -->
+			</div>
+		</div> <!-- /item-flex -->
 			
 	</div> <!-- /container -->
 
 	<div class="bg-blue-light pt-40 pb-40">
 
-		<div class="container">
+		@if ($relacionados != null)
 			
-			<h3 class="text-center pb-20 underline">Animals related to your search</h3>
-
-			<div class="slide-account">
-
-				<div>
-					<div class="slide-animal">
-						<div class="image-slide" style="background-image: url('/images/animals/horse-classifieds-barngate-picture-home.png')"></div>
-						<div class="image-slide" style="background-image: url('/images/animals/horse-classifieds-barngate-picture-home.png')"></div>
-					</div> <!-- /slide-animal -->
-					<p class="pt-10">Breed</p>
-					<a href="#">See more</a>
-				</div>
-
-				<div>
-					<div class="slide-animal">
-						<div class="image-slide" style="background-image: url('/images/animals/horse-classifieds-barngate-picture-home.png')"></div>
-						<div class="image-slide" style="background-image: url('/images/animals/horse-classifieds-barngate-picture-home.png')"></div>
-					</div> <!-- /slide-animal -->
-					<p class="pt-10">Breed</p>
-					<a href="#">See more</a>
-				</div>
-
-				<div>
-					<div class="slide-animal">
-						<div class="image-slide" style="background-image: url('/images/animals/horse-classifieds-barngate-picture-home.png')"></div>
-						<div class="image-slide" style="background-image: url('/images/animals/horse-classifieds-barngate-picture-home.png')"></div>
-					</div> <!-- /slide-animal -->
-					<p class="pt-10">Breed</p>
-					<a href="#">See more</a>
-				</div>
-
-				<div>
-					<div class="slide-animal">
-						<div class="image-slide" style="background-image: url('/images/animals/horse-classifieds-barngate-picture-home.png')"></div>
-						<div class="image-slide" style="background-image: url('/images/animals/horse-classifieds-barngate-picture-home.png')"></div>
-					</div> <!-- /slide-animal -->
-					<p class="pt-10">Breed</p>
-					<a href="#">See more</a>
-				</div>
+			<div class="container">
 				
-				<div>
-					<div class="slide-animal">
-						<div class="image-slide" style="background-image: url('/images/animals/horse-classifieds-barngate-picture-home.png')"></div>
-						<div class="image-slide" style="background-image: url('/images/animals/horse-classifieds-barngate-picture-home.png')"></div>
-					</div> <!-- /slide-animal -->
-					<p class="pt-10">Breed</p>
-					<a href="#">See more</a>
-				</div>
+				<h3 class="text-center pb-20 underline">Animals related to your search</h3>
 
-			</div> <!-- /slide-account -->
+				<div class="slide-account">
 
-		</div> <!-- /margen -->
+					@for($i=0; $i <= count($relacionados) - 1; $i++)
+
+						<div>
+							<div class="slide-animal">
+								<div class="image-slide" style="background-image: url('{{ Storage::url("images/".$relacionados[$i]["img"]) }}')"></div>
+								{{-- <div class="image-slide" style="background-image: url('/images/animals/horse-classifieds-barngate-picture-home.png')"></div> --}}
+							</div> <!-- /slide-animal -->
+							<p class="pt-10"> {{ $relacionados[$i]["breed"] }} </p>
+							<a href="{{ route("sale.show", $relacionados[$i]["nickname"]) }} ">See more</a>
+						</div>
+
+					@endfor
+
+				</div> <!-- /slide-account -->
+
+			</div> <!-- /margen -->
+
+		@endif
 		
 	</div> <!-- /bg-blue -->
 

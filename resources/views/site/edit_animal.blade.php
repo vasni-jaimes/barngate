@@ -11,138 +11,183 @@
 
 			<div class="row sale-row">
 
-				<div class="col-md-4 pb-20">
-					<h3 class="fw-700">Animal<span>*</span></h3>
-					<select size="5" name="animals">
-						<option value="">Make a selection</option>
-						<option value=""></option>
-					</select>
-				</div> <!-- /col-4 -->
-
+				
 				<div class="col-md-4 pb-20">
 					<h3 class="fw-700">Breed<span>*</span></h3>
 					<select size="5" name="breeds">
-						<option value="">Make a selection</option>
-						<option value=""></option>
+						<option>Make a selection</option>
+						@foreach($breeds as $breed)
+							<option value="{{ $breed->breed_id }}" {{ selectOld("breeds", $breed->breed_id) }}>{{ $breed->name }}</option>
+						@endforeach
 					</select>
 				</div> <!-- /col-4 -->
 
-				<div class="col-md-4 pb-20">
-					<h3 class="fw-700">Color<span>*</span></h3>
-					<select size="5" name="colors">
-						<option value="">Make a selection</option>
-						<option value=""></option>
-					</select>
-				</div> <!-- /col-4 -->
+				@if ($animalprincipal->animal_id == 2 || $animalprincipal->animal_id == 6 || $animalprincipal->animal_id == 7)
+					<div class="col-md-4 pb-20">
+						<h3 class="fw-700">Color<span>*</span></h3>
+						<select size="5" name="colors">
+							<option>Make a selection</option>
+							@foreach($colors as $color)
+								<option value="{{ $color->color_id }}" {{ selectOld("colors", $color->color_id) }}>{{ $color->name }}</option>
+							@endforeach
+						</select>
+					</div> <!-- /col-4 -->
+				@endif
 
-				<div class="col-md-4 pb-20">
-					<h3 class="fw-700">Gender<span>*</span></h3>
-					<select size="5" name="genders">
-						<option value="">Make a selection</option>
-						<option value=""></option>
-					</select>
-				</div> <!-- /col-4 -->
+				@if ($animalprincipal->animal_id != 1)
+					<div class="col-md-4 pb-20">
+						<h3 class="fw-700">Gender<span>*</span></h3>
+						<select size="5" name="genders">
+							<option>Make a selection</option>
+							@foreach($genders as $gender)
+								<option value="{{ $gender->gender_id }}" {{ selectOld("genders", $gender->gender_id) }}>{{ $gender->name }}</option>
+							@endforeach
+						</select>
+					</div> <!-- /col-4 -->
+				@endif
 
 				<div class="col-md-4 pb-20">
 					<h3 class="fw-700">Age<span>*</span></h3>
 					<select size="5" name="ages">
-						<option value="">Make a selection</option>
-						<option value=""></option>
-					</select>
-				</div> <!-- /col-4 -->
-
-				<div class="col-md-4 pb-20">
-					<h3 class="fw-700">Discipline<span>*</span></h3>
-					<select size="5" name="discipline">
-						<option value="">Make a selection</option>
-						<option value=""></option>
-					</select>
-				</div> <!-- /col-4 -->
-
-				<div class="col-md-4 pb-20">
-					<h3 class="fw-700">Class<span>*</span></h3>
-					<select size="5" name="class">
-						<option value="">Make a selection</option>
-						<option value=""></option>
-					</select>
-				</div> <!-- /col-4 -->
-
-				<div class="col-md-4 pb-20">
-					<h3 class="fw-700">Type<span>*</span></h3>
-					<select size="5" name="type">
-						<option value="">Make a selection</option>
-						<option value=""></option>
-					</select>
-				</div> <!-- /col-4 -->
-
-				<div class="col-md-4 pb-20">
-					<h3 class="fw-700">Size<span>*</span></h3>
-					<select size="5" name="size">
-						<option value="">Make a selection</option>
-						<option value=""></option>
-					</select>
-				</div> <!-- /col-4 -->
-
-				<div class="col-md-4 pb-20">
-					<h3 class="fw-700">Declawed<span>*</span></h3>
-					<select size="5" name="declawed">
-						<option value="">Make a selection</option>
-						<option value=""></option>
-					</select>
-				</div> <!-- /col-4 -->
-
-				<div class="col-md-4 pb-20">
-					<h3 class="fw-700">Vaccinations<span>*</span></h3>
-					<select size="5" name="vaccinations">
-						<option value="">Make a selection</option>
-						<option value=""></option>
-					</select>
-				</div> <!-- /col-4 -->
-
-				<div class="col-md-4 pb-20 select-sale">
-					<h3 class="fw-700">Horns<span>*</span></h3>
-					<select size="5" name="horns">
 						<option>Make a selection</option>
-						<option value="1">Yes</option>
-						<option value="2">No</option>
-						<option value="3">Other</option>
-						<option value="4">Polled</option>
+						@for ($i = 1; $i <= 15; $i++)
+							<option value="{{ $i }}" {{ selectOld("ages", $i) }} >{{ $i }}</option>
+						@endfor	
 					</select>
 				</div> <!-- /col-4 -->
 
-				<div class="col-md-4 pb-20 select-sale">
-					<h3 class="fw-700">Categories<span>*</span></h3>
-					<select size="5" name="categories">
-						<option>Make a selection</option>
-					</select>
-				</div> <!-- /col-4 -->
+				@if ($animalprincipal->animal_id == 2)
+					<div class="col-md-4 pb-20">
+						<h3 class="fw-700">Discipline<span>*</span></h3>
+						<select size="5" name="discipline">
+							<option>Make a selection</option>
+							@foreach($disciplines as $discipline)
+								<option value="{{ $discipline->discipline_id }}" {{ selectOld("discipline", $discipline->discipline_id) }}>{{ $discipline->name }}</option>
+							@endforeach
+						</select>
+					</div> <!-- /col-4 -->
+				@endif
 
-				<div class="col-md-4 pb-20 select-sale">
-					<h3 class="fw-700">Weight<span>*</span></h3>
-					<input type="text" class="form-input" name="weight" value="">
-				</div> <!-- /col-4 -->
+				@if ($animalprincipal->animal_id == 3 || $animalprincipal->animal_id == 4 || $animalprincipal->animal_id == 5)
+					<div class="col-md-4 pb-20">
+						<h3 class="fw-700">Class<span>*</span></h3>
+						<select size="5" name="class">
+							<option>Make a selection</option>
+							@foreach($class as $clas)
+								<option value="{{ $clas->class_id }}" {{ selectOld("class", $clas->class_id) }}>{{ $clas->name }}</option>
+							@endforeach
+						</select>
+					</div> <!-- /col-4 -->
+				@endif
 
-				<div class="col-md-4 pb-20 select-sale">
-					<h3 class="fw-700">Conditions<span>*</span></h3>
-					<input type="text" class="form-input" name="conditions" value="">
-				</div> <!-- /col-4 -->
+				@if ($animalprincipal->animal_id == 4)
+					<div class="col-md-4 pb-20">
+						<h3 class="fw-700">Type<span>*</span></h3>
+						<select size="5" name="type">
+							<option>Make a selection</option>
+							@foreach($type as $typ)
+								<option value="{{ $typ->type_id }}" {{ selectOld("type", $typ->type_id) }}>{{ $typ->name }}</option>
+							@endforeach
+						</select>
+					</div> <!-- /col-4 -->
+				@endif
 
-				<div class="col-md-4 pb-20 select-sale">
-					<h3 class="fw-700">Number of head<span>*</span></h3>
-					<input type="text" class="form-input" name="number_of_head" value="">
-				</div> <!-- /col-4 -->
+				@if ($animalprincipal->animal_id == 6 || $animalprincipal->animal_id == 7)
+					<div class="col-md-4 pb-20">
+						<h3 class="fw-700">Size<span>*</span></h3>
+						<select size="5" name="size">
+							<option>Make a selection</option>
+							@foreach($size as $siz)
+								<option value="{{ $siz->size_id }}" {{ selectOld("size", $siz->size_id) }}>{{ $siz->name }}</option>
+							@endforeach
+						</select>
+					</div> <!-- /col-4 -->
+				@endif
 
-				<div class="col-md-4 pb-20 temperament-ok">
-					<h3 class="fw-700 pb-10">Temperament <small>(1=Calm, 10=Hot)</small></h3>
-					<div class="row items-center">	
-						<div class="col-md-9">
-							<input id="input" type="range" value="" min="0" max="10" autocomplete="off" name="temperament">
-						</div>
-						<div class="col-md-3 text-right">
-							<span id="etiqueta"></span> / 10
-						</div> 
-					</div> <!-- /inputDiv -->
-				</div> <!-- /col-4 -->
+				@if ($animalprincipal->animal_id == 7)
+					<div class="col-md-4 pb-20">
+						<h3 class="fw-700">Declawed<span>*</span></h3>
+						<select size="5" name="declawed">
+							<option>Make a selection</option>
+							<option value="1" {{ selectOld("declawed", 1) }}>Yes</option>
+							<option value="2"  {{ selectOld("declawed", 2) }}>No</option>
+						</select>
+					</div> <!-- /col-4 -->
+				@endif
+
+				@if ($animalprincipal->animal_id == 1)
+					<div class="col-md-4 pb-20">
+						<h3 class="fw-700">Vaccinations<span>*</span></h3>
+						<select size="5" name="vaccinations">
+							<option>Make a selection</option>
+							<option value="1"  {{ selectOld("vaccinations", 1) }}>Yes</option>
+							<option value="2" {{ selectOld("vaccinations", 2) }}>No</option>
+						</select>
+					</div> <!-- /col-4 -->
+				@endif
+
+				@if ($animalprincipal->animal_id == 1 || $animalprincipal->animal_id == 3 || $animalprincipal->animal_id == 4)
+					<div class="col-md-4 pb-20 select-sale">
+						<h3 class="fw-700">Horns<span>*</span></h3>
+						<select size="5" name="horns">
+							<option>Make a selection</option>
+							<option value="1" {{ selectOld("horns", 1) }}>Yes</option>
+							<option value="2" {{ selectOld("horns", 2) }}>No</option>
+							<option value="3" {{ selectOld("horns", 3) }}>Other</option>
+							<option value="4" {{ selectOld("horns", 4) }}>Polled</option>
+						</select>
+					</div> <!-- /col-4 -->
+				@endif
+
+				@if ($animalprincipal->animal_id == 1)
+					<div class="col-md-4 pb-20 select-sale">
+						<h3 class="fw-700">Categories<span>*</span></h3>
+						<select size="5" name="categories">
+							<option>Make a selection</option>
+							@foreach($categories as $categorie)
+								<option value="{{ $categorie->categorie_id }}" {{ selectOld("categories", $categorie->categorie_id) }}>{{ $categorie->name }}</option>
+							@endforeach
+						</select>
+					</div> <!-- /col-4 -->
+				@endif
+
+				@if ($animalprincipal->animal_id == 1 || $animalprincipal->animal_id == 3 || $animalprincipal->animal_id == 4 || $animalprincipal->animal_id == 5)
+					<div class="col-md-4 pb-20 select-sale">
+						<h3 class="fw-700">Weight<span>*</span></h3>
+						<input type="text" class="form-input" name="weight" value="">
+					</div> <!-- /col-4 -->
+				@endif
+
+				@if ($animalprincipal->animal_id == 1)
+					<div class="col-md-4 pb-20 select-sale">
+						<h3 class="fw-700">Conditions<span>*</span></h3>
+						<input type="text" class="form-input" name="conditions" value="">
+					</div> <!-- /col-4 -->
+				@endif
+
+				@if ($animalprincipal->animal_id == 1 || $animalprincipal->animal_id == 3 || $animalprincipal->animal_id == 4 || $animalprincipal->animal_id == 5)
+					<div class="col-md-4 pb-20 select-sale">
+						<h3 class="fw-700">Number of head<span>*</span></h3>
+						<input type="text" class="form-input" name="number_of_head" value="">
+					</div> <!-- /col-4 -->
+				@endif
+
+				@if ($animalprincipal->animal_id == 2)
+					<div class="col-md-4 pb-20 temperament-ok">
+						<h3 class="fw-700 pb-10">Temperament <small>(1=Calm, 10=Hot)</small></h3>
+						<div class="row items-center">	
+							<div class="col-md-9">
+								<input id="input" type="range" value="" min="0" max="10" autocomplete="off" name="temperament">
+							</div>
+							<div class="col-md-3 text-right">
+								<span id="etiqueta"></span> / 10
+							</div> 
+						</div> <!-- /inputDiv -->
+					</div> <!-- /col-4 -->
+				@endif
+
+
+
 
 				<div class="col-md-4 pb-20">
 					<h3 class="fw-700">Price<span>*</span></h3>

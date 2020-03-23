@@ -51,6 +51,10 @@
     display: none;
 }
 
+.pendding {
+	background: #f1eded;
+}
+
 .step3_plan {
 	display: none;
 }
@@ -255,6 +259,11 @@ a.seeall {
 	margin: 0 0 12px;
 	font-size: 14px;
 	border-bottom: 1px solid #ccc;
+	cursor: pointer;
+}
+
+.txt-notificacion:hover {
+	background: #d2c8c8;
 }
 
 .txt-notificacion:last-of-type {
@@ -1477,9 +1486,17 @@ textarea.form-input {
 	cursor: pointer;
 }
 
-.rating li i:hover {
+.lista-calificacion .fa-star:hover {
 	color: #FFBA5C;
 }
+
+.fa-calificacion-send .fa-star:hover {
+	color: #FFBA5C;
+}
+
+/*.rating li i:hover {
+	color: #FFBA5C;
+}*/
 
 .row-principal h2 {
 	margin-bottom: 0;

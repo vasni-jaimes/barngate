@@ -25,7 +25,8 @@ class SaleController extends Controller
         $this->middleware("auth", ["except" => ["show", "SearchAnimal"]]);
         $this->middleware("ValidateProfileFinSale", ["except" => ["show", "SearchAnimal"]]);
         $this->middleware("RestrictedAccessExpired", ["only" => ["show"]]);
-        $this->middleware("RestringUpdateSale", ["only" => "updatePlan", "PageUpdatePlan"]);
+        $this->middleware("RestringUpdateSale", ["only" => ["updatePlan", "PageUpdatePlan"]]);
+        $this->middleware("ValidateEditAnimal", ["only" => ["edit"]]);
     }
     /**
      * Display a listing of the resource.
@@ -64,23 +65,52 @@ class SaleController extends Controller
     {
         if (auth()->check()) {
         
-            $noti = DB::table("notifications")->where("user_id", auth()->user()->user_id)->get();
+            $noti = DB::table("notifications")->where("user_id", auth()->user()->user_id)->limit(5)->orderBy("notify_id", "desc")->get();
             $i = 0;
             $arrNot = null;
             
             if ($noti != null) {        
                 foreach ($noti as $notify) {
-                    $usuario = DB::table("users")->where("user_id", $notify->other_user_id)->first();
-                    $arrNot[$i]["nombre_usuario"] = $usuario->username;
-                    $arrNot[$i]["img_user"] = $usuario->urlImg;
-                    $arrNot[$i]["typo_not"] = $notify->typo_notify_id;
-                    $arrNot[$i]["time"] = $notify->created_at;
+                    if ($notify->typo_notify_id == 1) {
+                        $usuario                        = DB::table("users")->where("user_id", $notify->other_user_id)->first();
+
+                        //OBTENER TOKEN DE CHAT
+                        $_token = null;
+                        $token = DB::table("chats_rooms")
+                                        ->where(["user_id" => auth()->user()->user_id, "user_two_id" => $notify->other_user_id])
+                                        ->orWhere(["user_id" => $notify->other_user_id, "user_two_id" => auth()->user()->user_id])
+                                        ->first();
+
+                        if ($token != null) {
+                            $_token = $token->token_chat;
+                        }
+
+                        $arrNot[$i]["nombre_usuario"]   = $usuario->username;
+                        $arrNot[$i]["img_user"]         = $usuario->urlImg;
+                        $arrNot[$i]["typo_not"]         = $notify->typo_notify_id;
+                        $arrNot[$i]["time"]             = $notify->created_at;
+                        $arrNot[$i]["pending"]          = $notify->read_notify;
+                        $arrNot[$i]["url"]              = $_token;
+                    }
+                    else if ($notify->typo_notify_id == 2 || $notify->typo_notify_id == 3) {
+                        $sale_expire                    = DB::table("sales")
+                                                                ->where("sale_id", $notify->sale_id)
+                                                                ->join('animals', 'sales.animal_id', '=', 'animals.animal_id')
+                                                                ->select('sales.*', 'animals.name as animal_name')
+                                                                ->first();
+
+                        $arrNot[$i]["img"]              = $this->primerImagenProducto( $sale_expire->user_id, $sale_expire->animal_id, $sale_expire->sale_id );
+                        $arrNot[$i]["sale_name"]        = $sale_expire->animal_name;
+                        $arrNot[$i]["time"]             = $notify->created_at;
+                        $arrNot[$i]["typo_not"]         = $notify->typo_notify_id;
+                        $arrNot[$i]["pending"]          = $notify->read_notify;
+                        $arrNot[$i]["url"]              = $sale_expire->nickname;
+                    }
+
                     $i++;
                 }
             }
-
             return $arrNot;
-
         }
 
         return null;
@@ -335,15 +365,15 @@ class SaleController extends Controller
         //GUARDAR FECHA PARA LOS DATOS
         if (request("planSelect") == 1) {
             $fechafinal = strtotime ( '+1 month' , strtotime ( $date ) ) ;
-            $fechafinal = date ( 'Y-m-j' , $fechafinal );
+            $fechafinal = date ( 'Y-m-d' , $fechafinal );
         }
         else if (request("planSelect") == 2) {
             $fechafinal = strtotime ( '+3 month' , strtotime ( $date ) ) ;
-            $fechafinal = date ( 'Y-m-j' , $fechafinal );
+            $fechafinal = date ( 'Y-m-d' , $fechafinal );
         }
         else if (request("planSelect") == 3) {
             $fechafinal = strtotime ( '+6 month' , strtotime ( $date ) ) ;
-            $fechafinal = date ( 'Y-m-j' , $fechafinal );
+            $fechafinal = date ( 'Y-m-d' , $fechafinal );
         }
 
 
@@ -645,10 +675,60 @@ class SaleController extends Controller
         }
         
 
-        $favorite = $this->getFavoriteProduct($animal->sale_id, $animal->user_id);
-        $todasImg = $this->todasImagenesProducto($animal->user_id, $animal->animal_id, $animal->sale_id);
+        $favorite       = $this->getFavoriteProduct($animal->sale_id, $animal->user_id);
+        $todasImg       = $this->todasImagenesProducto($animal->user_id, $animal->animal_id, $animal->sale_id);
         $notificaciones = $this->getNotify();
-        return view("site.principal", compact("animal", "todasImg", "favorite", "notificaciones"));
+        $promedio       = $this->getPromedio($animal->user_id);
+        $relacionados   = $this->getRelaciones($animalprincipal->animal_id, $animal->sale_id);
+
+        return view("site.principal", compact("animal", "todasImg", "favorite", "notificaciones", "promedio", "relacionados"));
+    }
+
+    public function getRelaciones($animal_id, $except_sale)
+    {
+        $sales = null;
+        $salesRela = DB::table("sales")
+                            ->join('breeds', 'sales.breed_id', '=', 'breeds.breed_id')
+                            ->select('sales.*', 'breeds.name as breeds_name')
+                            ->where([
+                                "sales.animal_id" => $animal_id,
+                                "disabled" => 0,
+                                "sold" => 0,
+                            ])
+                            ->where("sale_id", "!=", $except_sale)
+                            ->inRandomOrder()
+                            // ->limit(5)
+                            ->get();
+
+        if ($salesRela != null) {
+            $conta = 0;
+            foreach ($salesRela as $ksale) {
+                $sales[$conta]["breed"] = $ksale->breeds_name;
+                $sales[$conta]["img"] = $this->primerImagenProducto( $ksale->user_id, $ksale->animal_id, $ksale->sale_id );
+                $sales[$conta]["nickname"] = $ksale->nickname;
+                $conta++;
+            }
+        }
+
+        return $sales;
+    }
+
+    public function getPromedio($user_id)
+    {
+        $prom   = DB::table("ratings")->where("calificado_id", $user_id)->get();
+        $calify = 0;
+        $cont   = 0;
+        if ($prom != null) {
+            foreach ($prom as $key) {
+                $calify += $key->rating;
+                $cont++;
+            }
+
+            $mypromedio = floatval($calify) / floatval($cont);
+            return round($mypromedio);
+        }
+
+        return null;
     }
 
     /**
@@ -659,7 +739,85 @@ class SaleController extends Controller
      */
     public function edit($id)
     {
-        //
+        $animalprincipal = DB::table("sales")->where(["user_id" => auth()->user()->user_id, "nickname" => $id])->first();
+
+        if ($animalprincipal->animal_id == 1) {
+            $breeds     = DB::table("breeds")->where("animal_id", $animalprincipal->animal_id)->get();
+            $categories = DB::table("categories")->get();
+            $estados    = DB::table("cities")->groupBy("estado")->get();
+            $notificaciones = $this->getNotify();
+
+            $compact = compact("breeds", "categories", "estados", "notificaciones", "animalprincipal");
+        }
+        else if ($animalprincipal->animal_id == 2) {
+
+            $breeds     = DB::table("breeds")->where("animal_id", $animalprincipal->animal_id)->get();
+            $colors     = DB::table("colors")->where("animal_id", $animalprincipal->animal_id)->get();
+            $genders    = DB::table("genders")->where("animal_id", $animalprincipal->animal_id)->get();
+            $disciplines = DB::table("disciplines")->where("animal_id", $animalprincipal->animal_id)->get();
+            $estados    = DB::table("cities")->groupBy("estado")->get();
+            $notificaciones = $this->getNotify();
+
+            $compact = compact("breeds", "colors", "genders", "disciplines", "estados", "notificaciones", "animalprincipal");
+
+        }
+        else if ($animalprincipal->animal_id == 3) {
+
+            $breeds     = DB::table("breeds")->where("animal_id", $animalprincipal->animal_id)->get();
+            $genders    = DB::table("genders")->where("animal_id", $animalprincipal->animal_id)->get();
+            $class      = DB::table("class")->where("animal_id", $animalprincipal->animal_id)->get();
+            $estados    = DB::table("cities")->groupBy("estado")->get();
+            $notificaciones = $this->getNotify();
+
+            $compact = compact("breeds", "class", "genders", "estados", "notificaciones", "animalprincipal");
+
+        }
+        else if ($animalprincipal->animal_id == 4) {
+
+            $type       = DB::table("types")->where("animal_id", $animalprincipal->animal_id)->get();
+            $breeds     = DB::table("breeds")->where("animal_id", $animalprincipal->animal_id)->get();
+            $genders    = DB::table("genders")->where("animal_id", $animalprincipal->animal_id)->get();
+            $class      = DB::table("class")->where("animal_id", $animalprincipal->animal_id)->get();
+            $estados    = DB::table("cities")->groupBy("estado")->get();
+            $notificaciones = $this->getNotify();
+
+            $compact = compact("breeds", "class", "type", "genders", "estados", "notificaciones", "animalprincipal");
+        }
+        else if ($animalprincipal->animal_id == 5) {
+
+
+            $breeds     = DB::table("breeds")->where("animal_id", $animalprincipal->animal_id)->get();
+            $genders    = DB::table("genders")->where("animal_id", $animalprincipal->animal_id)->get();
+            $class      = DB::table("class")->where("animal_id", $animalprincipal->animal_id)->get();
+            $estados    = DB::table("cities")->groupBy("estado")->get();
+            $notificaciones = $this->getNotify();
+
+            $compact = compact("breeds", "class", "genders", "estados", "notificaciones", "animalprincipal");
+        }
+        else if ($animalprincipal->animal_id == 6) {
+
+            $size       = DB::table("sizes")->get();
+            $breeds     = DB::table("breeds")->where("animal_id", $animalprincipal->animal_id)->get();
+            $colors     = DB::table("colors")->where("animal_id", $animalprincipal->animal_id)->get();
+            $genders    = DB::table("genders")->where("animal_id", $animalprincipal->animal_id)->get();
+            $estados    = DB::table("cities")->groupBy("estado")->get();
+            $notificaciones = $this->getNotify();
+
+            $compact = compact("breeds", "size", "genders", "colors", "estados", "notificaciones", "animalprincipal");
+        }
+        else if ($animalprincipal->animal_id == 7) {
+
+            $size       = DB::table("sizes")->get();
+            $breeds     = DB::table("breeds")->where("animal_id", $animalprincipal->animal_id)->get();
+            $colors     = DB::table("colors")->where("animal_id", $animalprincipal->animal_id)->get();
+            $genders    = DB::table("genders")->where("animal_id", $animalprincipal->animal_id)->get();
+            $estados    = DB::table("cities")->groupBy("estado")->get();
+            $notificaciones = $this->getNotify();
+
+            $compact = compact("breeds", "size", "genders", "colors", "estados", "notificaciones", "animalprincipal");
+        }
+
+        return view("site.edit_animal", $compact);
     }
 
     /**
@@ -715,15 +873,15 @@ class SaleController extends Controller
         //GUARDAR FECHA PARA LOS DATOS
         if (request("planSelect") == 1) {
             $fechafinal = strtotime ( '+1 month' , strtotime ( $date ) ) ;
-            $fechafinal = date ( 'Y-m-j' , $fechafinal );
+            $fechafinal = date ( 'Y-m-d' , $fechafinal );
         }
         else if (request("planSelect") == 2) {
             $fechafinal = strtotime ( '+3 month' , strtotime ( $date ) ) ;
-            $fechafinal = date ( 'Y-m-j' , $fechafinal );
+            $fechafinal = date ( 'Y-m-d' , $fechafinal );
         }
         else if (request("planSelect") == 3) {
             $fechafinal = strtotime ( '+6 month' , strtotime ( $date ) ) ;
-            $fechafinal = date ( 'Y-m-j' , $fechafinal );
+            $fechafinal = date ( 'Y-m-d' , $fechafinal );
         }
 
 
@@ -864,6 +1022,30 @@ class SaleController extends Controller
             return $todas;
         }
 
+        return false;
+    }
+
+
+    public function primerImagenProducto($usuario, $categoria, $producto)
+    {
+        $directory= base_path()."/storage/app/public/images/".$usuario."/".$categoria."/".$producto;
+        if (is_dir($directory)) {
+            $dirint = dir($directory);
+            $primero = "";
+
+            while (($archivo = $dirint->read()) !== false)
+            {
+                if (preg_match("{gif}", $archivo) || preg_match("{jpeg}", $archivo) || preg_match("{png}", $archivo) || preg_match("{jpg}", $archivo) || preg_match("{webp}", $archivo)){
+                    $primero = $archivo;
+                    break;
+                }
+            }
+            $dirint->close();
+
+
+            return $usuario."/".$categoria."/".$producto."/".$primero;
+        }
+       
         return false;
     }
 

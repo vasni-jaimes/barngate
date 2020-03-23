@@ -4,8 +4,8 @@
 	<title> Mail Rehister </title>
 </head>
 <body>
-	<h3> Hola {{ $sale->username }},  </h3>
-	<p> El motivo de este mensaje es para informarte que tu animal - {{ $sale->name_animal }} - su plan ya a expirado. </p>
-	<p> para renovar entra a tu perfil y a tus animales </p>
+	<h3> Hi {{ $sale->username }},  </h3>
+	<p> The reason for this message is to inform you that your animal - {{ $sale->name_animal }} - your plan has expired. </p>
+	<p> to renew enter your profile and your animals </p>
 </body>
 </html>

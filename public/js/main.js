@@ -102,6 +102,7 @@ jQuery('.show-info').click(function(e){
 jQuery('.close').click(function(e) {
 	jQuery('.shadowbox').fadeOut(300);
 	jQuery('body').css('overflow', 'auto');
+	$(".err").prev().css("margin-bottom", "15px");
 	$(".err").remove();
 });
 
@@ -213,6 +214,17 @@ $('.slide-thumbs').slick({
 	asNavFor: '.slide-principal'
 });
 
+
+/******************\
+|  NOTIFICACIONES  |
+\******************/
+
+let txt_notificacion = document.querySelectorAll(".s-notificacion li div, .container .txt-notificacion");
+if (txt_notificacion) {
+	$(".s-notificacion li div, .container .txt-notificacion").click(function(e) {
+		window.location.href = $(this).attr("data-href");
+	})
+}
 
 
 
@@ -386,7 +398,7 @@ if (login_send) {
 	login_send.addEventListener("click", e => {
 		e.preventDefault();
 
-		let email = document.querySelector("input[name='email']");
+		let email = document.querySelector("input[name='email_login']");
 		let password = document.querySelector("input[name='password']");
 		let token = document.querySelector("#form_login input[name='_token']");
 
@@ -1263,7 +1275,7 @@ if (region) {
 		   	.send(data)
 		   	.set('Accept', 'application/json')
 		   	.then(res => {
-		   		console.log(res);
+		   		//console.log(res);
 		   		if (res.body.message == 'ok') {
 		   			let html = "";
 		   			for (var i = 0; i < res.body.result.length; i++) {
@@ -1631,7 +1643,7 @@ if (accept) {
 		   	.send(data)
 		   	.set('Accept', 'application/json')
 		   	.then(res => {
-		   		console.log(res);
+		   		//console.log(res);
 		   		if (res.body.message == 'ok') {
 		   			$("#loading .wrapper-form img").css("display", "none");
 		   			$("#loading .wrapper-form").append("<div class='container-form'> <h2> Successfully added </h2> </div>");
@@ -1689,7 +1701,7 @@ if (accepta) {
 		   	.send(data)
 		   	.set('Accept', 'application/json')
 		   	.then(res => {
-		   		console.log(res);
+		   		//console.log(res);
 		   		if (res.body.message == 'ok') {
 		   			$(".add-favorite").remove();
 		   			// $("#loading .wrapper-form img").css("display", "none");
@@ -1718,6 +1730,13 @@ if (accepta) {
 |      CALIFICACION      |
 \************************/
 
+jQuery('#calificacion .close').click(function(e) {
+	jQuery('.shadowbox').fadeOut(300);
+	jQuery('body').css('overflow', 'auto');
+	$(".activeParent .starta").css("color", "#fff");
+	$(".activeParent .starta").removeClass("starta");
+	$(".activeParent").removeClass("activeParent");
+});
 
 $(".fa-calificacion-send .fa-star").click(function() {
 	$(".fa-calificacion-send ul li").removeClass("active");
@@ -1815,7 +1834,7 @@ if (qualify) {
 		   	.send(data)
 		   	.set('Accept', 'application/json')
 		   	.then(res => {
-		   		console.log(res);
+		   		//console.log(res);
 		   		if (res.body.message == 'ok') {
 		   			$(".bonti .sold").remove();
 		   			$(".bonti").append('<a href="#" class="mw-150 btn btn-primary botton-public" data-animal="'+animal_id+'">Post again</a>');
@@ -1927,7 +1946,7 @@ if (button_chat) {
 		   	.send(data)
 		   	.set('Accept', 'application/json')
 		   	.then(res => {
-		   		console.log(res);
+		   		//console.log(res);
 		   		if (res.body.message == 'ok') {
 		   			console.log("ok");
 		   		}
@@ -2151,7 +2170,7 @@ if (info_user) {
 		   	.send(data)
 		   	.set('Accept', 'application/json')
 		   	.then(res => {
-		   		console.log(res);
+		   		//console.log(res);
 		   		if (res.body.message == 'ok') {
 		   			$("#loading .wrapper-form img").css("display", "none");
 		   			$("#loading .wrapper-form").append("<div class='container-form'> <h2> Successfully uploaded </h2> </div>");
@@ -2222,7 +2241,7 @@ if (animal) {
 		   	.send(data)
 		   	.set('Accept', 'application/json')
 		   	.then(res => {
-		   		console.log(res);
+		   		//console.log(res);
 		   		if (res.body.message == 'ok') {
 		   			//console.log(res.body.result.breeds.length);
 		   			$(".sale-row .select-sale").css("display", "none");
@@ -2477,7 +2496,7 @@ if (accpt_remove) {
 		   	.send(data)
 		   	.set('Accept', 'application/json')
 		   	.then(res => {
-		   		console.log(res);
+		   		//console.log(res);
 		   		if (res.body.message == 'ok') {
 		   			$(".botton-remove[data-animal="+idAnimal+"]").parent().parent().parent().remove();
 		   			$("#loading").css("display", "none");
@@ -2602,7 +2621,7 @@ if (col_animal) {
 			   	.send(data)
 			   	.set('Accept', 'application/json')
 			   	.then(res => {
-			   		console.log(res.body);
+			   		//console.log(res.body);
 			   		if (res.body.message == 'ok') {
 			   			let breedso = "<option value='0'>Make a selection</option>",
 		   					coloro = "<option value='0'>Make a selection</option>",
@@ -2710,7 +2729,7 @@ if (save_radio) {
 		   	.send(data)
 		   	.set('Accept', 'application/json')
 		   	.then(res => {
-		   		console.log(res.body);
+		   		//console.log(res.body);
 		   		if (res.body.message == 'ok') {
 		   			console.log("es ok");
 		   			$("#loading .wrapper-form img").css("display", "none");
@@ -2771,7 +2790,7 @@ if (image) {
 		   	.send(formData)
 		   	.set('Accept', 'application/json')
 		   	.then(res => {
-		   		console.log(res.body);
+		   		//console.log(res.body);
 		   		if (res.body.message == 'ok') {
 		   			$("#img_changue h2").html("Your profile picture was changed correctly");
 		   			$("#img_changue").css("display", "block");
@@ -2822,8 +2841,8 @@ function addImage(e){
     	var reader = new FileReader();
       	reader.onload = function(e){
         	var result=e.target.result;
-        	$('#imgSalida').attr("src",result).css("display", "block");
-        	$('.img_mini').attr("src",result);
+        	$('#imgSalida').css("background-image", "url("+result+")").css("display", "block");
+        	$('.img_mini').css("background-image", "url("+result+")");
     	}
       	reader.readAsDataURL(file);
 }
@@ -2962,32 +2981,32 @@ function searchWP() {
 	let state = $("select[name='estado']").val();
 
 
-	if (animal != null) {
+	if (animal != null && animal != 0 && animal != '') {
 		selector += "[data-animal='"+animal+"']";
 		selector2 += "[data-animal='"+animal+"']";
 	}
 
-	if (breeds != null) {
+	if (breeds != null && breeds != 0 && breeds != '') {
 		selector += "[data-breed='"+breeds+"']";
 		selector2 += "[data-breed='"+breeds+"']";
 	}
 
-	if (colors != null) {
+	if (colors != null && colors != 0 && colors != '') {
 		selector += "[data-color='"+colors+"']";
 		selector2 += "[data-color='"+colors+"']";
 	}
 
-	if (age != null) {
+	if (age != null && age != 0 && age != '') {
 		selector += "[data-age='"+age+"']";
 		selector2 += "[data-age='"+age+"']";
 	}
 
-	if (gender != null) {
+	if (gender != null && gender != 0 && gender != '') {
 		selector += "[data-gender='"+gender+"']";
 		selector2 += "[data-gender='"+gender+"']";
 	}
 
-	if (discipline != null) {
+	if (discipline != null && discipline != 0 && discipline != '') {
 		selector += "[data-discipline='"+discipline+"']";
 		selector2 += "[data-discipline='"+discipline+"']";
 	}
@@ -3016,7 +3035,18 @@ function searchWP() {
 			}
 		});
 	}
-	//console.log(selector + selector2);
+
+	//dar mensaje si no hay animales
+	cuentas = $(".back-animal:visible").length;
+	console.log(cuentas);
+	if (cuentas <= 0 || cuentas == null || cuentas == undefined || cuentas == '') {
+		$(".row-vista .msj-not, .row-lista .msj-not").remove();
+		$(".row-vista, .row-lista").append("<h2 class='msj-not' style='text-align: center'>No animals yet</h2>");
+	}
+	else if (cuentas > 0) {
+		$(".row-vista .msj-not, .row-lista .msj-not").remove();
+	}
+
 	cordenadas();
 }
 
@@ -3095,7 +3125,7 @@ function postAgain(e) {
 	   	.send(data)
 	   	.set('Accept', 'application/json')
 	   	.then(res => {
-	   		console.log(res.body);
+	   		//console.log(res.body);
 	   		if (res.body.message == 'ok') {
 	   			$(".post-a__gain .botton-public").remove();
 	   			$(".post-a__gain .botton-remove").remove();

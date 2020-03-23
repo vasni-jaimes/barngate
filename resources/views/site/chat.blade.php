@@ -12,14 +12,27 @@
 
 					<div>
 						<div id="messaging-widget-header" class="msg-header">
-							<div class="msg-header__username"><span class="msg-header__link"> {{ $user_chat->name }} </span></div> 
+							<div class="msg-header__username"><span class="msg-header__link"> {{ $user_chat->username }} </span></div> 
 							<div>Calificación</div>
 							<ul class="rating">
-								<li><i class="fa fa-star"></i></li>
-								<li><i class="fa fa-star"></i></li>
-								<li><i class="fa fa-star"></i></li>
-								<li><i class="fa fa-star"></i></li>
-								<li><i class="fa fa-star"></i></li>
+								@if ($promedio != null)
+									@php $bandera = 5; @endphp
+									@for($j=1; $j <= $promedio; $j++)
+										<li><i class="fa fa-star" style="color: #FFBA5C;"></i></li>
+										@php $bandera--; @endphp
+									@endfor
+									@if ($bandera > 0)
+										@for($i=1; $i <= $bandera; $i++)
+											<li><i class="fa fa-star"></i></li>
+										@endfor
+									@endif
+								@else
+									<li><i class="fa fa-star"></i></li>
+									<li><i class="fa fa-star"></i></li>
+									<li><i class="fa fa-star"></i></li>
+									<li><i class="fa fa-star"></i></li>
+									<li><i class="fa fa-star"></i></li>
+								@endif
 							</ul>
 						</div>
 					</div> 
@@ -53,19 +66,6 @@
 										<p> No messages </p>
 									</li>
 								@endforelse
-
-
-								{{-- <li class="msg-chat__item msg-chat__item_left-person">
-									<div class="msg-chat__time">24/12 22:03</div> 
-									<div class="msg-chat__bubble msg-chat__bubble_first-in-group msg-chat__bubble_third-person msg-chat__bubble_third-person__first-in-group"> <div class="msg-chat__text">hola, no tiene detalles?</div></div> 
-								</li> 
-								<li class="msg-chat__item msg-chat__item_right-person">
-									<div class="msg-chat__time">21/11 09:48</div> 
-									<div class="msg-chat__bubble msg-chat__bubble_first-in-group msg-chat__bubble_first-person msg-chat__bubble_first-person__first-in-group"> 
-										<div class="msg-chat__text">Hola, ninguno! está completamente nuevo</div>
-									</div> 
-									<span class="msg-chat__item_status">visto</span>
-								</li>  --}}
 							</ul>
 
 						</div>  

@@ -44,8 +44,8 @@ class CreateSalesTable extends Migration
             $table->integer('country');
             $table->string('phone_number');
             $table->integer('plan_id');
-            $table->dateTime('date_init');
-            $table->dateTime('date_end');
+            $table->date('date_init');
+            $table->date('date_end');
             $table->integer('homepage');
             $table->string('video')->nullable();
             $table->boolean('disabled')->default(0);
