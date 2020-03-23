@@ -718,13 +718,16 @@ class SaleController extends Controller
         $prom   = DB::table("ratings")->where("calificado_id", $user_id)->get();
         $calify = 0;
         $cont   = 0;
+        $mypromedio = 0;
         if ($prom != null) {
             foreach ($prom as $key) {
                 $calify += $key->rating;
                 $cont++;
             }
 
-            $mypromedio = floatval($calify) / floatval($cont);
+            if ($calify != 0 && $cont != 0) {
+               $mypromedio = floatval($calify) / floatval($cont);
+            }
             return round($mypromedio);
         }
 
@@ -816,6 +819,8 @@ class SaleController extends Controller
 
             $compact = compact("breeds", "size", "genders", "colors", "estados", "notificaciones", "animalprincipal");
         }
+
+        $todasImg   = $this->todasImagenesProducto($animal->user_id, $animal->animal_id, $animal->sale_id);
 
         return view("site.edit_animal", $compact);
     }
