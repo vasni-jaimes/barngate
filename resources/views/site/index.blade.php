@@ -101,7 +101,7 @@
 
 			@for($i = 0; $i <= count($blog) - 1; $i++)
 
-				<div class="col-md-4">
+				<div class="col-md-4 pb-20">
 					<div class="card">
 						<img class="card-img-top" src="{{ $blog[$i]["image"] }}" alt="Card image cap">
 						<div class="card-body">
