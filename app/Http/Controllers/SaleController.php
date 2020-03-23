@@ -675,11 +675,11 @@ class SaleController extends Controller
         }
         
 
-        $favorite       = $this->getFavoriteProduct($animal->sale_id, $animal->user_id);
-        $todasImg       = $this->todasImagenesProducto($animal->user_id, $animal->animal_id, $animal->sale_id);
+        $favorite       = $this->getFavoriteProduct($animalprincipal->sale_id, $animalprincipal->user_id);
+        $todasImg       = $this->todasImagenesProducto($animalprincipal->user_id, $animalprincipal->animal_id, $animalprincipal->sale_id);
         $notificaciones = $this->getNotify();
-        $promedio       = $this->getPromedio($animal->user_id);
-        $relacionados   = $this->getRelaciones($animalprincipal->animal_id, $animal->sale_id);
+        $promedio       = $this->getPromedio($animalprincipal->user_id);
+        $relacionados   = $this->getRelaciones($animalprincipal->animal_id, $animalprincipal->sale_id);
 
         return view("site.principal", compact("animal", "todasImg", "favorite", "notificaciones", "promedio", "relacionados"));
     }
