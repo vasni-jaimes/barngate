@@ -1894,6 +1894,10 @@ textarea.form-input {
     .footer ul{
         display: none;
     }
+	.footer img {
+		max-width: 120px; 
+		margin: 0 0 15px;
+	}
 }
 
 :focus {
@@ -3434,6 +3438,11 @@ label.error{
 }
 
 @media screen and (max-width: 480px) {
+	.banner,
+	.banner .container {
+		height: 200px;
+		min-height: 200px;
+	}
 	.banner-text h1 {
 		font-size: 32px;
 	}
