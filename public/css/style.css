@@ -34,6 +34,7 @@
 }
 
 .botton-remove {
+	border: 0;
 	background: red;
 }
 
@@ -578,6 +579,11 @@ fieldset {
     border-radius: 5px;
 	text-align: center;
 	z-index: 1;
+}
+
+.container-form ul {
+	padding-left: 0; 
+	list-style: none;
 }
 
 .container-form a.link {

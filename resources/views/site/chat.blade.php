@@ -50,7 +50,7 @@
 
 								@empty
 									<li>
-										<h2> No messages </h2>
+										<p> No messages </p>
 									</li>
 								@endforelse
 

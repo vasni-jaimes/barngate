@@ -301,8 +301,8 @@
 		<div class="wrapper-form">
 			<div class="container-form">
 				<h2> Are you sure you want to delete this post? </h2>
-				<button class="accpt_remove"> Accept </button>
-				<button class="cancel_remove"> Cancel </button>
+				<button class="enviar accpt_remove"> Accept </button>
+				<button class="enviar cancel_remove"> Cancel </button>
 			</div>
 		</div> <!-- /wrapper-form -->
 	</div> <!-- /shadowbox -->
@@ -314,8 +314,8 @@
 		<div class="wrapper-form">
 			<div class="container-form">
 				<h2> Are you sure you want to republish your animal? </h2>
-				<button class="accpt_again"> Accept </button>
-				<button class="cancel_again"> Cancel </button>
+				<button class="enviar accpt_again"> Accept </button>
+				<button class="enviar cancel_again"> Cancel </button>
 			</div>
 		</div> <!-- /wrapper-form -->
 	</div> <!-- /shadowbox -->
@@ -350,7 +350,7 @@
 												<li><i class="fa fa-star"></i></li>
 											</ul>
 											<input type="hidden" class="qualify_calc">
-											<button class="qualify" style="cursor: pointer;"> Qualify </button>
+											<button class="enviar qualify" style="cursor: pointer;"> Qualify </button>
 										</div>
 									</div> <!-- /flex -->
 								</li>
