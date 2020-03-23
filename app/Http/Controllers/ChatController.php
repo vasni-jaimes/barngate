@@ -46,13 +46,16 @@ class ChatController extends Controller
         $prom   = DB::table("ratings")->where("calificado_id", $user_id)->get();
         $calify = 0;
         $cont   = 0;
+        $mypromedio = 0;
         if ($prom != null) {
             foreach ($prom as $key) {
                 $calify += $key->rating;
                 $cont++;
             }
 
-            $mypromedio = floatval($calify) / floatval($cont);
+            if ($calify != 0 && $cont != 0) {
+               $mypromedio = floatval($calify) / floatval($cont);
+            }
             return round($mypromedio);
         }
 

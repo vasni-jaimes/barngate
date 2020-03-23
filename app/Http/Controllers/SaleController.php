@@ -820,7 +820,7 @@ class SaleController extends Controller
             $compact = compact("breeds", "size", "genders", "colors", "estados", "notificaciones", "animalprincipal");
         }
 
-        $todasImg   = $this->todasImagenesProducto($animal->user_id, $animal->animal_id, $animal->sale_id);
+        $todasImg   = $this->todasImagenesProducto($animalprincipal->user_id, $animalprincipal->animal_id, $animalprincipal->sale_id);
 
         return view("site.edit_animal", $compact);
     }
