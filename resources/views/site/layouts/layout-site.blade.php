@@ -74,20 +74,38 @@
 										@if (@$notificaciones != null)	
 											<li>
 												@for($i=0; $i <= count($notificaciones) - 1; $i++)
-													<div class="flex txt-notificacion">
-														<img src="{{ Storage::url($notificaciones[$i]["img_user"]) }}">
-														<div>
-															<p class="fw-700">{{ $notificaciones[$i]["nombre_usuario"] }}</p>
-															@if ($notificaciones[$i]["typo_not"] == 1)
-																<p>El usurio te mando mensaje</p>
-															@endif
-															<span>{{ $notificaciones[$i]["time"] }}</span>
+													@if ($notificaciones[$i]["typo_not"] == 1)
+														<div data-href="{{ route("chat.index", $notificaciones[$i]["url"]) }}" class="flex txt-notificacion @if($notificaciones[$i]["pending"] == 1) pendding @endif">
+															<img src="{{ Storage::url($notificaciones[$i]["img_user"]) }}">
+															<div>
+																<p class="fw-700">{{ $notificaciones[$i]["nombre_usuario"] }}</p>
+																<p>The user sent you a message</p>
+																<span>{{ $notificaciones[$i]["time"] }}</span>
+															</div>
 														</div>
-													</div>
+													@elseif ($notificaciones[$i]["typo_not"] == 2)
+														<div data-href="{{ route("sale.show", $notificaciones[$i]["url"]) }}" class="flex txt-notificacion @if($notificaciones[$i]["pending"] == 1) pendding @endif">
+															<img src="{{ Storage::url("images/".$notificaciones[$i]["img"]) }}">
+															<div>
+																<p class="fw-700">{{ $notificaciones[$i]["sale_name"] }}</p>
+																<p>The ad has expired</p>
+																<span>{{ $notificaciones[$i]["time"] }}</span>
+															</div>
+														</div>
+													@elseif ($notificaciones[$i]["typo_not"] == 3)
+														<div data-href="{{ route("sale.show", $notificaciones[$i]["url"]) }}" class="flex txt-notificacion @if($notificaciones[$i]["pending"] == 1) pendding @endif">
+															<img src="{{ Storage::url("images/".$notificaciones[$i]["img"]) }}">
+															<div>
+																<p class="fw-700">{{ $notificaciones[$i]["sale_name"] }}</p>
+																<p>The ad is 2 days from expiring</p>
+																<span>{{ $notificaciones[$i]["time"] }}</span>
+															</div>
+														</div>
+													@endif
 												@endfor
-											@else
-												<li><p><em>No notifications</em></p></li>
 											</li>
+										@else
+											<li><p><em>No notifications</em></p></li>
 										@endif
 										<a class="seeall" href="/notifications">See all</a>
 									</ul>
@@ -271,7 +289,7 @@
 					<input type="password" class="input" name="password" placeholder="Password">
 					<input class="enviar login_send" type="submit" value="Log in">
 				</form>
-				<a class="link" href="#">Forgot your password?</a>
+				<a class="link" href="/password/reset">Forgot your password?</a>
 			</div> <!-- /container-form -->
 		</div> <!-- /wrapper-form -->
 	</div> <!-- /shadowbox -->

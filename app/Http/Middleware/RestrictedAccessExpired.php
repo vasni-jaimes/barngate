@@ -32,9 +32,11 @@ class RestrictedAccessExpired
             return $next($request);
         }
         else if ( $animalprincipal->disabled == 1 && $animalprincipal->user_id == auth()->user()->user_id ) {
+            DB::table("notifications")->where(["sale_id" => $animalprincipal->sale_id, "user_id" => auth()->user()->user_id])->update(["read_notify" => 0]);
             return $next($request);
         }
         else if ( $animalprincipal->disabled == 0 && $animalprincipal->user_id == auth()->user()->user_id ) {
+            DB::table("notifications")->where(["sale_id" => $animalprincipal->sale_id, "user_id" => auth()->user()->user_id])->update(["read_notify" => 0]);
             return $next($request);
         }
 

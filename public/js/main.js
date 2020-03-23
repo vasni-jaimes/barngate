@@ -215,6 +215,17 @@ $('.slide-thumbs').slick({
 });
 
 
+/******************\
+|  NOTIFICACIONES  |
+\******************/
+
+let txt_notificacion = document.querySelectorAll(".s-notificacion li div, .container .txt-notificacion");
+if (txt_notificacion) {
+	$(".s-notificacion li div, .container .txt-notificacion").click(function(e) {
+		window.location.href = $(this).attr("data-href");
+	})
+}
+
 
 
 /********************************************\

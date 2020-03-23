@@ -110,23 +110,52 @@ class MyaccountController extends Controller
     {
         if (auth()->check()) {
         
-            $noti = DB::table("notifications")->where("user_id", auth()->user()->user_id)->get();
+            $noti = DB::table("notifications")->where("user_id", auth()->user()->user_id)->limit(5)->orderBy("notify_id", "desc")->get();
             $i = 0;
             $arrNot = null;
             
             if ($noti != null) {        
                 foreach ($noti as $notify) {
-                    $usuario = DB::table("users")->where("user_id", $notify->other_user_id)->first();
-                    $arrNot[$i]["nombre_usuario"] = $usuario->username;
-                    $arrNot[$i]["img_user"] = $usuario->urlImg;
-                    $arrNot[$i]["typo_not"] = $notify->typo_notify_id;
-                    $arrNot[$i]["time"] = $notify->created_at;
+                    if ($notify->typo_notify_id == 1) {
+                        $usuario                        = DB::table("users")->where("user_id", $notify->other_user_id)->first();
+
+                        //OBTENER TOKEN DE CHAT
+                        $_token = null;
+                        $token = DB::table("chats_rooms")
+                                        ->where(["user_id" => auth()->user()->user_id, "user_two_id" => $notify->other_user_id])
+                                        ->orWhere(["user_id" => $notify->other_user_id, "user_two_id" => auth()->user()->user_id])
+                                        ->first();
+
+                        if ($token != null) {
+                            $_token = $token->token_chat;
+                        }
+
+                        $arrNot[$i]["nombre_usuario"]   = $usuario->username;
+                        $arrNot[$i]["img_user"]         = $usuario->urlImg;
+                        $arrNot[$i]["typo_not"]         = $notify->typo_notify_id;
+                        $arrNot[$i]["time"]             = $notify->created_at;
+                        $arrNot[$i]["pending"]          = $notify->read_notify;
+                        $arrNot[$i]["url"]              = $_token;
+                    }
+                    else if ($notify->typo_notify_id == 2 || $notify->typo_notify_id == 3) {
+                        $sale_expire                    = DB::table("sales")
+                                                                ->where("sale_id", $notify->sale_id)
+                                                                ->join('animals', 'sales.animal_id', '=', 'animals.animal_id')
+                                                                ->select('sales.*', 'animals.name as animal_name')
+                                                                ->first();
+
+                        $arrNot[$i]["img"]              = $this->primerImagenProducto( $sale_expire->user_id, $sale_expire->animal_id, $sale_expire->sale_id );
+                        $arrNot[$i]["sale_name"]        = $sale_expire->animal_name;
+                        $arrNot[$i]["time"]             = $notify->created_at;
+                        $arrNot[$i]["typo_not"]         = $notify->typo_notify_id;
+                        $arrNot[$i]["pending"]          = $notify->read_notify;
+                        $arrNot[$i]["url"]              = $sale_expire->nickname;
+                    }
+
                     $i++;
                 }
             }
-
             return $arrNot;
-
         }
 
         return null;
@@ -156,7 +185,7 @@ class MyaccountController extends Controller
 
         //Fecha
         date_default_timezone_set('America/Mexico_City');
-        $date = date('Y-m-d', time());
+        $date = date('Y-m-d H:i:s', time());
 
         DB::beginTransaction();
         $save_ratings = DB::table("ratings")->insert([
@@ -182,7 +211,7 @@ class MyaccountController extends Controller
                 DB::commit();
                 DB::table("sales")->where("sale_id", $animal->sale_id)->where("user_id", auth()->user()->user_id)->update(["sold" => 1]);
                 $usuario_calificado = DB::table("users")->where("user_id", $user_calificado->user_id)->first();
-                //Mail::to("853e9296af-b1cadc@inbox.mailtrap.io")->send(new SendMsjQualify($usuario_calificado, auth()->user()->username, $animal->nickname));
+                Mail::to("853e9296af-b1cadc@inbox.mailtrap.io")->send(new SendMsjQualify($usuario_calificado, auth()->user()->username, $animal->nickname));
 
                 return response()->json(["message" => "ok"]);
             }
@@ -229,7 +258,7 @@ class MyaccountController extends Controller
 
         //Fecha
         date_default_timezone_set('America/Mexico_City');
-        $date = date('Y-m-d', time());
+        $date = date('Y-m-d H:i:s', time());
 
         if ($animal == null) {
             return redirect()->back()->with("session_error", "A problem occurred try again later");

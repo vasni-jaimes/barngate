@@ -19,6 +19,7 @@ class CreateNotificationsTable extends Migration
             $table->integer('typo_notify_id');
             $table->integer('sale_id')->nullable();
             $table->integer('other_user_id')->nullable();
+            $table->boolean('read_notify')->default(1);
             $table->timestamps();
         });
     }

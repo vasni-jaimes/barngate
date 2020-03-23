@@ -65,6 +65,7 @@ class Kernel extends HttpKernel
         'RestrictedAccessExpired' => \App\Http\Middleware\RestrictedAccessExpired::class,
         'RestringUpdateSale' => \App\Http\Middleware\RestringUpdateSale::class,
         'ScoreReviewIds' => \App\Http\Middleware\ScoreReviewIds::class,
+        'ValidateEditAnimal' => \App\Http\Middleware\ValidateEditAnimal::class
     ];
 
     /**

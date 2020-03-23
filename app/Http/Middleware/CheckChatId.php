@@ -87,6 +87,16 @@ class CheckChatId
         }
 
 
+        //VERIFICAMOS LAS NOTIFICACIONES DE EL CHAT
+        $chat_room = DB::table("chats_rooms")->where("token_chat", $request->user_id)->first();
+        $otroU = ($chat_room->user_id == auth()->user()->user_id) ? $chat_room->user_two_id : $chat_room->user_id;
+
+
+        DB::table("notifications")
+                ->where(["user_id" => auth()->user()->user_id, "other_user_id" => $otroU, "typo_notify_id" => 1])
+                ->update(["read_notify" => 0]);
+
+
         return $next($request);
     }
 

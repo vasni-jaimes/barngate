@@ -41,6 +41,8 @@
 								@endif
 								<a href="{{ route("chat.index", base64_encode($animal->user_name)) }}"> <button class="text-white btn btn-red">Message</button> </a>
 							@endif
+						@elseif ($animal->disabled == 1)
+							<h3 style="color: red"> Expired </h3>
 						@endif
 					@endif
 				</div> <!-- /flex -->
@@ -88,7 +90,7 @@
 						<li>Temperament: <small>(1=Calm, 10=Hot)</small></li>
 						<li>
 							<div class="flex items-center">
-								<label class="flex-auto"><input id="input" type="range" value="{{ $animal->temperament }}" min="0" max="10" autocomplete="off" name="temperament"></label>
+								<label class="flex-auto"><input id="input" type="range" value="{{ $animal->temperament }}" min="0" max="10" autocomplete="off" disabled></label>
 								<p class="range"><span id="etiqueta"></span> / 10</p>
 							</div> <!-- /flex -->
 						</li>

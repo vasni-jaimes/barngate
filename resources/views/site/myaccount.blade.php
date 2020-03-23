@@ -108,7 +108,7 @@
 												</div> <!-- /txt-list -->
 											</div>
 											<div class="btn-list">
-												<a href="{{ route("edit_animal") }}" class="mw-150 btn btn-primary">Edit</a>
+												<a href="{{ route("sale.edit", $animal[$i]["nickname"]) }}" class="mw-150 btn btn-primary">Edit</a>
 												@if ($animal[$i]["disabled"] == 0)
 													@if ($animal[$i]["sold"] == 1)
 														<a href="#" class="mw-150 btn btn-primary botton-public" data-animal="{{ $animal[$i]["nickname"] }}">Post again</a>

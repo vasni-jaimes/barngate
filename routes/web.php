@@ -37,6 +37,7 @@ Route::post('/searchState', 'SaleController@SearchState')->name('sale.state');
 Route::post('/animal_config', 'SaleController@SearchAnimal')->name('search.animal');
 Route::get('/plan/{id}', 'SaleController@updatePlan')->name('sale.updateplan');
 Route::post('/update/plan/{id}', 'SaleController@PageUpdatePlan')->name('sale.pageupdateplan');
+Route::get('/edit/{id}', 'SaleController@edit')->name("sale.edit");
 
 
 //Myaccount
@@ -73,10 +74,13 @@ Route::post('/messageSend', 'ChatController@messagesChat')->name("message.send")
 
 
 //Vistas estaticas
-Route::view('/faqs', 'site.faqs')->name('faqs');
-Route::view('/privacy', 'site.privacy')->name('privacy');
-Route::view('/notifications', 'site.notifications')->name('notifications');
-//Route::view('/chat', 'site.chat')->name('chat');
-Route::view('/reset', 'site.reset')->name('reset');
-Route::view('/edit_animal', 'site.edit_animal')->name('edit_animal');
-//Route::view('/vista', 'site.vista')->name('vista');
+Route::get('/notifications', 'PageEstaticController@showNotifications')->name('notifications');
+Route::get('/faqs', 'PageEstaticController@showFaqs')->name('faqs');
+Route::get('/privacy', 'PageEstaticController@showPrivacy')->name('privacy');
+
+
+
+//Route::view('/faqs', 'site.faqs')->name('faqs');
+//Route::view('/privacy', 'site.privacy')->name('privacy');
+//Route::view('/reset', 'site.reset')->name('reset');
+//Route::view('/edit_animal', 'site.edit_animal')->name('edit_animal');
