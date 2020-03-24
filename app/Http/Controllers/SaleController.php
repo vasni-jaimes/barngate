@@ -743,6 +743,7 @@ class SaleController extends Controller
     public function edit($id)
     {
         $animalprincipal = DB::table("sales")->where(["user_id" => auth()->user()->user_id, "nickname" => $id])->first();
+         $todasImg   = $this->todasImagenesProducto($animalprincipal->user_id, $animalprincipal->animal_id, $animalprincipal->sale_id);
 
         if ($animalprincipal->animal_id == 1) {
             $breeds     = DB::table("breeds")->where("animal_id", $animalprincipal->animal_id)->get();
@@ -750,7 +751,7 @@ class SaleController extends Controller
             $estados    = DB::table("cities")->groupBy("estado")->get();
             $notificaciones = $this->getNotify();
 
-            $compact = compact("breeds", "categories", "estados", "notificaciones", "animalprincipal");
+            $compact = compact("breeds", "categories", "estados", "notificaciones", "animalprincipal", "todasImg");
         }
         else if ($animalprincipal->animal_id == 2) {
 
@@ -761,7 +762,7 @@ class SaleController extends Controller
             $estados    = DB::table("cities")->groupBy("estado")->get();
             $notificaciones = $this->getNotify();
 
-            $compact = compact("breeds", "colors", "genders", "disciplines", "estados", "notificaciones", "animalprincipal");
+            $compact = compact("breeds", "colors", "genders", "disciplines", "estados", "notificaciones", "animalprincipal", "todasImg");
 
         }
         else if ($animalprincipal->animal_id == 3) {
@@ -772,7 +773,7 @@ class SaleController extends Controller
             $estados    = DB::table("cities")->groupBy("estado")->get();
             $notificaciones = $this->getNotify();
 
-            $compact = compact("breeds", "class", "genders", "estados", "notificaciones", "animalprincipal");
+            $compact = compact("breeds", "class", "genders", "estados", "notificaciones", "animalprincipal", "todasImg");
 
         }
         else if ($animalprincipal->animal_id == 4) {
@@ -784,7 +785,7 @@ class SaleController extends Controller
             $estados    = DB::table("cities")->groupBy("estado")->get();
             $notificaciones = $this->getNotify();
 
-            $compact = compact("breeds", "class", "type", "genders", "estados", "notificaciones", "animalprincipal");
+            $compact = compact("breeds", "class", "type", "genders", "estados", "notificaciones", "animalprincipal", "todasImg");
         }
         else if ($animalprincipal->animal_id == 5) {
 
@@ -795,7 +796,7 @@ class SaleController extends Controller
             $estados    = DB::table("cities")->groupBy("estado")->get();
             $notificaciones = $this->getNotify();
 
-            $compact = compact("breeds", "class", "genders", "estados", "notificaciones", "animalprincipal");
+            $compact = compact("breeds", "class", "genders", "estados", "notificaciones", "animalprincipal", "todasImg");
         }
         else if ($animalprincipal->animal_id == 6) {
 
@@ -806,7 +807,7 @@ class SaleController extends Controller
             $estados    = DB::table("cities")->groupBy("estado")->get();
             $notificaciones = $this->getNotify();
 
-            $compact = compact("breeds", "size", "genders", "colors", "estados", "notificaciones", "animalprincipal");
+            $compact = compact("breeds", "size", "genders", "colors", "estados", "notificaciones", "animalprincipal", "todasImg");
         }
         else if ($animalprincipal->animal_id == 7) {
 
@@ -817,10 +818,8 @@ class SaleController extends Controller
             $estados    = DB::table("cities")->groupBy("estado")->get();
             $notificaciones = $this->getNotify();
 
-            $compact = compact("breeds", "size", "genders", "colors", "estados", "notificaciones", "animalprincipal");
+            $compact = compact("breeds", "size", "genders", "colors", "estados", "notificaciones", "animalprincipal", "todasImg");
         }
-
-        $todasImg   = $this->todasImagenesProducto($animalprincipal->user_id, $animalprincipal->animal_id, $animalprincipal->sale_id);
 
         return view("site.edit_animal", $compact);
     }

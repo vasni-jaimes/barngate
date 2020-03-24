@@ -2,7 +2,6 @@
 /********************************\
 |    POP-OP (login, registro)    |
 \********************************/
-
 function validar(idForma)
 {
 	var error = false;
@@ -50,8 +49,8 @@ function validar(idForma)
 	});
 
 	return error;
+}
 
-}	
 
 $('.form-inline').submit(function(e) {
 		
