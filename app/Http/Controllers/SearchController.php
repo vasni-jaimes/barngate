@@ -55,7 +55,7 @@ class SearchController extends Controller
                 $animal[$ban]["age_id"]         = $animalrow->age_id;
                 $animal[$ban]["gender_id"]      = $animalrow->gender_id;
                 $animal[$ban]["discipline_id"]  = $animalrow->discipline_id;
-                $animal[$ban]["description"]    = $animalrow->description;
+                $animal[$ban]["description"]    = substr($animalrow->description, 0, 50). "...";
                 $animal[$ban]["state"]          = $animalrow->state;
                 $animal[$ban]["adress"]         = $animalrow->ciudad.", ".$animalrow->estado;
                 $animal[$ban]["myfavorito"]     = false;
@@ -204,4 +204,5 @@ class SearchController extends Controller
        
         return false;
     }
+
 }

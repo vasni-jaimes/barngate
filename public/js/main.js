@@ -1461,13 +1461,13 @@ if (next3) {
 			return false;
 		}
 
-		if (planSelect.value == 3) {
-			if (videos.value == '') {
-				error(videos, "The video field is required");
-				$('html, body').animate({scrollTop: $(videos).offset().top - 50},1000);
-				return false;
-			}
-		}
+		// if (planSelect.value == 3) {
+		// 	if (videos.value == '') {
+		// 		error(videos, "The video field is required");
+		// 		$('html, body').animate({scrollTop: $(videos).offset().top - 50},1000);
+		// 		return false;
+		// 	}
+		// }
 
 		//OBTENER DATOS DEL PLAN ELEGIDO
 		let skills = $(".plan-selected ul").html();

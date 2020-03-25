@@ -342,15 +342,15 @@ class SaleController extends Controller
         }
 
 
-        if (request("planSelect") == 3) {
-            $validator3 = Validator::make($request->all(), [
-                "url-videos" => "required|max:255"
-            ]);
+        // if (request("planSelect") == 3) {
+        //     $validator3 = Validator::make($request->all(), [
+        //         "url-videos" => "required|max:255"
+        //     ]);
 
-            if ($validator3->fails()) {
-                return redirect("sale")->withErrors($validator3, "paso3")->withInput();
-            }
-        }
+        //     if ($validator3->fails()) {
+        //         return redirect("sale")->withErrors($validator3, "paso3")->withInput();
+        //     }
+        // }
 
 
         
@@ -458,9 +458,9 @@ class SaleController extends Controller
         $sale->date_init        = $date;
         $sale->date_end         = $fechafinal;
 
-        if (request("planSelect") == 3) {
-            $sale->video = request("url-videos");
-        }
+        // if (request("planSelect") == 3) {
+        //     $sale->video = request("url-videos");
+        // }
 
         $precio = 0;
 
