@@ -53,7 +53,6 @@ function validar(idForma)
 
 
 $('.form-inline').submit(function(e) {
-		
 	if(validar('signup')){ 
 		e.preventDefault();
 	} else {
@@ -226,11 +225,71 @@ if (txt_notificacion) {
 }
 
 
+let remove_img = document.querySelectorAll(".remove_img-edit");
+if (remove_img) {
+	for (var i = 0; i <= remove_img.length - 1; i++) {
+		remove_img[i].addEventListener("click", e => {
+			e.target.classList.add("mystyle");
+			$("#remove_img").css("display", "block");
+		});
+	}
+}
+
+accpt_remove_img = document.querySelector(".accpt_remove-img");
+if (accpt_remove_img) {
+	accpt_remove_img.addEventListener("click", e => {
+
+		let token = document.querySelector("input[name='_token']");
+		let sale_id = document.querySelector("input[name='nick']");
+		let url_img = document.querySelector(".mystyle").getAttribute('data-url');
+		let data = {
+			"_token": token.value,
+			"url_img": url_img,
+			"sale_id": sale_id.value
+		};
+
+		$("#remove_img").css("display", "none");
+		$("#loading").css("display", "block");
+
+		if (token.value != '' && url_img != '' && sale_id.value != '' || token.value != null && url_img != null && sale_id.value != null) {
+
+			request
+			   	.post('/removeImgEdit')
+			   	.send(data)
+			   	.set('Accept', 'application/json')
+			   	.then(res => {
+			   		if (res.body.message == 'ok') {
+			   			$(".mystyle").parent().remove();
+			   			$("#loading").css("display", "none");
+			   		}
+			   		else {
+			   			location.reload();
+			   			//$("#loading").css("display", "none");
+			   			//$("#remove_img-error").css("display", "block");
+			   		}
+			   	})
+			   	.catch(err => {
+	      			// err.message, err.response
+	      			console.log(err.message);
+	      			error(password_confirm, "A problem happened, try again later");
+	      			e.target.disabled = false;
+	   			});
+	   	}
+
+	});
+}
+
+
+cancel_remove_img = document.querySelector(".cancel_remove-img");
+if (cancel_remove_img) {
+	cancel_remove_img.addEventListener("click", e => {
+		$("#remove_img").css("display", "none");
+	});
+}
 
 /********************************************\
 |    VALIDAR Y PROCESAR DATOS DE REGISTRO    |
 \********************************************/
-
 
 let request =  window.superagent;
 let register_send = document.querySelector(".register-send");
@@ -321,6 +380,8 @@ if (register_send) {
 
 
 		e.target.disabled = true;
+		$("#loading").css("display", "block");
+		$("#registro").css("display", "none");
 		$(".register-send").css("margin-top", '10px');
 
 		let data = { 
@@ -341,24 +402,33 @@ if (register_send) {
 		   		if (res.body.email) {
 		   			error(email, res.body.email[0]);
 		   			e.target.disabled = false;
+		   			$("#loading").css("display", "none");
+					$("#registro").css("display", "block");
 					return false;
 		   		}
 		   		else if (res.body.username) {
 		   			error(username, res.body.username[0]);
 		   			e.target.disabled = false;
+		   			$("#loading").css("display", "none");
+					$("#registro").css("display", "block");
 					return false;
 		   		}
 		   		else if (res.body.password) {
 		   			error(password, res.body.password[0]);
 		   			e.target.disabled = false;
+		   			$("#loading").css("display", "none");
+					$("#registro").css("display", "block");
 					return false;
 		   		}
 		   		else if (res.body.password_confirm) {
 		   			error(password_confirm, res.body.password_confirm[0]);
 		   			e.target.disabled = false;
+		   			$("#loading").css("display", "none");
+					$("#registro").css("display", "block");
 					return false;
 		   		}
 		   		else if (res.body.message == 'ok') {
+		   			$("#loading").css("display", "none");
 		   			$(".container-form").html("<h2 style='text-align:center;color:green'> Successfully registered </h2>");
 		   			setTimeout( () => { location.reload() }, 2000);
 		   			e.target.disabled = false;
@@ -367,11 +437,15 @@ if (register_send) {
 		   		else if (res.body.message == 'off') {
 		   			error(password_confirm, "A problem happened, try again later");
 		   			e.target.disabled = false;
+		   			$("#loading").css("display", "none");
+					$("#registro").css("display", "block");
 					return false;
 		   		}
 		   		else if (res.body.message == 'error_captcha') {
 		   			error(captcha, "The field is required");
 					$(".register-send").css("margin-top", '38px');
+					$("#loading").css("display", "none");
+					$("#registro").css("display", "block");
 					return false;
 		   		}
 		   	})
@@ -1703,14 +1777,12 @@ if (accepta) {
 		   		//console.log(res);
 		   		if (res.body.message == 'ok') {
 		   			$(".add-favorite").remove();
-		   			// $("#loading .wrapper-form img").css("display", "none");
-		   			// $("#loading .wrapper-form").append("<div class='container-form'> <h2> Successfully added </h2> </div>");
-		   			// setTimeout(function() { location.reload() }, 2000);
+		   			$("#loading").css("display", "none");
+		   			$("#favorite_success").css("display", "block");
 		   		}
 		   		else {
-		   			// $("#loading .wrapper-form img").css("display", "none");
-		   			// $("#loading .wrapper-form").append("<div class='container-form'> <h2> There was a problem, try again later </h2> </div>");
-		   			// setTimeout(function() { location.reload() }, 2000);
+		   			$("#loading").css("display", "none");
+		   			$("#favorite_error").css("display", "block");
 		   		}
 		   	})
 		   	.catch(err => {
@@ -2527,6 +2599,16 @@ if (accpt_remove) {
    			});
 
 	});
+}
+
+
+let edit_animal = document.querySelector(".edit_animal-button");
+if (edit_animal) {
+	initFile();
+
+	edit_animal.addEventListener("click", e => {
+		$("#loading").css("display", "block");
+	})
 }
 
 

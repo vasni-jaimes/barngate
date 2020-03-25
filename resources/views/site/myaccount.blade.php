@@ -260,8 +260,6 @@
 							<input type="tel" class="input" name="phone" value="{{ old("phone", auth()->user()->phone) }}" placeholder="Phone">
 							<input type="text" class="input" name="address" value="{{ old("address", auth()->user()->address) }}" placeholder="Address">
 							<input type="text" class="input" name="postal" value="{{ old("postal", auth()->user()->cp_zip) }}" placeholder="Zip Code">
-							<input type="text" class="input" name="country" value="{{ old("country", auth()->user()->country) }}" placeholder="Country">
-							<input type="text" class="input" name="postal" value="{{ old("postal", auth()->user()->cp_zip) }}" placeholder="Postal Code">
 							{{-- <input type="text" class="input" name="country" value="{{ old("country", auth()->user()->country) }}" placeholder="Country"> --}}
 							<select class="input" name="state">
 								<option value=""> Select a state </option>

@@ -76,7 +76,11 @@
 												@for($i=0; $i <= count($notificaciones) - 1; $i++)
 													@if ($notificaciones[$i]["typo_not"] == 1)
 														<div data-href="{{ route("chat.index", $notificaciones[$i]["url"]) }}" class="flex txt-notificacion @if($notificaciones[$i]["pending"] == 1) pendding @endif">
-															<img src="{{ Storage::url($notificaciones[$i]["img_user"]) }}">
+															@if ($notificaciones[$i]["img_user"] != null)
+																<img src="{{ Storage::url("images/".$notificaciones[$i]["img"]) }}">
+															@else
+																<img src="/images/sin_foto.jpeg">
+															@endif
 															<div>
 																<p class="fw-700">{{ $notificaciones[$i]["nombre_usuario"] }}</p>
 																<p>The user sent you a message</p>
@@ -85,7 +89,11 @@
 														</div>
 													@elseif ($notificaciones[$i]["typo_not"] == 2)
 														<div data-href="{{ route("sale.show", $notificaciones[$i]["url"]) }}" class="flex txt-notificacion @if($notificaciones[$i]["pending"] == 1) pendding @endif">
-															<img src="{{ Storage::url("images/".$notificaciones[$i]["img"]) }}">
+															@if ($notificaciones[$i]["img_user"] != null)
+																<img src="{{ Storage::url("images/".$notificaciones[$i]["img"]) }}">
+															@else
+																<img src="/images/sin_foto.jpeg">
+															@endif
 															<div>
 																<p class="fw-700">{{ $notificaciones[$i]["sale_name"] }}</p>
 																<p>The ad has expired</p>
@@ -94,7 +102,11 @@
 														</div>
 													@elseif ($notificaciones[$i]["typo_not"] == 3)
 														<div data-href="{{ route("sale.show", $notificaciones[$i]["url"]) }}" class="flex txt-notificacion @if($notificaciones[$i]["pending"] == 1) pendding @endif">
-															<img src="{{ Storage::url("images/".$notificaciones[$i]["img"]) }}">
+															@if ($notificaciones[$i]["img_user"] != null)
+																<img src="{{ Storage::url("images/".$notificaciones[$i]["img"]) }}">
+															@else
+																<img src="/images/sin_foto.jpeg">
+															@endif
 															<div>
 																<p class="fw-700">{{ $notificaciones[$i]["sale_name"] }}</p>
 																<p>The ad is 2 days from expiring</p>
@@ -124,12 +136,12 @@
 				<nav>
 					<ul class="menu_home">
 						<li><a href="{{ route("home") }}"><img src="/images/horse-classifieds-barngate-home-icon.png"></a></li>
-						<li><a href="{{ route("vistaSearch", base64_encode(1)) }}">Cattle for Sale</a></li>
-						<li><a href="{{ route("vistaSearch", base64_encode(2)) }}">Horse for Sale</a></li>
-						<li><a href="{{ route("vistaSearch", base64_encode(3)) }}">Sheep for Sale</a></li>
-						<li><a href="{{ route("vistaSearch", base64_encode(4)) }}">Goat for Sale</a></li>
-						<li><a href="{{ route("vistaSearch", base64_encode(5)) }}">Pig for Sale</a></li>
-						<li><a href="{{ route("vistaSearch", base64_encode(6)) }}">Pet Section</a></li>
+						<li><a @if (@$category == 1) style="background: #29385A; color: #fff" @endif href="{{ route("vistaSearch", base64_encode(1)) }}">Cattle for Sale</a></li>
+						<li><a @if (@$category == 2) style="background: #29385A; color: #fff" @endif href="{{ route("vistaSearch", base64_encode(2)) }}">Horse for Sale</a></li>
+						<li><a @if (@$category == 3) style="background: #29385A; color: #fff" @endif href="{{ route("vistaSearch", base64_encode(3)) }}">Sheep for Sale</a></li>
+						<li><a @if (@$category == 4) style="background: #29385A; color: #fff" @endif href="{{ route("vistaSearch", base64_encode(4)) }}">Goat for Sale</a></li>
+						<li><a @if (@$category == 5) style="background: #29385A; color: #fff" @endif href="{{ route("vistaSearch", base64_encode(5)) }}">Pig for Sale</a></li>
+						<li><a @if (@$category == 6) style="background: #29385A; color: #fff" @endif href="{{ route("vistaSearch", base64_encode(6)) }}">Pet Section</a></li>
 					</ul>
 				</nav>
 			</div>
@@ -204,12 +216,12 @@
 	<ul>
 		<li><a href="#">Listing</a>
 			<ul>
-				<li><a href="{{ route("vistaSearch", base64_encode(1)) }}">Cattle for Sale</a></li>
-				<li><a href="{{ route("vistaSearch", base64_encode(2)) }}">Horse for Sale</a></li>
-				<li><a href="{{ route("vistaSearch", base64_encode(3)) }}">Sheep for Sale</a></li>
-				<li><a href="{{ route("vistaSearch", base64_encode(4)) }}">Goat for Sale</a></li>
-				<li><a href="{{ route("vistaSearch", base64_encode(5)) }}">Pig for Sale</a></li>
-				<li><a href="{{ route("vistaSearch", base64_encode(6)) }}">Pet for Sale</a></li>
+				<li><a @if (@$category == 1) style="background: #29385A; color: #fff" @endif href="{{ route("vistaSearch", base64_encode(1)) }}">Cattle for Sale</a></li>
+				<li><a @if (@$category == 2) style="background: #29385A; color: #fff" @endif href="{{ route("vistaSearch", base64_encode(2)) }}">Horse for Sale</a></li>
+				<li><a @if (@$category == 3) style="background: #29385A; color: #fff" @endif href="{{ route("vistaSearch", base64_encode(3)) }}">Sheep for Sale</a></li>
+				<li><a @if (@$category == 4) style="background: #29385A; color: #fff" @endif href="{{ route("vistaSearch", base64_encode(4)) }}">Goat for Sale</a></li>
+				<li><a @if (@$category == 5) style="background: #29385A; color: #fff" @endif href="{{ route("vistaSearch", base64_encode(5)) }}">Pig for Sale</a></li>
+				<li><a @if (@$category == 6) style="background: #29385A; color: #fff" @endif href="{{ route("vistaSearch", base64_encode(6)) }}">Pet for Sale</a></li>
 			</ul>
 		</li>
 		<li><a href="{{ route("about") }}">About Us</a></li>
@@ -229,7 +241,7 @@
 				<a href="#">Notifications</a>
 				<ul>
 					<li class="flex txt-notificacion">
-						<img src="images/picture.jpg">
+						<img src="/images/picture.jpg">
 						<span>
 							<p class="fw-700">Animal</p>
 							<p>Username</p>
@@ -237,7 +249,7 @@
 						</span>
 					</li>
 					<li class="flex txt-notificacion">
-						<img src="images/picture.jpg">
+						<img src="/images/picture.jpg">
 						<span>
 							<p class="fw-700">Animal</p>
 							<p>Username</p>

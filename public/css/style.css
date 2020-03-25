@@ -29,6 +29,11 @@
 
 }
 
+
+.field-update .filepond--root {
+	margin: 0 auto;
+}
+
 .botton-renovate {
 	background: green;
 }

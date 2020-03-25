@@ -10,7 +10,11 @@
 		@for($i=0; $i <= count($notifyArray) - 1; $i++)
 			@if ($notifyArray[$i]["typo_notify_id"] == 1)
 				<div data-href="{{ route("chat.index", $notifyArray[$i]["url"]) }}" class="flex txt-notificacion @if($notifyArray[$i]["pending"] == 1) pendding @endif">
-					<img src="{{ Storage::url($notifyArray[$i]["img"]) }}">
+					@if ($notifyArray[$i]["img"] != null)
+						<img src="{{ Storage::url("images/".$notifyArray[$i]["img"]) }}">
+					@else
+						<img src="/images/sin_foto.jpeg">
+					@endif
 					<div>
 						<p class="fw-700"> {{ $notifyArray[$i]["user_name"] }} </p>
 						<p> {{ $notifyArray[$i]["description"] }} </p>
@@ -19,7 +23,11 @@
 				</div>
 			@elseif($notifyArray[$i]["typo_notify_id"] == 2)
 				<div data-href="{{ route("sale.show", $notifyArray[$i]["url"]) }}" class="flex txt-notificacion @if($notifyArray[$i]["pending"] == 1) pendding @endif">
-					<img src="{{ Storage::url("images/".$notifyArray[$i]["img"]) }}">
+					@if ($notifyArray[$i]["img"] != null)
+						<img src="{{ Storage::url("images/".$notifyArray[$i]["img"]) }}">
+					@else
+						<img src="/images/sin_foto.jpeg">
+					@endif
 					<div>
 						<p class="fw-700"> {{ $notifyArray[$i]["sale_name"] }} </p>
 						<p> {{ $notifyArray[$i]["description"] }} </p>
@@ -28,7 +36,11 @@
 				</div>
 			@elseif($notifyArray[$i]["typo_notify_id"] == 3)
 				<div data-href="{{ route("sale.show", $notifyArray[$i]["url"]) }}" class="flex txt-notificacion @if($notifyArray[$i]["pending"] == 1) pendding @endif">
-					<img src="{{ Storage::url("images/".$notifyArray[$i]["img"]) }}">
+					@if ($notifyArray[$i]["img"] != null)
+						<img src="{{ Storage::url("images/".$notifyArray[$i]["img"]) }}">
+					@else
+						<img src="/images/sin_foto.jpeg">
+					@endif
 					<div>
 						<p class="fw-700"> {{ $notifyArray[$i]["sale_name"] }} </p>
 						<p> {{ $notifyArray[$i]["description"] }} </p>

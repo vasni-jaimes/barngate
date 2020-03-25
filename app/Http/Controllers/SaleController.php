@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use App\Mail\SendUpdateSaleFavorites;
+use Illuminate\Support\Facades\Mail;
 
 //Moderl
 use App\User;
@@ -157,7 +159,6 @@ class SaleController extends Controller
                 "phone_number" => "min:10|max:13"
             ]);
         }
-
         else if (request("animals") == 2) {
 
             $validator = Validator::make($request->all(), [
@@ -184,7 +185,6 @@ class SaleController extends Controller
                 "phone_number" => "min:10|max:13"
             ]);
         }
-
         else if (request("animals") == 3) {
 
             $validator = Validator::make($request->all(), [
@@ -214,7 +214,6 @@ class SaleController extends Controller
                 "phone_number" => "min:10|max:13"
             ]);
         }
-
         else if (request("animals") == 4) {
 
             $validator = Validator::make($request->all(), [
@@ -246,7 +245,6 @@ class SaleController extends Controller
                 "phone_number" => "min:10|max:13"
             ]);
         }
-
         else if (request("animals") == 5) {
 
             $validator = Validator::make($request->all(), [
@@ -274,7 +272,6 @@ class SaleController extends Controller
                 "phone_number" => "min:10|max:13"
             ]);
         }
-
         else if (request("animals") == 6) {
 
             $validator = Validator::make($request->all(), [
@@ -301,7 +298,6 @@ class SaleController extends Controller
                 "phone_number" => "min:10|max:13"
             ]);
         }
-
         else if (request("animals") == 7) {
 
             $validator = Validator::make($request->all(), [
@@ -743,7 +739,8 @@ class SaleController extends Controller
     public function edit($id)
     {
         $animalprincipal = DB::table("sales")->where(["user_id" => auth()->user()->user_id, "nickname" => $id])->first();
-         $todasImg   = $this->todasImagenesProducto($animalprincipal->user_id, $animalprincipal->animal_id, $animalprincipal->sale_id);
+        $todasImg   = $this->todasImagenesProducto($animalprincipal->user_id, $animalprincipal->animal_id, $animalprincipal->sale_id);
+        $ciudades   = DB::table("cities")->where("id_estado", $animalprincipal->state)->get();
 
         if ($animalprincipal->animal_id == 1) {
             $breeds     = DB::table("breeds")->where("animal_id", $animalprincipal->animal_id)->get();
@@ -751,7 +748,7 @@ class SaleController extends Controller
             $estados    = DB::table("cities")->groupBy("estado")->get();
             $notificaciones = $this->getNotify();
 
-            $compact = compact("breeds", "categories", "estados", "notificaciones", "animalprincipal", "todasImg");
+            $compact = compact("breeds", "categories", "estados", "notificaciones", "animalprincipal", "todasImg", "id", "ciudades");
         }
         else if ($animalprincipal->animal_id == 2) {
 
@@ -762,7 +759,7 @@ class SaleController extends Controller
             $estados    = DB::table("cities")->groupBy("estado")->get();
             $notificaciones = $this->getNotify();
 
-            $compact = compact("breeds", "colors", "genders", "disciplines", "estados", "notificaciones", "animalprincipal", "todasImg");
+            $compact = compact("breeds", "colors", "genders", "disciplines", "estados", "notificaciones", "animalprincipal", "todasImg", "id", "ciudades");
 
         }
         else if ($animalprincipal->animal_id == 3) {
@@ -773,7 +770,7 @@ class SaleController extends Controller
             $estados    = DB::table("cities")->groupBy("estado")->get();
             $notificaciones = $this->getNotify();
 
-            $compact = compact("breeds", "class", "genders", "estados", "notificaciones", "animalprincipal", "todasImg");
+            $compact = compact("breeds", "class", "genders", "estados", "notificaciones", "animalprincipal", "todasImg", "id", "ciudades");
 
         }
         else if ($animalprincipal->animal_id == 4) {
@@ -785,7 +782,7 @@ class SaleController extends Controller
             $estados    = DB::table("cities")->groupBy("estado")->get();
             $notificaciones = $this->getNotify();
 
-            $compact = compact("breeds", "class", "type", "genders", "estados", "notificaciones", "animalprincipal", "todasImg");
+            $compact = compact("breeds", "class", "type", "genders", "estados", "notificaciones", "animalprincipal", "todasImg", "id", "ciudades");
         }
         else if ($animalprincipal->animal_id == 5) {
 
@@ -796,7 +793,7 @@ class SaleController extends Controller
             $estados    = DB::table("cities")->groupBy("estado")->get();
             $notificaciones = $this->getNotify();
 
-            $compact = compact("breeds", "class", "genders", "estados", "notificaciones", "animalprincipal", "todasImg");
+            $compact = compact("breeds", "class", "genders", "estados", "notificaciones", "animalprincipal", "todasImg", "id", "ciudades");
         }
         else if ($animalprincipal->animal_id == 6) {
 
@@ -807,7 +804,7 @@ class SaleController extends Controller
             $estados    = DB::table("cities")->groupBy("estado")->get();
             $notificaciones = $this->getNotify();
 
-            $compact = compact("breeds", "size", "genders", "colors", "estados", "notificaciones", "animalprincipal", "todasImg");
+            $compact = compact("breeds", "size", "genders", "colors", "estados", "notificaciones", "animalprincipal", "todasImg", "id", "ciudades");
         }
         else if ($animalprincipal->animal_id == 7) {
 
@@ -818,7 +815,7 @@ class SaleController extends Controller
             $estados    = DB::table("cities")->groupBy("estado")->get();
             $notificaciones = $this->getNotify();
 
-            $compact = compact("breeds", "size", "genders", "colors", "estados", "notificaciones", "animalprincipal", "todasImg");
+            $compact = compact("breeds", "size", "genders", "colors", "estados", "notificaciones", "animalprincipal", "todasImg", "id", "ciudades");
         }
 
         return view("site.edit_animal", $compact);
@@ -833,7 +830,331 @@ class SaleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //dd($request);
+        $animal = Sale::where(["nickname" => $id, "user_id" => auth()->user()->user_id])->first();
+        $favoritoMail = false;
+
+        if ($animal->animal_id == 1) {
+            
+            $validator = Validator::make($request->all(), [
+                "breeds" => "required|max:4",
+                "breeds" => "numeric",
+                "ages" => "required|max:2",
+                "ages" => "numeric",
+                "vaccinations" => "required|max:2",
+                "vaccinations" => "numeric",
+                "horns" => "required|max:2",
+                "horns" => "numeric",
+                "categories" => "required|max:2",
+                "categories" => "numeric",
+                "weight" => "required",
+                "conditions" => "required",
+                "number_of_head" => "required|max:2",
+                "number_of_head" => "numeric",
+                "price" => "required|max:255",
+                "description" => "required",
+                "city" => "required|numeric",
+                "region" => "required|numeric",
+                "zip" => "required|numeric",
+                "zip" => "max:5",
+                "country" => "required|max:255",
+                "phone_number" => "required|numeric",
+                "phone_number" => "min:10|max:13"
+            ]);
+        }
+        else if ($animal->animal_id == 2) {
+
+            $validator = Validator::make($request->all(), [
+                "breeds" => "required|max:4",
+                "breeds" => "numeric",
+                "colors" => "required|max:2",
+                "colors" => "numeric",
+                "genders" => "required|max:2",
+                "genders" => "numeric",
+                "ages" => "required|max:2",
+                "ages" => "numeric",
+                "discipline" => "required|max:2",
+                "temperament" => "required|max:2",
+                "price" => "required|max:255",
+                "description" => "required",
+                "city" => "required|numeric",
+                "region" => "required|numeric",
+                "zip" => "required|numeric",
+                "zip" => "max:5",
+                "country" => "required|max:255",
+                "phone_number" => "required|numeric",
+                "phone_number" => "min:10|max:13"
+            ]);
+        }
+        else if ($animal->animal_id == 3) {
+
+            $validator = Validator::make($request->all(), [
+                "breeds" => "required|max:2",
+                "breeds" => "numeric",
+                "genders" => "required|max:2",
+                "genders" => "numeric",
+                "ages" => "required|max:2",
+                "ages" => "numeric",
+                "class" => "required|max:2",
+                "class" => "numeric",
+                "horns" => "required|max:2",
+                "horns" => "numeric",
+                "weight" => "required",
+                "number_of_head" => "required|max:2",
+                "number_of_head" => "numeric",
+                "price" => "required|max:255",
+                "description" => "required",
+                "city" => "required|numeric",
+                "region" => "required|numeric",
+                "zip" => "required|numeric",
+                "zip" => "max:5",
+                "country" => "required|max:255",
+                "phone_number" => "required|numeric",
+                "phone_number" => "min:10|max:13"
+            ]);
+        }
+        else if ($animal->animal_id == 4) {
+
+            $validator = Validator::make($request->all(), [
+                "breeds" => "required|max:2",
+                "breeds" => "numeric",
+                "genders" => "required|max:2",
+                "genders" => "numeric",
+                "ages" => "required|max:2",
+                "ages" => "numeric",
+                "class" => "required|max:2",
+                "class" => "numeric",
+                "type" => "required|max:2",
+                "type" => "numeric",
+                "horns" => "required|max:2",
+                "horns" => "numeric",
+                "weight" => "required",
+                "number_of_head" => "required|max:2",
+                "number_of_head" => "numeric",
+                "price" => "required|max:255",
+                "description" => "required",
+                "city" => "required|numeric",
+                "region" => "required|numeric",
+                "zip" => "required|numeric",
+                "zip" => "max:5",
+                "country" => "required|max:255",
+                "phone_number" => "required|numeric",
+                "phone_number" => "min:10|max:13"
+            ]);
+        }
+        else if ($animal->animal_id == 5) {
+
+            $validator = Validator::make($request->all(), [
+                "breeds" => "required|max:2",
+                "breeds" => "numeric",
+                "genders" => "required|max:2",
+                "genders" => "numeric",
+                "ages" => "required|max:2",
+                "ages" => "numeric",
+                "class" => "required|max:2",
+                "class" => "numeric",
+                "weight" => "required",
+                "number_of_head" => "required|max:2",
+                "number_of_head" => "numeric",
+                "price" => "required|max:255",
+                "description" => "required",
+                "city" => "required|numeric",
+                "region" => "required|numeric",
+                "zip" => "required|numeric",
+                "zip" => "max:5",
+                "country" => "required|max:255",
+                "phone_number" => "required|numeric",
+                "phone_number" => "min:10|max:13"
+            ]);
+        }
+        else if ($animal->animal_id == 6) {
+
+            $validator = Validator::make($request->all(), [
+                "breeds" => "required|max:2",
+                "breeds" => "numeric",
+                "colors" => "required|max:2",
+                "colors" => "numeric",
+                "genders" => "required|max:2",
+                "genders" => "numeric",
+                "ages" => "required|max:2",
+                "ages" => "numeric",
+                "size" => "required|max:2",
+                "size" => "numeric",
+                "price" => "required|max:255",
+                "description" => "required",
+                "city" => "required|numeric",
+                "region" => "required|numeric",
+                "zip" => "required|numeric",
+                "zip" => "max:5",
+                "country" => "required|max:255",
+                "phone_number" => "required|numeric",
+                "phone_number" => "min:10|max:13"
+            ]);
+        }
+        else if ($animal->animal_id == 7) {
+
+            $validator = Validator::make($request->all(), [
+                "breeds" => "required|max:2",
+                "breeds" => "numeric",
+                "colors" => "required|max:2",
+                "colors" => "numeric",
+                "genders" => "required|max:2",
+                "genders" => "numeric",
+                "ages" => "required|max:2",
+                "ages" => "numeric",
+                "size" => "required|max:2",
+                "size" => "numeric",
+                "declawed" => "required|max:2",
+                "declawed" => "numeric",
+                "price" => "required|max:255",
+                "description" => "required",
+                "city" => "required|numeric",
+                "region" => "required|numeric",
+                "zip" => "required|numeric",
+                "zip" => "max:5",
+                "country" => "required|max:255",
+                "phone_number" => "required|numeric",
+                "phone_number" => "min:10|max:13"
+            ]);
+        }
+
+        if ($validator->fails()) {
+            return redirect()->route("sale.edit", $id)->withErrors($validator, "paso1")->withInput();
+        }
+
+
+        DB::beginTransaction();
+
+        $sale                   = Sale::find($animal->animal_id);
+
+        if ($sale->price != request("price")) {
+            $favoritoMail = true;
+        }
+
+        if ($animal->animal_id == 1) {
+            $sale->breed_id         = request("breeds");
+            $sale->age_id           = request("ages");
+            $sale->vaccinations     = request("vaccinations");
+            $sale->horns            = request("horns");
+            $sale->weight           = request("weight");
+            $sale->conditions       = request("conditions");
+            $sale->number_of_head   = request("number_of_head");
+            $sale->categorie_id    = request("categories");
+        }
+        else if ($animal->animal_id == 2) {
+            $sale->breed_id         = request("breeds");
+            $sale->color_id         = request("colors");
+            $sale->gender_id        = request("genders");
+            $sale->age_id           = request("ages");
+            $sale->discipline_id    = request("discipline");
+            $sale->temperament      = request("temperament");
+        }
+        else if ($animal->animal_id == 3) {
+            $sale->breed_id         = request("breeds");
+            $sale->gender_id        = request("genders");
+            $sale->age_id           = request("ages");
+            $sale->class_id         = request("class");
+            $sale->horns            = request("horns");
+            $sale->weight           = request("weight");
+            $sale->number_of_head   = request("number_of_head");
+        }
+        else if ($animal->animal_id == 4) {
+            $sale->breed_id         = request("breeds");
+            $sale->gender_id        = request("genders");
+            $sale->age_id           = request("ages");
+            $sale->type_id          = request("type");
+            $sale->class_id         = request("class");
+            $sale->horns            = request("horns");
+            $sale->weight           = request("weight");
+            $sale->number_of_head   = request("number_of_head");
+        }
+        else if ($animal->animal_id == 5) {
+            $sale->breed_id         = request("breeds");
+            $sale->gender_id        = request("genders");
+            $sale->age_id           = request("ages");
+            $sale->class_id         = request("class");
+            $sale->weight           = request("weight");
+            $sale->number_of_head   = request("number_of_head");
+        }
+        else if ($animal->animal_id == 6) {
+            $sale->breed_id         = request("breeds");
+            $sale->gender_id        = request("genders");
+            $sale->color_id         = request("colors");
+            $sale->age_id           = request("ages");
+            $sale->size_id         = request("size");
+        }
+        else if ($animal->animal_id == 7) {
+            $sale->breed_id         = request("breeds");
+            $sale->gender_id        = request("genders");
+            $sale->color_id         = request("colors");
+            $sale->age_id           = request("ages");
+            $sale->size_id         = request("size");
+            $sale->declawed        = request("declawed");
+        }
+
+        $sale->price            = request("price");
+        $sale->description      = request("description");
+        $sale->city             = request("city");
+        $sale->state            = request("region");
+        $sale->zip              = request("zip");
+        $sale->country          = request("country");
+        $sale->phone_number     = request("phone_number");
+
+
+        if ($sale->save()) {
+
+            if ($request->has("filepond")) {
+
+                //OBTENER EL NUMERO DE IMAGENES QUE SE QUIEREN GUARDAR
+                $imagenesUp = count($request->get('filepond'));
+
+                //OBTENER EL NUMERO DE IMAGENES GUARDADAS DEL PRODUCTO
+                $directory  = 'images/'.auth()->user()->user_id.'/'.$sale->animal_id.'/'.$sale->sale_id.'/';
+                $files      = Storage::allFiles($directory);
+                $imagenSave = count($files);
+
+                //OPBTENER EL PLAN
+                $plan           = $animal->plan_id;
+                $totalImagenes  = $imagenesUp + $imagenSave;
+
+
+                if ($plan == 1 && $totalImagenes > 1) {
+                    DB::rollback();
+                    return back()->with('status.error', '2');
+                }
+                else if ($plan == 2 && $totalImagenes > 5) {
+                    DB::rollback();
+                    return back()->with('status.error', '2');
+                }
+
+                //SI HAY IMAGENES LAS RECORREMOS PARA GUARDAR
+                for ($i=0; $i <= count($request->get('filepond')) - 1; $i++) {
+                    try {
+                        $this->uploadImgUpdate($request, $i, $sale->sale_id, $sale->animal_id);
+                    } 
+                    catch(Exception $e) {
+                        DB::rollback();
+                        \Log::error("No se guardo correctamente la imagen: error: ".$e->getMessage());
+                    }
+                }
+
+                if ($favoritoMail == true) {
+                    $this->sendEmailFavChangue($sale->sale_id);
+                }
+                
+                DB::commit();
+                return back()->with('status.success', '1');
+            }
+            else {
+
+                if ($favoritoMail == true) {
+                    $this->sendEmailFavChangue($sale->sale_id);
+                }
+
+                DB::commit();
+                return back()->with('status.success', '1');
+            }
+        }
+
     }
 
     /**
@@ -842,9 +1163,29 @@ class SaleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+
+
+    public function removeImgEd(Request $request)
     {
-        //
+        if (!$request->has("url_img")) {
+           return response()->json(["message"=>"error", "desc" => "no_parameter"]);
+        }
+
+        if (!$request->has("sale_id")) {
+           return response()->json(["message"=>"error", "desc" => "no_parameter"]);
+        }
+
+        $sale = DB::table("sales")->where(["nickname" => $request->sale_id, "user_id" => auth()->user()->user_id])->first();
+        if ($sale == null) {
+            return response()->json(["message"=>"error", "desc" => "no_sale_user"]);
+        }
+
+        $nombre_url = "images/".auth()->user()->user_id."/".$sale->animal_id."/".$sale->sale_id."/".basename($request->url_img);
+        if (!Storage::delete($nombre_url)) {
+            return response()->json(["message" => "not_remove"]);
+        }
+
+        return response()->json(["message" => "ok"]);
     }
 
 
@@ -1009,6 +1350,21 @@ class SaleController extends Controller
     }
 
 
+    public function uploadImgUpdate($request, $i, $sale_id, $animal_id)
+    {
+        $jsonImg     = json_decode($request->get("filepond")[$i]);
+        $imgDecode   = base64_decode($jsonImg->data);
+        $extencion   = explode("/", $jsonImg->type);
+        $imageName   = str_random(10).time().'.'.trim($extencion[1]);
+        $path        = "images/".auth()->user()->user_id."/".$animal_id."/".$sale_id;
+
+        if ($extencion[1] == "jpg" || $extencion[1] == "jpeg" || $extencion[1] == "png") {
+            \Storage::makeDirectory($path, 0777, true);
+            \Storage::put($path. "/" . $imageName, $imgDecode);
+        }  
+    }
+
+
 
     public function todasImagenesProducto($usuario, $categoria, $producto)
     {
@@ -1143,5 +1499,28 @@ class SaleController extends Controller
         }
 
         return false;
+    }
+
+
+    public function sendEmailFavChangue($sale_id)
+    {
+        $favoritos = DB::table("favorites")->where("sale_id", $sale_id)->get();
+        if ($favoritos != null) {
+            foreach ($favoritos as $favorite) {
+               $user = DB::table("users")->where("user_id", $favorite->user_id)->first();
+               $saleUp = DB::table("sales")
+                                    ->join('animals', 'sales.animal_id', '=', 'animals.animal_id')
+                                    ->select('sales.*', 'animals.name as animal_name')
+                                    ->where("sale_id", $sale_id)
+                                    ->where("disabled", 0)
+                                    ->first();
+
+                if ($user->email_favorite == 1) {
+                    Mail::to("853e9296af-b1cadc@inbox.mailtrap.io")->send(new SendUpdateSaleFavorites($user, $saleUp));
+                }
+               
+            }
+        }
+        
     }
 }

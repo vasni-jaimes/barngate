@@ -38,6 +38,8 @@ Route::post('/animal_config', 'SaleController@SearchAnimal')->name('search.anima
 Route::get('/plan/{id}', 'SaleController@updatePlan')->name('sale.updateplan');
 Route::post('/update/plan/{id}', 'SaleController@PageUpdatePlan')->name('sale.pageupdateplan');
 Route::get('/edit/{id}', 'SaleController@edit')->name("sale.edit");
+Route::post('/removeImgEdit', 'SaleController@removeImgEd')->name("sale.remove-img");
+Route::post('/update/{id}', 'SaleController@update')->name("sale.update");
 
 
 //Myaccount

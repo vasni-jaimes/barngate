@@ -337,15 +337,12 @@ class MyaccountController extends Controller
 
     public function SaveSettings(Request $request)
     {
-        if ($request->has('email_favorite') && 
-            $request->has('email_update') && 
-            $request->has('receive_text')) 
+        if ($request->has('email_favorite') && $request->has('receive_text')) 
         {
 
 
              $validator = Validator::make($request->all(), [
                 'email_favorite' => ['required','boolean'],
-                'email_update' => ['required','boolean'],
                 'receive_text' => ['required','boolean'],
             ]);
 
@@ -355,7 +352,6 @@ class MyaccountController extends Controller
 
             $usuario = User::find(auth()->user()->user_id);
             $request->email_favorite == 1 ? $usuario->email_favorite = 1 : $usuario->email_favorite = 0;
-            $request->email_update == 1 ? $usuario->email_update = 1 : $usuario->email_update = 0;
             $request->receive_text == 1 ? $usuario->receive_text = 1 : $usuario->receive_text = 0;
 
             if ($usuario->save()) {

@@ -313,6 +313,25 @@
 		</div> <!-- /wrapper-form -->
 	</div> <!-- /shadowbox -->
 
+	
+	<div class="shadowbox" id="favorite_success">
+		<div class="close"></div> <!-- /close -->
+		<div class="wrapper-form">
+			<div class="container-form">
+				<h2>Successfully added to your favorites</h2>
+			</div> <!-- /container-form -->
+		</div> <!-- /wrapper-form -->
+	</div> <!-- /shadowbox -->
+
+	<div class="shadowbox" id="favorite_error">
+		<div class="close"></div> <!-- /close -->
+		<div class="wrapper-form">
+			<div class="container-form">
+				<h2>An error occurred, please try again later</h2>
+			</div> <!-- /container-form -->
+		</div> <!-- /wrapper-form -->
+	</div> <!-- /shadowbox -->
+
 
 	<div class="shadowbox" id="show-map">
 		<div class="close"></div> <!-- /close -->
