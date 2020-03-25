@@ -1024,7 +1024,7 @@ class SaleController extends Controller
 
         DB::beginTransaction();
 
-        $sale                   = Sale::find($animal->animal_id);
+        $sale                   = Sale::find($animal->sale_id);
 
         if ($sale->price != request("price")) {
             $favoritoMail = true;

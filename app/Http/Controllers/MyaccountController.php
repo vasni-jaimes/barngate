@@ -315,7 +315,9 @@ class MyaccountController extends Controller
         $users->email           = $request->email;
 
         if ($request->has("password")) {
-            $users->password        = bcrypt($request->password);
+            if ($request->password != null && $request->password != "") {
+                $users->password        = bcrypt($request->password);
+            }
         }
 
         $users->name            = $request->name;

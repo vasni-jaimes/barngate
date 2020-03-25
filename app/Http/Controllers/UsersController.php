@@ -102,7 +102,7 @@ class UsersController extends Controller
         	$users 					= new User();
             $users->username      	= $request->username;
             $users->email       	= $request->email;
-            $users->password		= \Hash::make($request->password);
+            $users->password		= bcrypt($request->password);
 
             if ($users->save()) {
 
