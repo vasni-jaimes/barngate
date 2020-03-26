@@ -68,6 +68,7 @@
 							<ul class="menu_registro">
 								<li><a href="{{ route("myaccount") }}"><img src="/images/horse-classifieds-barngate-myaccount-icon.png" alt="Barngate">My account</a></li>
 								<li class="notificacion">
+									<span class="icon-n">1</span>
 									<a href="#"><img src="/images/horse-classifieds-barngate-notificatios-icon.png" alt="Barngate">Notifications</a>
 									<ul class="s-notificacion">
 										<span>Notifications</span>

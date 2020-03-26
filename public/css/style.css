@@ -206,6 +206,23 @@ nav ul li{
 	margin: 0 5px;
 }
 
+span.icon-n {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    top: 50%;
+	-webkit-transform: translateY(-50%);
+	-moz-transform: translateY(-50%);
+	transform: translateY(-50%);
+    left: -4px;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 12px;
+    background-color: #ed4a43;
+    line-height: 18px;
+    text-align: center;
+}
+
 .s-notificacion {
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
