@@ -666,7 +666,7 @@ class SaleController extends Controller
                                     'genders.name as gender_name',
                                     'sizes.name as sizes_name',
                                     'users.username as user_name',
-                                    'user.urlImg')
+                                    'users.urlImg')
                         ->where('nickname', $id)->first();
         }
         
