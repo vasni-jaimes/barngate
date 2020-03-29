@@ -80,7 +80,7 @@
 													@if ($notificaciones[$i]["typo_not"] == 1)
 														<div data-href="{{ route("chat.index", $notificaciones[$i]["url"]) }}" class="flex txt-notificacion @if($notificaciones[$i]["pending"] == 1) pendding @endif">
 															@if ($notificaciones[$i]["img_user"] != null)
-																<img src="{{ Storage::url("images/".$notificaciones[$i]["img_user"]) }}">
+																<img src="{{ Storage::url($notificaciones[$i]["img_user"]) }}">
 															@else
 																<img src="/images/sin_foto.jpeg">
 															@endif
