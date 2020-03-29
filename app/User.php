@@ -47,4 +47,9 @@ class User extends Authenticatable
     {
         return DB::table("cities")->where("id_estado", auth()->user()->state)->first();
     }
+
+    public function getNotifyCount()
+    {
+        return DB::table("notifications")->where(["user_id" => auth()->user()->user_id, "read_notify" => 1])->count();
+    }
 }
