@@ -138,7 +138,7 @@
 			<div class="col-md-12">
 				<nav>
 					<ul class="menu_home">
-						<li><a href="{{ route("home") }}"><img src="/images/horse-classifieds-barngate-home-icon.png"></a></li>
+						<li><a href="{{ route("home") }}"><i class="fas fa-home"></i></a></li>
 						<li><a @if (@$category == 1) style="background: #29385A; color: #fff" @endif href="{{ route("vistaSearch", base64_encode(1)) }}">Cattle for Sale</a></li>
 						<li><a @if (@$category == 2) style="background: #29385A; color: #fff" @endif href="{{ route("vistaSearch", base64_encode(2)) }}">Horse for Sale</a></li>
 						<li><a @if (@$category == 3) style="background: #29385A; color: #fff" @endif href="{{ route("vistaSearch", base64_encode(3)) }}">Sheep for Sale</a></li>
@@ -176,8 +176,8 @@
 				@guest
 					<div class="col-md-2">
 						<ul>
-							<li><a href="#">Register to buy</a> </li>
-							<li><a href="#">Log In</a> </li>
+							<li><a href="#" class="show-registro">Register to buy</a> </li>
+							<li><a href="#" class="show-log">Log In</a> </li>
 						</ul>
 					</div>
 				@endguest
@@ -195,8 +195,8 @@
 					</form>
 					<div class="fz-16 mb-10" id="message"></div>
 					<ul class="list-inline">
-						<li class="list-inline-item"><a href="https://www.facebook.com/barngate/" target="_blank"><img src="/images/horse-classifieds-barngate-facebook-icon.png"> </a></li>
-						<li class="list-inline-item"><a href="https://www.instagram.com/barngate_" target="_blank"><img src="/images/horse-classifieds-barngate-instagram-icon.png"> </a></li>
+						<li class="list-inline-item"><a href="https://www.facebook.com/barngate/" target="_blank"><i class="fab fa-facebook-square"></i></a></li>
+						<li class="list-inline-item"><a href="https://www.instagram.com/barngate_" target="_blank"><i class="fab fa-twitter-square"></i></a></li>
 					</ul>
 				</div>
 			</div>

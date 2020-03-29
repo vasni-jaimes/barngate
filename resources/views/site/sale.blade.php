@@ -271,7 +271,7 @@
 				</div>
 				
 				<div class="pt-40 pb-20 text-center">
-					<a href="#" class="mw-150 btn btn-primary nexts1">Next</a>
+					<a href="#" class="mw-150 btn btn-primary nexts1">Next ></a>
 				</div>
 			</div> <!-- /wrapper-sale -->
 		</div> <!-- /container -->
@@ -331,7 +331,7 @@
 			</div> <!-- /listing-homepage -->
 			
 			<div class="pt-40 pb-20 text-center">
-				<a href="#" class="mw-150 btn btn-primary nexts2">Next</a>
+				<a href="#" class="mw-150 btn btn-primary nexts2">Next ></a>
 				{!! $errors->paso2->first('planSelect', "<span class='err' style='display:block;margin-bottom:15px;color:red'>:message</span>") !!}
 			</div>
 		</div> <!-- /container -->
@@ -359,7 +359,7 @@
 			</div> --}} <!-- /wrapper-congrats -->
 			
 			<div class="pt-40 pb-20 text-center">
-				<a href="#" class="mw-150 btn btn-primary next3">Post</a>
+				<a href="#" class="mw-150 btn btn-primary next3">Post ></a>
 			</div>
 		</div> <!-- /container -->
 

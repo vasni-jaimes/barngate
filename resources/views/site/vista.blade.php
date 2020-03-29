@@ -146,11 +146,10 @@
 					@csrf
 					@if ($animal != null)
 						@php $cont = 0; @endphp
+					
+						<div class="flex-tabs between">
+						
 						@for($i=0; $i <= count($animal) - 1; $i++)
-
-							@if($cont == 0)
-								<div class="flex-tabs between">
-							@endif
 
 									<div class="back-animal" data-animal="{{ $animal[$i]["animal_id"] }}" 
 															data-breed="{{ $animal[$i]["breed_id"] }}"
@@ -201,10 +200,14 @@
 
 							@php $cont++; @endphp
 							@if ($cont == 2 || count($animal) -1 == $i)
-								</div> <!-- /row -->
+								
 								@php $cont = 0; @endphp
 							@endif
+
 						@endfor
+					
+						</div> <!-- /row -->
+					
 					@else
 						<h2 style="text-align: center;"> No animals yet </h2>
 					@endif
