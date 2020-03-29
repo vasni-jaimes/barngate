@@ -68,7 +68,9 @@
 							<ul class="menu_registro">
 								<li><a href="{{ route("myaccount") }}"><img src="/images/horse-classifieds-barngate-myaccount-icon.png" alt="Barngate">My account</a></li>
 								<li class="notificacion">
-									<span class="icon-n">1</span>
+									@if (auth()->user()->getNotifyCount() > 0)		
+										<span class="icon-n">{{ auth()->user()->getNotifyCount() }}</span>
+									@endif
 									<a href="#"><img src="/images/horse-classifieds-barngate-notificatios-icon.png" alt="Barngate">Notifications</a>
 									<ul class="s-notificacion">
 										<span>Notifications</span>
@@ -78,7 +80,7 @@
 													@if ($notificaciones[$i]["typo_not"] == 1)
 														<div data-href="{{ route("chat.index", $notificaciones[$i]["url"]) }}" class="flex txt-notificacion @if($notificaciones[$i]["pending"] == 1) pendding @endif">
 															@if ($notificaciones[$i]["img_user"] != null)
-																<img src="{{ Storage::url("images/".$notificaciones[$i]["img"]) }}">
+																<img src="{{ Storage::url("images/".$notificaciones[$i]["img_user"]) }}">
 															@else
 																<img src="/images/sin_foto.jpeg">
 															@endif
@@ -90,7 +92,7 @@
 														</div>
 													@elseif ($notificaciones[$i]["typo_not"] == 2)
 														<div data-href="{{ route("sale.show", $notificaciones[$i]["url"]) }}" class="flex txt-notificacion @if($notificaciones[$i]["pending"] == 1) pendding @endif">
-															@if ($notificaciones[$i]["img_user"] != null)
+															@if ($notificaciones[$i]["img"] != null)
 																<img src="{{ Storage::url("images/".$notificaciones[$i]["img"]) }}">
 															@else
 																<img src="/images/sin_foto.jpeg">
@@ -103,7 +105,7 @@
 														</div>
 													@elseif ($notificaciones[$i]["typo_not"] == 3)
 														<div data-href="{{ route("sale.show", $notificaciones[$i]["url"]) }}" class="flex txt-notificacion @if($notificaciones[$i]["pending"] == 1) pendding @endif">
-															@if ($notificaciones[$i]["img_user"] != null)
+															@if ($notificaciones[$i]["img"] != null)
 																<img src="{{ Storage::url("images/".$notificaciones[$i]["img"]) }}">
 															@else
 																<img src="/images/sin_foto.jpeg">

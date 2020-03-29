@@ -2568,8 +2568,10 @@ if (accpt_remove) {
 		e.preventDefault();
 
 		let token = document.querySelector("input[name='_token']").value;
+		let animal_id = idAnimal;
+
 		data = {
-			"idAnimal": idAnimal,
+			"idAnimal": animal_id,
 			"_token": token
 		};
 
@@ -2583,7 +2585,7 @@ if (accpt_remove) {
 		   	.then(res => {
 		   		//console.log(res);
 		   		if (res.body.message == 'ok') {
-		   			$(".botton-remove[data-animal="+idAnimal+"]").parent().parent().parent().remove();
+		   			$(".botton-remove[data-animal='"+animal_id+"']").parent().parent().parent().remove();
 		   			$("#loading").css("display", "none");
 		   		}
 		   		else if (res.body.message == 'not_delete') {
