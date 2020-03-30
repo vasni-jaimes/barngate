@@ -132,7 +132,7 @@ class MyaccountController extends Controller
                                         ->orWhere(["user_id" => $notify->other_user_id, "user_two_id" => auth()->user()->user_id])
                                         ->first();
 
-                        echo $token->token_chat;
+                        echo $notify->other_user_id."<br>";
 
                         if ($token != null) {
                             $_token = $token->token_chat;
