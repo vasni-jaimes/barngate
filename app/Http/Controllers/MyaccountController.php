@@ -129,7 +129,7 @@ class MyaccountController extends Controller
                         $_token = null;
                         $token = DB::table("chats_rooms")
                                         ->where("user_id", auth()->user()->user_id)
-                                        ->orWhere(["user_id", $notify->other_user_id)
+                                        ->orWhere("user_id", $notify->other_user_id)
                                         ->where("user_two_id", $notify->other_user_id)
                                         ->orWhere("user_two_id", auth()->user()->user_id)
                                         ->first();
