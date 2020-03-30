@@ -134,7 +134,6 @@ class MyaccountController extends Controller
                                         ->where("user_id", $notify->other_user_id)
                                         ->first();
 
-                        echo $token->token_chat."<br>";
 
                         if ($token != null) {
                             $_token = $token->token_chat;
