@@ -84,8 +84,6 @@ class MyaccountController extends Controller
         $notificaciones = $this->getNotify();
         $promedio       = $this->getPromedio();
 
-        exit();
-
     	return view("site.myaccount", compact("animal", "misFavoritos", "listado", "estados", "notificaciones", "promedio"));
     }
 
