@@ -28,6 +28,7 @@ class PageEstaticController extends Controller
     						->where("user_id", auth()->user()->user_id)
     						->where("created_at", "<=", $date)
     						->where("created_at", ">=", $fechafinal)
+                            ->orderBy("notify_id", "desc")
     						->get();
 
     	if ($notifications != null) {
