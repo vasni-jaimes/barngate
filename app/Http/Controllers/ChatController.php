@@ -180,7 +180,7 @@ class ChatController extends Controller
                 if ($myuser != null) {
                     if ($myuser->receive_text == 1) {
                         $mensaje = "The user ".auth()->user()->username." sent you a message";
-                        $this->sendMessageTwilio($mensaje->phone, $mensaje);
+                        $this->sendMessageTwilio($myuser->phone, $mensaje);
                     }
                 }
                
