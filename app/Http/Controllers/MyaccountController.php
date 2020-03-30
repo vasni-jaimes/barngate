@@ -84,6 +84,8 @@ class MyaccountController extends Controller
         $notificaciones = $this->getNotify();
         $promedio       = $this->getPromedio();
 
+        exit();
+
     	return view("site.myaccount", compact("animal", "misFavoritos", "listado", "estados", "notificaciones", "promedio"));
     }
 
@@ -129,6 +131,8 @@ class MyaccountController extends Controller
                                         ->where(["user_id" => auth()->user()->user_id, "user_two_id" => $notify->other_user_id])
                                         ->orWhere(["user_id" => $notify->other_user_id, "user_two_id" => auth()->user()->user_id])
                                         ->first();
+
+                        echo $token->token_chat;
 
                         if ($token != null) {
                             $_token = $token->token_chat;
