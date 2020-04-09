@@ -80,9 +80,9 @@
 													@if ($notificaciones[$i]["typo_not"] == 1)
 														<div data-href="{{ route("chat.index", $notificaciones[$i]["url"]) }}" class="flex txt-notificacion @if($notificaciones[$i]["pending"] == 1) pendding @endif">
 															@if ($notificaciones[$i]["img_user"] != null)
-																<img src="{{ Storage::url($notificaciones[$i]["img_user"]) }}">
+																<div class="img_mini" style="background-image: url('{{ Storage::url($notificaciones[$i]["img_user"]) }}')"></div>
 															@else
-																<img src="/images/sin_foto.jpeg">
+																<div class="img_mini" style="background-image: url('/images/sin_foto.jpeg')"></div>
 															@endif
 															<div>
 																<p class="fw-700">{{ $notificaciones[$i]["nombre_usuario"] }}</p>
@@ -196,7 +196,7 @@
 					<div class="fz-16 mb-10" id="message"></div>
 					<ul class="list-inline">
 						<li class="list-inline-item"><a href="https://www.facebook.com/barngate/" target="_blank"><i class="fab fa-facebook-square"></i></a></li>
-						<li class="list-inline-item"><a href="https://www.instagram.com/barngate_" target="_blank"><i class="fab fa-twitter-square"></i></a></li>
+						<li class="list-inline-item"><a href="https://www.instagram.com/barngate_" target="_blank"><i class="fab fa-instagram"></i></a></li>
 					</ul>
 				</div>
 			</div>

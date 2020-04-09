@@ -226,6 +226,22 @@ $("input[type=range]").mousemove(function (e) {
         '-moz-linear-gradient(left center, #ED4A44 0%, #ED4A44 ' + percent + '%, #E5E9F2 ' + percent + '%, #E5E9F2 100%)');
 });
 
+$(document).ready(function() {
+
+    var val = ($(".flex-auto input[type=range]").val() - $(".flex-auto input[type=range]").attr('min')) / ($(".flex-auto input[type=range]").attr('max') - $(".flex-auto input[type=range]").attr('min'));
+
+    var percent = val * 100;
+
+    $(".flex-auto input[type=range]").css('background-image',
+            '-webkit-gradient(linear, left top, right top, ' +
+            'color-stop(' + percent + '%, #ED4A44), ' +
+            'color-stop(' + percent + '%, #E5E9F2)' +
+            ')');
+
+    $(".flex-auto input[type=range]").css('background-image',
+            '-moz-linear-gradient(left center, #ED4A44 0%, #ED4A44 ' + percent + '%, #E5E9F2 ' + percent + '%, #E5E9F2 100%)');
+    
+});
 
 /******************\
 |  NOTIFICACIONES  |

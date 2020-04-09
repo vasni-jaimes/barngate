@@ -11,7 +11,7 @@
 		</div> <!-- /container -->
 	</div> <!-- /banner-home -->
 
-	<div class="bg-blue text-center pt-15 pb-15">
+	<div class="bg-gray text-center pt-15 pb-15">
 		<p class="text-white fz-25 fw-700">A friendly experience through your Listing</p>
 	</div>
 
