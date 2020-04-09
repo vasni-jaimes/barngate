@@ -28,6 +28,7 @@ class PageEstaticController extends Controller
     						->where("user_id", auth()->user()->user_id)
     						->where("created_at", "<=", $date)
     						->where("created_at", ">=", $fechafinal)
+                            ->orderBy("notify_id", "desc")
     						->get();
 
     	if ($notifications != null) {
@@ -39,9 +40,12 @@ class PageEstaticController extends Controller
                     //OBTENER TOKEN DE CHAT
                     $_token = null;
                     $token = DB::table("chats_rooms")
-                                    ->where(["user_id" => auth()->user()->user_id, "user_two_id" => $keyNotify->other_user_id])
-                                    ->orWhere(["user_id" => $keyNotify->other_user_id, "user_two_id" => auth()->user()->user_id])
-                                    ->first();
+                                        ->where("user_id", auth()->user()->user_id)
+                                        ->where("user_two_id", $keyNotify->other_user_id)
+                                        ->orWhere("user_two_id", auth()->user()->user_id)
+                                        ->where("user_id", $keyNotify->other_user_id)
+                                        ->first();
+
 
                     if ($token != null) {
                         $_token = $token->token_chat;
@@ -135,9 +139,12 @@ class PageEstaticController extends Controller
                         //OBTENER TOKEN DE CHAT
                         $_token = null;
                         $token = DB::table("chats_rooms")
-                                        ->where(["user_id" => auth()->user()->user_id, "user_two_id" => $notify->other_user_id])
-                                        ->orWhere(["user_id" => $notify->other_user_id, "user_two_id" => auth()->user()->user_id])
+                                        ->where("user_id", auth()->user()->user_id)
+                                        ->where("user_two_id", $notify->other_user_id)
+                                        ->orWhere("user_two_id", auth()->user()->user_id)
+                                        ->where("user_id", $notify->other_user_id)
                                         ->first();
+
 
                         if ($token != null) {
                             $_token = $token->token_chat;

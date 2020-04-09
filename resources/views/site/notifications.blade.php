@@ -5,6 +5,7 @@
 
 	<div class="container wrapper-register pt-40 pb-40 ">
 		
+<<<<<<< HEAD
 		<h2 class="fw-700 text-left mb-25">Your notifications</h2>
 
 		@for($i=0; $i <= count($notifyArray) - 1; $i++)
@@ -19,55 +20,56 @@
 						<p class="fw-700"> {{ $notifyArray[$i]["user_name"] }} </p>
 						<p> {{ $notifyArray[$i]["description"] }} </p>
 						<span> {{ $notifyArray[$i]["fecha"] }} </span>
+=======
+		<h2 class="mb-25">Your notifications</h2>
+		@if ($notifyArray != null)
+			@for($i=0; $i <= count($notifyArray) - 1; $i++)
+				@if ($notifyArray[$i]["typo_notify_id"] == 1)
+					<div data-href="{{ route("chat.index", $notifyArray[$i]["url"]) }}" class="flex txt-notificacion @if($notifyArray[$i]["pending"] == 1) pendding @endif">
+						@if ($notifyArray[$i]["img"] != null)
+							<img src="{{ Storage::url($notifyArray[$i]["img"]) }}">
+						@else
+							<img src="/images/sin_foto.jpeg">
+						@endif
+						<div>
+							<p class="fw-700"> {{ $notifyArray[$i]["user_name"] }} </p>
+							<p> {{ $notifyArray[$i]["description"] }} </p>
+							<span> {{ $notifyArray[$i]["fecha"] }} </span>
+						</div>
+>>>>>>> 296b31c8315509dc7186a9d4e993b8e9837dd5d5
 					</div>
-				</div>
-			@elseif($notifyArray[$i]["typo_notify_id"] == 2)
-				<div data-href="{{ route("sale.show", $notifyArray[$i]["url"]) }}" class="flex txt-notificacion @if($notifyArray[$i]["pending"] == 1) pendding @endif">
-					@if ($notifyArray[$i]["img"] != null)
-						<img src="{{ Storage::url("images/".$notifyArray[$i]["img"]) }}">
-					@else
-						<img src="/images/sin_foto.jpeg">
-					@endif
-					<div>
-						<p class="fw-700"> {{ $notifyArray[$i]["sale_name"] }} </p>
-						<p> {{ $notifyArray[$i]["description"] }} </p>
-						<span> {{ $notifyArray[$i]["fecha"] }} </span>
+				@elseif($notifyArray[$i]["typo_notify_id"] == 2)
+					<div data-href="{{ route("sale.show", $notifyArray[$i]["url"]) }}" class="flex txt-notificacion @if($notifyArray[$i]["pending"] == 1) pendding @endif">
+						@if ($notifyArray[$i]["img"] != null)
+							<img src="{{ Storage::url("images/".$notifyArray[$i]["img"]) }}">
+						@else
+							<img src="/images/sin_foto.jpeg">
+						@endif
+						<div>
+							<p class="fw-700"> {{ $notifyArray[$i]["sale_name"] }} </p>
+							<p> {{ $notifyArray[$i]["description"] }} </p>
+							<span> {{ $notifyArray[$i]["fecha"] }} </span>
+						</div>
 					</div>
-				</div>
-			@elseif($notifyArray[$i]["typo_notify_id"] == 3)
-				<div data-href="{{ route("sale.show", $notifyArray[$i]["url"]) }}" class="flex txt-notificacion @if($notifyArray[$i]["pending"] == 1) pendding @endif">
-					@if ($notifyArray[$i]["img"] != null)
-						<img src="{{ Storage::url("images/".$notifyArray[$i]["img"]) }}">
-					@else
-						<img src="/images/sin_foto.jpeg">
-					@endif
-					<div>
-						<p class="fw-700"> {{ $notifyArray[$i]["sale_name"] }} </p>
-						<p> {{ $notifyArray[$i]["description"] }} </p>
-						<span> {{ $notifyArray[$i]["fecha"] }} </span>
+				@elseif($notifyArray[$i]["typo_notify_id"] == 3)
+					<div data-href="{{ route("sale.show", $notifyArray[$i]["url"]) }}" class="flex txt-notificacion @if($notifyArray[$i]["pending"] == 1) pendding @endif">
+						@if ($notifyArray[$i]["img"] != null)
+							<img src="{{ Storage::url("images/".$notifyArray[$i]["img"]) }}">
+						@else
+							<img src="/images/sin_foto.jpeg">
+						@endif
+						<div>
+							<p class="fw-700"> {{ $notifyArray[$i]["sale_name"] }} </p>
+							<p> {{ $notifyArray[$i]["description"] }} </p>
+							<span> {{ $notifyArray[$i]["fecha"] }} </span>
+						</div>
 					</div>
-				</div>
-			@endif
-		@endfor
+				@endif
+			@endfor
+		@else
+			<li><p><em>No notifications</em></p></li>
+		@endif
 
-		{{-- <div class="flex txt-notificacion">
-			<img src="images/picture.jpg">
-			<div>
-				<p class="fw-700">Animal</p>
-				<p>Username</p>
-				<span>1 hr</span>
-			</div>
-		</div>
-		
-		<div class="flex txt-notificacion">
-			<img src="images/picture.jpg">
-			<div>
-				<p class="fw-700">Animal</p>
-				<p>Username</p>
-				<span>1 hr</span>
-			</div>
-		</div> --}}
-			
 	</div> <!-- /container -->
 
 	{{-- @include('site.layouts.form-site') --}}

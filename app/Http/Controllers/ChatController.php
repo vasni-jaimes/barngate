@@ -79,9 +79,12 @@ class ChatController extends Controller
                         //OBTENER TOKEN DE CHAT
                         $_token = null;
                         $token = DB::table("chats_rooms")
-                                        ->where(["user_id" => auth()->user()->user_id, "user_two_id" => $notify->other_user_id])
-                                        ->orWhere(["user_id" => $notify->other_user_id, "user_two_id" => auth()->user()->user_id])
+                                        ->where("user_id", auth()->user()->user_id)
+                                        ->where("user_two_id", $notify->other_user_id)
+                                        ->orWhere("user_two_id", auth()->user()->user_id)
+                                        ->where("user_id", $notify->other_user_id)
                                         ->first();
+
 
                         if ($token != null) {
                             $_token = $token->token_chat;
@@ -180,7 +183,7 @@ class ChatController extends Controller
                 if ($myuser != null) {
                     if ($myuser->receive_text == 1) {
                         $mensaje = "The user ".auth()->user()->username." sent you a message";
-                        $this->sendMessageTwilio($mensaje->phone, $mensaje);
+                        $this->sendMessageTwilio($myuser->phone, $mensaje);
                     }
                 }
                
