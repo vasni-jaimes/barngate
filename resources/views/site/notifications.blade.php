@@ -10,9 +10,9 @@
 				@if ($notifyArray[$i]["typo_notify_id"] == 1)
 					<div data-href="{{ route("chat.index", $notifyArray[$i]["url"]) }}" class="flex txt-notificacion @if($notifyArray[$i]["pending"] == 1) pendding @endif">
 						@if ($notifyArray[$i]["img"] != null)
-							<img src="{{ Storage::url($notifyArray[$i]["img"]) }}">
+							<div class="img_mini" style="background-image: url('{{ Storage::url($notifyArray[$i]["img"]) }}')"></div>
 						@else
-							<img src="/images/sin_foto.jpeg">
+							<div class="img_mini" style="background-image: url('/images/sin_foto.jpeg')"></div>
 						@endif
 						<div>
 							<p class="fw-700"> {{ $notifyArray[$i]["user_name"] }} </p>
