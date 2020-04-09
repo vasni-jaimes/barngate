@@ -98,6 +98,18 @@ class PageEstaticController extends Controller
         return view('site.privacy', compact("notificaciones"));
     }
 
+    public function showAbout()
+    {
+        $notificaciones = $this->getNotify();
+        return view('site.about', compact("notificaciones"));
+    }
+
+    public function showContact()
+    {
+        $notificaciones = $this->getNotify();
+        return view('site.contact', compact("notificaciones"));
+    }
+
 
     public function primerImagenProducto($usuario, $categoria, $producto)
     {

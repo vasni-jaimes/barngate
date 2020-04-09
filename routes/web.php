@@ -16,11 +16,6 @@
 // });
 
 
-//Vistas Estaticas
-Route::view('/about', 'site.about')->name('about');
-Route::view('/contact', 'site.contact')->name('contact');
-
-
 //Vistas Dinamicas
 Route::get('/', 'HomeController@index')->name("home");
 
@@ -80,10 +75,6 @@ Route::post('/messageSend', 'ChatController@messagesChat')->name("message.send")
 Route::get('/notifications', 'PageEstaticController@showNotifications')->name('notifications');
 Route::get('/faqs', 'PageEstaticController@showFaqs')->name('faqs');
 Route::get('/privacy', 'PageEstaticController@showPrivacy')->name('privacy');
+Route::get('/about', 'PageEstaticController@showAbout')->name('about');
+Route::get('/contact', 'PageEstaticController@showContact')->name('contact');
 
-
-
-//Route::view('/faqs', 'site.faqs')->name('faqs');
-//Route::view('/privacy', 'site.privacy')->name('privacy');
-//Route::view('/reset', 'site.reset')->name('reset');
-//Route::view('/edit_animal', 'site.edit_animal')->name('edit_animal');
