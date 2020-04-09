@@ -25,17 +25,26 @@ class SearchController extends Controller
     {
 
         $category   = ( $category != null ) ? base64_decode($category) : null;
+        
+        if ($category != 1 && $category != 2 && $category != 3 && $category != 4 && $category != 5 && $category != 6) {
+            $category  = 1;
+        }
+
     	$animal     = array();
+        $where      = $category == 6 ? ["sales.animal_id" => 7] : [];
     	$animalsrow = Sale::join('animals', 'sales.animal_id', '=', 'animals.animal_id')
     						->join('breeds', 'sales.breed_id', '=', 'breeds.breed_id')
 	                        ->join('users', 'sales.user_id', '=', 'users.user_id')
                             ->join('cities', 'sales.city', '=', 'cities.id_ciudad')
-                            ->where("sales.disabled", 0)
+                            ->where(["sales.disabled" => 0, "sales.animal_id" => $category])
+                            ->orWhere($where)
 	    					->select('sales.*', 
 		    							'animals.name as animal_name', 
 	                                    'breeds.name as breeds_name', 
 	                                    'users.username as users_name',
                                         'cities.*')->get();
+
+        
 
         if ($animalsrow->count() > 0) {
             $ban = 0;
@@ -55,9 +64,16 @@ class SearchController extends Controller
                 $animal[$ban]["age_id"]         = $animalrow->age_id;
                 $animal[$ban]["gender_id"]      = $animalrow->gender_id;
                 $animal[$ban]["discipline_id"]  = $animalrow->discipline_id;
-                $animal[$ban]["description"]    = substr($animalrow->description, 0, 50). "...";
+                $animal[$ban]["description"]    = $animalrow->description;
                 $animal[$ban]["state"]          = $animalrow->state;
                 $animal[$ban]["adress"]         = $animalrow->ciudad.", ".$animalrow->estado;
+                $animal[$ban]["categorie_id"]   = $animalrow->categorie_id;
+                $animal[$ban]["vaccinations"]   = $animalrow->vaccinations;
+                $animal[$ban]["horns"]          = $animalrow->horns;
+                $animal[$ban]["type"]           = $animalrow->type_id;
+                $animal[$ban]["class"]          = $animalrow->class_id;
+                $animal[$ban]["size"]           = $animalrow->size_id;
+                $animal[$ban]["homepage"]       = $animalrow->homepage;
                 $animal[$ban]["myfavorito"]     = false;
 
 
@@ -76,10 +92,22 @@ class SearchController extends Controller
         }
 
         $animals        = DB::table("animals")->get();
-        $breeds         = DB::table("breeds")->get();
-        $colors         = DB::table("colors")->get();
-        $genders        = DB::table("genders")->get();
+
+        if ($category == 6) {
+            $breeds     = DB::table("breeds")->where(["animal_id" => $category])->orWhere(["animal_id" => 7])->get();
+            $colors     = DB::table("colors")->where(["animal_id" => $category])->orWhere(["animal_id" => 7])->get();
+        }
+        else {
+            $breeds     = DB::table("breeds")->where("animal_id", $category)->get();
+            $colors     = DB::table("colors")->where("animal_id", $category)->get();
+        }
+        
+        $genders        = DB::table("genders")->where("animal_id", $category)->get();
         $disciplines    = DB::table("disciplines")->get();
+        $categories     = DB::table("categories")->get();
+        $types          = DB::table("types")->get();
+        $classe         = DB::table("class")->where("animal_id", $category)->get();
+        $sizes          = DB::table("sizes")->get();
         $estados        = DB::table("cities")->groupBy("estado")->get();
         $misFavoritos   = false;
 
@@ -89,7 +117,7 @@ class SearchController extends Controller
         
         $notificaciones = $this->getNotify();
 
-    	return view('site.vista', compact("animal", "animals", "breeds", "colors", "genders", "disciplines", "estados", "misFavoritos", "category", "notificaciones"));
+    	return view('site.vista', compact("animal", "animals", "breeds", "colors", "genders", "disciplines", "estados", "misFavoritos", "category", "notificaciones", "categories", "types", "classe", "sizes"));
     }
 
 

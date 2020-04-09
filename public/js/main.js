@@ -1846,17 +1846,24 @@ $(".fa-calificacion-send .fa-star").click(function() {
 let sold = document.querySelectorAll(".sold");
 let animal_id = "";
 if (sold) {
-
 	for (var i = 0; i <= sold.length - 1; i++) {
 		sold[i].addEventListener("click", e => {
 			e.preventDefault();
-			$("#calificacion").css("display", "block");
+			$("#option_qualify").css("display", "block");
 			animal_id = e.target.getAttribute("data-animal");
 			$(e.target).parent(".btn-list").addClass("bonti");
 		});
 	}
-	
 }
+
+let barngate_qualify = document.querySelector(".barngate_qualify");
+if (barngate_qualify) {
+		barngate_qualify.addEventListener("click", e => {
+			e.preventDefault();
+			$("#calificacion").css("display", "block");
+		});
+}
+
 
 let contador = 0;
 $(".lista-calificacion .fa-star").click(function() {
@@ -1896,6 +1903,67 @@ if (qualify_v) {
 		$("#form_qualify").submit();
 	});
 }
+
+let other_way = document.querySelector(".other_way");
+if (other_way) {
+	other_way.addEventListener("click", e => {
+		e.preventDefault();
+
+		let data = {
+			"_token": document.querySelector("input[name='_token']").value,
+			"animal_id": animal_id,
+		};
+
+		$("#option_qualify").css("display", "none");
+		$("#loading").css("display", "block");
+
+		//ajax
+		request
+		   	.post('/addqualifylOther')
+		   	.send(data)
+		   	.set('Accept', 'application/json')
+		   	.then(res => {
+		   		//console.log(res);
+		   		if (res.body.message == 'ok') {
+		   			$(".bonti .sold").remove();
+		   			$(".bonti").append('<a href="#" class="mw-150 btn btn-primary botton-public" data-animal="'+animal_id+'">Post again</a>');
+		   			$(".bonti").append('<a href="#" class="mw-150 btn btn-primary botton-remove" data-animal="'+animal_id+'">Remove</a>');
+		   			$("#error_report h3").html("Thanks");
+		   			$("#loading").css("display", "none");
+		   			$("#error_report").css("display", "block");
+
+		   			let botton_public = document.querySelectorAll(".botton-public");
+					if (botton_public) {
+						for (var i = 0; i <= botton_public.length - 1; i++) {
+							botton_public[i].addEventListener("click", e => {
+								e.preventDefault();
+								$(".btn-list").removeClass("post-a__gain");
+								$(e.target).parent(".btn-list").addClass("post-a__gain");
+								$("#animal_again-post").css("display", "block");
+							});
+						}
+					}
+
+
+					let botton_remove = document.querySelectorAll(".botton-remove");
+					if (botton_remove) {
+						for (var i = 0; i <= botton_remove.length - 1; i++) {
+							botton_remove[i].addEventListener("click", e => {
+								e.preventDefault();
+								$("#animal_remove").css("display", "block");
+								idAnimal = e.target.getAttribute("data-animal");
+							});
+						}
+					}
+		   		}
+		   	})
+		   	.catch(err => {
+	  			// err.message, err.response
+	  			console.log(err.message);
+			});
+	});
+}
+
 
 
 let qualify = document.querySelectorAll(".qualify");
@@ -2620,11 +2688,14 @@ if (accpt_remove) {
 
 let edit_animal = document.querySelector(".edit_animal-button");
 if (edit_animal) {
+	bPreguntar = false;
 	initFile();
 
 	edit_animal.addEventListener("click", e => {
 		$("#loading").css("display", "block");
 	})
+
+	bPreguntar = true;
 }
 
 
@@ -2669,87 +2740,96 @@ if (accpt_again) {
 /**************************\
 |     Animal - Active      |
 \**************************/
-
 let col_animal = document.querySelectorAll(".content-serch .col-animal");
 if (col_animal) {
-
+	searchWP();
 	for (let i = 0; i <= col_animal.length - 1; i++) {
         col_animal[i].addEventListener('click', function(e) {
-        	e.preventDefault();
         	$(".col-animal").removeClass("active-animal");
         	$(this).addClass("active-animal");
-
-
-
-        	//AJAX
-			let token = document.querySelector("input[name='_token']");
-			let animal = $(".active-animal").attr('data-animal');
-			let data = { "_token": token.value, "animal": animal };
-
-			if (animal == 1) {
-				$("select[name='gender']").css("display", "none");
-				$("select[name='gender']").prev().css("display", "none");
-			}
-			else {
-				$("select[name='gender']").css("display", "block");
-				$("select[name='gender']").prev().css("display", "block");
-			}
-
-			if (animal == 2) {
-				$("select[name='discipline']").css("display", "block");
-				$("select[name='discipline']").prev().css("display", "block");
-			}
-			else {
-				$("select[name='discipline']").css("display", "none");
-				$("select[name='discipline']").prev().css("display", "none");
-			}
-
-			if (animal == 2 || animal == 6 || animal == 7) {
-				$("select[name='colors']").css("display", "block");
-				$("select[name='colors']").prev().css("display", "block");
-			}
-			else {
-				$("select[name='colors']").css("display", "none");
-				$("select[name='colors']").prev().css("display", "none");
-			}
-
-			request
-			   	.post('/animal_config')
-			   	.send(data)
-			   	.set('Accept', 'application/json')
-			   	.then(res => {
-			   		//console.log(res.body);
-			   		if (res.body.message == 'ok') {
-			   			let breedso = "<option value='0'>Make a selection</option>",
-		   					coloro = "<option value='0'>Make a selection</option>",
-		   					gendero = "<option value='0'>Make a selection</option>";
-
-			   			for (var i = 0; i <= res.body.result.breeds.length - 1; i++) {
-		   					breedso += "<option value='"+res.body.result.breeds[i].breed_id+"'>"+res.body.result.breeds[i].name+"</option>";
-		   				}
-
-		   				for (var i = 0; i <= res.body.result.color.length - 1; i++) {
-		   					coloro += "<option value='"+res.body.result.color[i].color_id+"'>"+res.body.result.color[i].name+"</option>";
-		   				}
-
-		   				for (var i = 0; i <= res.body.result.genders.length - 1; i++) {
-		   					gendero += "<option value='"+res.body.result.genders[i].gender_id+"'>"+res.body.result.genders[i].name+"</option>";
-		   				}
-
-		   				$("select[name='gender']").html(gendero);
-		   				$("select[name='breeds']").html(breedso);
-		   				$("select[name='colors']").html(coloro);
-
-		   				searchWP();
-			   		}
-			   	})
-			   	.catch(err => {
-		  			// err.message, err.response
-		  			console.log(err.message);
-				});
         });
     }
 }
+// let col_animal = document.querySelectorAll(".content-serch .col-animal");
+// if (col_animal) {
+
+// 	for (let i = 0; i <= col_animal.length - 1; i++) {
+//         col_animal[i].addEventListener('click', function(e) {
+//         	e.preventDefault();
+//         	$(".col-animal").removeClass("active-animal");
+//         	$(this).addClass("active-animal");
+
+
+
+//         	//AJAX
+// 			let token = document.querySelector("input[name='_token']");
+// 			let animal = $(".active-animal").attr('data-animal');
+// 			let data = { "_token": token.value, "animal": animal };
+
+// 			if (animal == 1) {
+// 				$("select[name='gender']").css("display", "none");
+// 				$("select[name='gender']").prev().css("display", "none");
+// 			}
+// 			else {
+// 				$("select[name='gender']").css("display", "block");
+// 				$("select[name='gender']").prev().css("display", "block");
+// 			}
+
+// 			if (animal == 2) {
+// 				$("select[name='discipline']").css("display", "block");
+// 				$("select[name='discipline']").prev().css("display", "block");
+// 			}
+// 			else {
+// 				$("select[name='discipline']").css("display", "none");
+// 				$("select[name='discipline']").prev().css("display", "none");
+// 			}
+
+// 			if (animal == 2 || animal == 6 || animal == 7) {
+// 				$("select[name='colors']").css("display", "block");
+// 				$("select[name='colors']").prev().css("display", "block");
+// 			}
+// 			else {
+// 				$("select[name='colors']").css("display", "none");
+// 				$("select[name='colors']").prev().css("display", "none");
+// 			}
+
+// 			request
+// 			   	.post('/animal_config')
+// 			   	.send(data)
+// 			   	.set('Accept', 'application/json')
+// 			   	.then(res => {
+// 			   		//console.log(res.body);
+// 			   		if (res.body.message == 'ok') {
+// 			   			let breedso = "<option value='0'>Make a selection</option>",
+// 		   					coloro = "<option value='0'>Make a selection</option>",
+// 		   					gendero = "<option value='0'>Make a selection</option>";
+
+// 			   			for (var i = 0; i <= res.body.result.breeds.length - 1; i++) {
+// 		   					breedso += "<option value='"+res.body.result.breeds[i].breed_id+"'>"+res.body.result.breeds[i].name+"</option>";
+// 		   				}
+
+// 		   				for (var i = 0; i <= res.body.result.color.length - 1; i++) {
+// 		   					coloro += "<option value='"+res.body.result.color[i].color_id+"'>"+res.body.result.color[i].name+"</option>";
+// 		   				}
+
+// 		   				for (var i = 0; i <= res.body.result.genders.length - 1; i++) {
+// 		   					gendero += "<option value='"+res.body.result.genders[i].gender_id+"'>"+res.body.result.genders[i].name+"</option>";
+// 		   				}
+
+// 		   				$("select[name='gender']").html(gendero);
+// 		   				$("select[name='breeds']").html(breedso);
+// 		   				$("select[name='colors']").html(coloro);
+
+// 		   				searchWP();
+// 			   		}
+// 			   	})
+// 			   	.catch(err => {
+// 		  			// err.message, err.response
+// 		  			console.log(err.message);
+// 				});
+//         });
+//     }
+// }
 
 
 /**************************\
@@ -3076,16 +3156,51 @@ function searchWP() {
 	let search = $(".search input").val();
 	let price_filtro = $("#price_filtro").val();
 	let state = $("select[name='estado']").val();
+	let vaccination = $("select[name='vaccination']").val();
+	let horns = $("select[name='horns']").val();
+	let categorie = $("select[name='categorie']").val();
+	let types = $("select[name='type']").val();
+	let clase = $("select[name='class']").val();
+	let size = $("select[name='size']").val();
 
-
-	if (animal != null && animal != 0 && animal != '') {
-		selector += "[data-animal='"+animal+"']";
-		selector2 += "[data-animal='"+animal+"']";
-	}
+	// if (animal != null && animal != 0 && animal != '') {
+	// 	selector += "[data-animal='"+animal+"']";
+	// 	selector2 += "[data-animal='"+animal+"']";
+	// }
 
 	if (breeds != null && breeds != 0 && breeds != '') {
 		selector += "[data-breed='"+breeds+"']";
 		selector2 += "[data-breed='"+breeds+"']";
+	}
+
+	if (vaccination != null && vaccination != 0 && vaccination != '') {
+		selector += "[data-vaccination='"+vaccination+"']";
+		selector2 += "[data-vaccination='"+vaccination+"']";
+	}
+
+	if (types != null && types != 0 && types != '') {
+		selector += "[data-type='"+types+"']";
+		selector2 += "[data-type='"+types+"']";
+	}
+
+	if (size != null && size != 0 && size != '') {
+		selector += "[data-size='"+size+"']";
+		selector2 += "[data-size='"+size+"']";
+	}
+
+	if (clase != null && clase != 0 && clase != '') {
+		selector += "[data-class='"+clase+"']";
+		selector2 += "[data-class='"+clase+"']";
+	}
+
+	if (horns != null && horns != 0 && horns != '') {
+		selector += "[data-horns='"+horns+"']";
+		selector2 += "[data-horns='"+horns+"']";
+	}
+
+	if (categorie != null && categorie != 0 && categorie != '') {
+		selector += "[data-categorie='"+categorie+"']";
+		selector2 += "[data-categorie='"+categorie+"']";
 	}
 
 	if (colors != null && colors != 0 && colors != '') {
@@ -3118,6 +3233,9 @@ function searchWP() {
 		selector2 += "[data-state='"+state+"']";
 	}
 
+	//console.log(selector);
+	//console.log(selector2);
+
 	$(".back-animal, .list-animal").css("display", "none");
 	$(selector + selector2).css("display", "block");
 
@@ -3135,7 +3253,7 @@ function searchWP() {
 
 	//dar mensaje si no hay animales
 	cuentas = $(".back-animal:visible").length;
-	console.log(cuentas);
+	//console.log(cuentas);
 	if (cuentas <= 0 || cuentas == null || cuentas == undefined || cuentas == '') {
 		$(".row-vista .msj-not, .row-lista .msj-not").remove();
 		$(".row-vista, .row-lista").append("<h2 class='msj-not' style='text-align: center'>No animals yet</h2>");
@@ -3170,7 +3288,7 @@ function stripeResponseHandler(status, response) {
 function initialize(e) {
 	e.preventDefault();
 
-	if (!$(".back-animal").is(":visible")) {
+	if ($(".back-animal").is(":visible") == false && $(".list-animal").is(":visible") == false) {
 		return false;
 	}
 
@@ -3180,7 +3298,7 @@ function initialize(e) {
     let ultimo = marcadores.length - 1;
 
 	var map = new google.maps.Map(document.getElementById('map-canvas'), {
-		zoom: 11,
+		zoom: 4,
 		center: new google.maps.LatLng(marcadores[0][1], marcadores[ultimo][2]),
 		mapTypeId: google.maps.MapTypeId.ROADMAP
 	});

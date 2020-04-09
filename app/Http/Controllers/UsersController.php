@@ -79,7 +79,7 @@ class UsersController extends Controller
         //VALIDAR RECAPTCHA
         $url = 'https://www.google.com/recaptcha/api/siteverify';
         $data = array(
-            'secret' => '6LebF9oUAAAAAIOcxP40_EwXLFLWrTgniA4jfFO6',
+            'secret' => '6LcFBegUAAAAAH0omvVqxZQEV6JjNwaxzGsSzYwu',
             'response' => request("g-recaptcha-response"),
         );
         $options = array(

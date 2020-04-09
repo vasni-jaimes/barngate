@@ -54,6 +54,7 @@ Route::get('/score/{sale_id}/{calificado_id}', 'MyaccountController@scoreQualify
 //Qualify
 Route::post('/addqualifyl', 'MyaccountController@qualify')->name('qualify');
 Route::post('/addqualifyform', 'MyaccountController@qualifyForm')->name('qualifyForm');
+Route::post('/addqualifylOther', 'MyaccountController@addqualifylOther')->name('addqualifylOther');
 
 
 //Detalle
@@ -63,7 +64,7 @@ Route::get('/detail/{id}', 'SaleController@show')->name('sale.show');
 Route::post("/addFavorite", "FavoritesController@addFavorite")->name("addFav");
 
 //Search
-Route::get('/search/{category?}', 'SearchController@VistaSearch')->name('vistaSearch');
+Route::get('/search/{category}', 'SearchController@VistaSearch')->name('vistaSearch');
 Route::post('/searcha', 'SearchController@SerchAjax')->name('serchajax');
 
 //Contact

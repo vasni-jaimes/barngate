@@ -376,6 +376,17 @@
 
 
 @section("js-content")
+	<script language="JavaScript" type="text/javascript">
+	     
+	    var bPreguntar = true;
+	    window.onbeforeunload = preguntarAntesDeSalir;
+	     
+	    function preguntarAntesDeSalir()
+	    {
+	      if (bPreguntar)
+	        return "¿Seguro que quieres salir?";
+	    }
+	</script>
 	<script src="https://cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.min.js"></script>
 	<script src="https://unpkg.com/filepond-polyfill"></script>
 	<script src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.js"></script>

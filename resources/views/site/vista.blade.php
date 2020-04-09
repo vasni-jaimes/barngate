@@ -25,49 +25,119 @@
 					
 					<label class="search"><input type="text"></label>
 					
-					<p class="fw-900 fz-22">Breed</p>
-					
-					<select class="form-input" name="breeds"> 
-						@foreach($breeds as $breed)
-							<option value="{{ $breed->breed_id }}" {{ selectOld("breeds", $breed->breed_id) }}>{{ $breed->name }}</option>
-						@endforeach
-					</select>
-					
-					<p class="fw-900 fz-22">Color</p>
-					
-					<select class="form-input" name="colors"> 
-						@foreach($colors as $color)
-							<option value="{{ $color->color_id }}" {{ selectOld("colors", $color->color_id) }}>{{ $color->name }}</option>
-						@endforeach
-					</select>
-					
-					<p class="fw-900 fz-22">Gender</p>
-					
-					<select class="form-input" name="gender"> 
-						@foreach($genders as $gender)
-							<option value="{{ $gender->gender_id }}" {{ selectOld("genders", $gender->gender_id) }}>{{ $gender->name }}</option>
-						@endforeach
-					</select>
-					
-					
-					<p class="fw-900 fz-22">Age</p>
+					@if ($category == 1 || $category == 3 || $category == 4 || $category == 2 || $category == 5 || $category == 6 || $category == 7)
+						<p class="fw-900 fz-22">Breed</p>
+						<select class="form-input" name="breeds"> 
+							<option value=""> Make a selection </option>
+							@foreach($breeds as $breed)
+								<option value="{{ $breed->breed_id }}" {{ selectOld("breeds", $breed->breed_id) }}>{{ $breed->name }}</option>
+							@endforeach
+						</select>
+					@endif
 
-					<select class="form-input" name="age">
-						<option value=""> Make a selection </option> 
-						@for ($i = 1; $i <= 15; $i++)
-							<option value="{{ $i }}" {{ selectOld("ages", $i) }} >{{ $i }}</option>
-						@endfor
-					</select>
+					@if ($category == 1)
+						<p class="fw-900 fz-22">Vaccination</p>
+						<select class="form-input" name="vaccination"> 
+							<option value=""> Make a selection </option>
+							<option value="1"> Yes </option>
+							<option value="2"> No </option>
+						</select>
+					@endif
+
+					@if ($category == 1 || $category == 3 || $category == 4)
+						<p class="fw-900 fz-22">Horns</p>
+						<select class="form-input" name="horns"> 
+							<option value=""> Make a selection </option>
+							<option value="1"> Yes </option>
+							<option value="2"> No </option>
+							<option value="3"> Other </option>
+							<option value="4"> Polled </option>
+						</select>
+					@endif
 
 
-					<p class="fw-900 fz-22">Discipline</p>
+					@if ($category == 1)
+						<p class="fw-900 fz-22">Categories</p>
+						<select class="form-input" name="categorie"> 
+							<option value=""> Make a selection </option>
+							@foreach($categories as $categorie)
+								<option value="{{ $categorie->categorie_id }}" {{ selectOld("categorie", $categorie->categorie_id) }}>{{ $categorie->name }}</option>
+							@endforeach
+						</select>
+					@endif
+					
 
-					<select class="form-input" name="discipline">
-						<option value=""> Make a selection </option> 
-						@foreach($disciplines as $discipline)
-							<option value="{{ $discipline->discipline_id }}" {{ selectOld("discipline", $discipline->discipline_id) }}>{{ $discipline->name }}</option>
-						@endforeach
-					</select>
+					@if ($category == 3 || $category == 4)
+						<p class="fw-900 fz-22">Type</p>
+						<select class="form-input" name="type"> 
+							<option value=""> Make a selection </option>
+							@foreach($types as $type)
+								<option value="{{ $type->type_id }}" {{ selectOld("type", $type->type_id) }}>{{ $type->name }}</option>
+							@endforeach
+						</select>
+					@endif
+
+					@if ($category == 6 || $category == 7)
+						<p class="fw-900 fz-22">Size</p>
+						<select class="form-input" name="size"> 
+							<option value=""> Make a selection </option>
+							@foreach($sizes as $size)
+								<option value="{{ $size->size_id }}" {{ selectOld("size", $size->size_id) }}>{{ $size->name }}</option>
+							@endforeach
+						</select>
+					@endif
+
+
+					@if ($category == 3 || $category == 4 || $category == 5)
+						<p class="fw-900 fz-22">Class</p>
+						<select class="form-input" name="class"> 
+							<option value=""> Make a selection </option>
+							@foreach($classe as $class)
+								<option value="{{ $class->class_id }}" {{ selectOld("class", $class->class_id) }}>{{ $class->name }}</option>
+							@endforeach
+						</select>
+					@endif
+
+					
+					@if ($category == 6 || $category == 7 || $category == 2)
+						<p class="fw-900 fz-22">Color</p>
+						<select class="form-input" name="colors"> 
+							<option value=""> Make a selection </option>
+							@foreach($colors as $color)
+								<option value="{{ $color->color_id }}" {{ selectOld("colors", $color->color_id) }}>{{ $color->name }}</option>
+							@endforeach
+						</select>
+					@endif
+					
+					@if ($category == 6 || $category == 7 || $category == 5 || $category == 2 || $category == 3 || $category == 4)
+						<p class="fw-900 fz-22">Gender</p>
+						<select class="form-input" name="gender"> 
+							<option value=""> Make a selection </option>
+							@foreach($genders as $gender)
+								<option value="{{ $gender->gender_id }}" {{ selectOld("genders", $gender->gender_id) }}>{{ $gender->name }}</option>
+							@endforeach
+						</select>
+					@endif
+					
+					@if ($category == 6 || $category == 7 || $category == 5 || $category == 1 || $category == 2 || $category == 3 || $category == 4)
+						<p class="fw-900 fz-22">Age</p>
+						<select class="form-input" name="age">
+							<option value=""> Make a selection </option> 
+							@for ($i = 1; $i <= 15; $i++)
+								<option value="{{ $i }}" {{ selectOld("ages", $i) }} >{{ $i }}</option>
+							@endfor
+						</select>
+					@endif
+
+					@if ($category == 2)
+						<p class="fw-900 fz-22">Discipline</p>
+						<select class="form-input" name="discipline">
+							<option value=""> Make a selection </option> 
+							@foreach($disciplines as $discipline)
+								<option value="{{ $discipline->discipline_id }}" {{ selectOld("discipline", $discipline->discipline_id) }}>{{ $discipline->name }}</option>
+							@endforeach
+						</select>
+					@endif
 
 					
 					{{-- <div class="view-more"> --}}
@@ -88,47 +158,47 @@
 			
 				<div class="row row-eq-height content-serch">
 
-					<div class="col-md-2 col-animal" data-animal="1">
+					<a href="{{ route("vistaSearch", base64_encode(1)) }}" class="col-md-2 col-animal @if (@$category == 1) active-animal @endif" data-animal="1">
 						<div>
 							<img src="/images/animals/horse-classifieds-barngate-icons-home-vaca.png" />
 							<p>Cattle for Sale</p>
 						</div>
-					</div> <!-- /col-md-2 -->
+					</a> <!-- /col-md-2 -->
 
-					<div class="col-md-2 col-animal" data-animal="2">
+					<a href="{{ route("vistaSearch", base64_encode(2)) }}" class="col-md-2 col-animal @if (@$category == 2) active-animal @endif" data-animal="2">
 						<div>
 							<img src="/images/animals/horse-classifieds-barngate-icons-home-caballo.png" />
 							<p>Horse for Sale</p>
 						</div>
-					</div> <!-- /col-md-2 -->
+					</a> <!-- /col-md-2 -->
 
-					<div class="col-md-2 col-animal" data-animal="3">
+					<a href="{{ route("vistaSearch", base64_encode(3)) }}" class="col-md-2 col-animal @if (@$category == 3) active-animal @endif" data-animal="3">
 						<div>
 							<img src="/images/animals/horse-classifieds-barngate-icons-home-oveja.png" />
 							<p>Sheep for Sale</p>
 						</div>
-					</div> <!-- /col-md-2 -->
+					</a> <!-- /col-md-2 -->
 
-					<div class="col-md-2 col-animal" data-animal="4">
+					<a href="{{ route("vistaSearch", base64_encode(4)) }}" class="col-md-2 col-animal @if (@$category == 4) active-animal @endif" data-animal="4">
 						<div>
 							<img src="/images/animals/horse-classifieds-barngate-icons-home-becerro.png" />
 							<p>Goat for Sale</p>
 						</div>
-					</div> <!-- /col-md-2 -->
+					</a> <!-- /col-md-2 -->
 
-					<div class="col-md-2 col-animal" data-animal="5">
+					<a href="{{ route("vistaSearch", base64_encode(5)) }}" class="col-md-2 col-animal @if (@$category == 5) active-animal @endif" data-animal="5">
 						<div>
 							<img src="/images/animals/horse-classifieds-barngate-icons-home-cerdo.png" />
 							<p>Pig for Sale</p>
 						</div>
-					</div> <!-- /col-md-2 -->
+					</a> <!-- /col-md-2 -->
 
-					<div class="col-md-2 col-animal" data-animal="6">
+					<a href="{{ route("vistaSearch", base64_encode(6)) }}" class="col-md-2 col-animal @if (@$category == 6) active-animal @endif" data-animal="6">
 						<div>
 							<img src="/images/animals/horse-classifieds-barngate-icons-home-perro.png" />
 							<p>Pet Section</p>
 						</div>
-					</div> <!-- /col-md-2 -->
+					</a> <!-- /col-md-2 -->
 
 				</div> <!-- /row -->
 				
@@ -151,7 +221,7 @@
 						
 						@for($i=0; $i <= count($animal) - 1; $i++)
 
-									<div class="back-animal" data-animal="{{ $animal[$i]["animal_id"] }}" 
+									<div class="back-animal @if ($animal[$i]['homepage'] == 1) bg-top-animals @endif" data-animal="{{ $animal[$i]["animal_id"] }}" 
 															data-breed="{{ $animal[$i]["breed_id"] }}"
 															data-color="{{ $animal[$i]["color_id"] }}"
 															data-age="{{ $animal[$i]["age_id"] }}"
@@ -161,15 +231,11 @@
 															data-address="{{ $animal[$i]["adress"] }}"
 															data-state="{{ $animal[$i]["state"] }}"
 															data-price="{{ floatval($animal[$i]["price_filtro"]) }}"
-															@if ($category != null)  
-																@if ($category != $animal[$i]["animal_id"])
-																	style="display: none"
-																@else
-																	style="display: block"
-																@endif
-															@else
-																style="display: block"
-															@endif>
+															data-categorie="{{ $animal[$i]["categorie_id"] }}"
+															data-horns="{{ $animal[$i]["horns"] }}"
+															data-type="{{ $animal[$i]["type"] }}"
+															data-class="{{ $animal[$i]["class"] }}"
+															data-size="{{ $animal[$i]["size"] }}">
 
 										<div class="img-lista" style="background-image: url('{{ "/storage/images/".$animal[$i]["img"] }}')"></div>
 										<div class="mt-20 text-center">
@@ -177,7 +243,7 @@
 												<h3 class="fz-24 fw-700">{{ $animal[$i]["breeds_name"] }}  {{ $animal[$i]["animal_name"] }}
 												</h3>
 											</a>
-											<p class="fz-18">{{ $animal[$i]["description"] }}</p>
+											<p class="fz-18">{{ substr($animal[$i]["description"], 0, 50). "..." }}</p>
 											<div class="mt-20 mb-20 text-center">
 												@if (auth()->check())
 													@if ($animal[$i]["user_id"] != auth()->user()->user_id)
@@ -209,7 +275,7 @@
 						</div> <!-- /row -->
 					
 					@else
-						<h2 style="text-align: center;"> No animals yet </h2>
+						<h2 class="msj-not" style="text-align: center;"> No animals yet </h2>
 					@endif
 				</div> <!-- /row-vista -->
 				
@@ -217,7 +283,7 @@
 					@if ($animal != null)
 						@for($i=0; $i <= count($animal) - 1; $i++)
 
-							<div class="item-lista list-animal" data-animal="{{ $animal[$i]["animal_id"] }}" 
+							<div class="item-lista list-animal @if ($animal[$i]['homepage'] == 1) bg-top-animals @endif" data-animal="{{ $animal[$i]["animal_id"] }}" 
 																							data-breed="{{ $animal[$i]["breed_id"] }}"
 																							data-color="{{ $animal[$i]["color_id"] }}"
 																							data-age="{{ $animal[$i]["age_id"] }}"
@@ -227,15 +293,24 @@
 																							data-address="{{ $animal[$i]["adress"] }}"
 																							data-state="{{ $animal[$i]["state"] }}"
 																							data-price="{{ floatval($animal[$i]["price_filtro"]) }}"
-																							@if ($category != null)  
+																							data-categorie="{{ $animal[$i]["categorie_id"] }}"
+																							data-vaccinations="{{ $animal[$i]["vaccinations"] }}"
+																							data-horns="{{ $animal[$i]["horns"] }}"
+																							data-type="{{ $animal[$i]["type"] }}"
+																							data-class="{{ $animal[$i]["class"] }}"
+																							data-size="{{ $animal[$i]["size"] }}"
+																							{{-- @if ($category != null)  
 																								@if ($category != $animal[$i]["animal_id"])
+																									@if ($category == 6 && $animal[$i]["animal_id"] == 7)
+																										style="display: block"
+																									@endif
 																									style="display: none"
 																								@else
 																									style="display: block"
 																								@endif
 																							@else
 																								style="display: block"
-																							@endif>
+																							@endif --}}>
 																							
 								<div class="flex between items-center">
 									<div class="flex items-center">
@@ -267,7 +342,7 @@
 							</div> <!-- /item-lista -->
 						@endfor
 					@else
-						<h2 style="text-align: center;"> No animals yet </h2>
+						<h2 class="msj-not" style="text-align: center;"> No animals yet </h2>
 					@endif
 				</div> <!-- /row-lista -->
 

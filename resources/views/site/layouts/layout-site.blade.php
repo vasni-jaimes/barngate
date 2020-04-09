@@ -49,9 +49,9 @@
 				<div class="col-md-10 text-right">
 					<nav>
 						<ul class="menu_top">
-							<li><a href="/faqs">FAQ's</a></li>
+							<li><a href="{{ route("faqs") }}" class="{{ request()->is("faqs") ? "active_menu" : "" }}">FAQ's</a></li>
 							<li><a href="https://blog.barngate.com/" target="_blank">Blog</a> </li>
-							<li><a href="{{ route("contact") }}">Contact Us</a> </li>
+							<li><a href="{{ route("contact") }}" class="{{ request()->is("contact") ? "active_menu" : "" }}" >Contact Us</a> </li>
 
 							@auth
 								<li class="no-style" style="padding: 0 18px;"><a href="{{ route("logout.get") }}">Logout</a> </li>
@@ -66,12 +66,12 @@
 					@auth
 						<nav>
 							<ul class="menu_registro">
-								<li><a href="{{ route("myaccount") }}"><img src="/images/horse-classifieds-barngate-myaccount-icon.png" alt="Barngate">My account</a></li>
+								<li><a href="{{ route("myaccount") }}" class="{{ request()->is("myaccount") ? "active_menu" : "" }}" ><img src="/images/horse-classifieds-barngate-myaccount-icon.png" alt="Barngate">My account</a></li>
 								<li class="notificacion">
 									@if (auth()->user()->getNotifyCount() > 0)		
 										<span class="icon-n">{{ auth()->user()->getNotifyCount() }}</span>
 									@endif
-									<a href="#"><img src="/images/horse-classifieds-barngate-notificatios-icon.png" alt="Barngate">Notifications</a>
+									<a href="#" class="{{ request()->is("notifications") ? "active_menu" : "" }}"><img src="/images/horse-classifieds-barngate-notificatios-icon.png" alt="Barngate">Notifications</a>
 									<ul class="s-notificacion">
 										<span>Notifications</span>
 										@if (@$notificaciones != null)	
@@ -282,7 +282,7 @@
 					<input type="text" class="input" name="username" placeholder="Username (what others see when you comment)">
 					<input type="password" class="input" name="password_register" placeholder="Password">
 					<input type="password" class="input" name="password_confirmation" placeholder="Confirm Password">
-					<div class="g-recaptcha" data-sitekey="6LebF9oUAAAAAFf4-pIX2rVrWIuArPHAPhjo3L38"></div>
+					<div class="g-recaptcha" data-sitekey="6LcFBegUAAAAAKqmPunoAQBuCrgWjVxAezHO2_D2"></div>
 					<input class="enviar register-send" type="submit" value="Register >">
 				</form>
 				<a class="link" href="/privacy">Privacy policy</a>

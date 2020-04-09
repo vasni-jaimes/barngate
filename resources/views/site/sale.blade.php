@@ -322,16 +322,17 @@
 				</div>
 			</div> <!-- /row -->
 			
-			<div class="listing-homepage">
+			{{-- <div class="listing-homepage">
 				<div class="flex between items-center fz-20 text-white">
 					<label><input type="checkbox" name="hompage" {{ homepageReload() }} value="1">Feature your listing on our Homepage</label>
 					<input type="hidden" name="planSelect" value="{{ old("planSelect", 2) }}">
 					<span>$20</span>
-				</div> <!-- /flex -->
-			</div> <!-- /listing-homepage -->
+				</div>  /flex -->
+			</div>  /listing-homepage --> --}}
 			
 			<div class="pt-40 pb-20 text-center">
 				<a href="#" class="mw-150 btn btn-primary nexts2">Next ></a>
+				<input type="hidden" name="planSelect" value="{{ old("planSelect", 2) }}">
 				{!! $errors->paso2->first('planSelect', "<span class='err' style='display:block;margin-bottom:15px;color:red'>:message</span>") !!}
 			</div>
 		</div> <!-- /container -->
@@ -374,12 +375,12 @@
 				</ul>
 			</div> <!-- /row-plan -->
 			
-			<div class="mb-40 listing-homepage listing-white">
+			{{-- <div class="mb-40 listing-homepage listing-white">
 				<div class="flex between items-center fz-20 text-blue">
 					<label><input type="checkbox" name="hompage2" {{ homepageReload() }} value="1">Feature your listing on our Homepage</label>
 					<span>$20</span>
 				</div> <!-- /flex -->
-			</div> <!-- /listing-homepage -->
+			</div> <!-- /listing-homepage --> --}}
 			
 			<div class="pt-30 pb-40 row-total">
 				<h3 class="fw-700 fz-28 text-center">Total: $30</h3>

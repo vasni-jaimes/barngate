@@ -329,6 +329,18 @@
 	</div> <!-- /shadowbox -->
 
 
+	<div class="shadowbox" id="option_qualify">
+		<div class="close"></div> <!-- /close -->
+		<div class="wrapper-form">
+			<div class="container-form">
+				<h2> did you sell through? </h2>
+				<button class="enviar barngate_qualify"> Barngate </button>
+				<button class="enviar other_way"> Other way </button>
+			</div>
+		</div> <!-- /wrapper-form -->
+	</div> <!-- /shadowbox -->
+
+
 	<div class="shadowbox" id="calificacion">
 		<div class="close"></div> <!-- /close -->
 		<div class="wrapper-form">

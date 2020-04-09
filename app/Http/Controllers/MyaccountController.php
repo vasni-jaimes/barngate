@@ -290,8 +290,24 @@ class MyaccountController extends Controller
 
 
         DB::rollback();
-        return redirect()->back()->with("session_error", "A problem occurred try again later");
-        
+        return redirect()->back()->with("session_error", "A problem occurred try again later");        
+    }
+
+
+    public function addqualifylOther(Request $request)
+    {
+        if (!$request->has("animal_id")) {
+            return response()->json(["message" => "error", "input" => "input_animal_id_require"]);
+        }
+
+        $animal = DB::table("sales")->where(["nickname" => $request->animal_id, "user_id" => auth()->user()->user_id])->first();
+        if ($animal == null) {
+            //return redirect()->back()->with("session_error", "A problem occurred try again later");
+            return response()->json(["message" => "error", "input" => "A problem occurred try again later"]);
+        }
+
+        DB::table("sales")->where("sale_id", $animal->sale_id)->where("user_id", auth()->user()->user_id)->update(["sold" => 1]);
+        return response()->json(["message" => "ok"]);
     }
 
     public function EditProfile(Request $request)
