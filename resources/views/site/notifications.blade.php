@@ -3,8 +3,24 @@
 
 @section("content")
 
-	<div class="container pt-40 pb-40">
+	<div class="container wrapper-register pt-40 pb-40 ">
 		
+<<<<<<< HEAD
+		<h2 class="fw-700 text-left mb-25">Your notifications</h2>
+
+		@for($i=0; $i <= count($notifyArray) - 1; $i++)
+			@if ($notifyArray[$i]["typo_notify_id"] == 1)
+				<div data-href="{{ route("chat.index", $notifyArray[$i]["url"]) }}" class="flex txt-notificacion @if($notifyArray[$i]["pending"] == 1) pendding @endif">
+					@if ($notifyArray[$i]["img"] != null)
+						<div class="img_mini" style="background-image: url('{{ Storage::url($notifyArray[$i]["img"]) }}')"></div>
+					@else
+						<div class="img_mini" style="background-image: url('/images/sin_foto.jpeg')"></div>
+					@endif
+					<div>
+						<p class="fw-700"> {{ $notifyArray[$i]["user_name"] }} </p>
+						<p> {{ $notifyArray[$i]["description"] }} </p>
+						<span> {{ $notifyArray[$i]["fecha"] }} </span>
+=======
 		<h2 class="mb-25">Your notifications</h2>
 		@if ($notifyArray != null)
 			@for($i=0; $i <= count($notifyArray) - 1; $i++)
@@ -20,6 +36,7 @@
 							<p> {{ $notifyArray[$i]["description"] }} </p>
 							<span> {{ $notifyArray[$i]["fecha"] }} </span>
 						</div>
+>>>>>>> 296b31c8315509dc7186a9d4e993b8e9837dd5d5
 					</div>
 				@elseif($notifyArray[$i]["typo_notify_id"] == 2)
 					<div data-href="{{ route("sale.show", $notifyArray[$i]["url"]) }}" class="flex txt-notificacion @if($notifyArray[$i]["pending"] == 1) pendding @endif">

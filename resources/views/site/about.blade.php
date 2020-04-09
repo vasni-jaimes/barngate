@@ -5,7 +5,7 @@
 
 	<div class="banner banner-about"></div> <!-- /banner-about -->
 
-	<div class="bg-blue text-center pt-15 pb-15">
+	<div class="bg-gray text-center pt-15 pb-15">
 		<h1 class="text-white fz-25">About Us</h1>
 	</div> <!-- /bg-blue -->
 
@@ -20,12 +20,7 @@
 			<p class="pt-10 fz-16">Our main differentiator is an intuitive and easy-to-use platform, as well as a support team ready to help you.</p>
 
 			<div class="mt-40 row team">
-				<div class="col-md-6">
-					<img src="images/alex-bachoura-barngate.png">
-					<h3>Alex Bachoura</h3>
-					<p>VP of marketing</p>
-				</div>
-				<div class="col-md-6">
+				<div class="col-md-12">
 					<img src="images/krystel-trejo-barngate.png">
 					<h3>Krystel Trejo</h3>
 					<p>CEO</p>

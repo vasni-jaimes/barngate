@@ -11,7 +11,7 @@
 		</div> <!-- /container -->
 	</div> <!-- /banner-about -->
 
-	<div class="bg-blue text-center pt-15 pb-15">
+	<div class="bg-gray text-center pt-15 pb-15">
 		<h1 class="text-white fz-25">Contact us</h1>
 	</div> <!-- /bg-blue -->
 

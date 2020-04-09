@@ -13,7 +13,7 @@
 					<div>
 						<div id="messaging-widget-header" class="msg-header">
 							<div class="msg-header__username"><span class="msg-header__link"> {{ $user_chat->username }} </span></div> 
-							<div>Calificación</div>
+							<div>Rating</div>
 							<ul class="rating">
 								@if ($promedio != null)
 									@php $bandera = 5; @endphp
@@ -76,8 +76,8 @@
 
 					<div>
 						<div class="msg-input"> 
-							<textarea maxlength="30000" autocomplete="off" placeholder="Escribe tu mensaje..." id="messaging-widget-textarea" class="msg-input__textarea" style=""></textarea> 
-							<button type="button" class="msg-input__button button__chat">Enviar</button>
+							<textarea maxlength="30000" autocomplete="off" placeholder="Write your message..." id="messaging-widget-textarea" class="msg-input__textarea" style=""></textarea> 
+							<button type="button" class="msg-input__button button__chat">Send</button>
 							<input type="hidden" id="channel" value="{{ $channel }}">
 							@csrf
 						</div>

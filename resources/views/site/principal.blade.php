@@ -71,23 +71,23 @@
 				<h3 class="text-white text-center">Animal Essentials</h3>
 				<ul>
 					@if ($animal->animal_id == 1)
-						<li>Animal: {{ $animal->animal_name }}</li>
-						<li>Breed: {{ $animal->breeds_name }}</li>
-						<li>Categorie: {{ $animal->categories_name }}</li>
-						<li>Number of head: {{ $animal->number_of_head }}</li>
-						<li>Age: {{ $animal->age_id }}</li>
-						<li>Weight: {{ $animal->weight }}</li>
-						<li>Vaccinations: {{ ($animal->vaccinations == 1) ? "Yes" : "No" }}</li>
-						<li>horns: @php if ($animal->horns == 1) { echo "yes"; } elseif ( $animal->horns == 2 ) { echo "No"; } elseif ( $animal->horns == 3 ) { echo "Other"; } elseif ( $animal->horns == 4 ) { echo "Polled"; } @endphp</li>
+						<li><strong>Animal:</strong> {{ $animal->animal_name }}</li>
+						<li><strong>Breed:</strong> {{ $animal->breeds_name }}</li>
+						<li><strong>Categorie:</strong> {{ $animal->categories_name }}</li>
+						<li><strong>Number of head:</strong> {{ $animal->number_of_head }}</li>
+						<li><strong>Age:</strong> {{ $animal->age_id }}</li>
+						<li><strong>Weight:</strong> {{ $animal->weight }}</li>
+						<li><strong>Vaccinations:</strong> {{ ($animal->vaccinations == 1) ? "Yes" : "No" }}</li>
+						<li><strong>Horns:</strong> @php if ($animal->horns == 1) { echo "yes"; } elseif ( $animal->horns == 2 ) { echo "No"; } elseif ( $animal->horns == 3 ) { echo "Other"; } elseif ( $animal->horns == 4 ) { echo "Polled"; } @endphp</li>
 						<li>Conditions: {{ $animal->conditions }}</li>
 						
 					@elseif ($animal->animal_id == 2)
-						<li>Animal: {{ $animal->animal_name }}</li>
-						<li>Breed: {{ $animal->breeds_name }}</li>
-						<li>Color: {{ $animal->colors_name }}</li>
-						<li>Gender: {{ $animal->gender_name }}</li>
-						<li>Disciplines: {{ $animal->desc_name }}</li>
-						<li>Temperament: <small>(1=Calm, 10=Hot)</small></li>
+						<li><strong>Animal:</strong> {{ $animal->animal_name }}</li>
+						<li><strong>Breed:</strong> {{ $animal->breeds_name }}</li>
+						<li><strong>Color:</strong> {{ $animal->colors_name }}</li>
+						<li><strong>Gender:</strong> {{ $animal->gender_name }}</li>
+						<li><strong>Disciplines:</strong> {{ $animal->desc_name }}</li>
+						<li><strong>Temperament:</strong> <small>(1=Calm, 10=Hot)</small></li>
 						<li>
 							<div class="flex items-center">
 								<label class="flex-auto"><input id="input" type="range" value="{{ $animal->temperament }}" min="0" max="10" autocomplete="off" disabled></label>
@@ -97,51 +97,51 @@
 						<li>Age: {{ $animal->age_id }}</li>
 
 					@elseif ($animal->animal_id == 3)
-						<li>Animal: {{ $animal->animal_name }}</li>
-						<li>Breed: {{ $animal->breeds_name }}</li>
-						<li>Gender: {{ $animal->gender_name }}</li>
-						<li>Class: {{ $animal->class_name }}</li>
-						<li>Number of head: {{ $animal->number_of_head }}</li>
-						<li>Age: {{ $animal->age_id }}</li>
-						<li>horns: @php if ($animal->horns == 1) { echo "yes"; } elseif ( $animal->horns == 2 ) { echo "No"; } elseif ( $animal->horns == 3 ) { echo "Other"; } elseif ( $animal->horns == 4 ) { echo "Polled"; } @endphp</li>
-						<li>Weight: {{ $animal->weight }}</li>
+						<li><strong>Animal:</strong> {{ $animal->animal_name }}</li>
+						<li><strong>Breed:</strong> {{ $animal->breeds_name }}</li>
+						<li><strong>Gender:</strong> {{ $animal->gender_name }}</li>
+						<li><strong>Class:</strong> {{ $animal->class_name }}</li>
+						<li><strong>Number of head:</strong> {{ $animal->number_of_head }}</li>
+						<li><strong>Age:</strong> {{ $animal->age_id }}</li>
+						<li><strong>Horns:</strong> @php if ($animal->horns == 1) { echo "yes"; } elseif ( $animal->horns == 2 ) { echo "No"; } elseif ( $animal->horns == 3 ) { echo "Other"; } elseif ( $animal->horns == 4 ) { echo "Polled"; } @endphp</li>
+						<li><strong>Weight:</strong> {{ $animal->weight }}</li>
 					
 					@elseif ($animal->animal_id == 4)
-						<li>Animal: {{ $animal->animal_name }}</li>
-						<li>Breed: {{ $animal->breeds_name }}</li>
-						<li>Gender: {{ $animal->gender_name }}</li>
-						<li>Class: {{ $animal->class_name }}</li>
-						<li>Type: {{ $animal->types_name }}</li>
-						<li>Number of head: {{ $animal->number_of_head }}</li>
-						<li>Age: {{ $animal->age_id }}</li>
-						<li>horns: @php if ($animal->horns == 1) { echo "yes"; } elseif ( $animal->horns == 2 ) { echo "No"; } elseif ( $animal->horns == 3 ) { echo "Other"; } elseif ( $animal->horns == 4 ) { echo "Polled"; } @endphp</li>
-						<li>Weight: {{ $animal->weight }}</li>
+						<li><strong>Animal:</strong> {{ $animal->animal_name }}</li>
+						<li><strong>Breed:</strong> {{ $animal->breeds_name }}</li>
+						<li><strong>Gender:</strong> {{ $animal->gender_name }}</li>
+						<li><strong>Class:</strong> {{ $animal->class_name }}</li>
+						<li><strong>Type:</strong> {{ $animal->types_name }}</li>
+						<li><strong>Number of head:</strong> {{ $animal->number_of_head }}</li>
+						<li><strong>Age:</strong> {{ $animal->age_id }}</li>
+						<li><strong>Horns:</strong> @php if ($animal->horns == 1) { echo "yes"; } elseif ( $animal->horns == 2 ) { echo "No"; } elseif ( $animal->horns == 3 ) { echo "Other"; } elseif ( $animal->horns == 4 ) { echo "Polled"; } @endphp</li>
+						<li><strong>Weight:</strong> {{ $animal->weight }}</li>
 
 					@elseif ($animal->animal_id == 5)
-						<li>Animal: {{ $animal->animal_name }}</li>
-						<li>Breed: {{ $animal->breeds_name }}</li>
-						<li>Gender: {{ $animal->gender_name }}</li>
-						<li>Class: {{ $animal->class_name }}</li>
-						<li>Number of head: {{ $animal->number_of_head }}</li>
-						<li>Age: {{ $animal->age_id }}</li>
-						<li>Weight: {{ $animal->weight }}</li>
+						<li><strong>Animal:</strong> {{ $animal->animal_name }}</li>
+						<li><strong>Breed:</strong> {{ $animal->breeds_name }}</li>
+						<li><strong>Gender:</strong> {{ $animal->gender_name }}</li>
+						<li><strong>Class:</strong> {{ $animal->class_name }}</li>
+						<li><strong>Number of head:</strong> {{ $animal->number_of_head }}</li>
+						<li><strong>Age:</strong> {{ $animal->age_id }}</li>
+						<li><strong>Weight:</strong> {{ $animal->weight }}</li>
 
 					@elseif ($animal->animal_id == 6)
-						<li>Animal: {{ $animal->animal_name }}</li>
-						<li>Breed: {{ $animal->breeds_name }}</li>
-						<li>Gender: {{ $animal->gender_name }}</li>
-						<li>Age: {{ $animal->age_id }}</li>
-						<li>Color: {{ $animal->colors_name }}</li>
-						<li>Size: {{ $animal->sizes_name }}</li>
+						<li><strong>Animal:</strong> {{ $animal->animal_name }}</li>
+						<li><strong>Breed:</strong> {{ $animal->breeds_name }}</li>
+						<li><strong>Gender:</strong> {{ $animal->gender_name }}</li>
+						<li><strong>Age:</strong> {{ $animal->age_id }}</li>
+						<li><strong>Color:</strong> {{ $animal->colors_name }}</li>
+						<li><strong>Size:</strong> {{ $animal->sizes_name }}</li>
 
 					@elseif ($animal->animal_id == 7)
-						<li>Animal: {{ $animal->animal_name }}</li>
-						<li>Breed: {{ $animal->breeds_name }}</li>
-						<li>Gender: {{ $animal->gender_name }}</li>
-						<li>Age: {{ $animal->age_id }}</li>
-						<li>Color: {{ $animal->colors_name }}</li>
-						<li>Size: {{ $animal->sizes_name }}</li>
-						<li>Declawed: {{ ($animal->declawed == 1) ? "Yes" : "No" }}</li>
+						<li><strong>Animal:</strong> {{ $animal->animal_name }}</li>
+						<li><strong>Breed:</strong> {{ $animal->breeds_name }}</li>
+						<li><strong>Gender:</strong> {{ $animal->gender_name }}</li>
+						<li><strong>Age:</strong> {{ $animal->age_id }}</li>
+						<li><strong>Color:</strong> {{ $animal->colors_name }}</li>
+						<li><strong>Size:</strong> {{ $animal->sizes_name }}</li>
+						<li><strong>Declawed:</strong> {{ ($animal->declawed == 1) ? "Yes" : "No" }}</li>
 
 					@endif
 				</ul>

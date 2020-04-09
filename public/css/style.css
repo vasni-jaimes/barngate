@@ -29,6 +29,9 @@
 
 }
 
+b, strong {
+    font-weight: 900;
+}
 
 .field-update .filepond--root {
 	margin: 0 auto;
@@ -128,11 +131,17 @@ nav ul li{
 }
 
 .menu_top a,
-.menu_registro a{
-    text-decoration: underline;
+.menu_registro a {
     display: block;
     font-weight: 500;
     font-size: 18px;
+}
+
+.menu_top a:hover,
+.menu_registro a:hover,
+.menu_top a.active_menu,
+.menu_registro a.active_menu {
+    text-decoration: underline;
 }
 
 .menu_top a.btn{
@@ -411,6 +420,10 @@ a.seeall {
 }
 .bg-blue .text-white {
 	margin-bottom: 0;
+}
+.bg-gray{
+	padding: 0 15px;
+    background: #343F4B;
 }
 .btn-video{
     background: transparent;
@@ -1475,7 +1488,7 @@ textarea.form-input {
 	border-bottom: 1px solid #26375D;
 }
 
-.wrapper-stars .img_mini {
+.img_mini {
 	width: 45px; 
 	height: 45px;
 	background-repeat: no-repeat; 
@@ -1584,7 +1597,6 @@ textarea.form-input {
 .row-desc ul li {
 	margin: 0 0 12px;
     font-size: 19px;
-    font-weight: 700;
 }
 
 .row-desc ul li:last-of-type {
@@ -1744,17 +1756,17 @@ textarea.form-input {
 	background-color: #fff;
 }
 
-.back-animal:hover,
+.back-animal.bg-top-animals,
 .back-animal.selected {
 	color: #fff;
 	background-color: #4768B1;
 }
 
-.back-animal:hover h3 {
+.back-animal.bg-top-animals h3 {
 	color: #fff;
 }
 
-.back-animal:hover .btn-border {
+.back-animal.bg-top-animals .btn-border {
 	border: 1px solid #fff;
 	background-color: #fff;
 }
@@ -1794,12 +1806,23 @@ textarea.form-input {
 .btn-vista > div.vista2 {
 	width: 35px; 
 	height: 35px;
-	background-repeat: no-repeat; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+	/*background-repeat: no-repeat; 
 	background-size: contain; 
-	background-position: center;
+	background-position: center;*/
 }
 
-.btn-vista > div.vista1 {
+.btn-vista > div.vista1.active,
+.btn-vista > div.vista1:hover,
+.btn-vista > div.vista2.active,
+.btn-vista > div.vista2:hover {
+    color: #fff;
+    background-color: #29385A;
+}
+
+/*.btn-vista > div.vista1 {
 	background-image: url('../images/buy-cattle-online-barngate-button-large-not-active.png');
 }
 
@@ -1815,7 +1838,7 @@ textarea.form-input {
 .btn-vista > div.vista2.active,
 .btn-vista > div.vista2:hover {
 	background-image: url('../images/buy-cattle-online-barngate-button-list-active.png.png');
-}
+}*/
 
 .row-lista,
 .row-fav {

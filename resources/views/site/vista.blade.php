@@ -203,8 +203,8 @@
 				</div> <!-- /row -->
 				
 				<div class="btn-vista mt-50 mb-20 flex">
-					<div class="vista1 active"></div>
-					<div class="vista2"></div>
+					<div class="vista1 active"><i class="fas fa-th-large"></i></div>
+					<div class="vista2"><i class="fas fa-list"></i></div>
 					<div>
 						@if (auth()->check())
 							<button class="btn btn-border fav">Favorites</button>
