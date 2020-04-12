@@ -17,27 +17,48 @@ class SearchController extends Controller
 
     public function __construct()
     {
-        //$this->middleware("auth");
+        $this->middleware("ValidateURLSeoSearch", ["only" => ["VistaSearch"]]);
     }
 
 
     public function VistaSearch($category = null)
     {
-
-        $category   = ( $category != null ) ? base64_decode($category) : null;
+        switch ($category) {
+            case 'buy-cattle-online':
+                $category = 1;
+                break;
+            case 'buy-a-horse-online':
+                $category = 2;
+                break;
+            case 'buy-sheep-online':
+                $category = 3;
+                break;
+            case 'buy-goat-online':
+                $category = 4;
+                break;
+            case 'buy-pig-online':
+                $category = 5;
+                break;
+            case 'online-pet-classifleds':
+                $category = 6;
+                break;
+            default:
+                $category = 1;
+                break;
+        }
         
         if ($category != 1 && $category != 2 && $category != 3 && $category != 4 && $category != 5 && $category != 6) {
             $category  = 1;
         }
 
     	$animal     = array();
-        $where      = $category == 6 ? ["sales.animal_id" => 7] : [];
+        $where      = $category == 6 ? ["sales.animal_id" => 7, "sales.disabled" => 0, "sales.sold" => 0] : [];
     	$animalsrow = Sale::join('animals', 'sales.animal_id', '=', 'animals.animal_id')
     						->join('breeds', 'sales.breed_id', '=', 'breeds.breed_id')
 	                        ->join('users', 'sales.user_id', '=', 'users.user_id')
                             ->join('cities', 'sales.city', '=', 'cities.id_ciudad')
-                            ->where(["sales.disabled" => 0, "sales.animal_id" => $category])
-                            ->orWhere($where)
+                            ->where(["sales.disabled" => 0, "sales.sold" => 0, "sales.animal_id" => $category])
+                            ->Where($where)
 	    					->select('sales.*', 
 		    							'animals.name as animal_name', 
 	                                    'breeds.name as breeds_name', 

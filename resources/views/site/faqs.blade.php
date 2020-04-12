@@ -10,42 +10,42 @@
 		<div class="row row-eq-height content-home">
 
 			<div class="col-md-2 col-animal" data-animal="1">
-				<a href="{{ route("vistaSearch", base64_encode(1)) }}">
+				<a href="{{ route("vistaSearch", "buy-cattle-online") }}">
 					<img src="/images/animals/horse-classifieds-barngate-icons-home-vaca.png" />
 					<p>Cattle for Sale</p>
 				</a>
 			</div> <!-- /col-md-2 -->
 
 			<div class="col-md-2 col-animal" data-animal="2">
-				<a href="{{ route("vistaSearch", base64_encode(2)) }}">
+				<a href="{{ route("vistaSearch", "buy-a-horse-online") }}">
 					<img src="/images/animals/horse-classifieds-barngate-icons-home-caballo.png" />
 					<p>Horse for Sale</p>
 				</a>
 			</div> <!-- /col-md-2 -->
 
 			<div class="col-md-2 col-animal" data-animal="3">
-				<a href="{{ route("vistaSearch", base64_encode(3)) }}">
+				<a href="{{ route("vistaSearch", "buy-sheep-online") }}">
 					<img src="/images/animals/horse-classifieds-barngate-icons-home-oveja.png" />
 					<p>Sheep for Sale</p>
 				</a>
 			</div> <!-- /col-md-2 -->
 
 			<div class="col-md-2 col-animal" data-animal="4">
-				<a href="{{ route("vistaSearch", base64_encode(4)) }}">
+				<a href="{{ route("vistaSearch", "buy-goat-online") }}">
 					<img src="/images/animals/horse-classifieds-barngate-icons-home-becerro.png" />
 					<p>Goat for Sale</p>
 				</a>
 			</div> <!-- /col-md-2 -->
 
 			<div class="col-md-2 col-animal" data-animal="5">
-				<a href="{{ route("vistaSearch", base64_encode(5)) }}">
+				<a href="{{ route("vistaSearch", "buy-pig-online") }}">
 					<img src="/images/animals/horse-classifieds-barngate-icons-home-cerdo.png" />
 					<p>Pig for Sale</p>
 				</a>
 			</div> <!-- /col-md-2 -->
 
 			<div class="col-md-2 col-animal" data-animal="6">
-				<a href="{{ route("vistaSearch", base64_encode(6)) }}">
+				<a href="{{ route("vistaSearch", "online-pet-classifleds") }}">
 					<img src="/images/animals/horse-classifieds-barngate-icons-home-perro.png" />
 					<p>Pet Section</p>
 				</a>

@@ -22,7 +22,7 @@ class MyaccountController extends Controller
 	public function __construct()
 	{
 		$this->middleware("auth");
-        $this->middleware("ScoreReviewIds", ["only" => "scoreQualify"]);
+        $this->middleware("ScoreReviewIds", ["only" => ["scoreQualify"]]);
 	}
     
     public function index()

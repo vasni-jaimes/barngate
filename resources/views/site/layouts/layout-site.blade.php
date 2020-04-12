@@ -139,12 +139,12 @@
 				<nav>
 					<ul class="menu_home">
 						<li><a href="{{ route("home") }}"><i class="fas fa-home"></i></a></li>
-						<li><a @if (@$category == 1) style="background: #29385A; color: #fff" @endif href="{{ route("vistaSearch", base64_encode(1)) }}">Cattle for Sale</a></li>
-						<li><a @if (@$category == 2) style="background: #29385A; color: #fff" @endif href="{{ route("vistaSearch", base64_encode(2)) }}">Horse for Sale</a></li>
-						<li><a @if (@$category == 3) style="background: #29385A; color: #fff" @endif href="{{ route("vistaSearch", base64_encode(3)) }}">Sheep for Sale</a></li>
-						<li><a @if (@$category == 4) style="background: #29385A; color: #fff" @endif href="{{ route("vistaSearch", base64_encode(4)) }}">Goat for Sale</a></li>
-						<li><a @if (@$category == 5) style="background: #29385A; color: #fff" @endif href="{{ route("vistaSearch", base64_encode(5)) }}">Pig for Sale</a></li>
-						<li><a @if (@$category == 6) style="background: #29385A; color: #fff" @endif href="{{ route("vistaSearch", base64_encode(6)) }}">Pet Section</a></li>
+						<li><a @if (@$category == 1) style="background: #29385A; color: #fff" @endif href="{{ route("vistaSearch", "buy-cattle-online") }}">Cattle for Sale</a></li>
+						<li><a @if (@$category == 2) style="background: #29385A; color: #fff" @endif href="{{ route("vistaSearch", "buy-a-horse-online") }}">Horse for Sale</a></li>
+						<li><a @if (@$category == 3) style="background: #29385A; color: #fff" @endif href="{{ route("vistaSearch", "buy-sheep-online") }}">Sheep for Sale</a></li>
+						<li><a @if (@$category == 4) style="background: #29385A; color: #fff" @endif href="{{ route("vistaSearch", "buy-goat-online") }}">Goat for Sale</a></li>
+						<li><a @if (@$category == 5) style="background: #29385A; color: #fff" @endif href="{{ route("vistaSearch", "buy-pig-online") }}">Pig for Sale</a></li>
+						<li><a @if (@$category == 6) style="background: #29385A; color: #fff" @endif href="{{ route("vistaSearch", "online-pet-classifleds") }}">Pet Section</a></li>
 					</ul>
 				</nav>
 			</div>
@@ -219,12 +219,12 @@
 	<ul>
 		<li><a href="#">Listing</a>
 			<ul>
-				<li><a @if (@$category == 1) style="background: #29385A; color: #fff" @endif href="{{ route("vistaSearch", base64_encode(1)) }}">Cattle for Sale</a></li>
-				<li><a @if (@$category == 2) style="background: #29385A; color: #fff" @endif href="{{ route("vistaSearch", base64_encode(2)) }}">Horse for Sale</a></li>
-				<li><a @if (@$category == 3) style="background: #29385A; color: #fff" @endif href="{{ route("vistaSearch", base64_encode(3)) }}">Sheep for Sale</a></li>
-				<li><a @if (@$category == 4) style="background: #29385A; color: #fff" @endif href="{{ route("vistaSearch", base64_encode(4)) }}">Goat for Sale</a></li>
-				<li><a @if (@$category == 5) style="background: #29385A; color: #fff" @endif href="{{ route("vistaSearch", base64_encode(5)) }}">Pig for Sale</a></li>
-				<li><a @if (@$category == 6) style="background: #29385A; color: #fff" @endif href="{{ route("vistaSearch", base64_encode(6)) }}">Pet for Sale</a></li>
+				<li><a @if (@$category == 1) style="background: #29385A; color: #fff" @endif href="{{ route("vistaSearch", "buy-cattle-online") }}">Cattle for Sale</a></li>
+				<li><a @if (@$category == 2) style="background: #29385A; color: #fff" @endif href="{{ route("vistaSearch", "buy-a-horse-online") }}">Horse for Sale</a></li>
+				<li><a @if (@$category == 3) style="background: #29385A; color: #fff" @endif href="{{ route("vistaSearch", "buy-sheep-online") }}">Sheep for Sale</a></li>
+				<li><a @if (@$category == 4) style="background: #29385A; color: #fff" @endif href="{{ route("vistaSearch", "buy-goat-online") }}">Goat for Sale</a></li>
+				<li><a @if (@$category == 5) style="background: #29385A; color: #fff" @endif href="{{ route("vistaSearch", "buy-pig-online") }}">Pig for Sale</a></li>
+				<li><a @if (@$category == 6) style="background: #29385A; color: #fff" @endif href="{{ route("vistaSearch", "online-pet-classifleds") }}">Pet for Sale</a></li>
 			</ul>
 		</li>
 		<li><a href="{{ route("about") }}">About Us</a></li>

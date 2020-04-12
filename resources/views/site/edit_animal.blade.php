@@ -378,7 +378,7 @@
 @section("js-content")
 	<script language="JavaScript" type="text/javascript">
 	     
-	    var bPreguntar = true;
+	    //var bPreguntar = true;
 	    window.onbeforeunload = preguntarAntesDeSalir;
 	     
 	    function preguntarAntesDeSalir()
