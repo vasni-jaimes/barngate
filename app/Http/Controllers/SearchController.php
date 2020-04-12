@@ -150,7 +150,7 @@ class SearchController extends Controller
         
         $notificaciones = $this->getNotify();
 
-    	return view('site.vista', compact("animal", "animals", "breeds", "colors", "genders", "disciplines", "estados", "misFavoritos", "category", "notificaciones", "categories", "types", "classe", "sizes", "titulo"));
+    	return view('site.vista', compact("animal", "animals", "breeds", "colors", "genders", "disciplines", "estados", "misFavoritos", "category", "notificaciones", "categories", "types", "classe", "sizes", "titulo", "description"));
     }
 
 
