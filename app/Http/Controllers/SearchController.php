@@ -26,21 +26,33 @@ class SearchController extends Controller
         switch ($category) {
             case 'buy-cattle-online':
                 $category = 1;
+                $titulo = "The best way to Buy cattle online in USA | Barngate";
+                $description = "The best experience to buy cattle online. Find the best cattle according to your needs. Visit us!";
                 break;
             case 'buy-a-horse-online':
                 $category = 2;
+                $titulo = "The best way to Buy a horse online in USA | Barngate";
+                $description = "Explore, find and buy a horse online today. New horses daily. Visit us!";
                 break;
             case 'buy-sheep-online':
                 $category = 3;
+                $titulo = "The best way to Buy a sheep online in USA | Barngate";
+                $description = "Buy a sheep online; anytime, anywhere. Compare, negotiate price and buy sheep online 24/7. Visit us!";
                 break;
             case 'buy-goat-online':
                 $category = 4;
+                $titulo = "The best way to Buy a goat online in USA | Barngate";
+                $description = "Buy a goat online; anytime, anywhere. Compare, negotiate price and buy sheep online 24/7. Visit us!";
                 break;
             case 'buy-pig-online':
                 $category = 5;
+                $titulo = "The best way to Buy a pig online in USA | Barngate";
+                $description = "Buy a pig online; anytime, anywhere. Compare, negotiate price and buy sheep online 24/7. Visit us!";
                 break;
             case 'online-pet-classifleds':
                 $category = 6;
+                $titulo = "Best online pet classifieds in USA | Barngate";
+                $description = "Search our easy to use online Pets classifieds to find all kinds of Pets listings online. Visit us!";
                 break;
             default:
                 $category = 1;
@@ -138,7 +150,7 @@ class SearchController extends Controller
         
         $notificaciones = $this->getNotify();
 
-    	return view('site.vista', compact("animal", "animals", "breeds", "colors", "genders", "disciplines", "estados", "misFavoritos", "category", "notificaciones", "categories", "types", "classe", "sizes"));
+    	return view('site.vista', compact("animal", "animals", "breeds", "colors", "genders", "disciplines", "estados", "misFavoritos", "category", "notificaciones", "categories", "types", "classe", "sizes", "titulo"));
     }
 
 

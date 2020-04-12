@@ -1,5 +1,7 @@
 @extends('site.layouts.layout-site')
 
+@section("title", "Frequently Asked Questions | Barngate")
+@section("description", "Select from the following list of FAQs. Browse through these FAQs to find answers to commonly raised questions.")
 
 @section("content")
 

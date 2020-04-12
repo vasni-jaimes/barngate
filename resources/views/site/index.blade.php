@@ -1,5 +1,7 @@
 @extends('site.layouts.layout-site')
 
+@section("title", "Best & Easiest way to BUY and SELL Horses and Cattle in USA | Barngate")
+@section("description", "Buy a horse, cattle, sheep, goat, pig and pets through a friendly experience. Visit us!")
 
 @section("content")
 

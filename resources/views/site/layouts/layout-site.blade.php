@@ -4,8 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, user-scalable=no">
 
-<title>Barngate</title>
+<title>@yield('title')</title>
 
+<meta name="description" content="@yield('description')">
 {{-- <link rel="stylesheet" href="css/app.css"> --}}
 <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
 <link rel="stylesheet" href="/css/style.css" >

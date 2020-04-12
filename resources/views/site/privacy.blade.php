@@ -1,5 +1,7 @@
 @extends('site.layouts.layout-site')
 
+@section("title", "Privacy policy | Barngate")
+@section("description", "We want to provide you with the best and safest experience on our website. Please read our privacy policy.")
 
 @section("content")
 

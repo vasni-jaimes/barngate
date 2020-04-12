@@ -1,5 +1,7 @@
 @extends('site.layouts.layout-site')
 
+@section("title", "About us | Barngate")
+@section("description", "Barngate aim is to create an easy and friendly experience for buying and sale horses, cattle, goats, sheeps, pigs and pets.")
 
 @section("content")
 

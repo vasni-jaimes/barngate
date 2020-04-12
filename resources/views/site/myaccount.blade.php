@@ -1,5 +1,7 @@
 @extends('site.layouts.layout-site')
 
+@section("title", "My account| Barngate")
+
 @section("content")
 
 	@if (session()->has("status.success")))

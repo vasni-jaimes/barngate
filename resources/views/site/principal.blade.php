@@ -18,7 +18,7 @@
 
 	<div class="row-principal pt-30 pb-30">
 		<div class="container text-center">
-			<h3> {{ $animal->animal_name }} {{  @$animal->colors_name }} {{ $animal->breeds_name }}  </h3>
+			<h3> {{  @$animal->colors_name }} {{ $animal->animal_name }} {{ $animal->breeds_name }}  </h3>
 		</div> <!-- /container -->
 	</div> <!-- /row-principal -->
 

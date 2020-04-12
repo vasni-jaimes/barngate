@@ -1,5 +1,7 @@
 @extends('site.layouts.layout-site')
 
+@section("title", $titulo)
+@section("description", $description)
 
 @section("content")
 		

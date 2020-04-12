@@ -1488,7 +1488,7 @@ class SaleController extends Controller
 
         if ($sale->color_id != null && $sale->color_id != 0) {
             $color = DB::table("colors")->where("color_id", $sale->color_id)->first();
-            $url = $animal->name."-".$color->name."-".$breed->name;
+            $url = $color->name."-".$animal->name."-".$breed->name;
         }
         else {
              $url = $animal->name."-".$breed->name;
@@ -1509,7 +1509,7 @@ class SaleController extends Controller
 
         if ($sale->color_id != null && $sale->color_id != 0) {
             $color = DB::table("colors")->where("color_id", $sale->color_id)->first();
-            $url = $animal->name."-".$color->name."-".$breed->name;
+            $url = $color->name."-".$animal->name."-".$breed->name;
         }
         else {
              $url = $animal->name."-".$breed->name;
