@@ -218,7 +218,7 @@ class MyaccountController extends Controller
                 DB::commit();
                 DB::table("sales")->where("sale_id", $animal->sale_id)->where("user_id", auth()->user()->user_id)->update(["sold" => 1]);
                 $usuario_calificado = DB::table("users")->where("user_id", $user_calificado->user_id)->first();
-                Mail::to("853e9296af-b1cadc@inbox.mailtrap.io")->send(new SendMsjQualify($usuario_calificado, auth()->user()->username, $animal->nickname));
+                //Mail::to("853e9296af-b1cadc@inbox.mailtrap.io")->send(new SendMsjQualify($usuario_calificado, auth()->user()->username, $animal->nickname));
 
                 return response()->json(["message" => "ok"]);
             }
