@@ -2704,10 +2704,11 @@ if (accpt_remove) {
 
 let edit_animal = document.querySelector(".edit_animal-button");
 if (edit_animal) {
-	bPreguntar = false;
+	
 	initFile();
 
 	edit_animal.addEventListener("click", e => {
+		bPreguntar = false;
 		$("#loading").css("display", "block");
 	})
 

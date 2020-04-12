@@ -17,6 +17,9 @@
 	</style>
 @endsection
 
+@section("title", "Register for sale | Barngate")
+@section("description", "Complete your profile so you can start selling in Barngate.")
+
 @section("content")
 
 	@if (session()->has("status.success")))

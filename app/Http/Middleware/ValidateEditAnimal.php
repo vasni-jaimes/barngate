@@ -22,7 +22,7 @@ class ValidateEditAnimal
 
         $sale = DB::table("sales")->where(["user_id" => auth()->user()->user_id, "nickname" => $request->id])->first();
         if ($sale == null) {
-            edirect()->back();
+            redirect()->back();
         }
         
         return $next($request);

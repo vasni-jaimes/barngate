@@ -1,5 +1,7 @@
 @extends('site.layouts.layout-site')
 
+@section("title", $titulo)
+@section("description", $description)
 
 @section("content")
 		
@@ -158,42 +160,42 @@
 			
 				<div class="row row-eq-height content-serch">
 
-					<a href="{{ route("vistaSearch", base64_encode(1)) }}" class="col-md-2 col-animal @if (@$category == 1) active-animal @endif" data-animal="1">
+					<a href="{{ route("vistaSearch", "buy-cattle-online") }}" class="col-md-2 col-animal @if (@$category == 1) active-animal @endif" data-animal="1">
 						<div>
 							<img src="/images/animals/horse-classifieds-barngate-icons-home-vaca.png" />
 							<p>Cattle for Sale</p>
 						</div>
 					</a> <!-- /col-md-2 -->
 
-					<a href="{{ route("vistaSearch", base64_encode(2)) }}" class="col-md-2 col-animal @if (@$category == 2) active-animal @endif" data-animal="2">
+					<a href="{{ route("vistaSearch", "buy-a-horse-online") }}" class="col-md-2 col-animal @if (@$category == 2) active-animal @endif" data-animal="2">
 						<div>
 							<img src="/images/animals/horse-classifieds-barngate-icons-home-caballo.png" />
 							<p>Horse for Sale</p>
 						</div>
 					</a> <!-- /col-md-2 -->
 
-					<a href="{{ route("vistaSearch", base64_encode(3)) }}" class="col-md-2 col-animal @if (@$category == 3) active-animal @endif" data-animal="3">
+					<a href="{{ route("vistaSearch", "buy-sheep-online") }}" class="col-md-2 col-animal @if (@$category == 3) active-animal @endif" data-animal="3">
 						<div>
 							<img src="/images/animals/horse-classifieds-barngate-icons-home-oveja.png" />
 							<p>Sheep for Sale</p>
 						</div>
 					</a> <!-- /col-md-2 -->
 
-					<a href="{{ route("vistaSearch", base64_encode(4)) }}" class="col-md-2 col-animal @if (@$category == 4) active-animal @endif" data-animal="4">
+					<a href="{{ route("vistaSearch", "buy-goat-online") }}" class="col-md-2 col-animal @if (@$category == 4) active-animal @endif" data-animal="4">
 						<div>
 							<img src="/images/animals/horse-classifieds-barngate-icons-home-becerro.png" />
 							<p>Goat for Sale</p>
 						</div>
 					</a> <!-- /col-md-2 -->
 
-					<a href="{{ route("vistaSearch", base64_encode(5)) }}" class="col-md-2 col-animal @if (@$category == 5) active-animal @endif" data-animal="5">
+					<a href="{{ route("vistaSearch", "buy-pig-online") }}" class="col-md-2 col-animal @if (@$category == 5) active-animal @endif" data-animal="5">
 						<div>
 							<img src="/images/animals/horse-classifieds-barngate-icons-home-cerdo.png" />
 							<p>Pig for Sale</p>
 						</div>
 					</a> <!-- /col-md-2 -->
 
-					<a href="{{ route("vistaSearch", base64_encode(6)) }}" class="col-md-2 col-animal @if (@$category == 6) active-animal @endif" data-animal="6">
+					<a href="{{ route("vistaSearch", "online-pet-classifleds") }}" class="col-md-2 col-animal @if (@$category == 6) active-animal @endif" data-animal="6">
 						<div>
 							<img src="/images/animals/horse-classifieds-barngate-icons-home-perro.png" />
 							<p>Pet Section</p>

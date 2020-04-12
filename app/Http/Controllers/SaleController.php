@@ -495,7 +495,7 @@ class SaleController extends Controller
 
         if ($sale->save()) {
 
-            $sale->nickname = $this->getNickname($sale->sale_id);
+            $sale->nickname = $this->getNickname($sale);
             $sale->save();
 
             if ($request->has("filepond")) {
@@ -1101,6 +1101,7 @@ class SaleController extends Controller
         $sale->zip              = request("zip");
         $sale->country          = request("country");
         $sale->phone_number     = request("phone_number");
+        $sale->nickname         = $this->getNicknameUpdate($sale);
 
 
         if ($sale->save()) {
@@ -1145,7 +1146,7 @@ class SaleController extends Controller
                 }
                 
                 DB::commit();
-                return back()->with('status.success', '1');
+                return redirect()->route("sale.edit", $sale->nickname)->with('status.success', '1');
             }
             else {
 
@@ -1154,7 +1155,7 @@ class SaleController extends Controller
                 }
 
                 DB::commit();
-                return back()->with('status.success', '1');
+                return redirect()->route("sale.edit", $sale->nickname)->with('status.success', '1');
             }
         }
 
@@ -1479,9 +1480,44 @@ class SaleController extends Controller
     }
 
 
-    public function getNickname($id)
+    public function getNickname($sale)
     {
-        return "MLM=".base64_encode($id).time();
+        $animal = DB::table("animals")->where("animal_id", $sale->animal_id)->first();
+        $breed  = DB::table("breeds")->where("breed_id", $sale->breed_id)->first();
+        $url    = null;
+
+        if ($sale->color_id != null && $sale->color_id != 0) {
+            $color = DB::table("colors")->where("color_id", $sale->color_id)->first();
+            $url = $color->name."-".$animal->name."-".$breed->name;
+        }
+        else {
+             $url = $animal->name."-".$breed->name;
+        }
+
+        $url = str_replace(" ", "-", $url);
+
+        return $this->slugify($url)."-MLM=".base64_encode($sale->sale_id).time();
+    }
+
+
+    public function getNicknameUpdate($sale)
+    {
+        $animal     = DB::table("animals")->where("animal_id", $sale->animal_id)->first();
+        $breed      = DB::table("breeds")->where("breed_id", $sale->breed_id)->first();
+        $nickname   = explode("-", $sale->nickname);
+        $url        = null;
+
+        if ($sale->color_id != null && $sale->color_id != 0) {
+            $color = DB::table("colors")->where("color_id", $sale->color_id)->first();
+            $url = $color->name."-".$animal->name."-".$breed->name;
+        }
+        else {
+             $url = $animal->name."-".$breed->name;
+        }
+
+        $url = str_replace(" ", "-", $url);
+
+        return $this->slugify($url)."-".$nickname[count($nickname) - 1];
     }
 
 
@@ -1525,5 +1561,34 @@ class SaleController extends Controller
             }
         }
         
+    }
+
+
+
+    public function slugify($text)
+    {
+      // replace non letter or digits by -
+      $text = preg_replace('~[^\pL\d]+~u', '-', $text);
+
+      // transliterate
+      $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
+
+      // remove unwanted characters
+      $text = preg_replace('~[^-\w]+~', '', $text);
+
+      // trim
+      $text = trim($text, '-');
+
+      // remove duplicate -
+      $text = preg_replace('~-+~', '-', $text);
+
+      // lowercase
+      $text = strtolower($text);
+
+      if (empty($text)) {
+        return 'n-a';
+      }
+
+      return $text;
     }
 }
