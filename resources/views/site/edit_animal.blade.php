@@ -21,8 +21,6 @@
 
 	<form action="{{ route("sale.update", $id) }}" id="form-edit_animal" method="POST" enctype="multipart/form-data" accept-charset="UTF-8">
 		@csrf
-		<input type="hidden" name="nick" value="{{ $id }}">
-
 		<div class="container pt-40 pb-40 text-blue">
 			
 			<h2 class="fw-700 text-left">Edit your animal</h2>

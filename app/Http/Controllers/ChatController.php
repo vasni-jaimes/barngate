@@ -183,7 +183,7 @@ class ChatController extends Controller
                 if ($myuser != null) {
                     if ($myuser->receive_text == 1) {
                         $mensaje = "The user ".auth()->user()->username." sent you a message";
-                        $this->sendMessageTwilio($myuser->phone, $mensaje);
+                        //$this->sendMessageTwilio($myuser->phone, $mensaje);
                     }
                 }
                
@@ -205,7 +205,7 @@ class ChatController extends Controller
                     if ($oneUser->receive_text == 1) {
                         $twoUser = DB::table("users")->where("user_id", $canal->user_two_id)->first();
                         $mensaje = "The user ".$twoUser->username." sent you a message";
-                        $this->sendMessageTwilio($oneUser->phone, $mensaje);
+                        //$this->sendMessageTwilio($oneUser->phone, $mensaje);
                     }
                 }
 

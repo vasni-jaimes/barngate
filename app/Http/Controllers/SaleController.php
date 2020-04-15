@@ -831,10 +831,11 @@ class SaleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        $animal = Sale::where(["nickname" => $id, "user_id" => auth()->user()->user_id])->first();
-        $favoritoMail = false;
+        $id             = $request->route("id");
+        $animal         = Sale::where(["nickname" => $id, "user_id" => auth()->user()->user_id])->first();
+        $favoritoMail   = false;
 
         if ($animal->animal_id == 1) {
             
