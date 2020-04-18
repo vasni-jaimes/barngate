@@ -26,6 +26,15 @@
 					</div> <!-- /flex -->
 					
 					<label class="search"><input type="text"></label>
+
+					@if ($category == 6 || $category == 7)
+						<p class="fw-900 fz-22">Animal</p>
+						<select class="form-input" name="animal-search"> 
+							<option value=""> Make a selection </option>
+							<option value="6">Dog</option>
+							<option value="7">Cat</option>
+						</select>
+					@endif
 					
 					@if ($category == 1 || $category == 3 || $category == 4 || $category == 2 || $category == 5 || $category == 6 || $category == 7)
 						<p class="fw-900 fz-22">Breed</p>

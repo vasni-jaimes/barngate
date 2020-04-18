@@ -490,6 +490,52 @@ if (register_send) {
 
 
 
+name_sarch = document.querySelector("select[name='animal-search']");
+if (name_sarch) {
+	name_sarch.addEventListener("change", e => {
+
+		let token = document.querySelector("input[name='_token']");
+		let animals = e.target;
+		let data = { "_token": token.value, "animal": animals.value };
+
+		//console.log(animals.value);
+		if (animals.value == 0 || animals.value == '' || animals.value == null || animals.value == undefined) {
+			return false;
+		}
+
+		request
+		   	.post('/animal_config')
+		   	.send(data)
+		   	.set('Accept', 'application/json')
+		   	.then(res => {
+		   		console.log(res);
+		   		if (res.body.message == 'ok') {
+		   			breedso = '<option value=""> Make a selection </option>'
+							  +'<option value=""> All Breed </option>';
+		   			for (var i = 0; i <= res.body.result.breeds.length - 1; i++) {
+		   				breedso += "<option value='"+res.body.result.breeds[i].breed_id+"'>"+res.body.result.breeds[i].name+"</option>";
+		   			}
+
+		   			$("select[name='breeds']").html(breedso);
+
+		   			colors = '<option value=""> Make a selection </option>'
+							  +'<option value=""> All Colors </option>';
+		   			for (var i = 0; i <= res.body.result.color.length - 1; i++) {
+		   				colors += "<option value='"+res.body.result.color[i].color_id+"'>"+res.body.result.color[i].name+"</option>";
+		   			}
+
+		   			$("select[name='colors']").html(colors);
+		   		}
+		   		
+		   	})
+		   	.catch(err => {
+      			// err.message, err.response
+      			console.log(err.message);
+   			});
+	});
+}
+
+
 
 /**********************\
 |    VALIDATE LOGIN    |
@@ -3083,7 +3129,7 @@ function searchWP() {
 
 	let selector = ".back-animal";
 	let selector2 = ", .list-animal";
-	let animal = $(".active-animal").attr('data-animal');
+	let animal = $("select[name='animal-search']").val();
 	let breeds = $("select[name='breeds']").val();
 	let colors = $("select[name='colors']").val();
 	let age = $("select[name='age']").val();
@@ -3099,10 +3145,10 @@ function searchWP() {
 	let clase = $("select[name='class']").val();
 	let size = $("select[name='size']").val();
 
-	// if (animal != null && animal != 0 && animal != '') {
-	// 	selector += "[data-animal='"+animal+"']";
-	// 	selector2 += "[data-animal='"+animal+"']";
-	// }
+	if (animal != null && animal != 0 && animal != '') {
+		selector += "[data-animal='"+animal+"']";
+		selector2 += "[data-animal='"+animal+"']";
+	}
 
 	if (breeds != null && breeds != 0 && breeds != '') {
 		selector += "[data-breed='"+breeds+"']";
