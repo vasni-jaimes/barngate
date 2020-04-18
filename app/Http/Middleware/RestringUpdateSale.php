@@ -20,7 +20,7 @@ class RestringUpdateSale
            return redirect()->route("myaccount");
         }
 
-        $sale = DB::table("Sales")->where("nickname", $request->id)->first();
+        $sale = DB::table("sales")->where("nickname", $request->id)->first();
         if ($sale == null) {
             return redirect()->route("myaccount");
         }
