@@ -14,7 +14,7 @@ class GendersTableSeeder extends Seeder
 
         /* HORSES */
 
-        $horses = ["All Genders", "Colt", "Filly", "Gelding", "Mare", "Stallion"];
+        $horses = ["Colt", "Filly", "Gelding", "Mare", "Stallion"];
 
         for ($i=0; $i <= count($horses) - 1; $i++) {
 

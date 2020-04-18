@@ -77,7 +77,7 @@
 						<div class="box-tab">
 							<ul class="check-option">
 								<li><label>Receive Emails about Favorite Animal</label><input type="checkbox" name="email_favorite" {{ auth()->user()->email_favorite == 1 ? "checked" : "" }}></li>
-								<li><label>Receive Text Message Notifications</label><input type="checkbox" name="receive_text" {{ auth()->user()->receive_text == 1 ? "checked" : "" }}></li>
+								{{-- <li><label>Receive Text Message Notifications</label><input type="checkbox" name="receive_text" {{ auth()->user()->receive_text == 1 ? "checked" : "" }}></li> --}}
 							</ul>
 							<div class="pt-20 pb-20 text-center">
 								<a href="#" class="mw-150 btn btn-primary save-radio">Save settings ></a>

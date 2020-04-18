@@ -2767,87 +2767,6 @@ if (col_animal) {
         });
     }
 }
-// let col_animal = document.querySelectorAll(".content-serch .col-animal");
-// if (col_animal) {
-
-// 	for (let i = 0; i <= col_animal.length - 1; i++) {
-//         col_animal[i].addEventListener('click', function(e) {
-//         	e.preventDefault();
-//         	$(".col-animal").removeClass("active-animal");
-//         	$(this).addClass("active-animal");
-
-
-
-//         	//AJAX
-// 			let token = document.querySelector("input[name='_token']");
-// 			let animal = $(".active-animal").attr('data-animal');
-// 			let data = { "_token": token.value, "animal": animal };
-
-// 			if (animal == 1) {
-// 				$("select[name='gender']").css("display", "none");
-// 				$("select[name='gender']").prev().css("display", "none");
-// 			}
-// 			else {
-// 				$("select[name='gender']").css("display", "block");
-// 				$("select[name='gender']").prev().css("display", "block");
-// 			}
-
-// 			if (animal == 2) {
-// 				$("select[name='discipline']").css("display", "block");
-// 				$("select[name='discipline']").prev().css("display", "block");
-// 			}
-// 			else {
-// 				$("select[name='discipline']").css("display", "none");
-// 				$("select[name='discipline']").prev().css("display", "none");
-// 			}
-
-// 			if (animal == 2 || animal == 6 || animal == 7) {
-// 				$("select[name='colors']").css("display", "block");
-// 				$("select[name='colors']").prev().css("display", "block");
-// 			}
-// 			else {
-// 				$("select[name='colors']").css("display", "none");
-// 				$("select[name='colors']").prev().css("display", "none");
-// 			}
-
-// 			request
-// 			   	.post('/animal_config')
-// 			   	.send(data)
-// 			   	.set('Accept', 'application/json')
-// 			   	.then(res => {
-// 			   		//console.log(res.body);
-// 			   		if (res.body.message == 'ok') {
-// 			   			let breedso = "<option value='0'>Make a selection</option>",
-// 		   					coloro = "<option value='0'>Make a selection</option>",
-// 		   					gendero = "<option value='0'>Make a selection</option>";
-
-// 			   			for (var i = 0; i <= res.body.result.breeds.length - 1; i++) {
-// 		   					breedso += "<option value='"+res.body.result.breeds[i].breed_id+"'>"+res.body.result.breeds[i].name+"</option>";
-// 		   				}
-
-// 		   				for (var i = 0; i <= res.body.result.color.length - 1; i++) {
-// 		   					coloro += "<option value='"+res.body.result.color[i].color_id+"'>"+res.body.result.color[i].name+"</option>";
-// 		   				}
-
-// 		   				for (var i = 0; i <= res.body.result.genders.length - 1; i++) {
-// 		   					gendero += "<option value='"+res.body.result.genders[i].gender_id+"'>"+res.body.result.genders[i].name+"</option>";
-// 		   				}
-
-// 		   				$("select[name='gender']").html(gendero);
-// 		   				$("select[name='breeds']").html(breedso);
-// 		   				$("select[name='colors']").html(coloro);
-
-// 		   				searchWP();
-// 			   		}
-// 			   	})
-// 			   	.catch(err => {
-// 		  			// err.message, err.response
-// 		  			console.log(err.message);
-// 				});
-//         });
-//     }
-// }
-
 
 /**************************\
 |     search input         |
@@ -3241,8 +3160,8 @@ function searchWP() {
 	}
 
 	if (search != '' && search != null) {
-		selector += "[data-description *= '"+search+"']";
-		selector2 += "[data-description *= '"+search+"']";
+		selector += "[data-description *= '"+search+"' i]";
+		selector2 += "[data-description *= '"+search+"' i]";
 	}
 
 	if (state != '' && state != null && state != undefined && state != 0) {
@@ -3279,7 +3198,7 @@ function searchWP() {
 		$(".row-vista .msj-not, .row-lista .msj-not").remove();
 	}
 
-	cordenadas();
+	//cordenadas();
 }
 
 
@@ -3309,33 +3228,81 @@ function initialize(e) {
 		return false;
 	}
 
- 	let vasni = $("#lat").val();
-    let p = JSON.parse(vasni);
-    let marcadores = p;
-    let ultimo = marcadores.length - 1;
 
-	var map = new google.maps.Map(document.getElementById('map-canvas'), {
-		zoom: 4,
-		center: new google.maps.LatLng(marcadores[0][1], marcadores[ultimo][2]),
-		mapTypeId: google.maps.MapTypeId.ROADMAP
+	var locationArray = [];
+	var address = [];
+	$(".back-animal[style*='block']").each(function() {
+		let ficha = '<a href="'+ $(this).find("a").attr('href')+'">' 
+						+'<div class="img-lista" style="background-image: url('+$(this).find(".img-lista").attr('src')+')"></div>'
+						+'<h3> '+$(this).attr('data-titulo')+ '</h3>'
+						+'<p> Precio: '+$(this).attr('data-price')+' </p>';
+					+'</a>'
+
+		address.push( { address: $(this).attr('data-address'), "ficha": ficha  } );
 	});
 
-  	var infowindow = new google.maps.InfoWindow();
-  	var marker, i;
-	for (i = 0; i < marcadores.length; i++) {  
-		marker = new google.maps.Marker({
-			position: new google.maps.LatLng(marcadores[i][1], marcadores[i][2]),
-			map: map
-		});
-		google.maps.event.addListener(marker, 'click', (function(marker, i) {
-			return function() {
-		    	infowindow.setContent(marcadores[i][0]);
-		    	infowindow.open(map, marker);
-		  	}
-		})(marker, i));
-	}
+    if (address == '') {
+        return false;
+    }
 
-	$("#show-map").css("display", "block");
+
+    var geocoder = new google.maps.Geocoder();
+    for (let i = 0; i <= address.length - 1; i++) {
+    	geocoder.geocode({ 'address': address[i].address}, function(results, status) {
+            if (status == 'OK') {
+                var latitud = results[0].geometry.location.lat();
+                var longitud = results[0].geometry.location.lng();
+                locationArray[i] = [ address[i], latitud, longitud ];
+
+         		var ultimo = locationArray.length - 1;
+                var map = new google.maps.Map(document.getElementById('map-canvas'), {
+					zoom: 4,
+					center: new google.maps.LatLng(39.7396016, -102.976532),
+					mapTypeId: google.maps.MapTypeId.ROADMAP
+				});
+
+                var infowindow = new google.maps.InfoWindow();
+  				var marker, j;
+                for (j = 0; j <= locationArray.length - 1; j++) {  
+					marker = new google.maps.Marker({
+						position: new google.maps.LatLng(locationArray[j][1], locationArray[j][2]),
+						map: map
+					});
+
+					google.maps.event.addListener(marker, 'mouseover', (function(marker, j) {
+
+						let fichas = locationArray.filter(function(otro, index, prototipo) {
+							if (otro[2] == locationArray[j][2] && otro[1] == locationArray[j][1]) {
+								return otro;
+							}
+						});
+
+						return function() {
+							let content = '';
+							for (var b = 0; b <= fichas.length - 1; b++) {
+								content += fichas[b][0].ficha;
+							}
+
+					    	infowindow.setContent(content);
+					    	infowindow.open(map, marker);	
+					  	}
+
+					})(marker, j));
+					// google.maps.event.addListener(marker, 'mouseout', (function(marker, j) {
+					// 	return function() {
+					// 		infowindow.close();
+					//   	}
+					// })(marker, j));
+				}
+
+				$("#show-map").css("display", "block");
+
+            }
+            else {
+                console.log("Geocoding no tuvo éxito debido a: " + status);
+            }
+        });
+    }
 }
 
 
@@ -3395,34 +3362,4 @@ function postAgain(e) {
 			// err.message, err.response
 			console.log(err.message);
 		});	
-}
-
-
-
-function cordenadas() {
-
-	let address = [];
-	var locationArray = [];
-	$(".back-animal[style*='block']").each(function() {
-		address.push($(this).attr('data-address'));
-	});
-
-    if (address == '') {
-        return false;
-    }
-
-    var geocoder = new google.maps.Geocoder();
-    for (let i = 0; i <= address.length - 0; i++) {
-    	geocoder.geocode({ 'address': address[i]}, function(results, status) {
-             if (status == 'OK') {
-                var latitud = results[0].geometry.location.lat();
-                var longitud = results[0].geometry.location.lng();
-                locationArray[i] = [ address[i], latitud, longitud ];
-                document.getElementById("lat").value = JSON.stringify(locationArray);
-             }
-             else {
-                 console.log("Geocoding no tuvo éxito debido a: " + status);
-             }
-        });
-    }
 }

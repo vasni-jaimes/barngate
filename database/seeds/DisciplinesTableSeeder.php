@@ -11,10 +11,6 @@ class DisciplinesTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('disciplines')->insert([
-            "name" => "All Disciplines",
-            "animal_id" => 2,
-        ]);
 
         DB::table('disciplines')->insert([
             "name" => "Breeding",

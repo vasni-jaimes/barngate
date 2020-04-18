@@ -44,6 +44,9 @@
 						@elseif ($animal->disabled == 1)
 							<h3 style="color: red"> Expired </h3>
 						@endif
+					@else
+						<button class="btn btn-border show-registro">Add to Favorites</button>
+						<button class="text-white btn btn-red show-registro">Message</button>
 					@endif
 				</div> <!-- /flex -->
 			</div> <!-- /flex -->
@@ -79,7 +82,7 @@
 						<li><strong>Weight:</strong> {{ $animal->weight }}</li>
 						<li><strong>Vaccinations:</strong> {{ ($animal->vaccinations == 1) ? "Yes" : "No" }}</li>
 						<li><strong>Horns:</strong> @php if ($animal->horns == 1) { echo "yes"; } elseif ( $animal->horns == 2 ) { echo "No"; } elseif ( $animal->horns == 3 ) { echo "Other"; } elseif ( $animal->horns == 4 ) { echo "Polled"; } @endphp</li>
-						<li>Conditions: {{ $animal->conditions }}</li>
+						<li><strong>Conditions: </strong>{{ $animal->conditions }}</li>
 						
 					@elseif ($animal->animal_id == 2)
 						<li><strong>Animal:</strong> {{ $animal->animal_name }}</li>
@@ -94,7 +97,7 @@
 								<p class="range"><span id="etiqueta"></span> / 10</p>
 							</div> <!-- /flex -->
 						</li>
-						<li>Age: {{ $animal->age_id }}</li>
+						<li><strong>Age: </strong>{{ $animal->age_id }}</li>
 
 					@elseif ($animal->animal_id == 3)
 						<li><strong>Animal:</strong> {{ $animal->animal_name }}</li>

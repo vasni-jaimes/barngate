@@ -495,6 +495,7 @@ class MyaccountController extends Controller
             foreach ($favorite as $favorites) {
                 $favoritefull = Sale::where("sale_id", $favorites->sale_id)
                                     ->where("disabled", 0)
+                                    ->where("sold", 0)
                                     ->join('animals', 'sales.animal_id', '=', 'animals.animal_id')
                                     ->select('sales.*', 'animals.name as animal_name')
                                     ->first();

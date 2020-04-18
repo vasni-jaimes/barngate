@@ -118,7 +118,7 @@ class HomeController extends Controller
         //                 ->get();
 
         $homepage = Sale::join('animals', 'sales.animal_id', '=', 'animals.animal_id')
-                        ->where("sales.disabled", 0)
+                        ->where([["sales.disabled", "=", 0], ["sales.sold", "=", 0]])
                         ->select('sales.*', 'animals.name as animal_name')
                         ->limit(15)
                         ->get();

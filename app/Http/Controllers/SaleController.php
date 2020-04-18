@@ -672,7 +672,6 @@ class SaleController extends Controller
                                     'users.urlImg')
                         ->where('nickname', $id)->first();
         }
-        
 
         $favorite       = $this->getFavoriteProduct($animalprincipal->sale_id, $animalprincipal->user_id);
         $todasImg       = $this->todasImagenesProducto($animalprincipal->user_id, $animalprincipal->animal_id, $animalprincipal->sale_id);

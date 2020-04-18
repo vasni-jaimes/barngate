@@ -14,7 +14,7 @@ class ColorsTableSeeder extends Seeder
 
         /* horses */
         
-        $horses = ["All colors", "Bay", "Black", "Brown", "Buckskin", "Chestnut", "Cremello", "Dun", "Gray", "Grulla", 
+        $horses = ["Bay", "Black", "Brown", "Buckskin", "Chestnut", "Cremello", "Dun", "Gray", "Grulla", 
                     "Palomino", "Perlino", "Roan", "Sorrel", "Other"];
 
 

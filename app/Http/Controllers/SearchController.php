@@ -64,13 +64,13 @@ class SearchController extends Controller
         }
 
     	$animal     = array();
-        $where      = $category == 6 ? ["sales.animal_id" => 7, "sales.disabled" => 0, "sales.sold" => 0] : [];
+        $where      = $category == 6 ? [["sales.animal_id", "=", 7], ["sales.disabled", "=", 0], ["sales.sold", "=", 0]] : [];
     	$animalsrow = Sale::join('animals', 'sales.animal_id', '=', 'animals.animal_id')
     						->join('breeds', 'sales.breed_id', '=', 'breeds.breed_id')
 	                        ->join('users', 'sales.user_id', '=', 'users.user_id')
                             ->join('cities', 'sales.city', '=', 'cities.id_ciudad')
-                            ->where(["sales.disabled" => 0, "sales.sold" => 0, "sales.animal_id" => $category])
-                            ->Where($where)
+                            ->where([["sales.animal_id", "=", $category], ["sales.disabled", "=", 0], ["sales.sold", "=", 0]])
+                            ->orWhere($where)
 	    					->select('sales.*', 
 		    							'animals.name as animal_name', 
 	                                    'breeds.name as breeds_name', 
@@ -94,6 +94,7 @@ class SearchController extends Controller
                 $animal[$ban]["animal_id"]      = $animalrow->animal_id;
                 $animal[$ban]["breed_id"]       = $animalrow->breed_id;
                 $animal[$ban]["color_id"]       = $animalrow->color_id;
+                $animal[$ban]["color"]          = isset($animalrow->color) ? $animalrow->color->name : null;
                 $animal[$ban]["age_id"]         = $animalrow->age_id;
                 $animal[$ban]["gender_id"]      = $animalrow->gender_id;
                 $animal[$ban]["discipline_id"]  = $animalrow->discipline_id;
@@ -223,6 +224,7 @@ class SearchController extends Controller
             foreach ($favorite as $favorites) {
                 $favoritefull = Sale::where("sale_id", $favorites->sale_id)
                                     ->where("disabled", 0)
+                                    ->where("sold", 0)
                                     ->join('animals', 'sales.animal_id', '=', 'animals.animal_id')
                                     ->join('users', 'sales.user_id', '=', 'users.user_id')
                                     ->select('sales.*', 'animals.name as animal_name', 'users.username as users_name')

@@ -316,9 +316,9 @@
 						<ul class="flex-auto pt-40 check-list fz-20 text-left">
 							<li>Add duration <span class="fw-700">(180 days)</span></li>
 							<li>Unlimited photos</li>
-							<li>Guide to take the best pictures of your Animal</li>
-							<li>Upload Videos</li>
-							<li>Guide to take the best Videos of your Animal</li>
+							{{-- <li>Guide to take the best pictures of your Animal</li> --}}
+							{{-- <li>Upload Videos</li> --}}
+							{{--<li>Guide to take the best Videos of your Animal</li> --}}
 						</ul>
 						<a class="btn-red" href="#">Choose the Basic Plan (1 Photo)</a>
 					</div> <!-- /wrapper-plan -->

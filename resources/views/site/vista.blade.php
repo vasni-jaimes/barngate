@@ -31,6 +31,7 @@
 						<p class="fw-900 fz-22">Breed</p>
 						<select class="form-input" name="breeds"> 
 							<option value=""> Make a selection </option>
+							<option value=""> All Breed </option>
 							@foreach($breeds as $breed)
 								<option value="{{ $breed->breed_id }}" {{ selectOld("breeds", $breed->breed_id) }}>{{ $breed->name }}</option>
 							@endforeach
@@ -62,6 +63,7 @@
 						<p class="fw-900 fz-22">Categories</p>
 						<select class="form-input" name="categorie"> 
 							<option value=""> Make a selection </option>
+							<option value=""> All Categories </option>
 							@foreach($categories as $categorie)
 								<option value="{{ $categorie->categorie_id }}" {{ selectOld("categorie", $categorie->categorie_id) }}>{{ $categorie->name }}</option>
 							@endforeach
@@ -73,6 +75,7 @@
 						<p class="fw-900 fz-22">Type</p>
 						<select class="form-input" name="type"> 
 							<option value=""> Make a selection </option>
+							<option value=""> All Types </option>
 							@foreach($types as $type)
 								<option value="{{ $type->type_id }}" {{ selectOld("type", $type->type_id) }}>{{ $type->name }}</option>
 							@endforeach
@@ -83,6 +86,7 @@
 						<p class="fw-900 fz-22">Size</p>
 						<select class="form-input" name="size"> 
 							<option value=""> Make a selection </option>
+							<option value=""> All Size </option>
 							@foreach($sizes as $size)
 								<option value="{{ $size->size_id }}" {{ selectOld("size", $size->size_id) }}>{{ $size->name }}</option>
 							@endforeach
@@ -94,6 +98,7 @@
 						<p class="fw-900 fz-22">Class</p>
 						<select class="form-input" name="class"> 
 							<option value=""> Make a selection </option>
+							<option value=""> All Class </option>
 							@foreach($classe as $class)
 								<option value="{{ $class->class_id }}" {{ selectOld("class", $class->class_id) }}>{{ $class->name }}</option>
 							@endforeach
@@ -105,6 +110,7 @@
 						<p class="fw-900 fz-22">Color</p>
 						<select class="form-input" name="colors"> 
 							<option value=""> Make a selection </option>
+							<option value=""> All Colors </option>
 							@foreach($colors as $color)
 								<option value="{{ $color->color_id }}" {{ selectOld("colors", $color->color_id) }}>{{ $color->name }}</option>
 							@endforeach
@@ -115,6 +121,7 @@
 						<p class="fw-900 fz-22">Gender</p>
 						<select class="form-input" name="gender"> 
 							<option value=""> Make a selection </option>
+							<option value=""> All Gender </option>
 							@foreach($genders as $gender)
 								<option value="{{ $gender->gender_id }}" {{ selectOld("genders", $gender->gender_id) }}>{{ $gender->name }}</option>
 							@endforeach
@@ -124,7 +131,8 @@
 					@if ($category == 6 || $category == 7 || $category == 5 || $category == 1 || $category == 2 || $category == 3 || $category == 4)
 						<p class="fw-900 fz-22">Age</p>
 						<select class="form-input" name="age">
-							<option value=""> Make a selection </option> 
+							<option value=""> Make a selection </option>
+							<option value=""> All Age </option> 
 							@for ($i = 1; $i <= 15; $i++)
 								<option value="{{ $i }}" {{ selectOld("ages", $i) }} >{{ $i }}</option>
 							@endfor
@@ -135,6 +143,7 @@
 						<p class="fw-900 fz-22">Discipline</p>
 						<select class="form-input" name="discipline">
 							<option value=""> Make a selection </option> 
+							<option value=""> All Discipline </option> 
 							@foreach($disciplines as $discipline)
 								<option value="{{ $discipline->discipline_id }}" {{ selectOld("discipline", $discipline->discipline_id) }}>{{ $discipline->name }}</option>
 							@endforeach
@@ -229,7 +238,8 @@
 															data-age="{{ $animal[$i]["age_id"] }}"
 															data-gender="{{ $animal[$i]["gender_id"] }}"
 															data-discipline="{{ $animal[$i]["discipline_id"] }}"
-															data-description="{{ $animal[$i]["description"] }}"
+															data-description="{{ $animal[$i]["description"].$animal[$i]["color"].$animal[$i]["animal_name"].$animal[$i]["breeds_name"] }}"
+															data-titulo="{{ $animal[$i]["color"]." ".$animal[$i]["animal_name"]." ".$animal[$i]["breeds_name"] }}"
 															data-address="{{ $animal[$i]["adress"] }}"
 															data-state="{{ $animal[$i]["state"] }}"
 															data-price="{{ floatval($animal[$i]["price_filtro"]) }}"
@@ -239,10 +249,10 @@
 															data-class="{{ $animal[$i]["class"] }}"
 															data-size="{{ $animal[$i]["size"] }}">
 
-										<div class="img-lista" style="background-image: url('{{ "/storage/images/".$animal[$i]["img"] }}')"></div>
+										<div class="img-lista" src="{{ "/storage/images/".$animal[$i]["img"] }}" style="background-image: url('{{ "/storage/images/".$animal[$i]["img"] }}')"></div>
 										<div class="mt-20 text-center">
 											<a href="{{ route("sale.show", $animal[$i]["nickname"]) }}">
-												<h3 class="fz-24 fw-700">{{ $animal[$i]["breeds_name"] }}  {{ $animal[$i]["animal_name"] }}
+												<h3 class="fz-24 fw-700"> {{ $animal[$i]["color"] }} {{ $animal[$i]["animal_name"] }}  {{ $animal[$i]["breeds_name"] }}
 												</h3>
 											</a>
 											<p class="fz-18">{{ substr($animal[$i]["description"], 0, 50). "..." }}</p>
@@ -291,7 +301,8 @@
 																							data-age="{{ $animal[$i]["age_id"] }}"
 																							data-gender="{{ $animal[$i]["gender_id"] }}"
 																							data-discipline="{{ $animal[$i]["discipline_id"] }}"
-																							data-description="{{ $animal[$i]["description"] }}"
+																							data-description="{{ $animal[$i]["description"].$animal[$i]["color"].$animal[$i]["animal_name"].$animal[$i]["breeds_name"] }}"
+																							data-titulo="{{ $animal[$i]["color"]." ".$animal[$i]["animal_name"]." ".$animal[$i]["breeds_name"] }}"
 																							data-address="{{ $animal[$i]["adress"] }}"
 																							data-state="{{ $animal[$i]["state"] }}"
 																							data-price="{{ floatval($animal[$i]["price_filtro"]) }}"
@@ -300,26 +311,14 @@
 																							data-horns="{{ $animal[$i]["horns"] }}"
 																							data-type="{{ $animal[$i]["type"] }}"
 																							data-class="{{ $animal[$i]["class"] }}"
-																							data-size="{{ $animal[$i]["size"] }}"
-																							{{-- @if ($category != null)  
-																								@if ($category != $animal[$i]["animal_id"])
-																									@if ($category == 6 && $animal[$i]["animal_id"] == 7)
-																										style="display: block"
-																									@endif
-																									style="display: none"
-																								@else
-																									style="display: block"
-																								@endif
-																							@else
-																								style="display: block"
-																							@endif --}}>
+																							data-size="{{ $animal[$i]["size"] }}">
 																							
 								<div class="flex between items-center">
 									<div class="flex items-center">
 										<img src="{{ "/storage/images/".$animal[$i]["img"] }}">
 										<div class="item-d">
 											<a href="{{ route("sale.show", $animal[$i]["nickname"]) }}">
-												<p>{{ $animal[$i]["breeds_name"] }}  {{ $animal[$i]["animal_name"] }}  </p>
+												<p>{{ $animal[$i]["color"] }} {{ $animal[$i]["animal_name"] }}  {{ $animal[$i]["breeds_name"] }}  </p>
 											</a>
 											<p class="price">Price: ${{ $animal[$i]["price"] }}</p>
 										</div> <!-- /item-d -->
@@ -415,7 +414,7 @@
 
 	<div class="shadowbox" id="show-map">
 		<div class="close"></div> <!-- /close -->
-		<div id="map-canvas" style="display: block;width: 500px;height: 500px;border: 1px solid red; margin: auto;"></div>
+		<div id="map-canvas" style="display: block;width: 80%;height: 90%; margin: auto;"></div>
 	</div> <!-- /shadowbox -->
 
 	<!--<button id="ver-mapa" style="width: 200px;height: 30px;"></button>-->
@@ -426,10 +425,4 @@
 
 @section("js-content")
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBdCJD0Uv0eltDchfA659MFOkT4DLjfJVs&amp;"></script>
-@endsection
-
-@section("js-content_main")
-	<script type="text/javascript">
-		cordenadas();
-	</script>
 @endsection
