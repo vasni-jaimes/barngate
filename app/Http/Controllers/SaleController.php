@@ -1108,6 +1108,7 @@ class SaleController extends Controller
                     catch(Exception $e) {
                         DB::rollback();
                         \Log::error("No se guardo correctamente la imagen: error: ".$e->getMessage());
+                        return back()->with('status.error', '1');
                     }
                 }
 

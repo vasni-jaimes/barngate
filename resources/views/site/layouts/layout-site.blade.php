@@ -50,9 +50,9 @@
 				<div class="col-md-10 text-right">
 					<nav>
 						<ul class="menu_top">
-							<li><a href="{{ route("faqs") }}" class="{{ request()->is("faqs") ? "active_menu" : "" }}">FAQ's</a></li>
+							<li><a href="{{ route("faqs") }}" class="{{ request()->routeIs("faqs") ? "active_menu" : "" }}">FAQ's</a></li>
 							<li><a href="https://blog.barngate.com/" target="_blank">Blog</a> </li>
-							<li><a href="{{ route("contact") }}" class="{{ request()->is("contact") ? "active_menu" : "" }}" >Contact Us</a> </li>
+							<li><a href="{{ route("contact") }}" class="{{ request()->routeIs("contact") ? "active_menu" : "" }}" >Contact Us</a> </li>
 
 							@auth
 								<li class="no-style" style="padding: 0 18px;"><a href="{{ route("logout.get") }}">Logout</a> </li>
@@ -67,12 +67,12 @@
 					@auth
 						<nav>
 							<ul class="menu_registro">
-								<li><a href="{{ route("myaccount") }}" class="{{ request()->is("myaccount") ? "active_menu" : "" }}" ><img src="/images/horse-classifieds-barngate-myaccount-icon.png" alt="Barngate">My account</a></li>
+								<li><a href="{{ route("myaccount") }}" class="{{ request()->routeIs("myaccount") ? "active_menu" : "" }}" ><img src="/images/horse-classifieds-barngate-myaccount-icon.png" alt="Barngate">My account</a></li>
 								<li class="notificacion">
 									@if (auth()->user()->getNotifyCount() > 0)		
 										<span class="icon-n">{{ auth()->user()->getNotifyCount() }}</span>
 									@endif
-									<a href="#" class="{{ request()->is("notifications") ? "active_menu" : "" }}"><img src="/images/horse-classifieds-barngate-notificatios-icon.png" alt="Barngate">Notifications</a>
+									<a href="#" class="{{ request()->routeIs("notifications") ? "active_menu" : "" }}"><img src="/images/horse-classifieds-barngate-notificatios-icon.png" alt="Barngate">Notifications</a>
 									<ul class="s-notificacion">
 										<span>Notifications</span>
 										@if (@$notificaciones != null)	
