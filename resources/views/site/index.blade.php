@@ -81,9 +81,11 @@
 				@for($i = 0; $i <= count($topAnimals) - 1; $i++)
 					<div class="col-2dot4" data-animal="{{ $topAnimals[$i]["animal_id"] }}">
 						<div class="img-top-animal">
-							<div style="background-image: url('{{ "/storage/images/".$topAnimals[$i]["img"] }}')"></div>
-							<p class="pt-10"> {{ $topAnimals[$i]["animal_name"] }} </p>
-							<a href="{{ route("sale.show", $topAnimals[$i]["nickname"]) }}">See more</a>
+                            <a href="{{ route("sale.show", $topAnimals[$i]["nickname"]) }}">
+                                <div class="image" style="background-image: url('{{ "/storage/images/".$topAnimals[$i]["img"] }}')"></div>
+                                <p class="pt-10"> {{ $topAnimals[$i]["animal_name"] }} </p>
+                                <span>See more</span>
+                            </a>
 						</div> <!-- /img-top-animal -->
 					</div> <!-- /col-2dot4 -->
 				@endfor

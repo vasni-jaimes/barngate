@@ -237,7 +237,7 @@
 				<h3 class="fw-700 pt-20">Location</h3>
 				
 				<div class="row pt-20">
-					<div class="col-md-4 pb-20">
+					<div class="col-md-3 pb-20">
 						<h3 class="fw-700">State/Province/Region:<span>*</span></h3>
 						<select class="form-input" name="region">
 							@foreach($estados as $estado)
@@ -247,18 +247,18 @@
 						{{-- <input type="text" class="form-input" name="region" value="{{ old("region") }}"> --}}
 						{!! $errors->paso1->first('region', "<span class='err' style='display:block;margin-bottom:15px;color:red'>:message</span>") !!}
 					</div> <!-- /col-4 -->
-					<div class="col-md-4 pb-20">
+					<div class="col-md-3 pb-20">
 						<h3 class="fw-700">City:<span>*</span></h3>
 						<select class="form-input" name="city"></select>
 						{{-- <input type="text" class="form-input" name="city" value="{{ old("city") }}"> --}}
 						{!! $errors->paso1->first('city', "<span class='err' style='display:block;margin-bottom:15px;color:red'>:message</span>") !!}
 					</div> <!-- /col-4 -->
-					<div class="col-md-4 pb-20">
+					<div class="col-md-3 pb-20">
 						<h3 class="fw-700">ZIP:<span>*</span></h3>
 						<input type="text" class="form-input" name="zip" value="{{ old("zip") }}">
 						{!! $errors->paso1->first('zip', "<span class='err' style='display:block;margin-bottom:15px;color:red'>:message</span>") !!}
 					</div> <!-- /col-4 -->
-					<div class="col-md-4 pb-20">
+					<div class="col-md-3 pb-20">
 						<h3 class="fw-700">Country:<span>*</span></h3>
 						<select class="form-input" name="country">
 							<option value="1"> United States </option>
@@ -289,11 +289,11 @@
 								<li>1 photo</li>
 							</ul>
 						</div>
-						<a class="btn-red" href="#">Choose the Basic Plan (1 Photo)</a>
+						<a class="btn-blue" href="javascript:void(0)">Choose the Basic Plan</a>
 					</div> <!-- /wrapper-plan -->
 				</div>
 				<div class="col-md-4 pb-20">
-					<div class="wrapper-plan text-center plancenter  {{ planSelected(2) }} {{ planSelectDefault() }}" data-plan="2">
+					<div class="wrapper-plan text-center plancenter {{ planSelected(2) }} {{ planSelectDefault() }}" data-plan="2">
 						<small>Most Popular</small>
 						<h3 class="fw-700 fz-28">STANDARD</h3>
 						<span class="price fz-24 fw-700 standard">$10</span>
@@ -301,7 +301,7 @@
 							<li>Add duration <span class="fw-700">(90 days)</span></li>
 							<li>5 photos</li>
 						</ul>
-						<a class="btn-red" href="#">Choose the Basic Plan (1 Photo)</a>
+						<a class="btn-blue" href="javascript:void(0)">Choose the Standard Plan</a>
 					</div> <!-- /wrapper-plan -->
 				</div>
 				<div class="col-md-4 pb-20">
@@ -315,7 +315,7 @@
 							{{-- <li>Upload Videos</li> --}}
 							{{--<li>Guide to take the best Videos of your Animal</li> --}}
 						</ul>
-						<a class="btn-red" href="#">Choose the Basic Plan (1 Photo)</a>
+						<a class="btn-blue" href="javascript:void(0)">Choose the Premium Plan</a>
 					</div> <!-- /wrapper-plan -->
 				</div>
 			</div> <!-- /row -->

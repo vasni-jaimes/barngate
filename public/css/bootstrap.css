@@ -2080,9 +2080,9 @@ a.btn.disabled, fieldset:disabled a.btn {
 	background-color: #5361c9;
 	border-color: #4958c6
 }
-.btn-primary:focus, .btn-primary.focus {
+/*.btn-primary:focus, .btn-primary.focus {
 	box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08), 0 0 0 .2rem rgba(133,144,217,.5)
-}
+}*/
 .btn-primary.disabled, .btn-primary:disabled {
 	color: #fff;
 	background-color: #26375d;
@@ -13926,9 +13926,9 @@ a.link:hover, a.link:focus {
 a {
 	color: #8898aa
 }
-a:hover, a:focus {
+/*a:hover, a:focus {
 	color: #26375d
-}
+}*/
 .no-wrap td, .no-wrap th {
 	white-space: nowrap
 }

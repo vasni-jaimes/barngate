@@ -74,7 +74,7 @@ Route::post('/messageSend', 'ChatController@messagesChat')->name("message.send")
 //Vistas estaticas
 Route::get('/notifications', 'PageEstaticController@showNotifications')->name('notifications');
 Route::get('/faqs', 'PageEstaticController@showFaqs')->name('faqs');
-Route::get('/privacy', 'PageEstaticController@showPrivacy')->name('privacy');
+Route::get('/privacy-policy', 'PageEstaticController@showPrivacy')->name('privacy');
 Route::get('/about', 'PageEstaticController@showAbout')->name('about');
 Route::get('/contact', 'PageEstaticController@showContact')->name('contact');
 
