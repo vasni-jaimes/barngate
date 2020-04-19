@@ -42,7 +42,6 @@ class CreateSalesTable extends Migration
             $table->integer('state');
             $table->string('zip');
             $table->integer('country');
-            $table->string('phone_number');
             $table->integer('plan_id');
             $table->date('date_init');
             $table->date('date_end');

@@ -38,7 +38,7 @@ Route::post('/update/{id}', 'SaleController@update')->name("sale.update");
 
 
 //Myaccount
-Route::get('/myaccount', 'MyaccountController@index')->name('myaccount');
+Route::get('/my-account', 'MyaccountController@index')->name('myaccount');
 Route::post('/myaccount/editProfile', 'MyaccountController@EditProfile')->name('editprofile');
 Route::post('/saveSettings', 'MyaccountController@SaveSettings')->name('SaveSettings');
 Route::post('saveImgMyaccount', 'MyaccountController@SaveImgMyaccount')->name('saveimgmyaccount');

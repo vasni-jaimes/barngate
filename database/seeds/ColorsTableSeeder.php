@@ -15,7 +15,7 @@ class ColorsTableSeeder extends Seeder
         /* horses */
         
         $horses = ["Bay", "Black", "Brown", "Buckskin", "Chestnut", "Cremello", "Dun", "Gray", "Grulla", 
-                    "Palomino", "Perlino", "Roan", "Sorrel", "Other"];
+                    "Palomino", "Perlino", "Roan", "Sorrel", "White"];
 
 
         for ($i=0; $i <= count($horses) - 1; $i++) {
