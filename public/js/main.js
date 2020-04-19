@@ -881,32 +881,34 @@ if ($(".step3").is(":visible") || $(".step2").is(":visible") || $(".step3").is("
 	let total = parseInt(subtotal) + home;
 	$(".row-total h3").html("Total: $"+total);
 
-
-	//VALIDAR EL PLAN PARA SABER SI VA A PAGAR CON STRIPE O NO
-	if ($("input[name='planSelect']").val() == 1) {
-		$("input[type='file']").attr('data-max-files', "1");
-		if ($("input[name='hompage']").is(":checked")) {
+	if ($(".step3").is(":visible")) {
+		//VALIDAR EL PLAN PARA SABER SI VA A PAGAR CON STRIPE O NO
+		if ($("input[name='planSelect']").val() == 1) {
+			//$("input[type='file']").attr('data-max-files', 1);
+			if ($("input[name='hompage']").is(":checked")) {
+				$(".not-freeplan").css("display", "block");
+				$(".finish").text("Pay and post ad >");
+			}
+			else {
+				$(".not-freeplan").css("display", "none");
+				$(".finish").text("Post ad >");
+			}
+			
+			initFile("1");
+		}
+		else if ($("input[name='planSelect']").val() == 2) {
+			//$("input[type='file']").attr('data-max-files', 5);
 			$(".not-freeplan").css("display", "block");
 			$(".finish").text("Pay and post ad >");
+			initFile("5");
 		}
 		else {
-			$(".not-freeplan").css("display", "none");
-			$(".finish").text("Post ad >");
+			$(".not-freeplan").css("display", "block");
+			$(".finish").text("Pay and post ad >");
+			initFile();
 		}
-		
-		initFile();
 	}
-	else if ($("input[name='planSelect']").val() == 2) {
-		$("input[type='file']").attr('data-max-files', "5");
-		$(".not-freeplan").css("display", "block");
-		$(".finish").text("Pay and post ad >");
-		initFile();
-	}
-	else {
-		$(".not-freeplan").css("display", "block");
-		$(".finish").text("Pay and post ad >");
-		initFile();
-	}
+	
 }
 
 
@@ -1457,6 +1459,8 @@ if (next2) {
 				$(".not-freeplan").css("display", "none");
 				$(".finish").text("Post ad >");
 			}
+
+			initFile("1");
 		}
 		else if (planSelect.val() == 2) {
 			$("textarea[name='url-videos']").css("display", "none");
@@ -1465,14 +1469,17 @@ if (next2) {
 			$("input[type='file']").attr('data-max-files', "5");
 			$(".not-freeplan").css("display", "block");
 			$(".finish").text("Pay and post ad >");
+
+			initFile("5");
 		}
 		else {
 			$(".not-freeplan").css("display", "block");
 			$(".finish").text("Pay and post ad >");
+			initFile();
 		}
 
 		
-		initFile();
+		//initFile();
 
 
 		document.querySelector(".step2").style.display = "none";
@@ -3038,11 +3045,17 @@ function precio_planes() {
 }
 
 
-function initFile() {
+function initFile(max = null) {
 	let filepond = document.querySelector("input[name='filepond[]']");
 	if (filepond) {
 		// Get a reference to the file input element
 		var inputElement = document.querySelector('input[type="file"]');
+		
+		if (max != null) {
+			console.log("entro");
+			inputElement.setAttribute("data-max-files", max);			
+		}
+
 		FilePond.registerPlugin(FilePondPluginFileValidateType);
 		FilePond.registerPlugin(FilePondPluginFileEncode);
 		FilePond.registerPlugin(FilePondPluginFileValidateSize);

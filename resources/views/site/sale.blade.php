@@ -342,7 +342,7 @@
 				<input type="file" class="filepond" multiple name="filepond[]" />
 				{!! $errors->paso3->first('filepond', "<span class='err' style='display:block;margin-bottom:15px;color:red'>:message</span>") !!}
 				@if (session()->has("status.error.not.file"))
-					<span class='err' style='display:block;margin-bottom:15px;color:red'>{{ session("status.error.not.file") }}</span>
+					<span class='err' style='display:block;margin-bottom:15px;color:red;text-align:left;'>{{ session("status.error.not.file") }}</span>
 				@endif
 				{{-- <input type="file" name="upload" id="upload" class="cargar-cv" data-multiple-caption="{count} files selected" multiple=""> --}}
 				{{-- <label for="upload"><span></span></label> --}}
