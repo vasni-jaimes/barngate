@@ -267,11 +267,6 @@
 						</select>
 						{!! $errors->paso1->first('country', "<span class='err' style='display:block;margin-bottom:15px;color:red'>:message</span>") !!}
 					</div> <!-- /col-4 -->
-					<div class="col-md-4 pb-20">
-						<h3 class="fw-700">Phone Number:<span>*</span></h3>
-						<input type="text" class="form-input" name="phone_number" value="{{ old("phone_number", $animalprincipal->phone_number) }}">
-						{!! $errors->paso1->first('phone_number', "<span class='err' style='display:block;margin-bottom:15px;color:red'>:message</span>") !!}
-					</div> <!-- /col-4 -->
 					
 
 				</div> <!-- /row -->

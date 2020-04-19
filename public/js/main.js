@@ -932,7 +932,6 @@ if (next) {
 		let region = document.querySelector("select[name='region']");
 		let zip = document.querySelector("input[name='zip']");
 		let country = document.querySelector("select[name='country']");
-		let phone_number = document.querySelector("input[name='phone_number']");
 		let number_of_head = document.querySelector("input[name='number_of_head']");
 		let weight = document.querySelector("input[name='weight']");
 		let vaccinations = document.querySelector("select[name='vaccinations']");
@@ -1349,31 +1348,6 @@ if (next) {
 			error(country, "The country field is required");
 			$('html, body').animate({scrollTop: $(country).offset().top - 50},1000);
 			return false;	
-		}
-
-
-		if (phone_number.value == '' || phone_number.value == null || phone_number.value == undefined) {
-			error(phone_number, "The phone field is required");
-			$('html, body').animate({scrollTop: $(phone_number).offset().top - 50},1000);
-			return false;	
-		}
-
-		if (isNaN(phone_number.value)) {
-			error(phone_number, "The phone must be a number.");
-			$('html, body').animate({scrollTop: $(phone_number).offset().top - 50},1000);
-			return false;
-		}
-
-		if (phone_number.value.length > 13) {
-			error(phone_number, "The phone may not be greater than 13");
-			$('html, body').animate({scrollTop: $(phone_number).offset().top - 50},1000);
-			return false;
-		}
-
-		if (phone_number.value.length < 10) {
-			error(phone_number, "The phone must be at least 10.");
-			$('html, body').animate({scrollTop: $(phone_number).offset().top - 50},1000);
-			return false;
 		}
 
 

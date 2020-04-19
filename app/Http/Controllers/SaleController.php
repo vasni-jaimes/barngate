@@ -158,8 +158,6 @@ class SaleController extends Controller
                 "zip" => "required|numeric",
                 "zip" => "max:5",
                 "country" => "required|max:255",
-                "phone_number" => "required|numeric",
-                "phone_number" => "min:10|max:13"
             ]);
         }
         else if (request("animals") == 2) {
@@ -184,8 +182,6 @@ class SaleController extends Controller
                 "zip" => "required|numeric",
                 "zip" => "max:5",
                 "country" => "required|max:255",
-                "phone_number" => "required|numeric",
-                "phone_number" => "min:10|max:13"
             ]);
         }
         else if (request("animals") == 3) {
@@ -213,8 +209,6 @@ class SaleController extends Controller
                 "zip" => "required|numeric",
                 "zip" => "max:5",
                 "country" => "required|max:255",
-                "phone_number" => "required|numeric",
-                "phone_number" => "min:10|max:13"
             ]);
         }
         else if (request("animals") == 4) {
@@ -244,8 +238,6 @@ class SaleController extends Controller
                 "zip" => "required|numeric",
                 "zip" => "max:5",
                 "country" => "required|max:255",
-                "phone_number" => "required|numeric",
-                "phone_number" => "min:10|max:13"
             ]);
         }
         else if (request("animals") == 5) {
@@ -271,8 +263,6 @@ class SaleController extends Controller
                 "zip" => "required|numeric",
                 "zip" => "max:5",
                 "country" => "required|max:255",
-                "phone_number" => "required|numeric",
-                "phone_number" => "min:10|max:13"
             ]);
         }
         else if (request("animals") == 6) {
@@ -297,8 +287,6 @@ class SaleController extends Controller
                 "zip" => "required|numeric",
                 "zip" => "max:5",
                 "country" => "required|max:255",
-                "phone_number" => "required|numeric",
-                "phone_number" => "min:10|max:13"
             ]);
         }
         else if (request("animals") == 7) {
@@ -325,8 +313,6 @@ class SaleController extends Controller
                 "zip" => "required|numeric",
                 "zip" => "max:5",
                 "country" => "required|max:255",
-                "phone_number" => "required|numeric",
-                "phone_number" => "min:10|max:13"
             ]);
         }
 
@@ -456,7 +442,6 @@ class SaleController extends Controller
         $sale->state            = request("region");
         $sale->zip              = request("zip");
         $sale->country          = request("country");
-        $sale->phone_number     = request("phone_number");
         $sale->plan_id          = request("planSelect");
         $sale->date_init        = $date;
         $sale->date_end         = $fechafinal;
@@ -860,8 +845,6 @@ class SaleController extends Controller
                 "zip" => "required|numeric",
                 "zip" => "max:5",
                 "country" => "required|max:255",
-                "phone_number" => "required|numeric",
-                "phone_number" => "min:10|max:13"
             ]);
         }
         else if ($animal->animal_id == 2) {
@@ -884,8 +867,6 @@ class SaleController extends Controller
                 "zip" => "required|numeric",
                 "zip" => "max:5",
                 "country" => "required|max:255",
-                "phone_number" => "required|numeric",
-                "phone_number" => "min:10|max:13"
             ]);
         }
         else if ($animal->animal_id == 3) {
@@ -911,8 +892,6 @@ class SaleController extends Controller
                 "zip" => "required|numeric",
                 "zip" => "max:5",
                 "country" => "required|max:255",
-                "phone_number" => "required|numeric",
-                "phone_number" => "min:10|max:13"
             ]);
         }
         else if ($animal->animal_id == 4) {
@@ -940,8 +919,6 @@ class SaleController extends Controller
                 "zip" => "required|numeric",
                 "zip" => "max:5",
                 "country" => "required|max:255",
-                "phone_number" => "required|numeric",
-                "phone_number" => "min:10|max:13"
             ]);
         }
         else if ($animal->animal_id == 5) {
@@ -965,8 +942,6 @@ class SaleController extends Controller
                 "zip" => "required|numeric",
                 "zip" => "max:5",
                 "country" => "required|max:255",
-                "phone_number" => "required|numeric",
-                "phone_number" => "min:10|max:13"
             ]);
         }
         else if ($animal->animal_id == 6) {
@@ -989,8 +964,6 @@ class SaleController extends Controller
                 "zip" => "required|numeric",
                 "zip" => "max:5",
                 "country" => "required|max:255",
-                "phone_number" => "required|numeric",
-                "phone_number" => "min:10|max:13"
             ]);
         }
         else if ($animal->animal_id == 7) {
@@ -1015,8 +988,6 @@ class SaleController extends Controller
                 "zip" => "required|numeric",
                 "zip" => "max:5",
                 "country" => "required|max:255",
-                "phone_number" => "required|numeric",
-                "phone_number" => "min:10|max:13"
             ]);
         }
 
@@ -1100,7 +1071,6 @@ class SaleController extends Controller
         $sale->state            = request("region");
         $sale->zip              = request("zip");
         $sale->country          = request("country");
-        $sale->phone_number     = request("phone_number");
         $sale->nickname         = $this->getNicknameUpdate($sale);
 
 
@@ -1304,15 +1274,15 @@ class SaleController extends Controller
             if ($precio > 0 && $request->has("stripeToken")) {
                 if ($this->stripePost(request("stripeToken"), $precio)) {
                     DB::commit();
-                    return redirect("/myaccount")->with('status.success', '1');
+                    return redirect()->route("myaccount")->with('status.success', '1');
                 }
 
                 DB::rollback();
-                return redirect("/myaccount")->with('status.error.pago', '1');
+                return redirect()->route("myaccount")->with('status.error.pago', '1');
             }
 
             DB::commit();
-            return redirect("/myaccount")->with('status.success', '1');
+            return redirect("/myaccount")->route("myaccount")->with('status.success', '1');
         }
 
     }
