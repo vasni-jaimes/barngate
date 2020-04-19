@@ -323,6 +323,10 @@ a.seeall {
 	font-size: 17px;
     background: #ED4A44;
 }
+.btn-blue{
+	font-size: 17px;
+    border: 1px solid #26375d;
+}
 
 /*.menu_home li:first-child a{
     display: block;
@@ -895,6 +899,13 @@ textarea.form-input {
 	margin-top: 15%;
 	border-radius: 5px;
 }
+.wrapper-plan .btn-blue {
+	padding: 10px 15px; 
+	color: #26375d;
+	margin-top: 15%;
+	border-radius: 5px;
+    cursor: default;
+}
 
 .wrapper-plan small {
 	position: absolute; 
@@ -914,7 +925,12 @@ textarea.form-input {
 	-moz-box-shadow: inset 0px 0px 0px 10px #4768B1;
 	box-shadow: inset 0px 0px 0px 10px #4768B1;
 }
-
+.plan-selected .btn-blue{
+	font-size: 17px;
+    color: #fff;
+    border: 1px solid #ED4A44;
+    background: #ED4A44;
+}
 .check-list {
 	list-style: none;
 	padding-left: 0; 
@@ -3456,14 +3472,14 @@ label.error{
 	text-align: center;
 }
 
-.img-top-animal > div {
+.img-top-animal .image {
 	padding-top: 100%;
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: center;
 }
 
-.img-top-animal a {
+.img-top-animal span {
 	text-decoration: underline;
 }
 
