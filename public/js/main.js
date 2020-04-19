@@ -887,11 +887,11 @@ if ($(".step3").is(":visible") || $(".step2").is(":visible") || $(".step3").is("
 		$("input[type='file']").attr('data-max-files', "1");
 		if ($("input[name='hompage']").is(":checked")) {
 			$(".not-freeplan").css("display", "block");
-			$(".finish").text("Pay Now");
+			$(".finish").text("Pay and post ad >");
 		}
 		else {
 			$(".not-freeplan").css("display", "none");
-			$(".finish").text("Create Now");
+			$(".finish").text("Post ad >");
 		}
 		
 		initFile();
@@ -899,12 +899,12 @@ if ($(".step3").is(":visible") || $(".step2").is(":visible") || $(".step3").is("
 	else if ($("input[name='planSelect']").val() == 2) {
 		$("input[type='file']").attr('data-max-files', "5");
 		$(".not-freeplan").css("display", "block");
-		$(".finish").text("Pay Now");
+		$(".finish").text("Pay and post ad >");
 		initFile();
 	}
 	else {
 		$(".not-freeplan").css("display", "block");
-		$(".finish").text("Pay Now");
+		$(".finish").text("Pay and post ad >");
 		initFile();
 	}
 }
@@ -1451,11 +1451,11 @@ if (next2) {
 			$("input[type='file']").attr('data-max-files', "1");
 			if ($("input[name='hompage']").is(":checked")) {
 				$(".not-freeplan").css("display", "block");
-				$(".finish").text("Pay Now");
+				$(".finish").text("Pay and post ad >");
 			}
 			else {
 				$(".not-freeplan").css("display", "none");
-				$(".finish").text("Create Now");
+				$(".finish").text("Post ad >");
 			}
 		}
 		else if (planSelect.val() == 2) {
@@ -1464,11 +1464,11 @@ if (next2) {
 
 			$("input[type='file']").attr('data-max-files', "5");
 			$(".not-freeplan").css("display", "block");
-			$(".finish").text("Pay Now");
+			$(".finish").text("Pay and post ad >");
 		}
 		else {
 			$(".not-freeplan").css("display", "block");
-			$(".finish").text("Pay Now");
+			$(".finish").text("Pay and post ad >");
 		}
 
 		
@@ -1561,14 +1561,14 @@ if (hompage2) {
 				let twich =  total + 20;
 				$(".row-total h3").html("Total: $"+twich);
 				$(".not-freeplan").css("display", "block");
-				$(".finish").text("Pay Now");
+				$(".finish").text("Pay and post ad >");
 		}
 		else {
 			if (planes == 1) {
 				let total = precio_planes();
 				$(".row-total h3").html("Total: $"+total);
 				$(".not-freeplan").css("display", "none");
-				$(".finish").text("Create Now");
+				$(".finish").text("Post ad >");
 			}
 			else {
 				let total = precio_planes();
@@ -2362,7 +2362,7 @@ if (info_user) {
 		   		//console.log(res);
 		   		if (res.body.message == 'ok') {
 		   			$("#loading .wrapper-form img").css("display", "none");
-		   			$("#loading .wrapper-form").append("<div class='container-form'> <h2> Successfully uploaded </h2> </div>");
+		   			$("#loading .wrapper-form").append("<div class='container-form'><h2>Your data has been updated correctly!</h2> </div>");
 		   			setTimeout(function() { location.reload() }, 2200);
 		   		}
 		   		else {

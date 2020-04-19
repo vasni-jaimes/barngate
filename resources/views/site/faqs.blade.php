@@ -96,7 +96,7 @@
 			<div class="item-tab">
 				<div class="tab-p fz-18 fw-700">I want to take the animal for a trial period, but the seller doesn’t want the animal to leave his/her property. Should I be suspicious?</div>
 				<div class="fz-16 bullet-tab">
-					<p>Not necessarily. The seller may have other buyers lined up, or the seller may simply not want to take the risk that something may happen to her horse while it is not under her care. If you can, try the animal several times at the seller’s property instead.</p>
+					<p>Not necessarily. The seller may have other buyers lined up, or the seller may simply not want to take the risk that something may happen to his/her animal while it is not under her care. If you can, try the animal several times at the seller’s property instead.</p>
 				</div> <!-- /bullet-tab -->
 			</div> <!-- /item-tab -->
 			
@@ -110,9 +110,9 @@
 			<h2 class="mt-40 fw-700">Pricing, ad duration & renewals</h2>
 			
 			<div class="item-tab">
-				<div class="tab-p fz-18 fw-700">How much does it cost to list my horse?</div>
+				<div class="tab-p fz-18 fw-700">How much does it cost to list my animal?</div>
 				<div class="fz-16 bullet-tab">
-					<p>Please visit</p>
+					<p>You can list you animal for free. However we have two plans to give your ad an extra boost. They are the STANDARD and PREMIUM plans.</p>
 				</div> <!-- /bullet-tab -->
 			</div> <!-- /item-tab -->
 			
@@ -126,7 +126,7 @@
 			<div class="item-tab">
 				<div class="tab-p fz-18 fw-700">How long will my ad run for?</div>
 				<div class="fz-16 bullet-tab">
-					<p>Please visit</p>
+					<p>If your plan is FREE, your ad will last 30 days. If your ad is on the STANDARD plan, your ad will last 60 days. If your ad is on the PREMIUM plan, your ad will last 180 days. We will notify you a few days before your ad is due to expire.</p>
 				</div> <!-- /bullet-tab -->
 			</div> <!-- /item-tab -->
 			
@@ -160,13 +160,13 @@
 				</div> <!-- /bullet-tab -->
 			</div> <!-- /item-tab -->
 			
-			<div class="item-tab">
+			<!--<div class="item-tab">
 				<div class="tab-p fz-18 fw-700">How do I get my video link up?</div>
 				<div class="fz-16 bullet-tab">
 					<p>Create an account with YouTube or another video service and upload your video there. Go to the YouTube page with your video on it, and copy the link.</p>
 					<p>Sign in to your account and go to "My Ads." Select "edit ad" for the horse you are adding the video to. Paste the link and save your ad.</p>
-				</div> <!-- /bullet-tab -->
-			</div> <!-- /item-tab -->
+				</div> /bullet-tab 
+			</div> /item-tab -->
 			
 			<h2 class="mt-40 fw-700">Ads management</h2>
 			
@@ -180,7 +180,7 @@
 			<div class="item-tab">
 				<div class="tab-p fz-18 fw-700">My animal was sold. How can I mark it as sold?</div>
 				<div class="fz-16 bullet-tab">
-					<p>You may delete the ad (see above for directions) or mark it as sold. To mark the ad as sold, sign in to your account and click on "My Ads." Find the ad you would like to mark as sold, and click "Mark Sold." Your user information will be removed from the ad and you will not be contacted any longer, but the ad will still be visible under the "Sold" page.</p>
+					<p>To mark the ad as sold, sign in to your account and click on "My Listing." Find the ad you would like to mark as sold, and click "Sold." Your user information will be removed from the ad and you will not be contacted any longer.</p>
 				</div> <!-- /bullet-tab -->
 			</div> <!-- /item-tab -->
 			
@@ -189,7 +189,7 @@
 			<div class="item-tab">
 				<div class="tab-p fz-18 fw-700">I am a broker and I run a sale barn, can I list my farm or business as an ad?</div>
 				<div class="fz-16 bullet-tab">
-					<p>Our listings are designed to for individual animals. Please list only one horse/pony per listing.</p>
+					<p>Our listings are designed to for individual animals or in case of some type of animals, per number of heads.</p>
 				</div> <!-- /bullet-tab -->
 			</div> <!-- /item-tab -->
 			
@@ -203,7 +203,7 @@
 			<div class="item-tab">
 				<div class="tab-p fz-18 fw-700">I want to email a seller. Why do I have to register to contact them?</div>
 				<div class="fz-16 bullet-tab">
-					<p>All users must be registered so we can protect our buyers and sellers from scams and scammers.</p>
+					<p>All users must be registered so we can protect our buyers and sellers from scams and scammers. You can send a message to the seller through our platform to answer all your questions.</p>
 				</div> <!-- /bullet-tab -->
 			</div> <!-- /item-tab -->
 			
