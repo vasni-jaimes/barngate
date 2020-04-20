@@ -12,7 +12,7 @@
 			
 			<div class="row">
 				<div class="col-md-4 pb-20">
-					<div class="wrapper-plan text-center plancenter {{ planSelected(1) }}" data-plan="1"">
+					<div class="wrapper-plan text-center plancenter {{ planSelectedUpdate(1, $sale) }}" data-plan="1"">
 						<h3 class="fw-700 fz-28">BASIC</h3>
 						<span class="price fz-24 fw-700">Free</span>
 						<div class="flex">
@@ -25,7 +25,7 @@
 					</div> <!-- /wrapper-plan -->
 				</div>
 				<div class="col-md-4 pb-20">
-					<div class="wrapper-plan text-center plancenter  {{ planSelected(2) }} {{ planSelectDefault() }}" data-plan="2">
+					<div class="wrapper-plan text-center plancenter  {{ planSelectedUpdate(2, $sale) }}" data-plan="2">
 						<small>Most Popular</small>
 						<h3 class="fw-700 fz-28">STANDARD</h3>
 						<span class="price fz-24 fw-700">$10</span>
@@ -37,15 +37,12 @@
 					</div> <!-- /wrapper-plan -->
 				</div>
 				<div class="col-md-4 pb-20">
-					<div class="wrapper-plan text-center plancenter {{ planSelected(3) }}" data-plan="3">
+					<div class="wrapper-plan text-center plancenter {{ planSelectedUpdate(3, $sale) }}" data-plan="3">
 						<h3 class="fw-700 fz-28">PREMIUM</h3>
 						<span class="price fz-24 fw-700">$20</span>
 						<ul class="flex-auto pt-40 check-list fz-20 text-left">
 							<li>Add duration <span class="fw-700">(180 days)</span></li>
 							<li>Unlimited photos</li>
-							{{-- <li>Guide to take the best pictures of your Animal</li> --}}
-							{{-- <li>Upload Videos</li> --}}
-							{{-- <li>Guide to take the best Videos of your Animal</li> --}}
 						</ul>
 						<a class="btn-blue" href="javascript:void(0)">Choose the Premium Plan</a>
 					</div> <!-- /wrapper-plan -->
@@ -55,7 +52,7 @@
 			{{-- <div class="listing-homepage">
 				<div class="flex between items-center fz-20 text-white"> --}}
 					{{-- <label><input type="checkbox" name="hompage" {{ homepageReload() }} value="1">Feature your listing on our Homepage</label> --}}
-					<input type="hidden" name="planSelect" value="{{ old("planSelect", 2) }}">
+					<input type="hidden" name="planSelect" value="{{ old("planSelect", $sale->plan_id) }}">
 					{{-- <span>$20</span> --}}
 				<!--</div>  /flex 
 			</div> /listing-homepage -->

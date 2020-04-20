@@ -25,7 +25,7 @@ class RestringUpdateSale
             return redirect()->route("myaccount");
         }
 
-        if ($sale->user_id != auth()->user()->user_id || $sale->disabled == 0) {
+        if ($sale->user_id != auth()->user()->user_id) {
             return redirect()->route("myaccount");
         }
 

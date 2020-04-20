@@ -258,7 +258,8 @@
 						<input type="text" class="form-input" name="zip" value="{{ old("zip") }}">
 						{!! $errors->paso1->first('zip', "<span class='err' style='display:block;margin-bottom:15px;color:red'>:message</span>") !!}
 					</div> <!-- /col-4 -->
-					<div class="col-md-3 pb-20" style="display: none;">
+					<div class="col-md-3 pb-20" style="display: none">
+
 						<h3 class="fw-700">Country:<span>*</span></h3>
 						<select class="form-input" name="country">
 							<option value="1"> United States </option>

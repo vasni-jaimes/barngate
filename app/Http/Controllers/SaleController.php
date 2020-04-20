@@ -1167,7 +1167,8 @@ class SaleController extends Controller
     public function updatePlan($id)
     {
          $notificaciones = $this->getNotify();
-        return view("site.renovate", compact("id", "notificaciones"));
+         $sale = Sale::where("nickname", $id)->first();
+        return view("site.renovate", compact("id", "notificaciones", "sale"));
     }
 
 

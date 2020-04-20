@@ -41,6 +41,18 @@ function planSelected($plan) {
 }
 
 
+function planSelectedUpdate($plan, $sale) {
+	if (old("planSelect") == $plan) {
+		return "plan-selected";
+	}
+	else {
+		if ($sale->plan_id == $plan) {
+			return "plan-selected";
+		}
+	}
+}
+
+
 
 function planSelectDefault() {
 	if (old("planSelect") != 1 && old("planSelect") != 2 && old("planSelect") != 3) {
