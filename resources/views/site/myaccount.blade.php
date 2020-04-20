@@ -37,12 +37,33 @@
 						<div class="box-tab">
 							<div class="flex">
 								<div class="item-flex">
-									<h2>Basic Info</h2>
-									<ul>
-										<li><p>{{ auth()->user()->email }}</p></li>
-										<li><p>{{ auth()->user()->username }}</p></li>
-										<li><p> * * * * * * * * * * * </p></li>
-									</ul>
+                                    <div class="flex mb-20 flex-picture">
+                                        <form enctype="multipart/form-data" id="formupload">
+                                            <div class="item-flex">
+                                                <fieldset class="form-file">
+                                                    <input type="file" name="upload" id="upload" class="cargar-picture">
+                                                    <label for="upload">
+                                                        <span>Upload picture</span>
+                                                        @if (auth()->user()->urlImg != null)
+                                                            <div id="imgSalida" width="98%" height="98%" style="display: block; background-image: url('{{ Storage::url(auth()->user()->urlImg) }}')" ></div>
+                                                        @else
+                                                            <div id="imgSalida" width="98%" height="98%" style="" ></div>
+                                                        @endif
+                                                        @csrf
+                                                    </label>
+                                                </fieldset>
+                                            </div> <!-- /item-flex -->
+                                        </form>
+                                        <div>
+                                            <h2>Basic Info</h2>
+                                            <ul>
+                                                <li><p>{{ auth()->user()->email }}</p></li>
+                                                <li><p>{{ auth()->user()->username }}</p></li>
+                                                <li><p> * * * * * * * * * * * </p></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+									
 									<h2>Contact Info</h2>
 									<ul>
 										<li><p>{{ ( auth()->user()->name == null ) ? "Name" :  auth()->user()->name }}</p></li>
@@ -53,22 +74,7 @@
 									</ul>
 									<button class="show-info selector">Edit My Account Info</button>
 								</div> <!-- /item-flex -->
-								<form enctype="multipart/form-data" id="formupload">
-									<div class="item-flex">
-										<fieldset class="form-file">
-											<input type="file" name="upload" id="upload" class="cargar-picture">
-											<label for="upload">
-												<span>Upload profile picture</span>
-												@if (auth()->user()->urlImg != null)
-													<div id="imgSalida" width="98%" height="98%" style="display: block; background-image: url('{{ Storage::url(auth()->user()->urlImg) }}')" ></div>
-												@else
-													<div id="imgSalida" width="98%" height="98%" style="" ></div>
-												@endif
-												@csrf
-											</label>
-										</fieldset>
-									</div> <!-- /item-flex -->
-								</form>
+								
 							</div> <!-- /flex -->
 						</div> <!-- /box-tab -->
 					</div>

@@ -17,6 +17,8 @@
 
 <link href="/slick/slick.css" rel="stylesheet">
 <link href="/slick/slick-theme.css" rel="stylesheet">
+    
+<link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png" />
 
 
 @guest
@@ -52,7 +54,7 @@
 						<ul class="menu_top">
 							<li><a href="{{ route("faqs") }}" class="{{ request()->routeIs("faqs") ? "active_menu" : "" }}">FAQ's</a></li>
 							<li><a href="https://blog.barngate.com/" target="_blank">Blog</a> </li>
-							<li><a href="{{ route("contact") }}" class="{{ request()->routeIs("contact") ? "active_menu" : "" }}" >Contact Us</a> </li>
+							<li><a href="{{ route("contact") }}" class="{{ request()->routeIs("contact-us") ? "active_menu" : "" }}" >Contact Us</a> </li>
 
 							@auth
 								<li class="no-style" style="padding: 0 18px;"><a href="{{ route("logout.get") }}">Logout</a> </li>
@@ -240,11 +242,10 @@
 		@endguest
 
 		@auth
-			<li><a href="#">My account</a></li>
+			<li><a href="{{ route("myaccount") }}">My account</a></li>
 			<li><a href="{{ route("sale") }}">Sale</a></li>
-			<li>
-				<a href="#">Notifications</a>
-				<ul>
+			<li><a href="/notifications">Notifications</a>
+				<!--<ul>
 					<li class="flex txt-notificacion">
 						<img src="/images/picture.jpg">
 						<span>
@@ -262,7 +263,7 @@
 						</span>
 					</li>
 					<a class="seeall" href="/notifications">See all</a>
-				</ul>
+				</ul>-->
 			</li>
 		@endauth
 		
@@ -317,7 +318,10 @@
 
 	<div class="shadowbox" id="loading">
 		<div class="wrapper-form">
-			<img src="/images/loading.gif" alt="loading">
+            <div>
+                <h2 class="mb-15">We are publishing your animal.</h2>
+                <img src="/images/loading.gif" alt="loading">
+            </div>
 		</div> <!-- /wrapper-form -->
 	</div> <!-- /shadowbox -->
 

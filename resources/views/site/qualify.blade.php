@@ -4,44 +4,36 @@
 
 	<div class="container pt-40 pb-40">
 		
-		<div class="row ma-widget-position">
+		<div class="row-qualified">
 			
-			<div class="col-md-12">
+			<div class="row-rating">
+                    
+                <h2 class="mb-20 fw-700 text-blue"> Rating the seller "<strong>{{ $username }}</strong>" </h2>
 
-				<div class="msg-layout__secondary">
+                <div class="fa-calificacion-send">
+                    <p class="fw-700"></p>
+                    <ul class="rating">
+                        <li><i class="fa fa-star"></i></li>
+                        <li><i class="fa fa-star"></i></li>
+                        <li><i class="fa fa-star"></i></li>
+                        <li><i class="fa fa-star"></i></li>
+                        <li><i class="fa fa-star"></i></li>
+                    </ul>
+                </div> <!-- /txt-list -->
 
-					<h2 style="margin-bottom: 30px;"> Rating the seller "<strong>{{ $username }}</strong>" </h2>
+                <form action="{{ route("qualifyForm") }}" method="POST" id="form_qualify">
+                    <input type="hidden" name="contador">
+                    <input type="hidden" name="username" value="{{ $username }}">
+                    <input type="hidden" name="animal_id" value="{{ $sale_id }}">
+                    @csrf
+                    <button class="qualify_v"> Qualify </button>
+                </form>
 
-					<div class="wrapper-stars">
-						<div class="fa-calificacion-send">
-							<p class="fw-700"></p>
-							<ul class="rating">
-								<li><i class="fa fa-star"></i></li>
-								<li><i class="fa fa-star"></i></li>
-								<li><i class="fa fa-star"></i></li>
-								<li><i class="fa fa-star"></i></li>
-								<li><i class="fa fa-star"></i></li>
-							</ul>
-						</div> <!-- /txt-list -->
-					</div> <!-- /item-flex -->
+            </div> <!-- /row-rating -->
 
-					<form action="{{ route("qualifyForm") }}" method="POST" id="form_qualify">
-						<input type="hidden" name="contador">
-						<input type="hidden" name="username" value="{{ $username }}">
-						<input type="hidden" name="animal_id" value="{{ $sale_id }}">
-						@csrf
-						<button class="qualify_v"> qualify </button>
-					</form>
+		</div> <!-- /row-qualified -->
 
-				</div>
-
-			</div>
-
-		</div>
-
-	</div>
-
-
+	</div> <!-- /container -->
 
 	<div class="shadowbox" id="error_report">
 		<div class="close"></div> <!-- /close -->
@@ -51,7 +43,6 @@
 			</div>
 		</div> <!-- /wrapper-form -->
 	</div> <!-- /shadowbox -->
-
 
 	<div class="shadowbox" id="success_score">
 		<div class="close"></div> <!-- /close -->

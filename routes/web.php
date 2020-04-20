@@ -76,5 +76,5 @@ Route::get('/notifications', 'PageEstaticController@showNotifications')->name('n
 Route::get('/faqs', 'PageEstaticController@showFaqs')->name('faqs');
 Route::get('/privacy-policy', 'PageEstaticController@showPrivacy')->name('privacy');
 Route::get('/about', 'PageEstaticController@showAbout')->name('about');
-Route::get('/contact', 'PageEstaticController@showContact')->name('contact');
+Route::get('/contact-us', 'PageEstaticController@showContact')->name('contact');
 

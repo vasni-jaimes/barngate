@@ -581,6 +581,46 @@ fieldset {
 	text-align: center;
 }
 
+.row-qualified h2 {
+    padding: 0 0 15px;
+    border-bottom: 1px solid #26375D;
+}
+
+.qualify_v {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	display: inline-block;
+	max-width: 175px;
+	width: 100%;
+	margin: 15px 0 0;
+	padding: .375rem .75rem;
+	border: 0;
+    text-decoration: none;
+	color: #fff;
+	border-radius: 5px;
+    background: #29385A!important;
+	font-weight: 500;
+    font-size: 17px;
+	cursor: pointer;
+	text-align: center;
+}
+
+.row-rating {
+    display: block;
+    max-width: 400px; 
+    width: 100%;
+    padding: 25px 20px;
+    margin: auto;
+    border-radius: 5px;
+    background-color: #f8f8f8;
+    text-align: center;
+}
+
+.row-rating ul {
+    padding-left: 0;
+}
+
 .shadowbox {
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
@@ -598,7 +638,7 @@ fieldset {
 }
 
 .shadowbox#loading img {
-	width: 80px;
+	width: 60px;
 	height: auto;
 }
 
@@ -624,6 +664,7 @@ fieldset {
 
 .wrapper-form > div {
 	width: 100%;
+    text-align: center;
 }
 
 .container-form {
@@ -1084,6 +1125,56 @@ textarea.form-input {
 	font-weight: 700;
 }
 
+.filepond--root {
+    padding: 15px 0;
+}
+
+.filepond--drop-label {
+    cursor: pointer;
+}
+
+.filepond--drop-label label:after {
+	content: '+';
+    position: absolute;
+    width: 55px;
+    height: 55px;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    right: 0;
+    bottom: 0;
+    line-height: 50px;
+    color: #fff;
+    font-size: 45px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.filepond--drop-label label:before {
+    content: '';
+    display: block;
+    position: relative;
+    width: 55px;
+    height: 55px;
+    top: 0;
+    transition: opacity .3s, transform .3s;
+    animation: pulse-animation 1s infinite;
+    background-color: #F95F62;
+    border-radius: 50%;
+    z-index: -1;
+    margin: auto;
+    cursor: pointer;
+}
+
+.filepond--drop-label h2 {
+    padding: 0;
+    margin: 0;
+    border-bottom: 0; 
+    font-size: 0!important;
+}
+
 .row-plan {
 	display: block;
 	max-width: 250px; 
@@ -1269,9 +1360,9 @@ textarea.form-input {
 }
 
 @media (max-width: 767px){
-	.flex-tabs{
+	/*.flex-tabs{
 		flex-direction: column;
-	}
+	}*/
     
 	.tab{
 		max-width: 100%;
@@ -1441,6 +1532,7 @@ textarea.form-input {
 }
 
 .form-file {
+    margin-right: 20px;
 	text-align: right;
 }
 
@@ -1456,9 +1548,9 @@ textarea.form-input {
 .cargar-picture + label {
 	display: inline-block;
 	position: relative;
-	width: 175px;
-	height: 175px;
-	padding: 20px;
+	width: 100px;
+	height: 100px;
+	padding: 10px;
 	box-sizing: border-box;
 	text-align: center;
 	font-size: 14px;
@@ -1486,9 +1578,9 @@ textarea.form-input {
 .cargar-picture + label span {
 	display: block;
 	position: relative;
-	margin: 20px 0 0;
+	margin: 5px 0 0;
 	font-family: Lato;
-	font-size: 16px;
+	font-size: 14px;
   	font-weight: 700;
 	color: #969FAA;
 	left: 50%;
@@ -1583,6 +1675,13 @@ textarea.form-input {
 	background-position: left 5px center;
 }
 
+.fav.btn-border:hover,
+.fav.btn-border.active {
+    color: #fff;
+    background-color: #26375d;
+    background-image: url(../images/star-white.png);
+}
+
 .row-animal {
 	flex: 2 1;
 	overflow: hidden;
@@ -1638,7 +1737,7 @@ textarea.form-input {
 	width: 100%;
 	max-width: 100%;
 	padding: 20px 0 0;
-	border-top: 1px solid #8492A6;
+	border-top: 1px solid #26375D;
 }
 
 .slide-thumbs {
@@ -1746,24 +1845,31 @@ textarea.form-input {
 }
 
 .row-vista {
-	height: 625px; 
+	height: calc(100% - 105px);
+    max-height: 714px;
 	padding: 15px;
 	background-color: #CDD5E0;
 	overflow-y: auto;
 }
 
 /* total width */
-.row-vista::-webkit-scrollbar {
+.row-vista::-webkit-scrollbar,
+.row-lista::-webkit-scrollbar,
+.row-fav::-webkit-scrollbar {
 	width: 16px;
 }
 
-.row-vista::-webkit-scrollbar-track {
+.row-vista::-webkit-scrollbar-track,
+.row-lista::-webkit-scrollbar-track,
+.row-fav::-webkit-scrollbar-track {
 	box-shadow: inset 0 0 14px 14px transparent;
 	border: solid 4px transparent;
 	background: #26375D; 
 }
 
-.row-vista::-webkit-scrollbar-thumb {
+.row-vista::-webkit-scrollbar-thumb,
+.row-lista::-webkit-scrollbar-thumb,
+.row-fav::-webkit-scrollbar-thumb {
 	box-shadow: inset 0 0 14px 14px #fff;
 	border: solid 4px transparent;
 	border-radius: 14px;
@@ -1864,8 +1970,8 @@ textarea.form-input {
 .row-lista,
 .row-fav {
 	display: none;
-	margin: 20px 0 0;
-	height: 625px; 
+    max-height: 714px;
+	height: calc(100% - 105px);
 	padding: 15px;
 	background-color: #CDD5E0;
 	overflow-y: auto;
@@ -1890,6 +1996,14 @@ textarea.form-input {
 
 .item-lista p.price {
 	color: #000000;
+}
+
+.img-h {
+    width: 200px;
+    padding: 30% 0 0;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
 }
 
 .item-d {
@@ -2013,6 +2127,10 @@ textarea.form-input {
 
 .flex-column {
 	flex-direction: column;
+}
+
+.reverse {
+    flex-direction: row-reverse;
 }
 
 .border-box {
@@ -3461,9 +3579,26 @@ label.error{
         line-height: 32px !important;
     }
 	
-	.wrapper-principal .flex {
+	.wrapper-principal .flex,
+    .item-lista .flex {
 		display: block;
 	}
+    
+    .item-lista .flex.align-items {
+        display: flex;
+        justify-content: center;
+    }
+    
+    .item-d {
+        padding: 10px 0;
+        padding-left: 0;
+        text-align: center;
+    }
+    
+    .img-h {
+        display: block; 
+        margin: auto;
+    }
 	
 	.row-desc {
 		margin-left: 0;
@@ -3496,6 +3631,18 @@ label.error{
 		flex: 0 0 33%;
 		max-width: 33%;
 	}
+    
+    .wrapper-vista {
+        padding: 30px 0;
+    }
+    
+    .wrapper-vista > .flex {
+        display: block;
+    }
+    
+    .content-serch {
+        margin: 0 0 20px;
+    }
 }
 
 @media screen and (max-width: 500px) {
@@ -3522,6 +3669,17 @@ label.error{
 	.container-form {
 		padding: 20px;
 	}
+}
+
+@media screen and (max-width: 350px) {
+    .flex-picture {
+        display: block;
+    }
+    
+    .form-file {
+        margin-right: 0;
+        text-align: center;
+    }
 }
 
 .fab,

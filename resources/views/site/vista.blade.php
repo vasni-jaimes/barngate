@@ -8,12 +8,70 @@
 	<div class="container">
 	
 		<div class="row wrapper-vista">
-		
-			<div class="col-md-3">
-				
-				<div class="row-mapa">
-					<a href="#" class="text-white btn btn-red go-to_map">Go to Map</a>
-				</div> <!-- /row-mapa -->
+            
+            <div class="flex reverse" style="width: 100%;">
+
+                <div class="col-md-9">
+
+                    <div class="row row-eq-height content-serch">
+
+                        <a href="{{ route("vistaSearch", "buy-cattle-online") }}" class="col-md-2 col-animal @if (@$category == 1) active-animal @endif" data-animal="1">
+                            <div>
+                                <img src="/images/animals/horse-classifieds-barngate-icons-home-vaca.png" />
+                                <p>Cattle for Sale</p>
+                            </div>
+                        </a> <!-- /col-md-2 -->
+
+                        <a href="{{ route("vistaSearch", "buy-a-horse-online") }}" class="col-md-2 col-animal @if (@$category == 2) active-animal @endif" data-animal="2">
+                            <div>
+                                <img src="/images/animals/horse-classifieds-barngate-icons-home-caballo.png" />
+                                <p>Horse for Sale</p>
+                            </div>
+                        </a> <!-- /col-md-2 -->
+
+                        <a href="{{ route("vistaSearch", "buy-sheep-online") }}" class="col-md-2 col-animal @if (@$category == 3) active-animal @endif" data-animal="3">
+                            <div>
+                                <img src="/images/animals/horse-classifieds-barngate-icons-home-oveja.png" />
+                                <p>Sheep for Sale</p>
+                            </div>
+                        </a> <!-- /col-md-2 -->
+
+                        <a href="{{ route("vistaSearch", "buy-goat-online") }}" class="col-md-2 col-animal @if (@$category == 4) active-animal @endif" data-animal="4">
+                            <div>
+                                <img src="/images/animals/horse-classifieds-barngate-icons-home-becerro.png" />
+                                <p>Goat for Sale</p>
+                            </div>
+                        </a> <!-- /col-md-2 -->
+
+                        <a href="{{ route("vistaSearch", "buy-pig-online") }}" class="col-md-2 col-animal @if (@$category == 5) active-animal @endif" data-animal="5">
+                            <div>
+                                <img src="/images/animals/horse-classifieds-barngate-icons-home-cerdo.png" />
+                                <p>Pig for Sale</p>
+                            </div>
+                        </a> <!-- /col-md-2 -->
+
+                        <a href="{{ route("vistaSearch", "online-pet-classifleds") }}" class="col-md-2 col-animal @if (@$category == 6) active-animal @endif" data-animal="6">
+                            <div>
+                                <img src="/images/animals/horse-classifieds-barngate-icons-home-perro.png" />
+                                <p>Pet Section</p>
+                            </div>
+                        </a> <!-- /col-md-2 -->
+
+                    </div> <!-- /row -->
+
+                </div> <!-- /col-md-9 -->
+                
+                <div class="col-md-3">
+
+                    <div class="row-mapa">
+                        <a href="#" class="text-white btn btn-red go-to_map">Go to Map</a>
+                    </div> <!-- /row-mapa -->
+
+                </div> <!-- /col-md-3 -->
+                
+            </div> <!-- /flex -->
+            
+            <div class="col-md-3">
 				
 				<div class="row-filtros">
 					
@@ -171,58 +229,12 @@
 					{{-- </div> /view-more --}}
 					
 				</div> <!-- /row-filtros -->
-				
-			</div> <!-- /col-md-4 -->
+
+			</div> <!-- /col-md-3 -->
 			
 			<div class="col-md-9">
-			
-				<div class="row row-eq-height content-serch">
-
-					<a href="{{ route("vistaSearch", "buy-cattle-online") }}" class="col-md-2 col-animal @if (@$category == 1) active-animal @endif" data-animal="1">
-						<div>
-							<img src="/images/animals/horse-classifieds-barngate-icons-home-vaca.png" />
-							<p>Cattle for Sale</p>
-						</div>
-					</a> <!-- /col-md-2 -->
-
-					<a href="{{ route("vistaSearch", "buy-a-horse-online") }}" class="col-md-2 col-animal @if (@$category == 2) active-animal @endif" data-animal="2">
-						<div>
-							<img src="/images/animals/horse-classifieds-barngate-icons-home-caballo.png" />
-							<p>Horse for Sale</p>
-						</div>
-					</a> <!-- /col-md-2 -->
-
-					<a href="{{ route("vistaSearch", "buy-sheep-online") }}" class="col-md-2 col-animal @if (@$category == 3) active-animal @endif" data-animal="3">
-						<div>
-							<img src="/images/animals/horse-classifieds-barngate-icons-home-oveja.png" />
-							<p>Sheep for Sale</p>
-						</div>
-					</a> <!-- /col-md-2 -->
-
-					<a href="{{ route("vistaSearch", "buy-goat-online") }}" class="col-md-2 col-animal @if (@$category == 4) active-animal @endif" data-animal="4">
-						<div>
-							<img src="/images/animals/horse-classifieds-barngate-icons-home-becerro.png" />
-							<p>Goat for Sale</p>
-						</div>
-					</a> <!-- /col-md-2 -->
-
-					<a href="{{ route("vistaSearch", "buy-pig-online") }}" class="col-md-2 col-animal @if (@$category == 5) active-animal @endif" data-animal="5">
-						<div>
-							<img src="/images/animals/horse-classifieds-barngate-icons-home-cerdo.png" />
-							<p>Pig for Sale</p>
-						</div>
-					</a> <!-- /col-md-2 -->
-
-					<a href="{{ route("vistaSearch", "online-pet-classifleds") }}" class="col-md-2 col-animal @if (@$category == 6) active-animal @endif" data-animal="6">
-						<div>
-							<img src="/images/animals/horse-classifieds-barngate-icons-home-perro.png" />
-							<p>Pet Section</p>
-						</div>
-					</a> <!-- /col-md-2 -->
-
-				</div> <!-- /row -->
 				
-				<div class="btn-vista mt-50 mb-20 flex">
+				<div class="btn-vista pt-50 pb-20 flex">
 					<div class="vista1 active"><i class="fas fa-th-large"></i></div>
 					<div class="vista2"><i class="fas fa-list"></i></div>
 					<div>
@@ -324,7 +336,7 @@
 																							
 								<div class="flex between items-center">
 									<div class="flex items-center">
-										<img src="{{ "/storage/images/".$animal[$i]["img"] }}">
+										<div class="img-h" src="{{ "/storage/images/".$animal[$i]["img"] }}" style="background-image: url('{{ "/storage/images/".$animal[$i]["img"] }}')"></div>
 										<div class="item-d">
 											<a href="{{ route("sale.show", $animal[$i]["nickname"]) }}">
 												<p>{{ $animal[$i]["color"] }} {{ $animal[$i]["animal_name"] }}  {{ $animal[$i]["breeds_name"] }}  </p>

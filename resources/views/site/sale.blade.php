@@ -237,7 +237,7 @@
 				<h3 class="fw-700 pt-20">Location</h3>
 				
 				<div class="row pt-20">
-					<div class="col-md-3 pb-20">
+					<div class="col-md-4 pb-20">
 						<h3 class="fw-700">State/Province/Region:<span>*</span></h3>
 						<select class="form-input" name="region">
 							@foreach($estados as $estado)
@@ -247,18 +247,18 @@
 						{{-- <input type="text" class="form-input" name="region" value="{{ old("region") }}"> --}}
 						{!! $errors->paso1->first('region', "<span class='err' style='display:block;margin-bottom:15px;color:red'>:message</span>") !!}
 					</div> <!-- /col-4 -->
-					<div class="col-md-3 pb-20">
+					<div class="col-md-4 pb-20">
 						<h3 class="fw-700">City:<span>*</span></h3>
 						<select class="form-input" name="city"></select>
 						{{-- <input type="text" class="form-input" name="city" value="{{ old("city") }}"> --}}
 						{!! $errors->paso1->first('city', "<span class='err' style='display:block;margin-bottom:15px;color:red'>:message</span>") !!}
 					</div> <!-- /col-4 -->
-					<div class="col-md-3 pb-20">
+					<div class="col-md-4 pb-20">
 						<h3 class="fw-700">ZIP:<span>*</span></h3>
 						<input type="text" class="form-input" name="zip" value="{{ old("zip") }}">
 						{!! $errors->paso1->first('zip', "<span class='err' style='display:block;margin-bottom:15px;color:red'>:message</span>") !!}
 					</div> <!-- /col-4 -->
-					<div class="col-md-3 pb-20">
+					<div class="col-md-3 pb-20" style="display: none;">
 						<h3 class="fw-700">Country:<span>*</span></h3>
 						<select class="form-input" name="country">
 							<option value="1"> United States </option>
