@@ -12,6 +12,13 @@
 
 					<div>
 						<div id="messaging-widget-header" class="msg-header">
+
+							@if ($user_chat->urlImg == null)
+								<div style="background-image: url('/images/sin_foto.jpeg')" class="img_mini"></div>
+							@else
+								<div style="background-image: url('{{ Storage::url($user_chat->urlImg) }}')" class="img_mini"></div>
+							@endif
+
 							<div class="msg-header__username"><span class="msg-header__link"> {{ $user_chat->username }} </span></div> 
 							<div>Rating</div>
 							<ul class="rating">

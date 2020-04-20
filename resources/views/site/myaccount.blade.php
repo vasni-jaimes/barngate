@@ -117,6 +117,8 @@
 														<a href="#" class="mw-150 btn btn-primary botton-remove" data-animal="{{ $animal[$i]["nickname"] }}">Remove</a>
 													@else
 														<a href="#" class="mw-150 btn btn-primary sold" data-animal="{{ $animal[$i]["nickname"] }}">Sold</a>
+														<a href="#" class="mw-150 btn btn-primary botton-remove" data-animal="{{ $animal[$i]["nickname"] }}">Remove</a>
+														<a href="{{ route("sale.updateplan", $animal[$i]["nickname"]) }}" class="mw-150 btn btn-primary botton-renovate">Update Plan</a>
 													@endif
 												@else
 													<a href="{{ route("sale.updateplan", $animal[$i]["nickname"]) }}" class="mw-150 btn btn-primary botton-renovate">Renovate</a>
