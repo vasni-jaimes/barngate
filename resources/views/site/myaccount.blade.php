@@ -87,9 +87,6 @@
 
 					<div id="tab-three-panel" class="panel">
 						<div class="box-tab">
-							<div class="pb-20 text-center">
-								<a href="{{ route("sale") }}" class="mw-150 btn btn-primary">Sale New Animal ></a>
-							</div>
 							<h3 class="title-green">Your Listings</h3>
 							@if ($animal == null)
 								<p> <em> None Currently live </em> </p>
@@ -128,6 +125,9 @@
 										</div> <!-- /flex -->
 									</div> <!-- /flex-list -->
 								@endfor
+							</div>
+                            <div class="pb-20 text-center">
+								<a href="{{ route("sale") }}" class="mw-150 btn btn-primary">Sale New Animal ></a>
 							</div>
 						</div> <!-- /box-tab -->
 					</div>

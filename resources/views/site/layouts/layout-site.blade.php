@@ -171,7 +171,7 @@
 						<li><a href="/faqs">FAQ's</a></li>
 						<li><a href="https://blog.barngate.com/" target="_blank">Blog</a> </li>
 						<li><a href="{{ route("contact") }}">Contact Us</a> </li>
-                        <li><a href="/privacy-policy">Privacy policy</a></li>
+                        <li><a href="/privacy-policy">Privacy Policy</a></li>
 					</ul>
 				</div>
 

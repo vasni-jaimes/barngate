@@ -21,7 +21,7 @@
 								<li>1 photo</li>
 							</ul>
 						</div>
-						<a class="btn-red" href="#">Choose the Basic Plan (1 Photo)</a>
+						<a class="btn-blue" href="javascript:void(0)">Choose the Basic Plan</a>
 					</div> <!-- /wrapper-plan -->
 				</div>
 				<div class="col-md-4 pb-20">
@@ -33,7 +33,7 @@
 							<li>Add duration <span class="fw-700">(90 days)</span></li>
 							<li>5 photos</li>
 						</ul>
-						<a class="btn-red" href="#">Choose the Basic Plan (1 Photo)</a>
+						<a class="btn-blue" href="javascript:void(0)">Choose the Standard Plan</a>
 					</div> <!-- /wrapper-plan -->
 				</div>
 				<div class="col-md-4 pb-20">
@@ -43,11 +43,8 @@
 						<ul class="flex-auto pt-40 check-list fz-20 text-left">
 							<li>Add duration <span class="fw-700">(180 days)</span></li>
 							<li>Unlimited photos</li>
-							{{-- <li>Guide to take the best pictures of your Animal</li>
-							<li>Upload Videos</li>
-							<li>Guide to take the best Videos of your Animal</li> --}}
 						</ul>
-						<a class="btn-red" href="#">Choose the Basic Plan (1 Photo)</a>
+						<a class="btn-blue" href="javascript:void(0)">Choose the Premium Plan</a>
 					</div> <!-- /wrapper-plan -->
 				</div>
 			</div> <!-- /row -->
@@ -61,7 +58,7 @@
 			</div> /listing-homepage -->
 			
 			<div class="pt-40 pb-20 text-center">
-				<a href="#" class="mw-150 btn btn-primary nexts2_plan">Next</a>
+				<a href="#" class="mw-150 btn btn-primary nexts2_plan">Next ></a>
 				{!! $errors->paso2->first('planSelect', "<span class='err' style='display:block;margin-bottom:15px;color:red'>:message</span>") !!}
 			</div>
 		</div> <!-- /container -->
@@ -96,7 +93,7 @@
 					</div>
 					<div class="pt-20 row">
 						<div class="col-md-4 required">
-							<input type="text" class="form-input card-cvc" autocomplete='off' placeholder="ex. 311" size='4'>
+							<input type="text" class="form-input card-cvc" autocomplete='off' placeholder="CVV" size='4'>
 						</div>
 						<div class="col-md-4 required">
 							<input type="text" class="form-input card-expiry-month" placeholder="MM" size='2'>
@@ -114,7 +111,7 @@
 			</div> <!-- /row-total -->
 			
 			<div class="pb-20 text-center">
-				<button class="finish mw-150 btn btn-primary" type="submit">Pay Now</button>
+				<button class="finish mw-150 btn btn-primary" type="submit">Pay and post ad ></button>
 				<input type="hidden" name="animal_d" value="{{ $id }}">
 			</div>
 		</div> <!-- /container -->

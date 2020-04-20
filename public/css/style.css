@@ -275,6 +275,10 @@ a.seeall {
 	/*padding: 12px;*/
 }
 
+.s-notificacion li p em {
+    padding: 10px;
+}
+
 .txt-notificacion img {
     width: 45px;
     height: 45px;
@@ -925,7 +929,8 @@ textarea.form-input {
 	-moz-box-shadow: inset 0px 0px 0px 10px #4768B1;
 	box-shadow: inset 0px 0px 0px 10px #4768B1;
 }
-.plan-selected .btn-blue{
+.plan-selected .btn-blue,
+.wrapper-plan:hover .btn-blue{
 	font-size: 17px;
     color: #fff;
     border: 1px solid #ED4A44;

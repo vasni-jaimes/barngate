@@ -26,8 +26,8 @@
 		<div class="shadowbox" id="success.register" style="display: block;">
 			<div class="wrapper-form">
 				<div class="container-form">
-					<h3 class="text-center text-blue fz-30 mb-30">Congratulations</h3>
-					<p class="mb-15 fz-20">you registered your animal correctly.</p>
+					<h3 class="text-center text-blue fz-30 mb-30">Congratulations!</h3>
+					<p class="mb-15 fz-20">You have successfully published your animal.</p>
 					<a class="enviar" href="{{ route('myaccount') }}">My account</a>
 					<a class="enviar" href="{{ route('sale') }}">Register new animal</a>
 				</div> <!-- /container-form -->
@@ -347,7 +347,7 @@
 				{{-- <input type="file" name="upload" id="upload" class="cargar-cv" data-multiple-caption="{count} files selected" multiple=""> --}}
 				{{-- <label for="upload"><span></span></label> --}}
 			</fieldset>
-			<p class="fz-18 pt-20 pb-20">Please upload some photos of your vehicle using the box below - pick ones that offer a good sense of the Animals. The more, and the higher the quality, the better. Click here to review our photo guide. Please use the box above to provide any video are not supported in the photo uploader below.</p>
+			<p class="fz-18 pt-20 pb-20">Please upload some photos of your animal using the box above - pick ones that offer a good sense of the animal. The more, and the higher the quality, the better.</p>
 			<p class="fz-20 fw-700 pt-20 pb-10">Please provide any links to videos (Youtube or Vimeo) here</p>
 			<textarea class="form-input" name="url-videos">{{ old("url-videos") }}</textarea>
 			{!! $errors->paso3->first('url-videos', "<span class='err' style='display:block;margin-bottom:15px;color:red'>:message</span>") !!}
@@ -358,7 +358,7 @@
 			</div> --}} <!-- /wrapper-congrats -->
 			
 			<div class="pt-40 pb-20 text-center">
-				<a href="#" class="mw-150 btn btn-primary next3">Post ></a>
+				<a href="#" class="mw-150 btn btn-primary next3">Next ></a>
 			</div>
 		</div> <!-- /container -->
 
@@ -409,7 +409,7 @@
 			</div> <!-- /row-total -->
 			
 			<div class="pb-20 text-center">
-				<button class="finish mw-150 btn btn-primary" type="submit">Pay Now</button>
+				<button class="finish mw-150 btn btn-primary" type="submit">Pay and post ad ></button>
 			</div>
 		</div> <!-- /container -->
 
