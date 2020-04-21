@@ -1713,7 +1713,7 @@ if (finish) {
 	        });
 
 	        if (vont == 0) {
-	        	$("#loading").css("display", "block");
+	        	$("#loading-sale").css("display", "block");
 	        }
 			      
 			if (!$form.data('cc-on-file')) {
@@ -1728,7 +1728,7 @@ if (finish) {
 			}
 		}
 		else {
-			$("#loading").css("display", "block");
+			$("#loading-sale").css("display", "block");
 		}
 	});
 }

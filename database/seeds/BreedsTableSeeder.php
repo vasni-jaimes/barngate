@@ -34,7 +34,7 @@ class BreedsTableSeeder extends Seeder
         /* HORSES */
 
         $horses = ["Quarter Horse", "Paint", "Draft", "Mule", 
-                    "Thoroughbred", "Appaloosa", "Mustang", "Pony", "Other"];
+                    "Thoroughbred", "Appaloosa", "Mustang", "Pony"];
 
         for ($i=0; $i <= count($horses) - 1; $i++) {
 
