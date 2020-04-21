@@ -361,6 +361,9 @@
 													<a href="{{ route("chat.index", $animal[$i]["users_name"]) }}"> <button class="text-white btn btn-red">Message</button> </a>
 												@endif
 											@endif
+										@else
+											<button class="btn btn-border show-registro">Add to Favorites</button>
+											<button class="text-white btn btn-red show-registro">Message</button>
 										@endif
 									</div> <!-- /flex -->
 								</div>
