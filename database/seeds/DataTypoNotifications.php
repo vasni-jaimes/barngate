@@ -11,6 +11,9 @@ class DataTypoNotifications extends Seeder
      */
     public function run()
     {
+
+        DB::table('typo_notifications')->truncate();
+        
         DB::table('typo_notifications')->insert([
             "notificacion" => "chat",
         ]);

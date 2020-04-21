@@ -12,6 +12,8 @@ class ColorsTableSeeder extends Seeder
     public function run()
     {
 
+        DB::table('colors')->truncate();
+
         /* horses */
         
         $horses = ["Bay", "Black", "Brown", "Buckskin", "Chestnut", "Cremello", "Dun", "Gray", "Grulla", 

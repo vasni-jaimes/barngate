@@ -1833,7 +1833,7 @@ if (accepta) {
 		   	.then(res => {
 		   		//console.log(res);
 		   		if (res.body.message == 'ok') {
-		   			$(".add-favorite").remove();
+		   			$(".favoriteAcc").prev().remove();
 		   			$("#loading").css("display", "none");
 		   			$("#favorite_success").css("display", "block");
 		   		}
