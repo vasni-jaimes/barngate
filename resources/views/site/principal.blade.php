@@ -89,7 +89,7 @@
 						<li><strong>Breed:</strong> {{ $animal->breeds_name }}</li>
 						<li><strong>Color:</strong> {{ $animal->colors_name }}</li>
 						<li><strong>Gender:</strong> {{ $animal->gender_name }}</li>
-						<li><strong>Disciplines:</strong> {{ $animal->desc_name }}</li>
+						<li><strong>Discipline:</strong> {{ $animal->desc_name }}</li>
 						<li><strong>Temperament:</strong> <small>(1=Calm, 10=Hot)</small></li>
 						<li>
 							<div class="flex items-center">

@@ -276,6 +276,7 @@ a.seeall {
 }
 
 .s-notificacion li p em {
+    display: block;
     padding: 10px;
 }
 

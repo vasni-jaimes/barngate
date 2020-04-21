@@ -392,7 +392,7 @@
 					</div>
 					<div class="pt-20 row ">
 						<div class="col-md-4 required">
-							<input type="text" class="form-input card-cvc" autocomplete='off' placeholder="ex. 311" size='4'>
+							<input type="text" class="form-input card-cvc" autocomplete='off' placeholder="CVV" size='4'>
 						</div>
 						<div class="col-md-4 required">
 							<input type="text" class="form-input card-expiry-month" placeholder="MM" size='2'>

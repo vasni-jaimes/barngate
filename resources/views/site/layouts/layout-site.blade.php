@@ -318,10 +318,7 @@
 
 	<div class="shadowbox" id="loading">
 		<div class="wrapper-form">
-            <div>
-                <h2 class="mb-15">We are publishing your animal.</h2>
-                <img src="/images/loading.gif" alt="loading">
-            </div>
+            <img src="/images/loading.gif" alt="loading">
 		</div> <!-- /wrapper-form -->
 	</div> <!-- /shadowbox -->
 

@@ -22,6 +22,7 @@
 	<form action="{{ route("sale.update", $id) }}" id="form-edit_animal" method="POST" enctype="multipart/form-data" accept-charset="UTF-8">
 		@csrf
 		<input type="hidden" name="nick" value="{{ $id }}">
+        
 		<div class="container pt-40 pb-40 text-blue">
 			
 			<h2 class="fw-700 text-left">Edit your animal</h2>
@@ -232,46 +233,47 @@
 						{!! $errors->paso1->first('description', "<span class='err' style='display:block;margin-bottom:15px;color:red'>:message</span>") !!}
 						<p class="text-red">Do not enter any contact information here (email or phone). Based on your preferences, it will be available to valid buyers al the bottom of the detail page.</p>
 					</div> <!-- /col-12 -->
+                
+                </div> <!-- /row -->
 
+                <h3 class="fw-700 pt-20">Location</h3>
 
+                <div class="row pt-20">
 
-					
-					<div class="col-md-4 pb-20">
-						<h3 class="fw-700">State/Province/Region:<span>*</span></h3>
-						<select class="form-input" name="region">
-							@foreach($estados as $estado)
-								<option value="{{ $estado->id_estado }}" @if ($estado->id_estado == old("region", $animalprincipal->state)) selected @endif > {{ $estado->estado }} </option>
-							@endforeach
-						</select>
-						{{-- <input type="text" class="form-input" name="region" value="{{ old("region") }}"> --}}
-						{!! $errors->paso1->first('region', "<span class='err' style='display:block;margin-bottom:15px;color:red'>:message</span>") !!}
-					</div> <!-- /col-4 -->
-					<div class="col-md-4 pb-20">
-						<h3 class="fw-700">City:<span>*</span></h3>
-						<select class="form-input" name="city">
-							@foreach($ciudades as $ciudad)
-								<option value="{{ $ciudad->id_ciudad }}" @if ($ciudad->id_ciudad == old("city", $animalprincipal->city)) selected @endif >{{ $ciudad->ciudad }}</option>
-							@endforeach
-						</select>
-						{{-- <input type="text" class="form-input" name="city" value="{{ old("city") }}"> --}}
-						{!! $errors->paso1->first('city', "<span class='err' style='display:block;margin-bottom:15px;color:red'>:message</span>") !!}
-					</div> <!-- /col-4 -->
-					<div class="col-md-4 pb-20">
-						<h3 class="fw-700">ZIP:<span>*</span></h3>
-						<input type="text" class="form-input" name="zip" value="{{ old("zip", $animalprincipal->zip) }}">
-						{!! $errors->paso1->first('zip', "<span class='err' style='display:block;margin-bottom:15px;color:red'>:message</span>") !!}
-					</div> <!-- /col-4 -->
-					<div class="col-md-4 pb-20">
-						<h3 class="fw-700">Country:<span>*</span></h3>
-						<select class="form-input" name="country">
-							<option value="1"> United States </option>
-						</select>
-						{!! $errors->paso1->first('country', "<span class='err' style='display:block;margin-bottom:15px;color:red'>:message</span>") !!}
-					</div> <!-- /col-4 -->
-					
+                    <div class="col-md-4 pb-20">
+                        <h3 class="fw-700">State/Province/Region:<span>*</span></h3>
+                        <select class="form-input" name="region">
+                            @foreach($estados as $estado)
+                                <option value="{{ $estado->id_estado }}" @if ($estado->id_estado == old("region", $animalprincipal->state)) selected @endif > {{ $estado->estado }} </option>
+                            @endforeach
+                        </select>
+                        {{-- <input type="text" class="form-input" name="region" value="{{ old("region") }}"> --}}
+                        {!! $errors->paso1->first('region', "<span class='err' style='display:block;margin-bottom:15px;color:red'>:message</span>") !!}
+                    </div> <!-- /col-4 -->
+                    <div class="col-md-4 pb-20">
+                        <h3 class="fw-700">City:<span>*</span></h3>
+                        <select class="form-input" name="city">
+                            @foreach($ciudades as $ciudad)
+                                <option value="{{ $ciudad->id_ciudad }}" @if ($ciudad->id_ciudad == old("city", $animalprincipal->city)) selected @endif >{{ $ciudad->ciudad }}</option>
+                            @endforeach
+                        </select>
+                        {{-- <input type="text" class="form-input" name="city" value="{{ old("city") }}"> --}}
+                        {!! $errors->paso1->first('city', "<span class='err' style='display:block;margin-bottom:15px;color:red'>:message</span>") !!}
+                    </div> <!-- /col-4 -->
+                    <div class="col-md-4 pb-20">
+                        <h3 class="fw-700">ZIP:<span>*</span></h3>
+                        <input type="text" class="form-input" name="zip" value="{{ old("zip", $animalprincipal->zip) }}">
+                        {!! $errors->paso1->first('zip', "<span class='err' style='display:block;margin-bottom:15px;color:red'>:message</span>") !!}
+                    </div> <!-- /col-4 -->
+                    <div class="col-md-4 pb-20">
+                        <h3 class="fw-700">Country:<span>*</span></h3>
+                        <select class="form-input" name="country">
+                            <option value="1"> United States </option>
+                        </select>
+                        {!! $errors->paso1->first('country', "<span class='err' style='display:block;margin-bottom:15px;color:red'>:message</span>") !!}
+                    </div> <!-- /col-4 -->
 
-				</div> <!-- /row -->
-
+                </div> <!-- /row -->
 			</div> <!-- /wrapper-sale -->
 			
 		</div> <!-- /container -->

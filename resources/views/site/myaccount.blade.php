@@ -355,7 +355,7 @@
 		<div class="close"></div> <!-- /close -->
 		<div class="wrapper-form">
 			<div class="container-form">
-				<h3>who did you come to?</h3>
+				<h3>Who did you sell it to?</h3>
 				<div>
 					@if ($listado != null)
 						<ul>
