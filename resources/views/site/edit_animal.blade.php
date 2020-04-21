@@ -274,6 +274,7 @@
                     </div> <!-- /col-4 -->
 
                 </div> <!-- /row -->
+                
 			</div> <!-- /wrapper-sale -->
 			
 		</div> <!-- /container -->
