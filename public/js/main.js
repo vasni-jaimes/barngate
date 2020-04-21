@@ -1713,7 +1713,7 @@ if (finish) {
 	        });
 
 	        if (vont == 0) {
-	        	$("#loading").css("display", "block");
+	        	$("#loading-sale").css("display", "block");
 	        }
 			      
 			if (!$form.data('cc-on-file')) {
@@ -1728,7 +1728,7 @@ if (finish) {
 			}
 		}
 		else {
-			$("#loading").css("display", "block");
+			$("#loading-sale").css("display", "block");
 		}
 	});
 }
@@ -1833,7 +1833,7 @@ if (accepta) {
 		   	.then(res => {
 		   		//console.log(res);
 		   		if (res.body.message == 'ok') {
-		   			$(".add-favorite").remove();
+		   			$(".favoriteAcc").prev().remove();
 		   			$("#loading").css("display", "none");
 		   			$("#favorite_success").css("display", "block");
 		   		}
@@ -3265,11 +3265,11 @@ function initialize(e) {
 	var locationArray = [];
 	var address = [];
 	$(".back-animal[style*='block']").each(function() {
-		let ficha = '<a href="'+ $(this).find("a").attr('href')+'"><div class="pb-10" style="border-bottom: 1px solid #29385A;">' 
+		let ficha = '<a href="'+ $(this).find("a").attr('href')+'">' 
 						+'<div class="img-lista" style="background-image: url('+$(this).find(".img-lista").attr('src')+')"></div>'
 						+'<h3 class="fz-20 mt-10"> '+$(this).attr('data-titulo')+ '</h3>'
-						+'<p class="mb-10"><strong><em>Price: $'+$(this).attr('data-price')+'</em></strong></p>';
-					+'</div></a>'
+						+'<p class="mb-20"><strong><em>Price: $'+$(this).attr('data-price_other')+'</em></strong></p>';
+					+'</a>'
 
 		address.push( { address: $(this).attr('data-address'), "ficha": ficha  } );
 	});

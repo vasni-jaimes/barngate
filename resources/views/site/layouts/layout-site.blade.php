@@ -318,7 +318,9 @@
 
 	<div class="shadowbox" id="loading">
 		<div class="wrapper-form">
-            <img src="/images/loading.gif" alt="loading">
+            <div>
+                <img src="/images/loading.gif" alt="loading">
+            </div>
 		</div> <!-- /wrapper-form -->
 	</div> <!-- /shadowbox -->
 

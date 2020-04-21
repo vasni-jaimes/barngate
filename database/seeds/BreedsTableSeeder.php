@@ -11,6 +11,10 @@ class BreedsTableSeeder extends Seeder
      */
     public function run()
     {
+
+        DB::table('breeds')->truncate();
+        
+        
         /* CATTLE */
 
         $cattle = ["Angus", "Beefmaster", "Braford", "Brahman", "Brangus", "Braunvieh", "Charolais", 
@@ -30,7 +34,7 @@ class BreedsTableSeeder extends Seeder
         /* HORSES */
 
         $horses = ["Quarter Horse", "Paint", "Draft", "Mule", 
-                    "Thoroughbred", "Appaloosa", "Mustang", "Pony", "Other"];
+                    "Thoroughbred", "Appaloosa", "Mustang", "Pony"];
 
         for ($i=0; $i <= count($horses) - 1; $i++) {
 
@@ -46,7 +50,7 @@ class BreedsTableSeeder extends Seeder
 
 
         $sheep = ["Blackbelly", "Black Welsh Mountain", "Bluefaced Leicester", "Border Cheviot", "Border Leicester", 
-                    "Brecknock Hill Cheviot", "British Milk Sheep", "California Red", "alifornia Red", "California Variegated Mutant/Romeldale", 
+                    "Brecknock Hill Cheviot", "British Milk Sheep", "California Red", 
                     "California Variegated Mutant/Romeldale", "Canadian Arcott", "Charollais", "Clun Forest", "Columbia", "Coopworth", "Cormo", 
                     "Corriedale", "Cotswold", "Debouillet", "Dorper", "Dorset", "East Friesian", "Finnsheep", "Gulf Coast Native", "Hampshire", 
                     "Hog Island", "Icelandic", "Ile de France", "Jacob", "Karakul", "Katahdin", "Lacaune", "Leicester Longwool", "Lincoln Longwool", 

@@ -11,6 +11,8 @@ class TypeTableSeeder extends Seeder
      */
     public function run()
     {
+
+        DB::table('types')->truncate();
         /* GOAT */
 
         $goat = ["Dairy goats - Nigerian Dwarf", "Dairy goats - Alpine", "Dairy goats - Nubian", "Fiber goats - Angora", "Fiber goats - Pygora", "Fiber goats - Nygora", "Meat goats - Spanish", "Meat goats - Boer", "Meat goats - Kiko"];

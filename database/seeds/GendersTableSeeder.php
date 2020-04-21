@@ -12,6 +12,8 @@ class GendersTableSeeder extends Seeder
     public function run()
     {
 
+         DB::table('genders')->truncate();
+
         /* HORSES */
 
         $horses = ["Colt", "Filly", "Gelding", "Mare", "Stallion"];

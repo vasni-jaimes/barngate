@@ -98,7 +98,7 @@
 						<p class="fw-900 fz-22">Breed</p>
 						<select class="form-input" name="breeds"> 
 							<option value=""> Make a selection </option>
-							<option value=""> All Breed </option>
+							<option value=""> All Breeds </option>
 							@foreach($breeds as $breed)
 								<option value="{{ $breed->breed_id }}" {{ selectOld("breeds", $breed->breed_id) }}>{{ $breed->name }}</option>
 							@endforeach
@@ -153,7 +153,7 @@
 						<p class="fw-900 fz-22">Size</p>
 						<select class="form-input" name="size"> 
 							<option value=""> Make a selection </option>
-							<option value=""> All Size </option>
+							<option value=""> All Sizes </option>
 							@foreach($sizes as $size)
 								<option value="{{ $size->size_id }}" {{ selectOld("size", $size->size_id) }}>{{ $size->name }}</option>
 							@endforeach
@@ -188,7 +188,7 @@
 						<p class="fw-900 fz-22">Gender</p>
 						<select class="form-input" name="gender"> 
 							<option value=""> Make a selection </option>
-							<option value=""> All Gender </option>
+							<option value=""> All Genders </option>
 							@foreach($genders as $gender)
 								<option value="{{ $gender->gender_id }}" {{ selectOld("genders", $gender->gender_id) }}>{{ $gender->name }}</option>
 							@endforeach
@@ -199,7 +199,7 @@
 						<p class="fw-900 fz-22">Age</p>
 						<select class="form-input" name="age">
 							<option value=""> Make a selection </option>
-							<option value=""> All Age </option> 
+							<option value=""> All Ages </option> 
 							@for ($i = 1; $i <= 15; $i++)
 								<option value="{{ $i }}" {{ selectOld("ages", $i) }} >{{ $i }}</option>
 							@endfor
@@ -210,7 +210,7 @@
 						<p class="fw-900 fz-22">Discipline</p>
 						<select class="form-input" name="discipline">
 							<option value=""> Make a selection </option> 
-							<option value=""> All Discipline </option> 
+							<option value=""> All Disciplines </option> 
 							@foreach($disciplines as $discipline)
 								<option value="{{ $discipline->discipline_id }}" {{ selectOld("discipline", $discipline->discipline_id) }}>{{ $discipline->name }}</option>
 							@endforeach
@@ -264,6 +264,7 @@
 															data-address="{{ $animal[$i]["adress"] }}"
 															data-state="{{ $animal[$i]["state"] }}"
 															data-price="{{ floatval($animal[$i]["price_filtro"]) }}"
+															data-price_other="{{ $animal[$i]["price"] }}"
 															data-categorie="{{ $animal[$i]["categorie_id"] }}"
 															data-horns="{{ $animal[$i]["horns"] }}"
 															data-type="{{ $animal[$i]["type"] }}"
@@ -330,6 +331,7 @@
 																							data-address="{{ $animal[$i]["adress"] }}"
 																							data-state="{{ $animal[$i]["state"] }}"
 																							data-price="{{ floatval($animal[$i]["price_filtro"]) }}"
+																							data-price_other="{{ $animal[$i]["price_filtro"] }}"
 																							data-categorie="{{ $animal[$i]["categorie_id"] }}"
 																							data-vaccinations="{{ $animal[$i]["vaccinations"] }}"
 																							data-horns="{{ $animal[$i]["horns"] }}"
@@ -361,6 +363,9 @@
 													<a href="{{ route("chat.index", $animal[$i]["users_name"]) }}"> <button class="text-white btn btn-red">Message</button> </a>
 												@endif
 											@endif
+										@else
+											<button class="btn btn-border show-registro">Add to Favorites</button>
+											<button class="text-white btn btn-red show-registro">Message</button>
 										@endif
 									</div> <!-- /flex -->
 								</div>

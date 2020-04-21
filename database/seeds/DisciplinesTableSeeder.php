@@ -11,6 +11,7 @@ class DisciplinesTableSeeder extends Seeder
      */
     public function run()
     {
+        DB::table('disciplines')->truncate();
 
         DB::table('disciplines')->insert([
             "name" => "Breeding",

@@ -12,6 +12,8 @@ class AnimalsTableSeeder extends Seeder
      */
     public function run()
     {
+        DB::table('animals')->truncate();
+        
         DB::table('animals')->insert([
             "name" => "Cattle",
         ]);

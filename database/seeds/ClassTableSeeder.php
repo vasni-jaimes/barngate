@@ -11,6 +11,9 @@ class ClassTableSeeder extends Seeder
      */
     public function run()
     {
+
+        DB::table('class')->truncate();
+        
         /* SHEEP */
 
         $sheep = ["Ewes", "Gimmers", "Hoggs", "Lambs", "Rams", "Shearlings"];

@@ -11,6 +11,8 @@ class SizeTableSeeder extends Seeder
      */
     public function run()
     {
+
+        DB::table('sizes')->truncate();
         /* DOG */
 
         $dog = ["Small", "Medium", "Large", "XL"];

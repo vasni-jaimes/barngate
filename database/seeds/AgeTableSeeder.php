@@ -11,6 +11,8 @@ class AgeTableSeeder extends Seeder
      */
     public function run()
     {
+        DB::table('ages')->truncate();
+        
          /* DOG */
 
         $dog = ["Puppy", "Young", "Adult", "Senior"];
