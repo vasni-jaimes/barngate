@@ -3265,11 +3265,11 @@ function initialize(e) {
 	var locationArray = [];
 	var address = [];
 	$(".back-animal[style*='block']").each(function() {
-		let ficha = '<a href="'+ $(this).find("a").attr('href')+'"><div class="pb-10" style="border-bottom: 1px solid #29385A;">' 
+		let ficha = '<a href="'+ $(this).find("a").attr('href')+'">' 
 						+'<div class="img-lista" style="background-image: url('+$(this).find(".img-lista").attr('src')+')"></div>'
 						+'<h3 class="fz-20 mt-10"> '+$(this).attr('data-titulo')+ '</h3>'
-						+'<p class="mb-10"><strong><em>Price: $'+$(this).attr('data-price')+'</em></strong></p>';
-					+'</div></a>'
+						+'<p class="mb-20"><strong><em>Price: $'+$(this).attr('data-price_other')+'</em></strong></p>';
+					+'</a>'
 
 		address.push( { address: $(this).attr('data-address'), "ficha": ficha  } );
 	});
