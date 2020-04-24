@@ -75,7 +75,7 @@ class SearchController extends Controller
 		    							'animals.name as animal_name', 
 	                                    'breeds.name as breeds_name', 
 	                                    'users.username as users_name',
-                                        'cities.*')->get();
+                                        'cities.*')->orderBy("plan_id", "DESC")->get();
 
         
 

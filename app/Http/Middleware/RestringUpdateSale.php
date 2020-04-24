@@ -29,6 +29,14 @@ class RestringUpdateSale
             return redirect()->route("myaccount");
         }
 
+        if ($request->routeIs("sale.updateplan")) {
+            
+            if ($sale->plan_id == 3 || $sale->disabled == 1) {
+                return redirect()->route("myaccount");
+            }
+
+        }
+
         return $next($request);
     }
 }

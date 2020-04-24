@@ -43,6 +43,7 @@ class MyaccountController extends Controller
                 $animal[$ban]["disabled"]    = $animalrow->disabled;
                 $animal[$ban]["sold"]        = $animalrow->sold;
                 $animal[$ban]["sale_id"]  = $animalrow->sale_id;
+                $animal[$ban]["plan_id"]  = $animalrow->plan_id;
                 $ban++;
             }
         }
